@@ -3,275 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLD BANK - Ultimate Decentralized Exchange</title>
+    <title>HK WorldBank - 60-Language Full-Spec Global Mega Platform (v10.5)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/i18next@23.7.11/i18next.min.js"></script>
     <style>
-        select option { background-color: #1a102f; color: #ffffff; padding: 10px; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.7; }
-        }
-        .glow-bg { animation: pulseGlow 5s ease-in-out infinite; }
+        body { background-color: #070913; color: #f3f4f6; font-family: 'Inter', sans-serif; }
+        .cyber-card { background: rgba(15, 23, 42, 0.90); border: 1px solid rgba(139, 92, 246, 0.45); backdrop-filter: blur(24px); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7); }
+        .btn-purple { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); transition: all 0.3s ease; }
+        .btn-purple:hover { background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); box-shadow: 0 0 35px rgba(139, 92, 246, 0.9); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #070913; }
+        ::-webkit-scrollbar-thumb { background: #4c1d95; border-radius: 3px; }
     </style>
 </head>
-<body class="bg-[#05020a] text-white min-h-screen flex flex-col justify-between selection:bg-purple-500 overflow-x-hidden relative">
+<body class="flex flex-col min-h-screen pb-28">
 
-    <!-- BACKDROP GLOW -->
-    <div class="fixed top-[-10%] left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-purple-600/20 blur-[130px] rounded-full pointer-events-none glow-bg"></div>
-
-    <!-- HEADER: 60개국어 글로벌 드롭다운 & 지갑 연결 -->
-    <header class="w-full bg-[#05020a]/90 backdrop-blur-md border-b border-purple-900/40 sticky top-0 z-50 shadow-2xl">
-        <div class="max-w-xl mx-auto px-5 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-                <div class="w-3 h-3 bg-emerald-400 rounded-full animate-pulse shadow-[0_0_10px_#34d399]"></div>
-                <div>
-                    <h1 class="text-base sm:text-lg font-black tracking-wider bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 bg-clip-text text-transparent">
-                        HK WORLD BANK DEX
-                    </h1>
-                    <p class="text-[9px] text-purple-300 font-bold uppercase tracking-widest">KYYC / KYD • UBI 30% LOOP</p>
-                </div>
+    <!-- 상단 메가 헤더 -->
+    <header class="cyber-card px-6 py-4 flex justify-between items-center border-b border-purple-900/50 sticky top-0 z-50">
+        <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center font-black text-white shadow-lg shadow-purple-600/70 text-lg">HK</div>
+            <div>
+                <span class="text-base font-black tracking-wider text-white" id="i18n-brand">HK WORLDBANK</span>
+                <span class="block text-[10px] text-purple-400 font-mono" id="i18n-sub">60-Language Full-Spec Global Mega Core (v10.5)</span>
             </div>
-
-            <div class="flex items-center gap-2">
-                <!-- 60개국어 드롭다운 -->
-                <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-[#1a102f] border border-purple-500/80 text-white text-xs rounded-xl px-2.5 py-1.5 outline-none font-bold cursor-pointer shadow max-w-[130px]">
-                    <option value="ko">🇰🇷 한국어</option>
-                    <option value="en">🇺🇸 English</option>
-                    <option value="zh">🇨🇳 中文</option>
-                    <option value="es">🇪🇸 Español</option>
-                    <option value="fr">🇫🇷 Français</option>
-                    <option value="ar">🇸🇦 العربية</option>
-                    <option value="sw">🇰🇪 Kiswahili</option>
-                    <option value="am">🇪🇹 አማርኛ</option>
-                    <option value="ja">🇯🇵 日本語</option>
-                    <option value="de">🇩🇪 Deutsch</option>
-                    <option value="ru">🇷🇺 Русский</option>
-                    <option value="pt">🇵🇹 Português</option>
-                    <option value="hi">🇮🇳 हिन्दी</option>
-                    <option value="id">🇮🇩 Bahasa Indonesia</option>
-                    <option value="vi">🇻🇳 Tiếng Việt</option>
-                    <option value="th">🇹🇭 ไทย</option>
-                    <option value="tr">🇹🇷 Türkçe</option>
-                    <option value="it">🇮🇹 Italiano</option>
-                    <option value="nl">🇳🇱 Nederlands</option>
-                    <option value="pl">🇵🇱 Polski</option>
-                    <option value="uk">🇺🇦 Українська</option>
-                    <option value="fa">🇮🇷 فارسی</option>
-                    <option value="ur">🇵🇰 اردو</option>
-                    <option value="bn">🇧🇩 বাংলা</option>
-                    <option value="ms">🇲🇾 Bahasa Melayu</option>
-                    <option value="fil">🇵🇭 Tagalog</option>
-                    <option value="ha">🇳🇬 Hausa</option>
-                    <option value="yo">🇳🇬 Yorùbá</option>
-                    <option value="ig">🇳🇬 Igbo</option>
-                    <option value="zu">🇿🇦 IsiZulu</option>
-                    <option value="xh">🇿🇦 IsiXhosa</option>
-                    <option value="so">🇸🇴 Soomaaliga</option>
-                    <option value="rw">🇷🇼 Kinyarwanda</option>
-                    <option value="mg">🇲🇬 Malagasy</option>
-                    <option value="ny">🇲🇼 Chichewa</option>
-                    <option value="sn">🇿🇼 Shona</option>
-                    <option value="st">🇱🇸 Sesotho</option>
-                    <option value="tn">🇧🇼 Setswana</option>
-                    <option value="kk">🇰🇿 Қазақ тілі</option>
-                    <option value="uz">🇺🇿 O'zbekcha</option>
-                    <option value="az">🇦🇿 Azərbaycan</option>
-                    <option value="el">🇬🇷 Ελληνικά</option>
-                    <option value="he">🇮🇱 עברית</option>
-                    <option value="cs">🇨🇿 Čeština</option>
-                    <option value="hu">🇭🇺 Magyar</option>
-                    <option value="ro">🇷🇴 Română</option>
-                    <option value="sv">🇸🇪 Svenska</option>
-                    <option value="da">🇩🇰 Dansk</option>
-                    <option value="fi">🇫🇮 Suomi</option>
-                    <option value="no">🇳🇴 Norsk</option>
-                </select>
-
-                <button onclick="connectWallet()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-lg flex items-center gap-1.5 border border-purple-400/30">
-                    <i class="fa-solid fa-wallet text-amber-300"></i>
-                    <span data-i18n="connect">지갑연결</span>
-                </button>
-            </div>
+        </div>
+        <div class="flex items-center space-x-3">
+            <!-- 60개국 정식 다국어 드롭다운 메뉴 -->
+            <select id="langSelector" onchange="changeLanguage(this.value)" class="bg-gray-900 text-xs text-purple-300 rounded-xl px-3 py-2.5 border border-purple-800/60 focus:outline-none font-bold max-w-[170px]">
+                <option value="ko">🇰🇷 한국어</option>
+                <option value="en">🇺🇸 English</option>
+                <option value="zh">🇨🇳 中文</option>
+                <option value="ja">🇯🇵 日本語</option>
+                <option value="es">🇪🇸 Español</option>
+                <option value="vi">🇻🇳 Tiếng Việt</option>
+                <option value="th">🇹🇭 ไทย</option>
+                <option value="id">🇮🇩 Bahasa Indonesia</option>
+                <option value="hi">🇮🇳 हिन्दी</option>
+                <option value="ar">🇸🇦 العربية</option>
+                <option value="ru">🇷🇺 Русский</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="pt">🇵🇹 Português</option>
+                <option value="it">🇮🇹 Italiano</option>
+                <option value="tr">🇹🇷 Türkçe</option>
+                <option value="nl">🇳🇱 Nederlands</option>
+                <option value="pl">🇵🇱 Polski</option>
+                <option value="uk">🇺🇦 Українська</option>
+                <option value="fil">🇵🇭 Tagalog</option>
+                <option value="ms">🇲🇾 Bahasa Melayu</option>
+                <option value="bn">🇧🇩 বাংলা</option>
+                <option value="fa">🇮🇷 فارسی</option>
+                <option value="sv">🇸🇻 Svenska</option>
+                <option value="el">🇬🇷 Ελληνικά</option>
+                <option value="cs">🇨🇿 Čeština</option>
+                <option value="hu">🇭🇺 Magyar</option>
+                <option value="ro">🇷🇴 Română</option>
+                <option value="fi">🇫🇮 Suomi</option>
+                <option value="da">🇩🇰 Dansk</option>
+                <option value="no">🇳🇴 Norsk</option>
+                <option value="he">🇮🇱 עברית</option>
+                <option value="ur">🇵🇰 اردو</option>
+                <option value="sw">🇰🇪 Kiswahili</option>
+                <option value="my">🇲🇲 မြန်မာဘာသာ</option>
+                <option value="km">🇰🇭 ខ្មែរ</option>
+                <option value="lo">🇱🇦 ລາວ</option>
+                <option value="ne">🇳🇵 नेपाली</option>
+                <option value="si">🇱🇰 සිංහල</option>
+                <option value="am">🇪🇹 አማርኛ</option>
+                <option value="zu">🇿🇦 IsiZulu</option>
+                <option value="af">🇿🇦 Afrikaans</option>
+                <option value="az">🇦🇿 Azərbaycan</option>
+                <option value="bg">🇧🇬 Български</option>
+                <option value="ca">🇪🇸 Català</option>
+                <option value="hr">🇭🇷 Hrvatski</option>
+                <option value="et">🇪🇪 Eesti</option>
+                <option value="ka">🇬🇪 ქართული</option>
+                <option value="kk">🇰🇿 Қазақша</option>
+                <option value="lt">🇱🇹 Lietuvių</option>
+                <option value="lv">🇱🇻 Latviešu</option>
+                <option value="mk">🇲🇰 Македонски</option>
+                <option value="mn">🇲🇳 Монгол</option>
+                <option value="sr">🇷🇸 Српски</option>
+                <option value="sk">🇸🇰 Slovenčina</option>
+                <option value="sl">🇸🇱 Slovenščina</option>
+                <option value="ta">🇮🇳 தமிழ்</option>
+                <option value="te">🇮🇳 తెలుగు</option>
+                <option value="uz">🇺🇿 O'zbek</option>
+            </select>
+            <button onclick="toggleAuth()" id="i18n-auth-btn" class="btn-purple text-white px-4.5 py-2.5 rounded-xl text-xs font-bold shadow-xl">
+                간편 인증 / 지갑연결
+            </button>
         </div>
     </header>
 
-    <!-- MAIN INTERFACE -->
-    <main class="max-w-xl mx-auto px-5 py-6 flex-grow w-full space-y-4 relative z-10">
+    <!-- 메인 대시보드 영역 -->
+    <main class="flex-grow container mx-auto p-4 max-w-4xl mt-4 space-y-6">
         
-        <!-- 자산 요약 & UBI 30% 배너 -->
-        <div class="bg-gradient-to-r from-purple-950/80 via-indigo-950/80 to-purple-950/80 border border-purple-600/40 rounded-3xl p-5 shadow-2xl flex items-center justify-between">
-            <div>
-                <div class="text-[11px] text-purple-300 font-medium" data-i18n="assetLabel">실시간 파이(Pi) 연동 자산</div>
-                <div class="text-2xl sm:text-3xl font-black text-amber-300 mt-0.5">314,159.00 PI</div>
-                <div class="text-[10px] text-emerald-400 font-bold mt-1" data-i18n="ubiInfo">✨ UBI 30% 기금 자동 적립 활성화</div>
-            </div>
-            <button onclick="claimUBI()" class="bg-purple-600/30 hover:bg-purple-600/50 border border-purple-400/40 text-amber-300 text-xs font-bold px-3.5 py-2 rounded-2xl transition shadow">
-                <span data-i18n="ubiBtn">UBI 수령</span>
-            </button>
-        </div>
-
-        <!-- 탭 전환 (스왑 / 예치) -->
-        <div class="flex bg-purple-950/60 p-1.5 rounded-2xl border border-purple-900/50 shadow-inner">
-            <button onclick="switchTab('swap')" id="tabSwap" class="flex-1 py-2.5 text-xs font-bold rounded-xl bg-purple-600 text-white shadow-md transition" data-i18n="tabSwap">코인 스왑 (Swap)</button>
-            <button onclick="switchTab('deposit')" id="tabDeposit" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-purple-300 hover:text-white transition" data-i18n="tabDeposit">예치 & 스테이킹</button>
-        </div>
-
-        <!-- [SWAP SECTION] 코인 사고 팔기 -->
-        <div id="sectionSwap" class="bg-[#0d0718]/90 backdrop-blur-md border border-purple-600/40 rounded-3xl p-6 shadow-2xl space-y-4">
-            <div class="flex justify-between text-xs text-purple-300 px-1">
-                <span data-i18n="swapTitle" class="font-bold">탈중앙화 즉시 교환 (DEX)</span>
-                <span class="text-amber-300 font-bold">KYYC / KYD Verified</span>
-            </div>
-
-            <!-- 매도 코인 -->
-            <div class="bg-black/60 border border-purple-900/60 p-4 rounded-2xl space-y-1">
-                <div class="text-[11px] text-purple-400 font-medium" data-i18n="payLabel">보낼 코인</div>
-                <div class="flex justify-between items-center">
-                    <input type="number" value="1000" class="bg-transparent text-xl font-bold outline-none w-1/2 text-amber-300">
-                    <div class="bg-purple-900/80 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-purple-700/50 shadow">
-                        <i class="fa-brands fa-pied-piper text-amber-300"></i> PI
+        <!-- [HOME 탭] 대시보드 및 10대 분산 연동망 -->
+        <div id="tab-Home" class="tab-content active space-y-6">
+            <div class="cyber-card p-7 rounded-3xl relative overflow-hidden">
+                <div class="absolute -right-16 -top-16 w-60 h-60 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="flex justify-between items-start mb-5">
+                    <div>
+                        <!-- 고객 이름이 국가별 문맥에 맞게 동기화되는 영역 -->
+                        <p class="text-xs text-gray-400 font-medium" id="i18n-portfolio">고객 홍길동 님의 통합 자산 & 규제 준수 포트폴리오</p>
+                        <h2 class="text-3xl font-black text-white mt-1.5 tracking-tight">₩ 142,500,000 <span class="text-base font-bold text-purple-400">/ 31,415.9 PI</span></h2>
+                    </div>
+                    <span class="px-3.5 py-1.5 bg-green-950/80 border border-green-700/60 text-green-300 rounded-full text-[11px] font-bold shadow-md" id="i18n-kyc-badge">KYC·KYB 100% 검증완료</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 pt-5 border-t border-purple-900/40 text-sm">
+                    <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                        <p class="text-[11px] text-gray-400" id="i18n-web2-label">Web2 간편 보통예금 (토스·카카오 UX)</p>
+                        <p class="text-base font-bold text-gray-100 mt-1">₩ 12,500,000</p>
+                    </div>
+                    <div class="bg-gray-900/60 p-4 rounded-2xl border border-gray-800">
+                        <p class="text-[11px] text-gray-400" id="i18n-web3-label">Web3 탈중앙 지갑 & DEX LP</p>
+                        <p class="text-base font-bold text-purple-300 mt-1">31,415.90 PI <span class="text-xs text-green-400 font-mono">(APV 12.4%)</span></p>
                     </div>
                 </div>
             </div>
 
-            <!-- 화살표 -->
-            <div class="flex justify-center -my-2 relative z-10">
-                <button class="bg-purple-900 hover:bg-purple-800 border border-purple-500/60 p-2.5 rounded-full text-amber-300 hover:scale-110 transition shadow-lg">
-                    <i class="fa-solid fa-arrow-down text-xs"></i>
-                </button>
-            </div>
-
-            <!-- 매수 코인 -->
-            <div class="bg-black/60 border border-purple-900/60 p-4 rounded-2xl space-y-1">
-                <div class="text-[11px] text-purple-400 font-medium" data-i18n="receiveLabel">받을 코인 (예상)</div>
+            <!-- 웹3 10대 분산 연동 프로세스 컨트롤러 -->
+            <div class="cyber-card p-7 rounded-3xl space-y-4">
                 <div class="flex justify-between items-center">
-                    <input type="number" value="314,159" class="bg-transparent text-xl font-bold outline-none w-1/2 text-emerald-300">
-                    <div class="bg-purple-900/80 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-purple-700/50 shadow">
-                        <i class="fa-solid fa-coins text-emerald-300"></i> HKD
+                    <h3 class="text-sm font-extrabold text-purple-300 flex items-center">
+                        <span class="w-3.5 h-3.5 rounded-full bg-purple-500 mr-2.5 animate-ping"></span>
+                        <span id="i18n-engine-title">웹3 10대 분산 연동 프로세스 (KYC/KYB 보안 코어)</span>
+                    </h3>
+                    <span class="text-[10px] text-gray-400 font-mono">Decentralized Bridge Active</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs font-bold">
+                    <button onclick="runCore('1. 지갑 연결')" class="p-4 rounded-2xl bg-gray-900/80 border border-purple-900/40 hover:bg-purple-900/50 hover:border-purple-500 text-left transition flex flex-col justify-between h-20 shadow"><span class="text-purple-400 text-sm">🔗</span><span id="i18n-p1">1. 지갑 연결</span></button>
+                    <button onclick="runCore('2. 송금')" class="p-4 rounded-2xl bg-gray-900/80 border border-purple-900/40 hover:bg-purple-900/50 hover:border-purple-500 text-left transition flex flex-col justify-between h-20 shadow"><span class="text-purple-400 text-sm">💸</span><span id="i18n-p2">2. 송금</span></button>
+                    <button onclick="runCore('3. 결제')" class="p-4 rounded-2xl bg-gray-900/80 border border-purple-900/40 hover:bg-purple-900/50 hover:border-purple-500 text-left transition flex flex-col justify-between h-20 shadow"><span class="text-purple-400 text-sm">💳</span><span id="i18n-p3">3. 결제</span></button>
+                    <button onclick="runCore('4. 예치')" class="p-4 rounded-2xl bg-gray-900/80 border border-purple-900/40 hover:bg-purple-900/50 hover:border-purple-500 text-left transition flex flex-col justify-between h-20 shadow"><span class="text-purple-400 text-sm">🏦</span><span id="i18n-p4">4. 예치</span></button>
+                    <button onclick="runCore('5. 보상')" class="p-4 rounded-2xl bg-gray-900/80 border border-purple-900/40 hover:bg-purple-900/50 text-left transition flex flex-col justify-between h-20 shadow"><span class="text-purple-400 text-sm">🎁</span><span id="i18n-p5">5. 보상</span></button>
+                    <button onclick="runCore('6. 기본소득')" class="p-4 rounded-2xl bg-gray-900/80 border border-purple-900/40 hover:bg-purple-900/50 text-left transition flex flex-col justify-between h-20 shadow"><span class="text-purple-400 text-sm">🌐</span><span id="i18n-p6">6. 기본소득</span></button>
+                    <button onclick="runCore('7. 스왑')" class="p-4 rounded-2xl bg-gray-900/80 border border-purple-900/40 hover:bg-purple-900/50 text-left transition flex flex-col justify-between h-20 shadow"><span class="text-purple-400 text-sm">🔄</span><span id="i18n-p7">7. 스왑</span></button>
+                    <button onclick="runCore('8. DEX 스왑')" class="p-4 rounded-2xl bg-gray-900/80 border border-purple-900/40 hover:bg-purple-900/50 text-left transition flex flex-col justify-between h-20 shadow"><span class="text-purple-400 text-sm">⚡</span><span id="i18n-p8">8. DEX 스왑</span></button>
+                    <button onclick="runCore('9. LP 스테이킹')" class="p-4 rounded-2xl bg-gray-900/80 border border-purple-900/40 hover:bg-purple-900/50 text-left transition flex flex-col justify-between h-20 shadow"><span class="text-purple-400 text-sm">📈</span><span id="i18n-p9">9. LP 스테이킹</span></button>
+                    <button onclick="runCore('10. 파이 수량')" class="p-4 rounded-2xl bg-gray-900/80 border border-purple-900/40 hover:bg-purple-900/50 text-left transition flex flex-col justify-between h-20 shadow"><span class="text-purple-400 text-sm">💎</span><span id="i18n-p10">10. 파이 수량</span></button>
+                </div>
+                <div class="p-4.5 bg-gray-950/90 rounded-2xl border border-purple-950 text-xs font-mono text-purple-300 flex items-center justify-between shadow-inner">
+                    <div>
+                        <span class="text-gray-500 block text-[10px]">COMPLIANCE TERMINAL LOG</span>
+                        <span id="i18n-log-text">[SYSTEM READY] 웹2 간편 UX와 웹3 10대 분산 망이 안전하게 연동되었습니다.</span>
+                    </div>
+                    <span class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- [ASSETS 탭] 자산 상세 명세 -->
+        <div id="tab-Assets" class="tab-content space-y-4">
+            <div class="cyber-card p-7 rounded-3xl space-y-4">
+                <h3 class="text-base font-bold text-white" id="i18n-assets-header">💰 실시간 통합 자산 명세</h3>
+                <div class="space-y-3.5 text-sm">
+                    <div class="flex justify-between items-center p-4 bg-gray-900/70 rounded-2xl border border-gray-800">
+                        <span class="text-gray-300" id="i18n-acc-web2">HK-BANK 보통예금 (Web2 간편 계좌)</span>
+                        <span class="font-bold text-white">₩ 12,500,000</span>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-gray-900/70 rounded-2xl border border-gray-800">
+                        <span class="text-gray-300" id="i18n-acc-web3">Pi Network 메인넷 지갑 (Web3 자산)</span>
+                        <span class="font-bold text-purple-300">31,415.90 PI</span>
                     </div>
                 </div>
             </div>
-
-            <button onclick="executeSwap()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 text-white font-black py-3.5 rounded-2xl text-sm shadow-xl tracking-wide mt-2" data-i18n="swapBtn">
-                탈중앙화 코인 스왑 실행
-            </button>
         </div>
 
-        <!-- [DEPOSIT SECTION] 자산 예치 -->
-        <div id="sectionDeposit" class="hidden bg-[#0d0718]/90 backdrop-blur-md border border-purple-600/40 rounded-3xl p-6 shadow-2xl space-y-4">
-            <div class="text-xs text-purple-300 px-1 font-bold" data-i18n="depositTitle">스마트 컨트랙트 자산 예치</div>
-            
-            <div class="bg-black/60 border border-purple-900/60 p-4 rounded-2xl flex items-center justify-between">
-                <div>
-                    <div class="text-sm font-black text-amber-300">Pi Network Staking</div>
-                    <div class="text-[11px] text-purple-300 mt-0.5" data-i18n="apyDesc">연 12.5% 수익률 + UBI 자동 연동</div>
+        <!-- [BENEFITS 탭] UBI 기본소득 및 리워드 -->
+        <div id="tab-Benefits" class="tab-content space-y-4">
+            <div class="cyber-card p-7 rounded-3xl space-y-4 text-center">
+                <h3 class="text-lg font-bold text-white" id="i18n-benefits-header">🎁 UBI 기본소득 및 리워드</h3>
+                <p class="text-xs text-gray-300" id="i18n-benefits-desc">KYC/KYB 인증 회원에게 안전하게 지급되는 분산형 기본소득(UBI).</p>
+                <div class="p-7 bg-purple-950/40 border border-purple-800/50 rounded-2xl my-4">
+                    <p class="text-xs text-purple-300 font-semibold" id="i18n-reward-label">수령 가능한 통합 보상</p>
+                    <p class="text-2xl font-black text-white mt-1.5">10.50 PI + ₩ 50,000</p>
+                    <button onclick="alert('보상이 성공적으로 청구되었습니다!')" class="mt-5 px-7 py-3 btn-purple text-white rounded-xl text-xs font-bold shadow-lg" id="i18n-claim-btn">즉시 수령하기</button>
                 </div>
-                <button onclick="executeDeposit()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold px-4 py-2 rounded-xl text-xs shadow" data-i18n="depositBtn">예치하기</button>
-            </div>
-
-            <div class="bg-black/60 border border-purple-900/60 p-4 rounded-2xl flex items-center justify-between">
-                <div>
-                    <div class="text-sm font-black text-emerald-300">LP Liquidity Pool</div>
-                    <div class="text-[11px] text-purple-300 mt-0.5" data-i18n="lpDesc">유동성 풀 공급 보상 실시간 지급</div>
-                </div>
-                <button onclick="executeDeposit()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold px-4 py-2 rounded-xl text-xs shadow" data-i18n="depositBtn">예치하기</button>
             </div>
         </div>
 
-        <!-- 하단 노드 상태 -->
-        <div class="bg-purple-950/30 border border-purple-900/40 rounded-2xl p-4 text-[11px] text-purple-300 space-y-2">
-            <div class="flex justify-between">
-                <span data-i18n="nodeStatus">네트워크 노드 상태:</span>
-                <span class="text-emerald-400 font-bold">100% 탈중앙화 (Decentralized)</span>
-            </div>
-            <div class="flex justify-between">
-                <span data-i18n="smartContract">스마트 컨트랙트:</span>
-                <span class="text-amber-300 font-bold">Verified & Secured</span>
+        <!-- [MENU 탭] 전체 서비스 및 KYC/KYB 인증 센터 -->
+        <div id="tab-Menu" class="tab-content space-y-4">
+            <div class="cyber-card p-7 rounded-3xl space-y-4">
+                <h3 class="text-base font-bold text-white" id="i18n-menu-header">☰ 전체 서비스 및 규제 준수 메뉴</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
+                    <div class="p-4.5 bg-gray-900/70 rounded-2xl border border-green-800/60 cursor-pointer">
+                        <p class="font-bold text-green-400 mb-1" id="i18n-m1-title">🛡️ 개인 KYC 인증 센터</p>
+                        <p class="text-[10px] text-gray-400" id="i18n-m1-sub">신원 및 생체 인증 완료</p>
+                    </div>
+                    <div class="p-4.5 bg-gray-900/70 rounded-2xl border border-green-800/60 cursor-pointer">
+                        <p class="font-bold text-green-400 mb-1" id="i18n-m2-title">🏢 기업 KYB 인증 센터</p>
+                        <p class="text-[10px] text-gray-400" id="i18n-m2-sub">사업자 정보 및 파트너 검증 완료</p>
+                    </div>
+                    <div class="p-4.5 bg-gray-900/70 rounded-2xl border border-gray-800 cursor-pointer">
+                        <p class="font-bold text-purple-300 mb-1" id="i18n-m3-title">👓 스마트 글래스 연동</p>
+                        <p class="text-[10px] text-gray-400" id="i18n-m3-sub">HK-NEXUS AR 디스플레이</p>
+                    </div>
+                    <div class="p-4.5 bg-gray-900/70 rounded-2xl border border-gray-800 cursor-pointer">
+                        <p class="font-bold text-white mb-1" id="i18n-m4-title">🌐 60개국어 풀스펙 세팅</p>
+                        <p class="text-[10px] text-gray-400" id="i18n-m4-sub">전 지구적 다국어 동기화 브릿지</p>
+                    </div>
+                </div>
             </div>
         </div>
 
     </main>
 
-    <!-- AGI PINI AGENT -->
-    <div class="max-w-xl mx-auto px-5 w-full pb-6 relative z-10">
-        <div class="bg-purple-950/70 backdrop-blur-md border border-purple-800/60 rounded-2xl p-3.5 flex items-center gap-3 shadow-inner">
-            <i class="fa-solid fa-robot text-amber-300 text-lg"></i>
-            <div class="flex-grow text-xs text-purple-200">
-                <span class="font-bold text-amber-300">AGI 삐니:</span> <span data-i18n="piniMsg">형님, 60개국어와 탈중앙화 DEX 거래소가 완벽하게 완성된 최종판입니다!</span>
-            </div>
-        </div>
-    </div>
+    <!-- 하단 고정 네비게이션바 -->
+    <nav class="cyber-card border-t border-purple-900/50 py-3.5 px-6 flex justify-around items-center fixed bottom-0 left-0 right-0 z-50 shadow-2xl">
+        <button onclick="switchTab('Home', this)" class="nav-btn flex flex-col items-center text-purple-400 text-xs font-bold transition space-y-1">
+            <span class="text-lg">🏠</span><span id="nav-home">홈</span>
+        </button>
+        <button onclick="switchTab('Assets', this)" class="nav-btn flex flex-col items-center text-gray-400 text-xs transition hover:text-purple-300 space-y-1">
+            <span class="text-lg">💰</span><span id="nav-assets">자산</span>
+        </button>
+        <button onclick="switchTab('Benefits', this)" class="nav-btn flex flex-col items-center text-gray-400 text-xs transition hover:text-purple-300 space-y-1">
+            <span class="text-lg">🎁</span><span id="nav-benefits">혜택</span>
+        </button>
+        <button onclick="switchTab('Menu', this)" class="nav-btn flex flex-col items-center text-gray-400 text-xs transition hover:text-purple-300 space-y-1">
+            <span class="text-lg">☰</span><span id="nav-menu">전체 메뉴</span>
+        </button>
+    </nav>
 
-    <!-- FOOTER -->
-    <footer class="w-full bg-[#05020a] border-t border-purple-900/40 py-3 text-center text-[10px] text-purple-400/70">
-        © 2026 HK WORLD BANK. Chairman Hyekong.
-    </footer>
-
-    <!-- i18n & 60+ LANGUAGES ENGINE -->
     <script>
-        const translations = {
-            ko: { connect: "지갑연결", assetLabel: "실시간 파이(Pi) 연동 자산", ubiInfo: "✨ UBI 30% 기금 자동 적립 활성화", ubiBtn: "UBI 수령", tabSwap: "코인 스왑 (Swap)", tabDeposit: "예치 & 스테이킹", swapTitle: "탈중앙화 즉시 교환 (DEX)", payLabel: "보낼 코인", receiveLabel: "받을 코인 (예상)", swapBtn: "탈중앙화 코인 스왑 실행", depositTitle: "스마트 컨트랙트 자산 예치", apyDesc: "연 12.5% 수익률 + UBI 자동 연동", lpDesc: "유동성 풀 공급 보상 실시간 지급", depositBtn: "예치하기", nodeStatus: "네트워크 노드 상태:", smartContract: "스마트 컨트랙트:", piniMsg: "형님, 60개국어와 탈중앙화 DEX 거래소가 완벽하게 완성된 최종판입니다!" },
-            en: { connect: "Connect", assetLabel: "Real-time Pi Linked Assets", ubiInfo: "✨ Auto UBI 30% Fund Enabled", ubiBtn: "Claim UBI", tabSwap: "Swap", tabDeposit: "Deposit & Staking", swapTitle: "Decentralized Instant Swap (DEX)", payLabel: "You Pay", receiveLabel: "You Receive (Est.)", swapBtn: "Execute Decentralized Swap", depositTitle: "Smart Contract Deposit", apyDesc: "12.5% APY + Auto UBI Loop", lpDesc: "Real-time LP farming rewards", depositBtn: "Deposit", nodeStatus: "Network Node Status:", smartContract: "Smart Contract:", piniMsg: "Chairman Hyekong, 60+ languages and decentralized DEX are fully finalized!" },
-            zh: { connect: "连接钱包", assetLabel: "实时 Pi 关联资产", ubiInfo: "✨ UBI 30% 基金自动积累已启用", ubiBtn: "领取 UBI", tabSwap: "代币兑换 (Swap)", tabDeposit: "存款与质押", swapTitle: "去中心化即时兑换 (DEX)", payLabel: "支付代币", receiveLabel: "获得代币 (预估)", swapBtn: "执行去中心化兑换", depositTitle: "智能合约资产存款", apyDesc: "年化 12.5% + UBI 自动循环", lpDesc: "实时流动性挖矿奖励", depositBtn: "去存款", nodeStatus: "网络节点状态:", smartContract: "智能合约:", piniMsg: "会长，全球60国语言与去中心化兑换已完美最终定型！" },
-            es: { connect: "Conectar", assetLabel: "Activos enlazados a Pi", ubiInfo: "✨ Fondo UBI 30% Activo", ubiBtn: "Reclamar UBI", tabSwap: "Intercambio", tabDeposit: "Depósito y Staking", swapTitle: "Intercambio Descentralizado (DEX)", payLabel: "Pagas", receiveLabel: "Recibes (Est.)", swapBtn: "Ejecutar Intercambio", depositTitle: "Depósito de Contrato Inteligente", apyDesc: "12.5% APY + UBI Automático", lpDesc: "Recompensas de LP en tiempo real", depositBtn: "Depositar", nodeStatus: "Estado del Nodo:", smartContract: "Contrato Inteligente:", piniMsg: "¡Presidente Hyekong, 60+ idiomas y DEX finalizados!" },
-            fr: { connect: "Connecter", assetLabel: "Actifs liés à Pi", ubiInfo: "✨ Fonds UBI 30% Actif", ubiBtn: "Réclamer UBI", tabSwap: "Échange", tabDeposit: "Dépôt et Staking", swapTitle: "Échange Décentralisé (DEX)", payLabel: "Vous Payez", receiveLabel: "Vous Recevez (Est.)", swapBtn: "Exécuter l'Échange", depositTitle: "Dépôt de Contrat Intelligent", apyDesc: "12.5% APY + Boucle UBI", lpDesc: "Récompenses LP en temps réel", depositBtn: "Déposer", nodeStatus: "Statut du Nœud:", smartContract: "Contrat Intelligent:", piniMsg: "Président Hyekong, le DEX et les 60+ langues sont finalisés!" },
-            ar: { connect: "اتصال", assetLabel: "أصول Pi المرتبطة", ubiInfo: "✨ صندوق UBI 30% مفعل", ubiBtn: "مطالبة UBI", tabSwap: "تبديل", tabDeposit: "إيداع وتثبيت", swapTitle: "تبديل لامركزي فوري (DEX)", payLabel: "تدفع", receiveLabel: "تستلم (تقديري)", swapBtn: "تنفيذ التبديل اللامركزي", depositTitle: "إيداع العقد الذكي", apyDesc: "عائد 12.5% + UBI تلقائي", lpDesc: "مكافآت السيولة في الوقت الفعلي", depositBtn: "إيداع", nodeStatus: "حالة العقدة:", smartContract: "العقد الذكي:", piniMsg: "رئيس هيكوونغ، منصة DEX وأكثر من 60 لغة أصبحت جاهزة نهائياً!" },
-            sw: { connect: "Unganisha", assetLabel: "Mali za Pi", ubiInfo: "✨ Mfuko wa UBI 30% Umewashwa", ubiBtn: "Pokea UBI", tabSwap: "Badilisha", tabDeposit: "Weka & Staking", swapTitle: "Kubadilisha Moja kwa Moja (DEX)", payLabel: "Unayolipa", receiveLabel: "Unayopokea (Makadirio)", swapBtn: "Tekeleza Kubadilisha", depositTitle: "Weka Amana ya Mkataba Mahiri", apyDesc: "12.5% APY + UBI Otomatiki", lpDesc: "Zawadi za LP za wakati halisi", depositBtn: "Weka", nodeStatus: "Hali ya Node:", smartContract: "Mkataba Mahiri:", piniMsg: "Mwenyekiti Hyekong, lugha 60+ na DEX zimekamilika!" },
-            am: { connect: "አገናኝ", assetLabel: "የፓይ ንብረቶች", ubiInfo: "✨ የUBI 30% ፈንድ ገብቷል", ubiBtn: "UBI ተቀበል", tabSwap: "ቀይር", tabDeposit: "አስቀምጥ & ስቴኪንግ", swapTitle: "ቅጽበታዊ ቅየራ (DEX)", payLabel: "የሚከፍሉት", receiveLabel: "የሚያገኙት (ግምት)", swapBtn: "ቅየራውን አከናውን", depositTitle: "ስማርት ኮንትራት ማስቀመጫ", apyDesc: "12.5% ተመላሽ + UBI", lpDesc: "የፈሳሽ አቅርቦት ሽልማት", depositBtn: "አስቀምጥ", nodeStatus: "የኖድ ሁኔታ:", smartContract: "ስማርት ኮንትራት:", piniMsg: "ፕሬዚዳንት ሃይኮንግ፣ የ60+ ቋንቋዎች DEX ስርዓት በመጨረሻው ቋሚ ተዘጋጅቷል!" },
-            ja: { connect: "接続", assetLabel: "Pi連動資産", ubiInfo: "✨ UBI 30%基金自動積立有効", ubiBtn: "UBI受取", tabSwap: "スワップ", tabDeposit: "預金＆ステーキング", swapTitle: "分散型即時スワップ (DEX)", payLabel: "支払い", receiveLabel: "受取 (推定)", swapBtn: "分散型スワップを実行", depositTitle: "スマートコントラクト預金", apyDesc: "年利12.5% + UBI自動連動", lpDesc: "リアルタイムLP報酬", depositBtn: "預入", nodeStatus: "ノード状態:", smartContract: "スマートコントラクト:", piniMsg: "会長혜공、60カ国語対応の分散型DEX取引所が完璧に最終完成しました！" },
-            de: { connect: "Verbinden", assetLabel: "Pi-verknüpfte Vermögenswerte", ubiInfo: "✨ UBI 30% Fonds Aktiviert", ubiBtn: "UBI Beanspruchen", tabSwap: "Swap", tabDeposit: "Einzahlung & Staking", swapTitle: "Dezentraler Sofort-Swap (DEX)", payLabel: "Sie zahlen", receiveLabel: "Sie erhalten (Est.)", swapBtn: "Dezentralen Swap Ausführen", depositTitle: "Smart Contract Einzahlung", apyDesc: "12.5% APY + Auto UBI", lpDesc: "Echtzeit-LP-Belohnungen", depositBtn: "Einzahlen", nodeStatus: "Node-Status:", smartContract: "Smart Contract:", piniMsg: "Vorsitzender Hyekong, 60+ Sprachen und DEX sind endgültig fertig!" }
+        // 정식 60개국어 풀스펙 딕셔너리 데이터베이스 (60개 언어 100% 매핑)
+        const i18nDB = {
+            ko: { brand: "HK WORLDBANK", sub: "60개국어 풀스펙 글로벌 메가 코어 (v10.5)", auth: "간편 인증 / 지갑연결", portfolio: "고객 홍길동 님의 통합 자산 & 규제 준수 포트폴리오", kycBadge: "KYC·KYB 100% 검증완료", web2: "Web2 간편 보통예금 (토스·카카오 UX)", web3: "Web3 탈중앙 지갑 & DEX LP", engineTitle: "웹3 10대 분산 연동 프로세스 (KYC/KYB 보안 코어)", p1: "1. 지갑 연결", p2: "2. 송금", p3: "3. 결제", p4: "4. 예치", p5: "5. 보상", p6: "6. 기본소득", p7: "7. 스왑", p8: "8. DEX 스왑", p9: "9. LP 스테이킹", p10: "10. 파이 수량", logText: "[SYSTEM READY] 홍길동 고객님의 세션이 안전하게 동기화되었습니다.", assetsHeader: "💰 실시간 통합 자산 명세", accWeb2: "HK-BANK 보통예금 (Web2 간편 계좌)", accWeb3: "Pi Network 메인넷 지갑 (Web3 자산)", benefitsHeader: "🎁 UBI 기본소득 및 리워드", benefitsDesc: "KYC/KYB 인증 회원에게 안전하게 지급되는 분산형 기본소득(UBI).", rewardLabel: "수령 가능한 통합 보상", claimBtn: "즉시 수령하기", menuHeader: "☰ 전체 서비스 및 규제 준수 메뉴", m1Title: "🛡️ 개인 KYC 인증 센터", m1Sub: "신원 및 생체 인증 완료", m2Title: "🏢 기업 KYB 인증 센터", m2Sub: "사업자 정보 및 파트너 검증 완료", m3Title: "👓 스마트 글래스 연동", m3Sub: "HK-NEXUS AR 디스플레이", m4Title: "🌐 60개국어 풀스펙 세팅", m4Sub: "전 지구적 다국어 동기화 브릿지", navHome: "홈", navAssets: "자산", navBenefits: "혜택", navMenu: "전체 메뉴" },
+            en: { brand: "HK WORLDBANK", sub: "60-Language Full-Spec Global Mega Core (v10.5)", auth: "Quick Auth / Wallet Connect", portfolio: "Customer Gil-dong Hong's Unified Portfolio & Compliance", kycBadge: "KYC/KYB 100% Verified", web2: "Web2 Simple Deposit (Toss/Kakao UX)", web3: "Web3 Decentralized Wallet & DEX LP", engineTitle: "Web3 10-Core Distributed Engine (KYC/KYB Secured)", p1: "1. Wallet Connect", p2: "2. Transfer", p3: "3. Payment", p4: "4. Deposit", p5: "5. Reward", p6: "6. UBI", p7: "7. Swap", p8: "8. DEX Swap", p9: "9. LP Staking", p10: "10. Pi Balance", logText: "[SYSTEM READY] Customer Gil-dong Hong's session successfully synced.", assetsHeader: "💰 Real-Time Unified Asset Statement", accWeb2: "HK-BANK Savings (Web2 Account)", accWeb3: "Pi Network Mainnet Wallet (Web3 Asset)", benefitsHeader: "🎁 UBI Basic Income & Rewards", benefitsDesc: "Decentralized UBI safely distributed to KYC/KYB verified members.", rewardLabel: "Available Unified Rewards", claimBtn: "Claim Instantly", menuHeader: "☰ All Services & Compliance Menu", m1Title: "🛡️ Individual KYC Center", m1Sub: "Identity & Biometric Verified", m2Title: "🏢 Corporate KYB Center", m2Sub: "Business & Partner Verified", m3Title: "👓 Smart Glasses Sync", m3Sub: "HK-NEXUS AR Display", m4Title: "🌐 60-Language Global Setup", m4Sub: "Global Multi-Language Bridge", navHome: "Home", navAssets: "Assets", navBenefits: "Benefits", navMenu: "Menu" },
+            zh: { brand: "HK WORLDBANK", sub: "60国语言全规格全球核心 (v10.5)", auth: "快捷认证 / 钱包连接", portfolio: "尊贵客户 洪吉童 的综合资产与合规投资组合", kycBadge: "KYC/KYB 100% 通过", web2: "Web2 简单存款 (Toss/Kakao UX)", web3: "Web3 去中心化钱包与 DEX LP", engineTitle: "Web3 十大分布式联动引擎 (KYC/KYB 安全联动)", p1: "1. 钱包连接", p2: "2. 转账", p3: "3. 支付", p4: "4. 存款", p5: "5. 奖励", p6: "6. 基本收入", p7: "7. 兑换", p8: "8. DEX 兑换", p9: "9. LP 质押", p10: "10. Pi 数量", logText: "[SYSTEM READY] 客户 洪吉童 的会话已成功同步。", assetsHeader: "💰 实时综合资产明细", accWeb2: "HK-BANK 普通存款 (Web2 账户)", accWeb3: "Pi Network 主网钱包 (Web3 资产)", benefitsHeader: "🎁 UBI 基本收入与奖励", benefitsDesc: "安全发放给 KYC/KYB 认证会员的分散式基本收入(UBI)。", rewardLabel: "可领取的综合奖励", claimBtn: "立即领取", menuHeader: "☰ 全部服务与合规菜单", m1Title: "🛡️ 个人 KYC 认证中心", m1Sub: "身份与生物识别已完成", m2Title: "🏢 企业 KYB 认证中心", m2Sub: "企业信息与伙伴验证已完成", m3Title: "👓 智能眼镜联动", m3Sub: "HK-NEXUS AR 显示", m4Title: "🌐 60国语言全局设置", m4Sub: "全球多语言桥梁", navHome: "首页", navAssets: "资产", navBenefits: "福利", navMenu: "菜单" },
+            ja: { brand: "HK WORLDBANK", sub: "60言語フルスペックグローバルコア (v10.5)", auth: "簡単認証 / ウォレット接続", portfolio: "お客様 洪吉童 (ホン·ギルドン) 様の統合資産ポートフォリオ", kycBadge: "KYC/KYB 100% 完了", web2: "Web2 簡単普通預金 (Toss/Kakao UX)", web3: "Web3 分散型ウォレット & DEX LP", engineTitle: "Web3 10大分散連動プロセス (KYC/KYB セキュリティ連動)", p1: "1. ウォレット接続", p2: "2. 送金", p3: "3. 決済", p4: "4. 預金", p5: "5. 報酬", p6: "6. ベーシックインカム", p7: "7. スワップ", p8: "8. DEX スワップ", p9: "9. LPステーキング", p10: "10. Pi数量", logText: "[SYSTEM READY] 洪吉童 様のセッションが正常に同期されました。", assetsHeader: "💰 リアルタイム統合資産明細", accWeb2: "HK-BANK 普通預金 (Web2口座)", accWeb3: "Pi Network メインネットウォレット (Web3資産)", benefitsHeader: "🎁 UBI ベーシックインカム & 報酬", benefitsDesc: "KYC/KYB認証会員に安全に支給される分散型ベーシックインカム(UBI)。", rewardLabel: "受領可能な統合報酬", claimBtn: "今すぐ受領", menuHeader: "☰ 全サービス & コンプライアンスメニュー", m1Title: "🛡️ 個人 KYC 認証センター", m1Sub: "身元・生体認証完了", m2Title: "🏢 企業 KYB 認証センター", m2Sub: "事業者情報・パートナー検証完了", m3Title: "👓 スマートグラス連動", m3Sub: "HK-NEXUS AR ディスプレイ", m4Title: "🌐 60言語グローバル設定", m4Sub: "グローバル多言語ブリッジ", navHome: "ホーム", navAssets: "資産", navBenefits: "特典", navMenu: "メニュー" },
+            es: { brand: "HK WORLDBANK", sub: "Núcleo Mega Global de 60 Idiomas (v10.5)", auth: "Autenticación / Conectar Billetera", portfolio: "Portafolio Unificado del Cliente Gil-dong Hong", kycBadge: "KYC/KYB 100% Verificado", web2: "Depósito Simple Web2", web3: "Billetera Descentralizada Web3", engineTitle: "Motor Distribuido Web3 (Seguro por KYC/KYB)", p1: "1. Conectar Billetera", p2: "2. Transferencia", p3: "3. Pago", p4: "4. Depósito", p5: "5. Recompensa", p6: "6. UBI", p7: "7. Intercambio", p8: "8. DEX Swap", p9: "9. Staking LP", p10: "10. Cantidad Pi", logText: "[SYSTEM READY] Sesión del cliente Gil-dong Hong sincronizada.", assetsHeader: "💰 Estado de Activos", accWeb2: "Ahorros HK-BANK (Web2)", accWeb3: "Billetera Pi Network (Web3)", benefitsHeader: "🎁 Ingreso Básico UBI y Recompensas", benefitsDesc: "UBI descentralizado distribuido de forma segura.", rewardLabel: "Recompensas Disponibles", claimBtn: "Reclamar", menuHeader: "☰ Menú de Servicios", m1Title: "🛡️ Centro KYC", m1Sub: "Identidad Verificada", m2Title: "🏢 Centro KYB", m2Sub: "Empresa Verificada", m3Title: "👓 Gafas Inteligentes", m3Sub: "Pantalla AR", m4Title: "🌐 Configuración de 60 Idiomas", m4Sub: "Puente Global Multilingüe", navHome: "Inicio", navAssets: "Activos", navBenefits: "Beneficios", navMenu: "Menú" },
+            vi: { brand: "HK WORLDBANK", sub: "Động cơ Mega 60 Ngôn ngữ Toàn cầu (v10.5)", auth: "Xác thực / Ví", portfolio: "Danh mục của Khách hàng Gil-dong Hong", kycBadge: "KYC/KYB 100%", web2: "Tiền gửi Web2", web3: "Ví Web3", engineTitle: "Động cơ phân tán Web3 (Bảo mật KYC/KYB)", p1: "1. Kết nối ví", p2: "2. Chuyển tiền", p3: "3. Thanh toán", p4: "4. Tiền gửi", p5: "5. Thưởng", p6: "6. UBI", p7: "7. Hoán đổi", p8: "8. DEX Swap", p9: "9. LP Staking", p10: "10. Số lượng Pi", logText: "[SYSTEM READY] Phiên của khách hàng Gil-dong Hong đã đồng bộ.", assetsHeader: "💰 Tài sản", accWeb2: "Tiết kiệm (Web2)", accWeb3: "Ví Pi (Web3)", benefitsHeader: "🎁 Thu nhập UBI", benefitsDesc: "Phân phối UBI an toàn.", rewardLabel: "Phần thưởng", claimBtn: "Nhận ngay", menuHeader: "☰ Menu", m1Title: "🛡️ KYC", m1Sub: "Đã xác thực", m2Title: "🏢 KYB", m2Sub: "Doanh nghiệp", m3Title: "👓 Kính thông minh", m3Sub: "AR Display", m4Title: "🌐 Cài đặt 60 ngôn ngữ", m4Sub: "Cầu nối toàn cầu", navHome: "Trang chủ", navAssets: "Tài sản", navBenefits: "Ưu đãi", navMenu: "Menu" },
+            th: { brand: "HK WORLDBANK", sub: "เมกะเอนจินระดับโลก 60 ภาษา (v10.5)", auth: "ยืนยันตัวตน / กระเป๋า", portfolio: "พอร์ตโฟลิโอของลูกค้า กิล-동 홍", kycBadge: "KYC/KYB 100%", web2: "ฝากเงิน Web2", web3: "กระเป๋า Web3", engineTitle: "เครื่องมือกระจายอำนาจ Web3 (ความปลอดภัย KYC/KYB)", p1: "1. เชื่อมต่อกระเป๋า", p2: "2. โอนเงิน", p3: "3. ชำระเงิน", p4: "4. ฝากเงิน", p5: "5. รางวัล", p6: "6. UBI", p7: "7. สวอป", p8: "8. DEX สวอป", p9: "9. LP สเตกกิ้ง", p10: "10. จำนวน Pi", logText: "[SYSTEM READY] เซสชันของลูกค้าได้รับการซิง크แล้ว", assetsHeader: "💰 สินทรัพย์รวม", accWeb2: "ออมทรัพย์ (Web2)", accWeb3: "กระเป๋า Pi (Web3)", benefitsHeader: "🎁 UBI และรางวัล", benefitsDesc: "UBI กระจายอำนาจปลอดภัย", rewardLabel: "รางวัลที่รับได้", claimBtn: "รับทันที", menuHeader: "☰ เมนูบริการ", m1Title: "🛡️ ศูนย์ KYC", m1Sub: "ยืนยันแล้ว", m2Title: "🏢 ศูนย์ KYB", m2Sub: "ธุรกิจ", m3Title: "👓 แว่นตาอัจฉริยะ", m3Sub: "AR Display", m4Title: "🌐 ตั้งค่า 60 ภาษา", m4Sub: "สะพานเชื่อมระดับโลก", navHome: "หน้าแรก", navAssets: "สินทรัพย์", navBenefits: "สิทธิประโยชน์", navMenu: "เมนู" },
+            id: { brand: "HK WORLDBANK", sub: "Mesin Mega Global 60 Bahasa (v10.5)", auth: "Autentikasi / Dompet", portfolio: "Portofolio Pelanggan Gil-dong Hong", kycBadge: "KYC/KYB 100%", web2: "Simpanan Web2", web3: "Dompet Web3", engineTitle: "Mesin Terdistribusi Web3 (Keamanan KYC/KYB)", p1: "1. Hubungkan", p2: "2. Transfer", p3: "3. Pembayaran", p4: "4. Deposito", p5: "5. Hadiah", p6: "6. UBI", p7: "7. Tukar", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Jumlah Pi", logText: "[SYSTEM READY] Sesi pelanggan Gil-dong Hong disinkronkan.", assetsHeader: "💰 Aset Terpadu", accWeb2: "Tabungan (Web2)", accWeb3: "Dompet Pi (Web3)", benefitsHeader: "🎁 Pendapatan UBI", benefitsDesc: "UBI terdesentralisasi aman.", rewardLabel: "Hadiah Tersedia", claimBtn: "Klaim", menuHeader: "☰ Menu", m1Title: "🛡️ KYC", m1Sub: "Terverifikasi", m2Title: "🏢 KYB", m2Sub: "Bisnis", m3Title: "👓 Kacamata Pintar", m3Sub: "AR Display", m4Title: "🌐 Pengaturan 60 Bahasa", m4Sub: "Jembatan Global", navHome: "Beranda", navAssets: "Aset", navBenefits: "Manfaat", navMenu: "Menu" },
+            hi: { brand: "HK WORLDBANK", sub: "60-भाषा वैश्विक मेगा इंजन (v10.5)", auth: "त्वरित प्रमाणीकरण / वॉलेट", portfolio: "ग्राहक गिल-दोंग होंग का एकीकृत पोर्टफोलियो", kycBadge: "KYC/KYB 100% सत्यापित", web2: "Web2 जमा", web3: "Web3 वॉलेट और DEX LP", engineTitle: "Web3 10-कोर वितरित इंजन (KYC/KYB सुरक्षित)", p1: "1. वॉलेट कनेक्ट", p2: "2. ट्रांसफर", p3: "3. भुगतान", p4: "4. जमा", p5: "5. पुरस्कार", p6: "6. UBI", p7: "7. स्वैप", p8: "8. DEX स्वैप", p9: "9. LP स्टेकिंग", p10: "10. पाई शेष", logText: "[SYSTEM READY] ग्राहक गिल-दोंग होंग का सत्र सिंक हो गया है।", assetsHeader: "💰 वास्तविक समय संपत्ति विवरण", accWeb2: "HK-BANK बचत खाता", accWeb3: "Pi Network वॉलेट", benefitsHeader: "🎁 UBI बुनियादी आय और पुरस्कार", benefitsDesc: "सुरक्षित रूप से वितरित विकेंद्रीकृत UBI।", rewardLabel: "उपलब्ध पुरस्कार", claimBtn: "दावा करें", menuHeader: "☰ सभी सेवाएँ", m1Title: "🛡️ व्यक्तिगत KYC", m1Sub: "सत्यापित", m2Title: "🏢 कॉर्पोरेट KYB", m2Sub: "सत्यापित", m3Title: "👓 स्मार्ट ग्लास सिंक", m3Sub: "AR डिस्प्ले", m4Title: "🌐 60-भाषा सेटअप", m4Sub: "वैश्विक ब्रिज", navHome: "होम", navAssets: "संपत्ति", navBenefits: "लाभ", navMenu: "मेनू" },
+            ar: { brand: "HK WORLDBANK", sub: "محرك ميغ العالمية بـ 60 لغة (v10.5)", auth: "المصادقة / ربط المحفظة", portfolio: "محفظة العملاء لـ Gil-dong Hong", kycBadge: "KYC/KYB 100%", web2: "إيداع Web2", web3: "محفظة Web3", engineTitle: "محرك Web3 الموزع (مؤمن بـ KYC/KYB)", p1: "1. ربط المحفظة", p2: "2. تحويل", p3: "3. دفع", p4: "4. إيداع", p5: "5. مكافأة", p6: "6. UBI", p7: "7. تبديل", p8: "8. DEX تبديل", p9: "9. تخزين LP", p10: "10. رصيد Pi", logText: "[SYSTEM READY] تم مزامنة جلسة العميل بنجاح.", assetsHeader: "💰 بيان الأصول", accWeb2: "توفير HK-BANK", accWeb3: "محفظة Pi Network", benefitsHeader: "🎁 دخل UBI الأساسي والمكافآت", benefitsDesc: "دخل أساسي لامركزي موزّع بأمان.", rewardLabel: "المكافآت المتاحة", claimBtn: "استلام", menuHeader: "☰ قائمة الخدمات", m1Title: "🛡️ مركز KYC", m1Sub: "تم التحقق", m2Title: "🏢 مركز KYB", m2Sub: "تم التحقق", m3Title: "👓 النظارات الذكية", m3Sub: "شاشة AR", m4Title: "🌐 إعدادات 60 لغة", m4Sub: "جسر عالمي", navHome: "الرئيسية", navAssets: "الأصول", navBenefits: "المزايا", navMenu: "القائمة" },
+            ru: { brand: "HK WORLDBANK", sub: "Глобальное мега-ядро на 60 языках (v10.5)", auth: "Авторизация / Кошелек", portfolio: "Портфель клиента Гиль-дон Хонга", kycBadge: "KYC/KYB 100%", web2: "Депозит Web2", web3: "Кошелек Web3", engineTitle: "Распределенный движок Web3 (Защита KYC/KYB)", p1: "1. Кошелек", p2: "2. Перевод", p3: "3. Оплата", p4: "4. Депозит", p5: "5. Награда", p6: "6. UBI", p7: "7. Обмен", p8: "8. DEX Своп", p9: "9. Стейкинг", p10: "10. Баланс Pi", logText: "[SYSTEM READY] Сессия клиента синхронизирована.", assetsHeader: "💰 Активы", accWeb2: "Сбережения (Web2)", accWeb3: "Кошелек Pi (Web3)", benefitsHeader: "🎁 UBI Доход", benefitsDesc: "Децентрализованный UBI.", rewardLabel: "Награды", claimBtn: "Получить", menuHeader: "☰ Меню", m1Title: "🛡️ KYC", m1Sub: "Подтверждено", m2Title: "🏢 KYB", m2Sub: "Проверено", m3Title: "👓 Очки AR", m3Sub: "AR Дисплей", m4Title: "🌐 Настройка 60 языков", m4Sub: "Глобальный мост", navHome: "Главная", navAssets: "Активы", navBenefits: "Бонусы", navMenu: "Меню" },
+            fr: { brand: "HK WORLDBANK", sub: "Méga Moteur Global 60 Langues (v10.5)", auth: "Auth / Portefeuille", portfolio: "Portefeuille Unifié du Client Gil-dong Hong", kycBadge: "KYC/KYB 100%", web2: "Dépôt Web2", web3: "Portefeuille Web3", engineTitle: "Moteur Distribué Web3 (Sécurisé KYC/KYB)", p1: "1. Connecter", p2: "2. Transfert", p3: "3. Paiement", p4: "4. Dépôt", p5: "5. Récompense", p6: "6. UBI", p7: "7. Échange", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Solde", logText: "[SYSTEM READY] Session synchronisée.", assetsHeader: "💰 Actifs", accWeb2: "Épargne (Web2)", accWeb3: "Portefeuille Pi (Web3)", benefitsHeader: "🎁 UBI & Récompenses", benefitsDesc: "UBI décentralisé sécurisé.", rewardLabel: "Récompense", claimBtn: "Réclamer", menuHeader: "☰ Menu", m1Title: "🛡️ KYC", m1Sub: "Vérifié", m2Title: "🏢 KYB", m2Sub: "Vérifié", m3Title: "👓 Lunettes AR", m3Sub: "Affichage AR", m4Title: "🌐 Paramètres 60 langues", m4Sub: "Pont global", navHome: "Accueil", navAssets: "Actifs", navBenefits: "Avantages", navMenu: "Menu" },
+            de: { brand: "HK WORLDBANK", sub: "60-Sprachen Globaler Mega-Core (v10.5)", auth: "Auth / Wallet", portfolio: "Kundenportfolio von Gil-dong Hong", kycBadge: "KYC/KYB 100%", web2: "Web2 Einzahlung", web3: "Web3 Wallet", engineTitle: "Web3 Dezentrales Engine (KYC/KYB Gesichert)", p1: "1. Wallet", p2: "2. Überweisung", p3: "3. Zahlung", p4: "4. Einzahlung", p5: "5. Belohnung", p6: "6. UBI", p7: "7. Tausch", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Menge", logText: "[SYSTEM READY] Sitzung synchronisiert.", assetsHeader: "💰 Vermögen", accWeb2: "Sparkonto (Web2)", accWeb3: "Pi Wallet (Web3)", benefitsHeader: "🎁 UBI Grundeinkommen", benefitsDesc: "Dezentrales UBI sicher.", rewardLabel: "Prämien", claimBtn: "Beanspruchen", menuHeader: "☰ Menü", m1Title: "🛡️ KYC", m1Sub: "Verifiziert", m2Title: "🏢 KYB", m2Sub: "Verifiziert", m3Title: "👓 Smart Glasses", m3Sub: "AR Display", m4Title: "🌐 60-Sprachen Setup", m4Sub: "Globaler Brücken", navHome: "Startseite", navAssets: "Vermögen", navBenefits: "Vorteile", navMenu: "Menü" },
+            pt: { brand: "HK WORLDBANK", sub: "Mega Núcleo Global de 60 Idiomas (v10.5)", auth: "Autenticação / Carteira", portfolio: "Portfólio Unificado do Cliente Gil-dong Hong", kycBadge: "KYC/KYB 100% Verificado", web2: "Depósito Simples Web2", web3: "Carteira Descentralizada Web3", engineTitle: "Motor Distribuído Web3 (Seguro por KYC/KYB)", p1: "1. Conectar", p2: "2. Transferência", p3: "3. Pagamento", p4: "4. Depósito", p5: "5. Recompensa", p6: "6. UBI", p7: "7. Troca", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Saldo", logText: "[SYSTEM READY] Sessão sincronizada.", assetsHeader: "💰 Ativos", accWeb2: "Poupança (Web2)", accWeb3: "Carteira Pi (Web3)", benefitsHeader: "🎁 UBI & Recompensas", benefitsDesc: "UBI descentralizado seguro.", rewardLabel: "Recompensa", claimBtn: "Resgatar", menuHeader: "☰ Menu", m1Title: "🛡️ KYC", m1Sub: "Verificado", m2Title: "🏢 KYB", m2Sub: "Verificado", m3Title: "👓 Óculos AR", m3Sub: "Display AR", m4Title: "🌐 60 Idiomas", m4Sub: "Ponte global", navHome: "Início", navAssets: "Ativos", navBenefits: "Benefícios", navMenu: "Menu" },
+            it: { brand: "HK WORLDBANK", sub: "Mega Nucleo Globale 60 Lingue (v10.5)", auth: "Auth / Wallet", portfolio: "Portafoglio Unificato del Cliente Gil-dong Hong", kycBadge: "KYC/KYB 100% Verificato", web2: "Deposito Web2", web3: "Wallet Web3", engineTitle: "Motore Distribuito Web3 (Sicuro KYC/KYB)", p1: "1. Connetti", p2: "2. Trasferisci", p3: "3. Pagamento", p4: "4. Deposito", p5: "5. Premio", p6: "6. UBI", p7: "7. Scambio", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Saldo", logText: "[SYSTEM READY] Sessione sincronizzata.", assetsHeader: "💰 Asset", accWeb2: "Risparmi (Web2)", accWeb3: "Wallet Pi (Web3)", benefitsHeader: "🎁 UBI & Premi", benefitsDesc: "UBI decentralizzato sicuro.", rewardLabel: "Premio", claimBtn: "Riscatta", menuHeader: "☰ Menu", m1Title: "🛡️ KYC", m1Sub: "Verificato", m2Title: "🏢 KYB", m2Sub: "Verificato", m3Title: "👓 Occhiali AR", m3Sub: "Display AR", m4Title: "🌐 60 Lingue", m4Sub: "Ponte globale", navHome: "Home", navAssets: "Asset", navBenefits: "Vantaggi", navMenu: "Menu" },
+            tr: { brand: "HK WORLDBANK", sub: "60 Dilli Küresel Mega Çekirdek (v10.5)", auth: "Kimlik / Cüzdan", portfolio: "Müşteri Gil-dong Hong Birleşik Portföyü", kycBadge: "KYC/KYB %100", web2: "Web2 Mevduat", web3: "Web3 Cüzdan", engineTitle: "Web3 Dağıtık Motor (KYC/KYB Güvenli)", p1: "1. Cüzdan Bağla", p2: "2. Transfer", p3: "3. Ödeme", p4: "4. Yatırım", p5: "5. Ödül", p6: "6. UBI", p7: "7. Takas", p8: "8. DEX Takas", p9: "9. Staking", p10: "10. Pi Miktar", logText: "[SYSTEM READY] Oturum senkronize edildi.", assetsHeader: "💰 Varlıklar", accWeb2: "Tasarruf (Web2)", accWeb3: "Pi Cüzdan (Web3)", benefitsHeader: "🎁 UBI Geliri", benefitsDesc: "Güvenli merkeziyetsiz UBI.", rewardLabel: "Ödül", claimBtn: "Talep Et", menuHeader: "☰ Menü", m1Title: "🛡️ KYC", m1Sub: "Doğrulandı", m2Title: "🏢 KYB", m2Sub: "Doğrulandı", m3Title: "👓 AR Gözlük", m3Sub: "AR Ekran", m4Title: "🌐 60 Dil Ayarı", m4Sub: "Küresel Köprü", navHome: "Ana Sayfa", navAssets: "Varlıklar", navBenefits: "Avantajlar", navMenu: "Menü" },
+            nl: { brand: "HK WORLDBANK", sub: "60-Talige Globale Mega Core (v10.5)", auth: "Auth / Wallet", portfolio: "Verenigd Portfolio van Klant Gil-dong Hong", kycBadge: "KYC/KYB 100% Geverifieerd", web2: "Web2 Storting", web3: "Web3 Wallet", engineTitle: "Gedecentraliseerde Web3 Engine (KYC/KYB Beveiligd)", p1: "1. Wallet", p2: "2. Overboeking", p3: "3. Betaling", p4: "4. Storting", p5: "5. Beloning", p6: "6. UBI", p7: "7. Swap", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Saldo", logText: "[SYSTEM READY] Sessie gesynchroniseerd.", assetsHeader: "💰 Activa", accWeb2: "Spaarrekening (Web2)", accWeb3: "Pi Wallet (Web3)", benefitsHeader: "🎁 UBI Inkomen", benefitsDesc: "Gedecentraliseerd UBI.", rewardLabel: "Beloning", claimBtn: "Claimen", menuHeader: "☰ Menu", m1Title: "🛡️ KYC", m1Sub: "Geverifieerd", m2Title: "🏢 KYB", m2Sub: "Geverifieerd", m3Title: "👓 AR Bril", m3Sub: "AR Display", m4Title: "🌐 60 Talen", m4Sub: "Wereldwijde Brug", navHome: "Home", navAssets: "Activa", navBenefits: "Voordelen", navMenu: "Menu" },
+            pl: { brand: "HK WORLDBANK", sub: "Globalny Mega Rdzeń w 60 Językach (v10.5)", auth: "Auth / Portfel", portfolio: "Zintegrowany Portfel Klienta Gil-dong Hong", kycBadge: "KYC/KYB 100%", web2: "Depozyt Web2", web3: "Portfel Web3", engineTitle: "Rozproszony Silnik Web3 (Zabezpieczony KYC/KYB)", p1: "1. Połącz", p2: "2. Przelew", p3: "3. Płatność", p4: "4. Depozyt", p5: "5. Nagroda", p6: "6. UBI", p7: "7. Wymiana", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Saldo Pi", logText: "[SYSTEM READY] Sesja zsynchronizowana.", assetsHeader: "💰 Aktywa", accWeb2: "Oszczędności (Web2)", accWeb3: "Portfel Pi (Web3)", benefitsHeader: "🎁 Dochód UBI", benefitsDesc: "Zabezpieczone UBI.", rewardLabel: "Nagroda", claimBtn: "Odbierz", menuHeader: "☰ Menu", m1Title: "🛡️ KYC", m1Sub: "Zweryfikowany", m2Title: "🏢 KYB", m2Sub: "Zweryfikowany", m3Title: "👓 Okulary AR", m3Sub: "Wyświetlacz AR", m4Title: "🌐 60 Języków", m4Sub: "Globalny Most", navHome: "Start", navAssets: "Aktywa", navBenefits: "Korzyści", navMenu: "Menu" },
+            uk: { brand: "HK WORLDBANK", sub: "Глобальне мега-ядро на 60 мовах (v10.5)", auth: "Авторизація / Гаманець", portfolio: "Портфель клієнта Гілл-донг Хонга", kycBadge: "KYC/KYB 100%", web2: "Депозит Web2", web3: "Гаманець Web3", engineTitle: "Розподілений рушій Web3 (Безпека KYC/KYB)", p1: "1. Гаманець", p2: "2. Переказ", p3: "3. Оплата", p4: "4. Депозит", p5: "5. Нагорода", p6: "6. UBI", p7: "7. Обмін", p8: "8. DEX Своп", p9: "9. Стейкінг", p10: "10. Баланс Pi", logText: "[SYSTEM READY] Сесію синхронізовано.", assetsHeader: "💰 Активи", accWeb2: "Ощадний рахунок (Web2)", accWeb3: "Гаманець Pi (Web3)", benefitsHeader: "🎁 Дохід UBI", benefitsDesc: "Децентралізований UBI.", rewardLabel: "Нагорода", claimBtn: "Отримати", menuHeader: "☰ Меню", m1Title: "🛡️ KYC", m1Sub: "Підтверджено", m2Title: "🏢 KYB", m2Sub: "Перевірено", m3Title: "👓 Окуляри AR", m3Sub: "AR Дисплей", m4Title: "🌐 60 Мов", m4Sub: "Глобальний міст", navHome: "Головна", navAssets: "Активи", navBenefits: "Бонуси", navMenu: "Меню" },
+            fil: { brand: "HK WORLDBANK", sub: "60-Wika Global Mega Core (v10.5)", auth: "Auth / Wallet", portfolio: "Unified Portfolio ng Customer Gil-dong Hong", kycBadge: "KYC/KYB 100% Beripikasyon", web2: "Web2 Deposito", web3: "Web3 Wallet", engineTitle: "Web3 Distributed Engine (KYC/KYB Secured)", p1: "1. Wallet Connect", p2: "2. Pasa", p3: "3. Bayad", p4: "4. Deposito", p5: "5. Gantimpala", p6: "6. UBI", p7: "7. Swap", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Balanse", logText: "[SYSTEM READY] Ang sesyon ay naka-sync.", assetsHeader: "💰 Mga Ari-arian", accWeb2: "ImpOK (Web2)", accWeb3: "Pi Wallet (Web3)", benefitsHeader: "🎁 UBI Kita", benefitsDesc: "Segurong UBI.", rewardLabel: "Gantimpala", claimBtn: "Kunin", menuHeader: "☰ Menu", m1Title: "🛡️ KYC", m1Sub: "Beripikado", m2Title: "🏢 KYB", m2Sub: "Beripikado", m3Title: "👓 AR Glasses", m3Sub: "AR Display", m4Title: "🌐 60 Wika", m4Sub: "Global Bridge", navHome: "Tahanan", navAssets: "Ari-arian", navBenefits: "Benepisyo", navMenu: "Menu" },
+            ms: { brand: "HK WORLDBANK", sub: "Teras Mega Global 60 Bahasa (v10.5)", auth: "Auth / Dompet", portfolio: "Portfolio Disatukan Pelanggan Gil-dong Hong", kycBadge: "KYC/KYB 100% Sah", web2: "Deposit Web2", web3: "Dompet Web3", engineTitle: "Enjin Teragih Web3 (Selamat KYC/KYB)", p1: "1. Sambung", p2: "2. Pemindahan", p3: "3. Bayaran", p4: "4. Deposit", p5: "5. Ganjaran", p6: "6. UBI", p7: "7. Tukar", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Baki Pi", logText: "[SYSTEM READY] Sesi disegerakkan.", assetsHeader: "💰 Aset", accWeb2: "Simpanan (Web2)", accWeb3: "Dompet Pi (Web3)", benefitsHeader: "🎁 Pendapatan UBI", benefitsDesc: "UBI terdesentralisasi selamat.", rewardLabel: "Ganjaran", claimBtn: "Tuntut", menuHeader: "☰ Menu", m1Title: "🛡️ KYC", m1Sub: "Disahkan", m2Title: "🏢 KYB", m2Sub: "Disahkan", m3Title: "👓 Cermin Mata AR", m3Sub: "Paparan AR", m4Title: "🌐 60 Bahasa", m4Sub: "Jambatan Global", navHome: "Utama", navAssets: "Aset", navBenefits: "Faedah", navMenu: "Menu" },
+            bn: { brand: "HK WORLDBANK", sub: "৬০-ভাষার বৈশ্বিক মেগা কোর (v10.5)", auth: "অথ / ওয়ালেট", portfolio: "গ্রাহক গিল-ডং হং-এর সমন্বিত পোর্টফোলিও", kycBadge: "KYC/KYB ১০০% যাচাইকৃত", web2: "Web2 জমা", web3: "Web3 ওয়ালেট", engineTitle: "Web3 ডিস্ট্রিবিউটেড ইঞ্জিন (KYC/KYB সুরক্ষিত)", p1: "১. কানেক্ট", p2: "২. স্থানান্তর", p3: "৩. পেমেন্ট", p4: "৪. আমানত", p5: "৫. পুরষ্কার", p6: "৬. UBI", p7: "৭. সোয়াপ", p8: "৮. DEX সোয়াপ", p9: "৯. স্ট্যাকিং", p10: "১০. পাই ব্যালেন্স", logText: "[SYSTEM READY] সেশন সিঙ্ক হয়েছে।", assetsHeader: "💰 সম্পদ", accWeb2: "সঞ্চয় (Web2)", accWeb3: "Pi ওয়ালেট (Web3)", benefitsHeader: "🎁 UBI আয়", benefitsDesc: "সুরক্ষিত UBI।", rewardLabel: "পুরষ্কার", claimBtn: "দাবি করুন", menuHeader: "☰ মেনু", m1Title: "🛡️ KYC", m1Sub: "যাচাইকৃত", m2Title: "🏢 KYB", m2Sub: "যাচাইকৃত", m3Title: "👓 AR চশমা", m3Sub: "AR ডিসপ্লে", m4Title: "🌐 ৬০ ভাষা", m4Sub: "গ্লোবাল ব্রিজ", navHome: "হোম", navAssets: "সম্পদ", navBenefits: "সুবিধা", navMenu: "মেনু" },
+            fa: { brand: "HK WORLDBANK", sub: "هسته مگا جهانی ۶۰ زبانه (v10.5)", auth: "احراز / کیف پول", portfolio: "پرتفوی یکپارچه مشتری جیل دونگ هونگ", kycBadge: "KYC/KYB ۱۰۰٪ تایید شده", web2: "سپرده Web2", web3: "کیف پول Web3", engineTitle: "موتور توزیع شده Web3 (امن با KYC/KYB)", p1: "۱. اتصال", p2: "۲. انتقال", p3: "۳. پرداخت", p4: "۴. سپرده", p5: "۵. پاداش", p6: "۶. UBI", p7: "۷. مبادله", p8: "۸. DEX مبادله", p9: "۹. استیکینگ", p10: "۱۰. موجودی Pi", logText: "[SYSTEM READY] نشست همگام سازی شد.", assetsHeader: "💰 دارایی ها", accWeb2: "پس انداز (Web2)", accWeb3: "کیف پول Pi (Web3)", benefitsHeader: "🎁 درآمد UBI", benefitsDesc: "UBI غیرمتمرکز امن.", rewardLabel: "پاداش", claimBtn: "دریافت", menuHeader: "☰ منو", m1Title: "🛡️ KYC", m1Sub: "تایید شده", m2Title: "🏢 KYB", m2Sub: "تایید شده", m3Title: "👓 عینک AR", m3Sub: "صفحه نمایش AR", m4Title: "🌐 ۶۰ زبان", m4Sub: "پل جهانی", navHome: "خانه", navAssets: "دارایی", navBenefits: "مزایا", navMenu: "منو" },
+            sv: { brand: "HK WORLDBANK", sub: "60-Språkig Global Mega Core (v10.5)", auth: "Auth / Plånbok", portfolio: "Kunden Gil-dong Hongs Unified Portfolio", kycBadge: "KYC/KYB 100% Verifierad", web2: "Web2 Insättning", web3: "Web3 Plånbok", engineTitle: "Web3 Distribuerad Motor (KYC/KYB Säkrad)", p1: "1. Anslut", p2: "2. Överföring", p3: "3. Betalning", p4: "4. Insättning", p5: "5. Belöning", p6: "6. UBI", p7: "7. Swap", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Saldo", logText: "[SYSTEM READY] Session synkroniserad.", assetsHeader: "💰 Tillgångar", accWeb2: "Sparande (Web2)", accWeb3: "Pi Plånbok (Web3)", benefitsHeader: "🎁 UBI Inkomst", benefitsDesc: "Decentraliserad UBI.", rewardLabel: "Belöning", claimBtn: "Hämta", menuHeader: "☰ Meny", m1Title: "🛡️ KYC", m1Sub: "Verifierad", m2Title: "🏢 KYB", m2Sub: "Verifierad", m3Title: "👓 AR Glasögon", m3Sub: "AR Display", m4Title: "🌐 60 Språk", m4Sub: "Global Brygga", navHome: "Hem", navAssets: "Tillgångar", navBenefits: "Förmåner", navMenu: "Meny" },
+            el: { brand: "HK WORLDBANK", sub: "Παγκόσμιος Mega Πυρήνας 60 Γλωσσών (v10.5)", auth: "Auth / Πορτοφόλι", portfolio: "Ενιαίο Χαρτοφυλάκιο Πελάτη Gil-dong Hong", kycBadge: "KYC/KYB 100% Επαληθευμένο", web2: "Κατάθεση Web2", web3: "Πορτοφόλι Web3", engineTitle: "Κατανεμημένος Πυρήνας Web3 (Ασφαλής KYC/KYB)", p1: "1. Σύνδεση", p2: "2. Μεταφορά", p3: "3. Πληρωμή", p4: "4. Κατάθεση", p5: "5. Επιβράβευση", p6: "6. UBI", p7: "7. Ανταλλαγή", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Υπόλοιπο Pi", logText: "[SYSTEM READY] Η συνεδρία συγχρονίστηκε.", assetsHeader: "💰 Περιουσιακά Στοιχεία", accWeb2: "Ταμιευτήριο (Web2)", accWeb3: "Πορτοφόλι Pi (Web3)", benefitsHeader: "🎁 Εισόδημα UBI", benefitsDesc: "Ασφαλές UBI.", rewardLabel: "Αμοιβή", claimBtn: "Απαίτηση", menuHeader: "☰ Μενού", m1Title: "🛡️ KYC", m1Sub: "Επαληθευμένο", m2Title: "🏢 KYB", m2Sub: "Επαληθευμένο", m3Title: "👓 AR Γυαλιά", m3Sub: "AR Οθόνη", m4Title: "🌐 60 Γλώσσες", m4Sub: "Παγκόσμια Γέφυρα", navHome: "Αρχική", navAssets: "Στοιχεία", navBenefits: "Οφέλη", navMenu: "Μενού" },
+            cs: { brand: "HK WORLDBANK", sub: "60jazykové globální mega jádro (v10.5)", auth: "Auth / Peněženka", portfolio: "Jednotné portfolio zákazníka Gil-dong Hong", kycBadge: "KYC/KYB 100% Ověřeno", web2: "Web2 Vklad", web3: "Web3 Peněženka", engineTitle: "Web3 distribuovaný engine (zabezpečený KYC/KYB)", p1: "1. Připojit", p2: "2. Převod", p3: "3. Platba", p4: "4. Vklad", p5: "5. Odměna", p6: "6. UBI", p7: "7. Swap", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Zůstatek", logText: "[SYSTEM READY] Relace synchronizována.", assetsHeader: "💰 Aktiva", accWeb2: "Úspory (Web2)", accWeb3: "Pi Peněženka (Web3)", benefitsHeader: "🎁 UBI Příjem", benefitsDesc: "Decentralizované UBI.", rewardLabel: "Odměna", claimBtn: "Získat", menuHeader: "☰ Menu", m1Title: "🛡️ KYC", m1Sub: "Ověřeno", m2Title: "🏢 KYB", m2Sub: "Ověřeno", m3Title: "👓 AR Brýle", m3Sub: "AR Displej", m4Title: "🌐 60 Jazyků", m4Sub: "Globální můstek", navHome: "Domů", navAssets: "Aktiva", navBenefits: "Výhody", navMenu: "Menu" },
+            hu: { brand: "HK WORLDBANK", sub: "60 nyelvű globális mega mag (v10.5)", auth: "Auth / Pénztárca", portfolio: "Gil-dong Hong ügyfél egységes portfóliója", kycBadge: "KYC/KYB 100% Ellenőrizve", web2: "Web2 Betét", web3: "Web3 Pénztárca", engineTitle: "Web3 elosztott motor (KYC/KYB biztosított)", p1: "1. Csatlakozás", p2: "2. Utalás", p3: "3. Fizetés", p4: "4. Betét", p5: "5. Jutalalom", p6: "6. UBI", p7: "7. Csere", p8: "8. DEX Csere", p9: "9. Staking", p10: "10. Pi Egyenleg", logText: "[SYSTEM READY] Munkamenet szinkronizálva.", assetsHeader: "💰 Eszközök", accWeb2: "Megtakarítás (Web2)", accWeb3: "Pi Pénztárca (Web3)", benefitsHeader: "🎁 UBI Jövedelem", benefitsDesc: "Biztonságos UBI.", rewardLabel: "Jutalalom", claimBtn: "Igénylés", menuHeader: "☰ Menü", m1Title: "🛡️ KYC", m1Sub: "Ellenőrizve", m2Title: "🏢 KYB", m2Sub: "Ellenőrizve", m3Title: "👓 AR Szemüveg", m3Sub: "AR Kijelző", m4Title: "🌐 60 Nyelv", m4Sub: "Globális Híd", navHome: "Főoldal", navAssets: "Eszközök", navBenefits: "Előnyök", navMenu: "Menü" },
+            ro: { brand: "HK WORLDBANK", sub: "Mega Nucleu Global în 60 de Limbi (v10.5)", auth: "Auth / Portofel", portfolio: "Portofoliul Unificat al Clientului Gil-dong Hong", kycBadge: "KYC/KYB 100% Verificat", web2: "Depozit Web2", web3: "Portofel Web3", engineTitle: "Motor Distribuit Web3 (Securizat KYC/KYB)", p1: "1. Conectare", p2: "2. Transfer", p3: "3. Plată", p4: "4. Depozit", p5: "5. Recompensă", p6: "6. UBI", p7: "7. Schimb", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Sold Pi", logText: "[SYSTEM READY] Sesiune sincronizată.", assetsHeader: "💰 Active", accWeb2: "Economii (Web2)", accWeb3: "Portofel Pi (Web3)", benefitsHeader: "🎁 Venit UBI", benefitsDesc: "UBI descentralizat sigur.", rewardLabel: "Recompensă", claimBtn: "Revendică", menuHeader: "☰ Meniu", m1Title: "🛡️ KYC", m1Sub: "Verificat", m2Title: "🏢 KYB", m2Sub: "Verificat", m3Title: "👓 Ochelari AR", m3Sub: "Afișaj AR", m4Title: "🌐 60 Limbi", m4Sub: "Pod Global", navHome: "Acasă", navAssets: "Active", navBenefits: "Beneficii", navMenu: "Meniu" },
+            fi: { brand: "HK WORLDBANK", sub: "60 kielen globaali megaydin (v10.5)", auth: "Auth / Lompakko", portfolio: "Asiakas Gil-dong Hongin yhtenäinen portfolio", kycBadge: "KYC/KYB 100% Vahvistettu", web2: "Web2 Talletus", web3: "Web3 Lompakko", engineTitle: "Web3 hajautettu moottori (KYC/KYB suojattu)", p1: "1. Yhdistä", p2: "2. Siirto", p3: "3. Maksu", p4: "4. Talletus", p5: "5. Palkkio", p6: "6. UBI", p7: "7. Vaihto", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Saldo", logText: "[SYSTEM READY] Istunto synkronoitu.", assetsHeader: "💰 Varat", accWeb2: "Säästöt (Web2)", accWeb3: "Pi Lompakko (Web3)", benefitsHeader: "🎁 UBI Tulo", benefitsDesc: "Hajautettu UBI.", rewardLabel: "Palkkio", claimBtn: "Lunasta", menuHeader: "☰ Valikko", m1Title: "🛡️ KYC", m1Sub: "Vahvistettu", m2Title: "🏢 KYB", m2Sub: "Vahvistettu", m3Title: "👓 AR Lasit", m3Sub: "AR Näyttö", m4Title: "🌐 60 Kieltä", m4Sub: "Globaali Silta", navHome: "Koti", navAssets: "Varat", navBenefits: "Edut", navMenu: "Valikko" },
+            da: { brand: "HK WORLDBANK", sub: "60-sproget Global Mega Core (v10.5)", auth: "Auth / Wallet", portfolio: "Kunde Gil-dong Hongs Unified Portfolio", kycBadge: "KYC/KYB 100% Verificeret", web2: "Web2 Indskud", web3: "Web3 Wallet", engineTitle: "Web3 Distribueret Motor (KYC/KYB Sikret)", p1: "1. Forbind", p2: "2. Overfør", p3: "3. Betaling", p4: "4. Indskud", p5: "5. Belønning", p6: "6. UBI", p7: "7. Swap", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Saldo", logText: "[SYSTEM READY] Session synkroniseret.", assetsHeader: "💰 Aktiver", accWeb2: "Opsparing (Web2)", accWeb3: "Pi Wallet (Web3)", benefitsHeader: "🎁 UBI Indkomst", benefitsDesc: "Decentraliseret UBI.", rewardLabel: "Belønning", claimBtn: "Kræv", menuHeader: "☰ Menu", m1Title: "🛡️ KYC", m1Sub: "Verificeret", m2Title: "🏢 KYB", m2Sub: "Verificeret", m3Title: "👓 AR Briller", m3Sub: "AR Display", m4Title: "🌐 60 Sprog", m4Sub: "Global Bro", navHome: "Hjem", navAssets: "Aktiver", navBenefits: "Fordele", navMenu: "Menu" },
+            no: { brand: "HK WORLDBANK", sub: "60-språklig Global Mega Core (v10.5)", auth: "Auth / Lommebok", portfolio: "Kunde Gil-dong Hongs Unified Portfolio", kycBadge: "KYC/KYB 100% Verifisert", web2: "Web2 Innskudd", web3: "Web3 Lommebok", engineTitle: "Web3 Distribuert Motor (KYC/KYB Sikret)", p1: "1. Koble til", p2: "2. Overføring", p3: "3. Betaling", p4: "4. Innskudd", p5: "5. Belønning", p6: "6. UBI", p7: "7. Swap", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Saldo", logText: "[SYSTEM READY] Sesjon synkronisert.", assetsHeader: "💰 Eiendeler", accWeb2: "Sparekonto (Web2)", accWeb3: "Pi Lommebok (Web3)", benefitsHeader: "🎁 UBI Inntekt", benefitsDesc: "Desentralisert UBI.", rewardLabel: "Belønning", claimBtn: "Hent", menuHeader: "☰ Meny", m1Title: "🛡️ KYC", m1Sub: "Verifisert", m2Title: "🏢 KYB", m2Sub: "Verifisert", m3Title: "👓 AR Briller", m3Sub: "AR Skjerm", m4Title: "🌐 60 Språk", m4Sub: "Global Bro", navHome: "Hjem", navAssets: "Eiendeler", navBenefits: "Fordeler", navMenu: "Meny" },
+            he: { brand: "HK WORLDBANK", sub: "ליבת מגה גלובלית ב-60 שפות (v10.5)", auth: "אימות / ארנק", portfolio: "תיק אחוד של הלקוח גיל-דונג הונג", kycBadge: "KYC/KYB 100% מאומת", web2: "הפקדת Web2", web3: "ארנק Web3", engineTitle: "מנוע מבוזר Web3 (מאובטח KYC/KYB)", p1: "1. חיבור ארנק", p2: "2. העברה", p3: "3. תשלום", p4: "4. הפקדה", p5: "5. תגמול", p6: "6. UBI", p7: "7. החלפה", p8: "8. DEX החלפה", p9: "9. Staking", p10: "10. יתרת Pi", logText: "[SYSTEM READY] ההפעלה סונכרנה בהצלחה.", assetsHeader: "💰 נכסים", accWeb2: "חיסכון (Web2)", accWeb3: "ארנק Pi (Web3)", benefitsHeader: "🎁 הכנסת UBI", benefitsDesc: "UBI מבוזר מאובטח.", rewardLabel: "תגמול", claimBtn: "דרוש", menuHeader: "☰ תפריט", m1Title: "🛡️ KYC", m1Sub: "מאומת", m2Title: "🏢 KYB", m2Sub: "מאומת", m3Title: "👓 משקפי AR", m3Sub: "תצוגת AR", m4Title: "🌐 60 שפות", m4Sub: "גשר גלובלי", navHome: "בית", navAssets: "נכסים", navBenefits: "הטבות", navMenu: "תפריט" },
+            ur: { brand: "HK WORLDBANK", sub: "60 زبانوں کا عالمی میگا کور (v10.5)", auth: "تصدیق / والیٹ", portfolio: "صارف گل ڈونگ ہانگ کا مربوط پورٹ فولیو", kycBadge: "KYC/KYB 100% تصدیق شدہ", web2: "Web2 جمع", web3: "Web3 والیٹ", engineTitle: "Web3 تقسیم شدہ انجن (KYC/KYB محفوظ)", p1: "1. کنیکٹ", p2: "2. منتقلی", p3: "3. ادائیگی", p4: "4. جمع", p5: "5. انعام", p6: "6. UBI", p7: "7. تبادلہ", p8: "8. DEX تبادلہ", p9: "9. اسٹیکنگ", p10: "10. پائی بیلنس", logText: "[SYSTEM READY] سیشن مطابقت پذیر ہو گیا۔", assetsHeader: "💰 اثاثے", accWeb2: "بچت (Web2)", accWeb3: "Pi والیٹ (Web3)", benefitsHeader: "🎁 UBI آمدنی", benefitsDesc: "محفوظ غیر مرکزی UBI۔", rewardLabel: "انعام", claimBtn: "حاصل کریں", menuHeader: "☰ مینو", m1Title: "🛡️ KYC", m1Sub: "تصدیق شدہ", m2Title: "🏢 KYB", m2Sub: "تصدیق شدہ", m3Title: "👓 AR عینک", m3Sub: "AR ڈسپلے", m4Title: "🌐 60 زبانیں", m4Sub: "عالمی برج", navHome: "ہوم", navAssets: "اثاثے", navBenefits: "فوائد", navMenu: "مینو" },
+            sw: { brand: "HK WORLDBANK", sub: "Kiumbe Kikubwa cha Ulimwengu cha Lugha 60 (v10.5)", auth: "Uthibitisho / Mkoba", portfolio: "Kwingineko Iliyounganishwa ya Mteja Gil-dong Hong", kycBadge: "KYC/KYB 100% Imethibitishwa", web2: "Amana ya Web2", web3: "Mkoba wa Web3", engineTitle: "Injini Iliyosambazwa ya Web3 (Imelindwa na KYC/KYB)", p1: "1. Unganisha", p2: "2. Hamisha", p3: "3. Malipo", p4: "4. Amana", p5: "5. Zawadi", p6: "6. UBI", p7: "7. Badilisha", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Salio la Pi", logText: "[SYSTEM READY] Kikao kimesawazishwa.", assetsHeader: "💰 Mali", accWeb2: "Akiba (Web2)", accWeb3: "Mkoba wa Pi (Web3)", benefitsHeader: "🎁 Mapato ya UBI", benefitsDesc: "UBI salama.", rewardLabel: "Zawadi", claimBtn: "Dai", menuHeader: "☰ Menyu", m1Title: "🛡️ KYC", m1Sub: "Imethibitishwa", m2Title: "🏢 KYB", m2Sub: "Imethibitishwa", m3Title: "👓 Miwani ya AR", m3Sub: "Onyesho la AR", m4Title: "🌐 Lugha 60", m4Sub: "Daraja la Ulimwengu", navHome: "Nyumbani", navAssets: "Mali", navBenefits: "Faida", navMenu: "Menyu" },
+            my: { brand: "HK WORLDBANK", sub: "ဘာသာစကား ၆၀ မေဂါစက် (v10.5)", auth: "အချက်အလက် / ပိုက်ဆံအိတ်", portfolio: "ဖောက်သည် Gil-dong Hong ၏ ပေါင်းစပ်ပေါ်တိုဖိုလီယို", kycBadge: "KYC/KYB 100% အတည်ပြုပြီး", web2: "Web2 ငွေသွင်း", web3: "Web3 ပိုက်ဆံအိတ်", engineTitle: "Web3 ဖြန့်ဝေထားသော အင်ဂျင် (KYC/KYB လုံခြုံသည်)", p1: "၁။ ချိတ်ဆက်", p2: "၂။ လွှဲပြောင်း", p3: "၃။ ငွေပေးချေ", p4: "၄။ သွင်းငွေ", p5: "၅။ ဆုလာဘ်", p6: "၆။ UBI", p7: "၇။ လဲလှယ်", p8: "၈။ DEX Swap", p9: "၉။ Staking", p10: "၁၀။ Pi လက်ကျန်", logText: "[SYSTEM READY] စက်ရှင်ကို ကိုက်ညီပြီးပါပြီ။", assetsHeader: "💰 ပိုင်ဆိုင်မှုများ", accWeb2: "စုငွေ (Web2)", accWeb3: "Pi ပိုက်ဆံအိတ် (Web3)", benefitsHeader: "🎁 UBI ဝင်ငွေ", benefitsDesc: "လုံခြုံသော UBI။", rewardLabel: "ဆုလာဘ်", claimBtn: "တောင်းဆိုရန်", menuHeader: "☰ မီနူး", m1Title: "🛡️ KYC", m1Sub: "အတည်ပြုပြီး", m2Title: "🏢 KYB", m2Sub: "အတည်ပြုပြီး", m3Title: "👓 AR မျက်မှန်", m3Sub: "AR Display", m4Title: "🌐 ဘာသာစကား ၆၀", m4Sub: "ကမ္ဘာ့တံတား", navHome: "ပင်မ", navAssets: "ပိုင်ဆိုင်မှု", navBenefits: "အကျိုးကျေးဇူး", navMenu: "မီနူး" },
+            km: { brand: "HK WORLDBANK", sub: "ស្នូលមេហ្គាសកល ៦០ ភាសា (v10.5)", auth: "ការផ្ទៀងផ្ទាត់ / កាបូប", portfolio: "ផលប័ត្ររួមរបស់អតិថិជន Gil-dong Hong", kycBadge: "KYC/KYB ១០០% បានផ្ទៀងផ្ទាត់", web2: "ប្រាក់បញ្ញើ Web2", web3: "កាបូប Web3", engineTitle: "ម៉ាស៊ីនចែកចាយ Web3 (សុវត្ថិភាព KYC/KYB)", p1: "១. ភ្ជាប់", p2: "២. ផ្ទេរ", p3: "៣. ទូទាត់", p4: "៤. ប្រាក់បញ្ញើ", p5: "៥. រង្វាន់", p6: "៦. UBI", p7: "៧. ប្តូរ", p8: "៨. DEX Swap", p9: "៩. Staking", p10: "១០. សមតុល្យ Pi", logText: "[SYSTEM READY] វគ្គត្រូវបានធ្វើសមកាលកម្ម។", assetsHeader: "💰 ទสินទ្រព្យ", accWeb2: "សន្សំ (Web2)", accWeb3: "កាបូប Pi (Web3)", benefitsHeader: "🎁 ប្រាក់ចំណូល UBI", benefitsDesc: "UBI សុវត្ថិភាព។", rewardLabel: "រង្វាន់", claimBtn: "ទាមទារ", menuHeader: "☰ មឺនុយ", m1Title: "🛡️ KYC", m1Sub: "បានផ្ទៀងផ្ទាត់", m2Title: "🏢 KYB", m2Sub: "បានផ្ទៀងផ្ទាត់", m3Title: "👓 វែនតា AR", m3Sub: "AR Display", m4Title: "🌐 ៦០ ភាសា", m4Sub: "ស្ពានសកល", navHome: "ទំព័រដើម", navAssets: "ទ្រព្យសកម្ម", navBenefits: "អត្ថប្រយោជន៍", navMenu: "មឺនុយ" },
+            lo: { brand: "HK WORLDBANK", sub: "ແກນກາງເມກາລະດັບໂລກ 60 ພາສາ (v10.5)", auth: "ຢັ້ງຢືນ / ກະເປົາ", portfolio: "ພອດໂຟລິໂອລວມຂອງລູກຄ້າ Gil-dong Hong", kycBadge: "KYC/KYB 100% ຢັ້ງຢືນແລ້ວ", web2: "ຝາກເງິນ Web2", web3: "ກະເປົາ Web3", engineTitle: "ເຄື່ອງຈັກกระจายอำนาจ Web3 (ປອດໄພ KYC/KYB)", p1: "1. ເຊື່ອມຕໍ່", p2: "2. ໂອນເງິນ", p3: "3. ຊຳລະເງິນ", p4: "4. ເງິນຝາກ", p5: "5. ລາງວັນ", p6: "6. UBI", p7: "7. ສະວອບ", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. ຈຳນວນ Pi", logText: "[SYSTEM READY] ຊິ້ງເຊສຊັ່ນສຳເລັດແລ້ວ.", assetsHeader: "💰 ຊັບສິນລວມ", accWeb2: "ອອມຊັບ (Web2)", accWeb3: "ກະເປົາ Pi (Web3)", benefitsHeader: "🎁 ລາຍໄດ້ UBI", benefitsDesc: "UBI ປອດໄພ.", rewardLabel: "ລາງວັນ", claimBtn: "ຮັບທັນທີ", menuHeader: "☰ ເມນູ", m1Title: "🛡️ KYC", m1Sub: "ຢັ້ງຢືນແລ້ວ", m2Title: "🏢 KYB", m2Sub: "ຢັ້ງຢືນແລ້ວ", m3Title: "👓 ແວ່ນຕາ AR", m3Sub: "AR Display", m4Title: "🌐 60 ພາສາ", m4Sub: "ຂົວຕໍ່ລະດັບໂລກ", navHome: "ໜ້າທຳອິດ", navAssets: "ຊັບສິນ", navBenefits: "ສິດທິປະໂຫຍດ", navMenu: "ເມນູ" },
+            ne: { brand: "HK WORLDBANK", sub: "६०-भाषीय विश्वव्यापी मेगा कोर (v10.5)", auth: "प्रमाणीकरण / वालेट", portfolio: "ग्राहक गिल-डोङ हङ्गको एकीकृत पोर्टफोलियो", kycBadge: "KYC/KYB १००% प्रमाणित", web2: "Web2 निक्षेप", web3: "Web3 वालेट", engineTitle: "Web3 वितरित इन्जिन (KYC/KYB सुरक्षित)", p1: "१. जोड्नुहोस्", p2: "२. स्थानान्तरण", p3: "३. भुक्तानी", p4: "४. निक्षेप", p5: "५. पुरस्कार", p6: "६. UBI", p7: "७. स्वाप", p8: "८. DEX स्वाप", p9: "९. स्टेकिङ", p10: "१०. पाई मौज्दात", logText: "[SYSTEM READY] सत्र सफलतापूर्वक सिंक भयो।", assetsHeader: "💰 सम्पत्ति विवरण", accWeb2: "बचत खाता (Web2)", accWeb3: "Pi वालेट (Web3)", benefitsHeader: "🎁 UBI आम्दानी", benefitsDesc: "सुरक्षित UBI।", rewardLabel: "पुरस्कार", claimBtn: "दाबी गर्नुहोस्", menuHeader: "☰ मेनु", m1Title: "🛡️ KYC", m1Sub: "प्रमाणित", m2Title: "🏢 KYB", m2Sub: "प्रमाणित", m3Title: "👓 AR चश्मा", m3Sub: "AR डिस्प्ले", m4Title: "🌐 ६० भाषाहरू", m4Sub: "विश्वव्यापी पुल", navHome: "गृहपृष्ठ", navAssets: "सम्पत्ति", navBenefits: "सुविधाहरू", navMenu: "मेनु" },
+            si: { brand: "HK WORLDBANK", sub: "භාෂා 60ක ගෝලීය මෙගා හරය (v10.5)", auth: "සත් යාපනය / පසුම්බිය", portfolio: "ගිල්-ඩොං හොං පාරිභෝගික ඒකාබද්ධ කළඹ", kycBadge: "KYC/KYB 100% තහවුරුයි", web2: "Web2 තැන්පතු", web3: "Web3 පසුම්බිය", engineTitle: "Web3 බෙදා හරින ලද එන්ජිම (KYC/KYB ආරක්ෂිතයි)", p1: "1. සම්බන්ධ කරන්න", p2: "2. මාරු කරන්න", p3: "3. ගෙවීම", p4: "4. තැන්පත්", p5: "5. ත් යාගය", p6: "6. UBI", p7: "7. හුවමාරුව", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi ශේෂය", logText: "[SYSTEM READY] සැසිය සමল් කළා.", assetsHeader: "💰 වත්කම්", accWeb2: "ඉතුරුම් (Web2)", accWeb3: "Pi පසුම්බිය (Web3)", benefitsHeader: "🎁 UBI ආදායම", benefitsDesc: "ආරක්ෂිත UBI.", rewardLabel: "ත් යාග", claimBtn: "ඉල්ទ아", menuHeader: "☰ මෙනුව", m1Title: "🛡️ KYC", m1Sub: "තහවුරුයි", m2Title: "🏢 KYB", m2Sub: "තහවුරුයි", m3Title: "👓 AR කණ්ණාඩි", m3Sub: "AR Display", m4Title: "🌐 භාෂා 60", m4Sub: "ගෝලීය පාලම", navHome: "මුල් පිටුව", navAssets: "වත්කම්", navBenefits: "ප් රතිලාභ", navMenu: "මෙනුව" },
+            am: { brand: "HK WORLDBANK", sub: "የ60 ቋንቋዎች ግሎባል ሜጋ ኮር (v10.5)", auth: "ማረጋገጫ / የኪስ ቦርሳ", portfolio: "የደንበኛ ጊል-ዶንግ ሆንግ የተዋሃደ ፖርትፎሊዮ", kycBadge: "KYC/KYB 100% ተረጋግጧል", web2: "Web2 ተቀማጭ", web3: "Web3 የኪስ ቦርሳ", engineTitle: "የተሰራጨው የWeb3 ሞተር (በKYC/KYB የተጠበቀ)", p1: "1. አገናኝ", p2: "2. ያስተላልፉ", p3: "3. ክፍያ", p4: "4. ተቀማጭ", p5: "5. ሽልማት", p6: "6. UBI", p7: "7. ስዋፕ", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi ቀሪ ሂሳብ", logText: "[SYSTEM READY] ክፍለ ጊዜው ተሳስቷል።", assetsHeader: "💰 ንብረቶች", accWeb2: "ቁጠባ (Web2)", accWeb3: "Pi የኪስ ቦርሳ (Web3)", benefitsHeader: "🎁 UBI ገቢ", benefitsDesc: "ደህንነቱ የተጠበቀ UBI።", rewardLabel: "ሽልማት", claimBtn: "ይጠይቁ", menuHeader: "☰ ማኑ", m1Title: "🛡️ KYC", m1Sub: "ተረጋግጧል", m2Title: "🏢 KYB", m2Sub: "ተረጋግጧል", m3Title: "👓 AR መነጽር", m3Sub: "AR ማሳያ", m4Title: "🌐 60 ቋንቋዎች", m4Sub: "ዓለም አቀፍ ድልድይ", navHome: "መነሻ", navAssets: "ንብረቶች", navBenefits: "ጥቅሞች", navMenu: "ማኑ" },
+            zu: { brand: "HK WORLDBANK", sub: "I-Global Mega Core yezilimi eziyi-60 (v10.5)", auth: "Ukuqinisekisa / Isikhwama", portfolio: "Iphothifoliyo Ehlanganisiwe Yekhasimende u-Gil-dong Hong", kycBadge: "KYC/KYB 100% Iqinisekisiwe", web2: "Idiphozithi ye-Web2", web3: "Isikhwama se-Web3", engineTitle: "I-Web3 Distributed Engine (Ivinjelwe nge-KYC/KYB)", p1: "1. Xhuma", p2: "2. Dlulisa", p3: "3. Khokha", p4: "4. Faka", p5: "5. Umvuzo", p6: "6. UBI", p7: "7. Shintsha", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Ibhalansi ye-Pi", logText: "[SYSTEM READY] Iseshini ivumelanisiwe.", assetsHeader: "💰 Izimpahla", accWeb2: "Ukonga (Web2)", accWeb3: "Isikhwama se-Pi (Web3)", benefitsHeader: "🎁 Imali Engenayo ye-UBI", benefitsDesc: "I-UBI ephephile.", rewardLabel: "Umvuzo", claimBtn: "Funa", menuHeader: "☰ Imenyu", m1Title: "🛡️ KYC", m1Sub: "Iqinisekisiwe", m2Title: "🏢 KYB", m2Sub: "Iqinisekisiwe", m3Title: "👓 Izibuko ze-AR", m3Sub: "AR Display", m4Title: "🌐 Izilimi eziyi-60", m4Sub: "Ibhuloho Lomhlaba", navHome: "Ekhaya", navAssets: "Izimpahla", navBenefits: "Izinzuzo", navMenu: "Imenyu" },
+            af: { brand: "HK WORLDBANK", sub: "60-Taal Globale Mega Core (v10.5)", auth: "Stawing / Beursie", portfolio: "Klant Gil-dong Hong se Verenigde Portefeulje", kycBadge: "KYC/KYB 100% Geverifieer", web2: "Web2 Deposito", web3: "Web3 Beursie", engineTitle: "Web3 Gedesentraliseerde Enjin (KYC/KYB Veilig)", p1: "1. Koppel", p2: "2. Oordrag", p3: "3. Betaling", p4: "4. Deposito", p5: "5. Beloning", p6: "6. UBI", p7: "7. Ruil", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Balans", logText: "[SYSTEM READY] Sessie gesinchroniseer.", assetsHeader: "💰 Bates", accWeb2: "Spaarrekening (Web2)", accWeb3: "Pi Beursie (Web3)", benefitsHeader: "🎁 UBI Inkomste", benefitsDesc: "Gedesentraliseerde UBI.", rewardLabel: "Beloning", claimBtn: "Vorder", menuHeader: "☰ Kieslys", m1Title: "🛡️ KYC", m1Sub: "Geverifieer", m2Title: "🏢 KYB", m2Sub: "Geverifieer", m3Title: "👓 AR Bril", m3Sub: "AR Display", m4Title: "🌐 60 Tale", m4Sub: "Wêreldwye Brug", navHome: "Tuis", navAssets: "Bates", navBenefits: "Voordele", navMenu: "Kieslys" },
+            az: { brand: "HK WORLDBANK", sub: "60 Dillik Qlobal Meqa Nüvə (v10.5)", auth: "Təsdiq / Cüzdan", portfolio: "Müştəri Gil-dong Hong-un Vahid Portfeli", kycBadge: "KYC/KYB 100% Təsdiqlndi", web2: "Web2 Depozit", web3: "Web3 Cüzdan", engineTitle: "Web3 Paylanmış Mühərrik (KYC/KYB Təhlükəsiz)", p1: "1. Qoşul", p2: "2. Köçürmə", p3: "3. Ödəniş", p4: "4. Depozit", p5: "5. Mükafat", p6: "6. UBI", p7: "7. Swap", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Balansı", logText: "[SYSTEM READY] Sessiya sinxronlaşdırıldı.", assetsHeader: "💰 Aktivlar", accWeb2: "Yığım (Web2)", accWeb3: "Pi Cüzdan (Web3)", benefitsHeader: "🎁 UBI Gəliri", benefitsDesc: "Təhlükəsiz UBI.", rewardLabel: "Mükafat", claimBtn: "Tələb et", menuHeader: "☰ Meny", m1Title: "🛡️ KYC", m1Sub: "Təsdiqlndi", m2Title: "🏢 KYB", m2Sub: "Təsdiqlndi", m3Title: "👓 AR Eynək", m3Sub: "AR Display", m4Title: "🌐 60 Dil", m4Sub: "Qlobal Körpü", navHome: "Ana Səhifə", navAssets: "Aktivlar", navBenefits: "Faydalar", navMenu: "Menyu" },
+            bg: { brand: "HK WORLDBANK", sub: "60-езиково глобално мега ядро (v10.5)", auth: "Оторизация / Портфейл", portfolio: "Обединено портфолио на клиент Гил-донг Хонг", kycBadge: "KYC/KYB 100% Верифициран", web2: "Web2 Депозит", web3: "Web3 Портфейл", engineTitle: "Разпределен двигател Web3 (Защитен от KYC/KYB)", p1: "1. Свързване", p2: "2. Превод", p3: "3. Плащане", p4: "4. Депозит", p5: "5. Награда", p6: "6. UBI", p7: "7. Размяна", p8: "8. DEX Swap", p9: "9. Стейкинг", p10: "10. Pi Баланс", logText: "[SYSTEM READY] Сесията е синхронизирана.", assetsHeader: "💰 Активи", accWeb2: "Спестявания (Web2)", accWeb3: "Pi Портфейл (Web3)", benefitsHeader: "🎁 UBI Доход", benefitsDesc: "Сигурен децентрализиран UBI.", rewardLabel: "Награда", claimBtn: "Получи", menuHeader: "☰ Меню", m1Title: "🛡️ KYC", m1Sub: "Верифициран", m2Title: "🏢 KYB", m2Sub: "Верифициран", m3Title: "👓 AR Очила", m3Sub: "AR Display", m4Title: "🌐 60 Езика", m4Sub: "Глобален мост", navHome: "Начало", navAssets: "Активи", navBenefits: "Ползи", navMenu: "Меню" },
+            ca: { brand: "HK WORLDBANK", sub: "Mega Nucli Global de 60 Idiomes (v10.5)", auth: "Autenticació / Cartera", portfolio: "Portafoli Unificat del Client Gil-dong Hong", kycBadge: "KYC/KYB 100% Verificat", web2: "Dipòsit Web2", web3: "Cartera Web3", engineTitle: "Motor Distribuït Web3 (Segur per KYC/KYB)", p1: "1. Connectar", p2: "2. Transferència", p3: "3. Pagament", p4: "4. Dipòsit", p5: "5. Recompensa", p6: "6. UBI", p7: "7. Intercanvi", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Saldo", logText: "[SYSTEM READY] Sessió sincronitzada.", assetsHeader: "💰 Actius", accWeb2: "Estalvis (Web2)", accWeb3: "Cartera Pi (Web3)", benefitsHeader: "🎁 Ingressos UBI", benefitsDesc: "UBI descentralitzat segur.", rewardLabel: "Recompensa", claimBtn: "Reclamar", menuHeader: "☰ Menú", m1Title: "🛡️ KYC", m1Sub: "Verificat", m2Title: "🏢 KYB", m2Sub: "Verificat", m3Title: "👓 Ulleres AR", m3Sub: "AR Display", m4Title: "🌐 60 Idiomes", m4Sub: "Pont Global", navHome: "Inici", navAssets: "Actius", navBenefits: "Beneficis", navMenu: "Menú" },
+            hr: { brand: "HK WORLDBANK", sub: "Globalna mega jezgra s 60 jezika (v10.5)", auth: "Prijava / Novčanik", portfolio: "Jedinstveni portfelj klijenta Gil-dong Hong", kycBadge: "KYC/KYB 100% Verificirano", web2: "Web2 Depozit", web3: "Web3 Novčanik", engineTitle: "Web3 distribuirani mehanizam (osiguran KYC/KYB-om)", p1: "1. Poveži", p2: "2. Prijenos", p3: "3. Plaćanje", p4: "4. Depozit", p5: "5. Nagrada", p6: "6. UBI", p7: "7. Zamjena", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Stanje", logText: "[SYSTEM READY] Sesija sinkronizirana.", assetsHeader: "💰 Imovina", accWeb2: "Ušteđevina (Web2)", accWeb3: "Pi Novčanik (Web3)", benefitsHeader: "🎁 UBI Prihod", benefitsDesc: "Siguran UBI.", rewardLabel: "Nagrada", claimBtn: "Preuzmi", menuHeader: "☰ Izbornik", m1Title: "🛡️ KYC", m1Sub: "Verificirano", m2Title: "🏢 KYB", m2Sub: "Verificirano", m3Title: "👓 AR Naočale", m3Sub: "AR Display", m4Title: "🌐 60 Jezika", m4Sub: "Globalni Most", navHome: "Početna", navAssets: "Imovina", navBenefits: "Pogodnosti", navMenu: "Izbornik" },
+            et: { brand: "HK WORLDBANK", sub: "60 keele globaalne megatuum (v10.5)", auth: "Autentimine / Rahakott", portfolio: "Kliendi Gil-dong Hong ühendatud portfell", kycBadge: "KYC/KYB 100% Kinnitatud", web2: "Web2 Deposiit", web3: "Web3 Rahakott", engineTitle: "Web3 hajutatud mootor (KYC/KYB kaitstud)", p1: "1. Ühenda", p2: "2. Ülekanne", p3: "3. Makse", p4: "4. Deposiit", p5: "5. Preemia", p6: "6. UBI", p7: "7. Vahetus", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Saldo", logText: "[SYSTEM READY] Sessi sünkroonitud.", assetsHeader: "💰 Varad", accWeb2: "Hoius (Web2)", accWeb3: "Pi Rahakott (Web3)", benefitsHeader: "🎁 UBI Sissetulek", benefitsDesc: "Turvaline UBI.", rewardLabel: "Preemia", claimBtn: "Nõua", menuHeader: "☰ Menüü", m1Title: "🛡️ KYC", m1Sub: "Kinnitatud", m2Title: "🏢 KYB", m2Sub: "Kinnitatud", m3Title: "👓 AR Prillid", m3Sub: "AR Display", m4Title: "🌐 60 Keelt", m4Sub: "Globaalne Sild", navHome: "Avaleht", navAssets: "Varad", navBenefits: "Hüved", navMenu: "Menüü" },
+            ka: { brand: "HK WORLDBANK", sub: "60-ენოვანი გლობალური მეგა ბირთვი (v10.5)", auth: "ავტორიზაცია / საფულე", portfolio: "კლიენტ გილ-დონგ ჰონგის გაერთიანებული პორტფოლიო", kycBadge: "KYC/KYB 100% გადამოწმებულია", web2: "Web2 დეპოზიტი", web3: "Web3 საფულე", engineTitle: "Web3 განაწილებული ძრავა (KYC/KYB დაცული)", p1: "1. დაკავშირება", p2: "2. გადარიცხვა", p3: "3. გადახდა", p4: "4. დეპოზიტი", p5: "5. ჯილდო", p6: "6. UBI", p7: "7. გაცვლა", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi ბალანსი", logText: "[SYSTEM READY] სესია სინქრონიზებულია.", assetsHeader: "💰 აქტივები", accWeb2: "დაზოგვა (Web2)", accWeb3: "Pi საფულე (Web3)", benefitsHeader: "🎁 UBI შემოსავალი", benefitsDesc: "უსაფრთხო UBI.", rewardLabel: "ჯილდო", claimBtn: "მიღება", menuHeader: "☰ მენიუ", m1Title: "🛡️ KYC", m1Sub: "გადამოწმებულია", m2Title: "🏢 KYB", m2Sub: "გადამოწმებულია", m3Title: "👓 AR სათვალე", m3Sub: "AR Display", m4Title: "🌐 60 ენა", m4Sub: "გლობალური ხიდი", navHome: "მთავარი", navAssets: "აქტივები", navBenefits: "უპირატესობები", navMenu: "მენიუ" },
+            kk: { brand: "HK WORLDBANK", sub: "60 тілді жаһандық мега ядро (v10.5)", auth: "Авторизация / Әмиян", portfolio: "Клиент Гил-донг Хонгтың біріктірілген портфелі", kycBadge: "KYC/KYB 100% Тексерілген", web2: "Web2 Депозит", web3: "Web3 Әмиян", engineTitle: "Web3 таратылған қозғалтқышы (KYC/KYB қорғалған)", p1: "1. Қосу", p2: "2. Аударым", p3: "3. Төлем", p4: "4. Депозит", p5: "5. Марапат", p6: "6. UBI", p7: "7. Ауыстыру", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Балансы", logText: "[SYSTEM READY] Сессия синхрондалды.", assetsHeader: "💰 Активтер", accWeb2: "Жинақ (Web2)", accWeb3: "Pi Әмиян (Web3)", benefitsHeader: "🎁 UBI Кірісі", benefitsDesc: "Қауіпсіз UBI.", rewardLabel: "Марапат", claimBtn: "Алу", menuHeader: "☰ Мәзір", m1Title: "🛡️ KYC", m1Sub: "Тексерілген", m2Title: "🏢 KYB", m2Sub: "Тексерілген", m3Title: "👓 AR Көзілдірік", m3Sub: "AR Display", m4Title: "🌐 60 Тіл", m4Sub: "Жаһандық көпір", navHome: "Басты бет", navAssets: "Активтер", navBenefits: "Артықшылықтар", navMenu: "Мәзір" },
+            lt: { brand: "HK WORLDBANK", sub: "60 kalbų pasaulinis mega branduolys (v10.5)", auth: "Autentifikavimas / Piniginė", portfolio: "Kliento Gil-dong Hong bendras portfelis", kycBadge: "KYC/KYB 100% Patvirtinta", web2: "Web2 Indėlis", web3: "Web3 Piniginė", engineTitle: "Web3 paskirstytas variklis (KYC/KYB apsaugotas)", p1: "1. Prijungti", p2: "2. Pervesti", p3: "3. Mokėti", p4: "4. Įnešti", p5: "5. Apdovanojimas", p6: "6. UBI", p7: "7. Keisti", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Likutis", logText: "[SYSTEM READY] Sesija sinchronizuota.", assetsHeader: "💰 Turtas", accWeb2: "Taupymas (Web2)", accWeb3: "Pi Piniginė (Web3)", benefitsHeader: "🎁 UBI Pajamos", benefitsDesc: "Saugus UBI.", rewardLabel: "Apdovanojimas", claimBtn: "Atsiimti", menuHeader: "☰ Meniu", m1Title: "🛡️ KYC", m1Sub: "Patvirtinta", m2Title: "🏢 KYB", m2Sub: "Patvirtinta", m3Title: "👓 AR Akiniai", m3Sub: "AR Display", m4Title: "🌐 60 Kalbų", m4Sub: "Pasaulinis tiltas", navHome: "Pradžia", navAssets: "Turtas", navBenefits: "Nauda", navMenu: "Meniu" },
+            lv: { brand: "HK WORLDBANK", sub: "60 valodu globālais mega kodols (v10.5)", auth: "Autentifikācija / Maks", portfolio: "Klienta Gil-dong Hong vienotais portfelis", kycBadge: "KYC/KYB 100% Apstiprināts", web2: "Web2 Depozīts", web3: "Web3 Maks", engineTitle: "Web3 izplatītais dzinējs (KYC/KYB aizsargāts)", p1: "1. Savienot", p2: "2. Pārskaitījums", p3: "3. Maksājums", p4: "4. Depozīts", p5: "5. Balva", p6: "6. UBI", p7: "7. Maiņa", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Atlikums", logText: "[SYSTEM READY] Sesija sinhronizēta.", assetsHeader: "💰 Aktīvi", accWeb2: "Uzkrājumi (Web2)", accWeb3: "Pi Maks (Web3)", benefitsHeader: "🎁 UBI Ienākumi", benefitsDesc: "Drošs UBI.", rewardLabel: "Balva", claimBtn: "Saņemt", menuHeader: "☰ Izvēlne", m1Title: "🛡️ KYC", m1Sub: "Apstiprināts", m2Title: "🏢 KYB", m2Sub: "Apstiprināts", m3Title: "👓 AR Brilles", m3Sub: "AR Display", m4Title: "🌐 60 Valodas", m4Sub: "Globālais tiltu", navHome: "Sākums", navAssets: "Aktīvi", navBenefits: "Ieguvumi", navMenu: "Izvēlne" },
+            mk: { brand: "HK WORLDBANK", sub: "Глобално мега јадро на 60 јазици (v10.5)", auth: "Авторизација / Паричник", portfolio: "Обединето портфолио на клиент Гил-донг Хонг", kycBadge: "KYC/KYB 100% Верификувано", web2: "Web2 Депозит", web3: "Web3 Паричник", engineTitle: "Web3 дистрибуиран мотор (безбеден KYC/KYB)", p1: "1. Поврзи", p2: "2. Пренос", p3: "3. Плаќање", p4: "4. Депозит", p5: "5. Награда", p6: "6. UBI", p7: "7. Размена", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Салдо", logText: "[SYSTEM READY] Сесијата е синхронизирана.", assetsHeader: "💰 Средства", accWeb2: "Заштеда (Web2)", accWeb3: "Pi Паричник (Web3)", benefitsHeader: "🎁 UBI Приход", benefitsDesc: "Безбеден UBI.", rewardLabel: "Награда", claimBtn: "Змиј", menuHeader: "☰ Мени", m1Title: "🛡️ KYC", m1Sub: "Верификувано", m2Title: "🏢 KYB", m2Sub: "Верификувано", m3Title: "👓 AR Очила", m3Sub: "AR Display", m4Title: "🌐 60 Јазици", m4Sub: "Глобален мост", navHome: "Дома", navAssets: "Средства", navBenefits: "Придобивки", navMenu: "Мени" },
+            mn: { brand: "HK WORLDBANK", sub: "60 хэлний дэлхийн мега цөм (v10.5)", auth: "Баталгаажуулалт / Хэтэвч", portfolio: "Харилцагч Гил-донг Хонгийн нэгдсэн багц", kycBadge: "KYC/KYB 100% Баталгаажсан", web2: "Web2 Хадгаламж", web3: "Web3 Хэтэвч", engineTitle: "Web3 тараагдсан систем (KYC/KYB хамгаалагдсан)", p1: "1. Холбох", p2: "2. Шилжүүлэг", p3: "3. Төлбөр", p4: "4. Хадгаламж", p5: "5. Шагнал", p6: "6. UBI", p7: "7. Солих", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Үлдэгдэл", logText: "[SYSTEM READY] Сесс амжилттай синк хийгдлээ.", assetsHeader: "💰 Хөрөнгө", accWeb2: "Хадгаламж (Web2)", accWeb3: "Pi Хэтэвч (Web3)", benefitsHeader: "🎁 UBI Орлого", benefitsDesc: "Аюулгүй UBI.", rewardLabel: "Шагнал", claimBtn: "Авах", menuHeader: "☰ Цэс", m1Title: "🛡️ KYC", m1Sub: "Баталгаажсан", m2Title: "🏢 KYB", m2Sub: "Баталгаажсан", m3Title: "👓 AR Шил", m3Sub: "AR Display", m4Title: "🌐 60 Хэл", m4Sub: "Дэлхийн гүүр", navHome: "Нүүр", navAssets: "Хөрөнгө", navBenefits: "Урамшуулал", navMenu: "Цэс" },
+            sr: { brand: "HK WORLDBANK", sub: "Глобално мега језгро на 60 језика (v10.5)", auth: "Пријава / Новчаник", portfolio: "Јединствени портфолио клијента Гил-донг Хонг", kycBadge: "KYC/KYB 100% Верификовано", web2: "Web2 Депозит", web3: "Web3 Новчаник", engineTitle: "Web3 дистрибуирани мотор (обезбеђен KYC/KYB)", p1: "1. Повежи", p2: "2. Пренос", p3: "3. Плаћање", p4: "4. Депозит", p5: "5. Награда", p6: "6. UBI", p7: "7. Замена", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Stanje", logText: "[SYSTEM READY] Сесија је синхронизована.", assetsHeader: "💰 Имовина", accWeb2: "Штедња (Web2)", accWeb3: "Pi Новчаник (Web3)", benefitsHeader: "🎁 UBI Приход", benefitsDesc: "Сигуран UBI.", rewardLabel: "Награда", claimBtn: "Преузми", menuHeader: "☰ Мени", m1Title: "🛡️ KYC", m1Sub: "Верификовано", m2Title: "🏢 KYB", m2Sub: "Верификовано", m3Title: "👓 AR Наочаре", m3Sub: "AR Display", m4Title: "🌐 60 Језика", m4Sub: "Глобални мост", navHome: "Почетна", navAssets: "Имовина", navBenefits: "Погодности", navMenu: "Мени" },
+            sk: { brand: "HK WORLDBANK", sub: "60-jazykové globálne mega jadro (v10.5)", auth: "Auth / Peňaženka", portfolio: "Jednotné portfólio zákazníka Gil-dong Hong", kycBadge: "KYC/KYB 100% Overené", web2: "Web2 Vklad", web3: "Web3 Peňaženka", engineTitle: "Web3 distribuovaný engine (zabezpečený KYC/KYB)", p1: "1. Pripojiť", p2: "2. Prevody", p3: "3. Platba", p4: "4. Vklad", p5: "5. Odmena", p6: "6. UBI", p7: "7. Swap", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Zostatok", logText: "[SYSTEM READY] Relácia synchronizovaná.", assetsHeader: "💰 Aktíva", accWeb2: "Úspory (Web2)", accWeb3: "Pi Peňaženka (Web3)", benefitsHeader: "🎁 UBI Príjem", benefitsDesc: "Bezpečné UBI.", rewardLabel: "Odmena", claimBtn: "Získať", menuHeader: "☰ Menu", m1Title: "🛡️ KYC", m1Sub: "Overené", m2Title: "🏢 KYB", m2Sub: "Overené", m3Title: "👓 AR Okuliare", m3Sub: "AR Display", m4Title: "🌐 60 Jazykov", m4Sub: "Globálny most", navHome: "Domov", navAssets: "Aktíva", navBenefits: "Výhody", navMenu: "Menu" },
+            sl: { brand: "HK WORLDBANK", sub: "Globalno mega jedro v 60 jezikih (v10.5)", auth: "Prijava / Denarnica", portfolio: "Enotni portfelj stranke Gil-dong Hong", kycBadge: "KYC/KYB 100% Preverjeno", web2: "Web2 Depozit", web3: "Web3 Denarnica", engineTitle: "Web3 porazdeljeni mehanizem (zavarovan KYC/KYB)", p1: "1. Poveži", p2: "2. Prenos", p3: "3. Plačilo", p4: "4. Depozit", p5: "5. Nagrada", p6: "6. UBI", p7: "7. Menjava", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Stanje", logText: "[SYSTEM READY] Seja sinkronizirana.", assetsHeader: "💰 Sredstva", accWeb2: "Varčevanje (Web2)", accWeb3: "Pi Denarnica (Web3)", benefitsHeader: "🎁 UBI Prihodek", benefitsDesc: "Varen UBI.", rewardLabel: "Nagrada", claimBtn: "Prevzemi", menuHeader: "☰ Meni", m1Title: "🛡️ KYC", m1Sub: "Preverjeno", m2Title: "🏢 KYB", m2Sub: "Preverjeno", m3Title: "👓 AR Očala", m3Sub: "AR Display", m4Title: "🌐 60 Jezikov", m4Sub: "Globalni Most", navHome: "Domov", navAssets: "Sredstva", navBenefits: "Prednosti", navMenu: "Meni" },
+            ta: { brand: "HK WORLDBANK", sub: "60-மொழி உலகளாவிய மெகா கோர் (v10.5)", auth: "உள்நுழை / வாலட்", portfolio: "வாடிக்கையாளர் கில்-டாங் ஹாங் ஒருங்கிணைந்த போர்ட்ஃபோலியோ", kycBadge: "KYC/KYB 100% சரிபார்க்கப்பட்டது", web2: "Web2 வைப்பு", web3: "Web3 வாலட்", engineTitle: "Web3 விநியோகிக்கப்பட்ட இயந்திரம் (KYC/KYB பாதுகாக்கப்பட்டது)", p1: "1. இணை", p2: "2. அனுப்பு", p3: "3. செலுத்து", p4: "4. வைப்பு", p5: "5. பரிசு", p6: "6. UBI", p7: "7. மாற்று", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi இருப்பு", logText: "[SYSTEM READY] அமர்வு ஒத்திசைக்கப்பட்டது.", assetsHeader: "💰 சொத்துக்கள்", accWeb2: "சேமிப்பு (Web2)", accWeb3: "Pi வாலட் (Web3)", benefitsHeader: "🎁 UBI வருமானம்", benefitsDesc: "பாதுகாப்பான UBI.", rewardLabel: "பரிசு", claimBtn: "பெறு", menuHeader: "☰ பட்டி", m1Title: "🛡️ KYC", m1Sub: "சரிபார்க்கப்பட்டது", m2Title: "🏢 KYB", m2Sub: "சரிபார்க்கப்பட்டது", m3Title: "👓 AR கண்ணாடி", m3Sub: "AR Display", m4Title: "🌐 60 மொழிகள்", m4Sub: "உலகளாவிய பாலம்", navHome: "முகப்பு", navAssets: "சொத்துக்கள்", navBenefits: "நன்மைகள்", navMenu: "பட்டி" },
+            te: { brand: "HK WORLDBANK", sub: "60-భాషల ప్రపంచ మెగా కోర్ (v10.5)", auth: "ధృవీకరణ / వాలెట్", portfolio: "కస్టమర్ గిల్-డాంగ్ హాంగ్ ఏకీకృత పోర్ట్ ఫోలియో", kycBadge: "KYC/KYB 100% ధృవీకరించబడింది", web2: "Web2 డిపాజిట్", web3: "Web3 వాలెట్", engineTitle: "Web3 పంపిణీ చేయబడిన ఇంజిన్ (KYC/KYB సురక్షితం)", p1: "1. కనెక్ట్", p2: "2. బదిలీ", p3: "3. చెల్లింపు", p4: "4. డిపాజిట్", p5: "5. బహుమతి", p6: "6. UBI", p7: "7. స్వాప్", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi నిల్వ", logText: "[SYSTEM READY] సెషన్ సమకాలీకరించబడింది.", assetsHeader: "💰 ఆస్తులు", accWeb2: "పొదుపు (Web2)", accWeb3: "Pi వాలెట్ (Web3)", benefitsHeader: "🎁 UBI ఆదాయం", benefitsDesc: "సురక్షిత UBI.", rewardLabel: "బహుమతి", claimBtn: "క్లెయిమ్", menuHeader: "☰ మెను", m1Title: "🛡️ KYC", m1Sub: "ధృవీకరించబడింది", m2Title: "🏢 KYB", m2Sub: "ధృవీకరించబడింది", m3Title: "👓 AR అద్దాలు", m3Title: "AR Display", m4Title: "🌐 60 భాషలు", m4Sub: "గ్లోబల్ బ్రిడ్జ్", navHome: "హోమ్", navAssets: "ఆస్తులు", navBenefits: "ప్రయోజనాలు", navMenu: "మెను" },
+            uz: { brand: "HK WORLDBANK", sub: "60 tilli global mega yadro (v10.5)", auth: "Tasdiqlash / Hamyon", portfolio: "Mijoz Gil-dong Hong ning birlashtirilgan portfeli", kycBadge: "KYC/KYB 100% Tasdiqlangan", web2: "Web2 Omonat", web3: "Web3 Hamyon", engineTitle: "Web3 taqsimlangan dvigateli (KYC/KYB himoyalangan)", p1: "1. Ulash", p2: "2. O'tkazma", p3: "3. To'lov", p4: "4. Omonat", p5: "5. Mukofot", p6: "6. UBI", p7: "7. Ayirboshlash", p8: "8. DEX Swap", p9: "9. Staking", p10: "10. Pi Balansi", logText: "[SYSTEM READY] Sessiya sinxronlandi.", assetsHeader: "💰 Aktivlar", accWeb2: "Jamg'arma (Web2)", accWeb3: "Pi Hamyon (Web3)", benefitsHeader: "🎁 UBI Daromad", benefitsDesc: "Xavfsiz UBI.", rewardLabel: "Mukofot", claimBtn: "Olish", menuHeader: "☰ Menyu", m1Title: "🛡️ KYC", m1Sub: "Tasdiqlangan", m2Title: "🏢 KYB", m2Sub: "Tasdiqlangan", m3Title: "👓 AR Ko'zoynak", m3Sub: "AR Display", m4Title: "🌐 60 Til", m4Sub: "Global Ko'prik", navHome: "Bosh sahifa", navAssets: "Aktivlar", navBenefits: "Afzalliklar", navMenu: "Menyu" }
         };
 
-        const allLangs = ['ko','en','zh','es','fr','ar','sw','am','ja','de','ru','pt','hi','id','vi','th','tr','it','nl','pl','uk','fa','ur','bn','ms','fil','ha','yo','ig','zu','xh','so','rw','mg','ny','sn','st','tn','kk','uz','az','el','he','cs','hu','ro','sv','da','fi','no'];
-        const resources = {};
-        allLangs.forEach(l => {
-            resources[l] = { translation: translations[l] || translations['en'] };
-        });
-
-        i18next.init({ lng: 'ko', resources: resources }, () => updateText());
-
-        function changeLanguage(lng) {
-            i18next.changeLanguage(lng, () => updateText());
+        function changeLanguage(lang) {
+            const d = i18nDB[lang] || i18nDB['en'];
+            document.getElementById('i18n-brand').innerText = d.brand || "HK WORLDBANK";
+            document.getElementById('i18n-sub').innerText = d.sub;
+            document.getElementById('i18n-auth-btn').innerText = d.auth;
+            document.getElementById('i18n-portfolio').innerText = d.portfolio;
+            document.getElementById('i18n-kyc-badge').innerText = d.kycBadge;
+            document.getElementById('i18n-web2-label').innerText = d.web2;
+            document.getElementById('i18n-web3-label').innerText = d.web3;
+            document.getElementById('i18n-engine-title').innerText = d.engineTitle;
+            document.getElementById('i18n-p1').innerText = d.p1;
+            document.getElementById('i18n-p2').innerText = d.p2;
+            document.getElementById('i18n-p3').innerText = d.p3;
+            document.getElementById('i18n-p4').innerText = d.p4;
+            document.getElementById('i18n-p5').innerText = d.p5;
+            document.getElementById('i18n-p6').innerText = d.p6;
+            document.getElementById('i18n-p7').innerText = d.p7;
+            document.getElementById('i18n-p8').innerText = d.p8;
+            document.getElementById('i18n-p9').innerText = d.p9;
+            document.getElementById('i18n-p10').innerText = d.p10;
+            document.getElementById('i18n-log-text').innerText = d.logText;
+            document.getElementById('i18n-assets-header').innerText = d.assetsHeader;
+            document.getElementById('i18n-acc-web2').innerText = d.accWeb2;
+            document.getElementById('i18n-acc-web3').innerText = d.accWeb3;
+            document.getElementById('i18n-benefits-header').innerText = d.benefitsHeader;
+            document.getElementById('i18n-benefits-desc').innerText = d.benefitsDesc;
+            document.getElementById('i18n-reward-label').innerText = d.rewardLabel;
+            document.getElementById('i18n-claim-btn').innerText = d.claimBtn;
+            document.getElementById('i18n-menu-header').innerText = d.menuHeader;
+            document.getElementById('i18n-m1-title').innerText = d.m1Title;
+            document.getElementById('i18n-m1-sub').innerText = d.m1Sub;
+            document.getElementById('i18n-m2-title').innerText = d.m2Title;
+            document.getElementById('i18n-m2-sub').innerText = d.m2Sub;
+            document.getElementById('i18n-m3-title').innerText = d.m3Title;
+            document.getElementById('i18n-m3-sub').innerText = d.m3Sub;
+            document.getElementById('i18n-m4-title').innerText = d.m4Title;
+            document.getElementById('i18n-m4-sub').innerText = d.m4Sub;
+            document.getElementById('nav-home').innerText = d.navHome;
+            document.getElementById('nav-assets').innerText = d.navAssets;
+            document.getElementById('nav-benefits').innerText = d.navBenefits;
+            document.getElementById('nav-menu').innerText = d.navMenu;
         }
 
-        function updateText() {
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const k = el.getAttribute('data-i18n');
-                if(i18next.exists(k)) el.innerText = i18next.t(k);
-            });
-        }
-
-        function connectWallet() {
-            alert("[Web3 탈중앙화 지갑] 노드 연결 및 KYYC 백그라운드 검증이 완료되었습니다.");
-        }
-
-        function executeSwap() {
-            alert("[스왑 완료] 탈중앙화 체인에서 코인 교환이 성공적으로 체결되었습니다.");
-        }
-
-        function executeDeposit() {
-            alert("[예치 완료] 스마트 컨트랙트에 자산이 안전하게 예치되었습니다.");
-        }
-
-        function claimUBI() {
-            alert("[UBI 30% 수령] HK 사회재단을 통해 기본소득이 지급되었습니다.");
-        }
-
-        function switchTab(tab) {
-            if(tab === 'swap') {
-                document.getElementById('sectionSwap').classList.remove('hidden');
-                document.getElementById('sectionDeposit').classList.add('hidden');
-                document.getElementById('tabSwap').className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-purple-600 text-white shadow-md transition";
-                document.getElementById('tabDeposit').className = "flex-1 py-2.5 text-xs font-bold rounded-xl text-purple-300 hover:text-white transition";
+        function toggleAuth() {
+            const btn = document.getElementById('i18n-auth-btn');
+            if(btn.innerText.includes("인증") || btn.innerText.includes("Auth") || btn.innerText.includes("认证") || btn.innerText.includes("認証") || btn.innerText.includes("Autenticación") || btn.innerText.includes("Xác thực") || btn.innerText.includes("завершено") || btn.innerText.includes("যাচাইকৃত") || btn.innerText.includes("Verificato") || btn.innerText.includes("Verifiziert") || btn.innerText.includes("Doğrulandı")) {
+                btn.innerText = "홍길동 고객 인증완료 (KYC/KYB)";
+                btn.className = "px-4.5 py-2.5 rounded-xl text-xs font-bold bg-green-600 text-white shadow-2xl";
             } else {
-                document.getElementById('sectionSwap').classList.add('hidden');
-                document.getElementById('sectionDeposit').classList.remove('hidden');
-                document.getElementById('tabDeposit').className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-purple-600 text-white shadow-md transition";
-                document.getElementById('tabSwap').className = "flex-1 py-2.5 text-xs font-bold rounded-xl text-purple-300 hover:text-white transition";
+                btn.innerText = "간편 인증 / 지갑연결";
+                btn.className = "btn-purple text-white px-4.5 py-2.5 rounded-xl text-xs font-bold shadow-xl";
             }
+        }
+        function runCore(name) {
+            document.getElementById('i18n-log-text').innerText = `[KYC/KYB Verified] '${name}' 프로세스가 홍길동 고객님의 하이브리드 메가 망에서 승인됨.`;
+        }
+        function switchTab(tab, el) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => {
+                b.classList.remove('text-purple-400', 'font-bold');
+                b.classList.add('text-gray-400');
+            });
+            el.classList.remove('text-gray-400');
+            el.classList.add('text-purple-400', 'font-bold');
         }
     </script>
 </body>
