@@ -3,890 +3,667 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="metaTitle">HK WORLD BANK | 글로벌 차세대 분산 금융 플랫폼</title>
-    <!-- FontAwesome Icons & Google Fonts -->
+    <title id="metaTitle">HK WORLD BANK | NEXT-GEN FINANCIAL CORES</title>
+    <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Orbitron:wght@500;700;900&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Orbitron:wght@600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #040609;
-            --bg-secondary: #090d16;
-            --card-bg: #0f1726;
-            --card-border: #1b283f;
-            --accent-gold: #ffc107;
-            --accent-gold-glow: rgba(255, 193, 7, 0.4);
-            --accent-cyan: #00f0ff;
-            --accent-cyan-glow: rgba(0, 240, 255, 0.35);
-            --accent-green: #00ffaa;
-            --text-main: #f4f8fb;
-            --text-muted: #8c9cb5;
-            --danger: #ff3b30;
-            --pi-color: #f7931a;
+            --bg-base: #020408;
+            --bg-panel: #070b14;
+            --border-glow: #1f3152;
+            --gold: #f5af19;
+            --gold-glow: rgba(245, 175, 25, 0.4);
+            --cyan: #00f2fe;
+            --cyan-glow: rgba(0, 242, 254, 0.35);
+            --neon-green: #00ff88;
+            --text-main: #eef4f8;
+            --text-sub: #7a8fa6;
+            --pi-orange: #f7931a;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Outfit', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         select option {
-            background-color: #0f1726 !important;
+            background-color: var(--bg-panel) !important;
             color: #ffffff !important;
         }
 
         body {
-            background-color: var(--bg-primary);
+            background-color: var(--bg-base);
             color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
             overflow-x: hidden;
-            padding: 0;
         }
 
-        .app-container {
+        .app-shell {
             width: 100%;
             max-width: 480px;
-            background-color: var(--bg-secondary);
+            background-color: var(--bg-panel);
             min-height: 100vh;
-            box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 0 80px rgba(0, 242, 254, 0.08);
             position: relative;
             display: flex;
             flex-direction: column;
-            border-left: 1px solid rgba(255, 255, 255, 0.08);
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
 
+        /* 혁신형 헤더 */
         header {
-            padding: 16px 20px;
+            padding: 18px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(9, 13, 22, 0.95);
-            backdrop-filter: blur(14px);
+            background: rgba(7, 11, 20, 0.9);
+            backdrop-filter: blur(16px);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--border-glow);
         }
 
-        .menu-btn {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--card-border);
-            color: var(--accent-gold);
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+        .action-icon-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-glow);
+            color: var(--gold);
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+            transition: all 0.2s ease;
         }
 
-        .menu-btn:active {
-            transform: scale(0.92);
+        .action-icon-btn:active {
+            transform: scale(0.9);
+            background: var(--gold);
+            color: var(--bg-base);
         }
 
-        .header-center-title {
+        .brand-title {
             text-align: center;
         }
 
-        .header-center-title h2 {
+        .brand-title h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 900;
-            color: var(--accent-gold);
+            color: var(--gold);
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        .brand-title p {
+            font-size: 9px;
+            color: var(--cyan);
+            font-family: 'Share Tech Mono', monospace;
             letter-spacing: 1px;
-            text-shadow: 0 0 12px var(--accent-gold-glow);
         }
 
-        .header-center-title p {
-            font-size: 10px;
-            color: var(--accent-cyan);
-            letter-spacing: 0.5px;
-        }
-
-        .profile-badge {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--card-border), var(--bg-primary));
+        .profile-chip {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #111d32, #040609);
+            border: 1px solid var(--border-glow);
+            color: var(--gold);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 14px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--accent-gold);
-            font-weight: 900;
-            font-size: 16px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+            box-shadow: 0 0 12px var(--gold-glow);
         }
 
-        .lang-bar {
-            padding: 12px 20px;
-            background: rgba(0, 0, 0, 0.5);
+        /* 25개국어 글로벌 바 */
+        .global-bar {
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.6);
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        .lang-info {
+        .global-info {
+            font-size: 10px;
+            color: var(--cyan);
+            font-family: 'Share Tech Mono', monospace;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 11px;
-            color: var(--accent-cyan);
-            font-family: 'Orbitron', sans-serif;
+            gap: 6px;
         }
 
-        .lang-select {
-            background: var(--card-bg);
+        .lang-dropdown {
+            background: #0d1526;
             color: #fff;
-            border: 1px solid var(--card-border);
-            padding: 6px 12px;
+            border: 1px solid var(--border-glow);
+            padding: 5px 10px;
             border-radius: 8px;
-            font-size: 12px;
+            font-size: 11px;
             outline: none;
             cursor: pointer;
-            max-width: 210px;
+            max-width: 190px;
         }
 
         main {
-            padding: 24px 20px;
+            padding: 22px 18px;
             flex: 1;
         }
 
-        .hero-section {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .main-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 32px;
-            font-weight: 900;
-            color: var(--accent-gold);
-            text-shadow: 0 0 30px var(--accent-gold-glow);
-            letter-spacing: 2px;
-            margin-bottom: 6px;
-            text-align: center;
-        }
-
-        .sub-title {
-            font-size: 15px;
-            color: var(--accent-cyan);
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-shadow: 0 0 12px var(--accent-cyan-glow);
-            text-align: center;
-        }
-
-        .dashboard-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
+        /* 자산 대시보드 */
+        .vault-card {
+            background: linear-gradient(145deg, #0d1628, #070b14);
+            border: 1px solid var(--border-glow);
+            border-radius: 22px;
             padding: 22px;
-            margin-bottom: 28px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+            margin-bottom: 26px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
         }
 
-        .dashboard-card::before {
+        .vault-card::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-gold), var(--accent-cyan), var(--accent-green));
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--cyan), var(--neon-green));
         }
 
-        .dashboard-header {
-            font-size: 18px;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 18px;
+        .vault-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 15px;
+            font-weight: 800;
         }
 
-        .pi-box {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .pi-sync-box {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 14px;
-            padding: 16px;
+            padding: 14px;
             margin-bottom: 12px;
         }
 
-        .pi-box-title {
-            font-size: 12px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .pi-logo-icon {
-            width: 22px;
-            height: 22px;
-            background: var(--pi-color);
+        .pi-badge {
+            width: 20px;
+            height: 20px;
+            background: var(--pi-orange);
             color: #fff;
             border-radius: 50%;
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            font-weight: 900;
-            font-size: 13px;
-            font-family: serif;
-            box-shadow: 0 0 10px rgba(247, 147, 26, 0.6);
+            font-weight: bold;
+            font-size: 11px;
+            box-shadow: 0 0 10px rgba(247, 147, 26, 0.5);
         }
 
-        .pi-amount {
-            font-family: 'Roboto Mono', monospace;
+        .balance-num {
+            font-family: 'Share Tech Mono', monospace;
             font-size: 22px;
             font-weight: 700;
             color: #fff;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
         }
 
-        .pi-amount .unit {
-            color: var(--accent-gold);
-            font-size: 14px;
-        }
-
-        .interest-box {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .interest-vault {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 14px;
-            padding: 16px;
+            padding: 14px;
             margin-bottom: 18px;
         }
 
-        .interest-title {
-            font-size: 12px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .interest-value {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 20px;
+        .interest-num {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 19px;
             font-weight: 700;
-            color: var(--accent-green);
-            transition: color 0.3s ease;
+            color: var(--neon-green);
+            margin-top: 4px;
+            transition: all 0.3s;
         }
 
-        .interest-value.glow {
+        .interest-num.glow {
             color: #ffffff;
-            text-shadow: 0 0 15px var(--accent-green);
+            text-shadow: 0 0 12px var(--neon-green);
         }
 
-        .mainnet-btn {
+        .mainnet-action-btn {
             width: 100%;
-            background: linear-gradient(135deg, var(--accent-gold), #ff8800);
-            color: #040609;
+            background: linear-gradient(135deg, var(--gold), #ff8c00);
+            color: #020408;
             border: none;
-            padding: 15px;
+            padding: 14px;
             border-radius: 14px;
             font-weight: 900;
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
-            box-shadow: 0 4px 20px var(--accent-gold-glow);
-            transition: all 0.2s ease;
+            box-shadow: 0 5px 20px var(--gold-glow);
+            transition: transform 0.2s;
         }
 
-        .mainnet-btn:active {
-            transform: scale(0.98);
+        .mainnet-action-btn:active {
+            transform: scale(0.97);
         }
 
-        .section-header {
+        /* 섹션 타이틀 */
+        .sec-title-row {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
-        .section-title {
-            font-size: 18px;
+        .sec-title {
+            font-size: 16px;
             font-weight: 800;
-            color: #fff;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
 
-        .section-sub {
-            font-size: 11px;
-            color: var(--accent-green);
-            font-family: 'Roboto Mono', monospace;
+        .sec-sub {
+            font-size: 10px;
+            color: var(--neon-green);
+            font-family: 'Share Tech Mono', monospace;
         }
 
-        .network-grid {
+        /* 10대 분산 연동망 그리드 */
+        .network-matrix {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
         }
 
-        .network-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
+        .matrix-node {
+            background: #0a1120;
+            border: 1px solid var(--border-glow);
             border-radius: 16px;
-            padding: 16px;
+            padding: 15px;
             cursor: pointer;
             transition: all 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            min-height: 135px;
-            position: relative;
-            overflow: hidden;
+            min-height: 130px;
         }
 
-        .network-card:hover, .network-card:active {
-            border-color: var(--accent-gold);
+        .matrix-node:hover, .matrix-node:active {
+            border-color: var(--cyan);
+            background: #111d35;
             transform: translateY(-3px);
-            background: #152033;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 25px rgba(0,242,254,0.15);
         }
 
-        .card-top-center {
+        .node-icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 10px;
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 18px;
         }
 
-        .card-icon-1 { color: #00f0ff; font-size: 20px; }
-        .card-icon-2 { color: #ffc107; font-size: 20px; }
-        .card-icon-3 { color: #00ffaa; font-size: 20px; }
-        .card-icon-4 { color: #b085f5; font-size: 20px; }
-        .card-icon-5 { color: #ff3b30; font-size: 20px; }
-        .card-icon-6 { color: #34c759; font-size: 20px; }
-        .card-icon-7 { color: #00c7be; font-size: 20px; }
-        .card-icon-8 { color: #ff9500; font-size: 20px; }
-        .card-icon-9 { color: #5856d6; font-size: 20px; }
-        .card-icon-10 { color: #f7931a; font-size: 20px; }
-
-        .card-title {
-            font-size: 15px;
+        .node-name {
+            font-size: 14px;
             font-weight: 800;
             color: #fff;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
-        .card-desc {
-            font-size: 11px;
-            color: var(--text-muted);
+        .node-desc {
+            font-size: 10px;
+            color: var(--text-sub);
             line-height: 1.35;
         }
 
-        /* 햄버거 제휴 상거래 섹션 스타일 */
-        .burger-section {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
+        /* 버거 제휴 패스트오더 섹션 */
+        .burger-market {
+            background: linear-gradient(145deg, #120b08, #070b14);
+            border: 1px solid #3d2211;
             border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 32px;
-            position: relative;
-            overflow: hidden;
+            padding: 18px;
+            margin-bottom: 28px;
         }
-        .burger-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #ff3b30, var(--accent-gold));
-        }
-        .burger-header {
+
+        .burger-market-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 16px;
+            align-items: center;
+            margin-bottom: 12px;
         }
-        .burger-header h3 {
-            font-size: 17px;
+
+        .burger-market-header h3 {
+            font-size: 15px;
             font-weight: 800;
-            color: #fff;
+            color: var(--gold);
         }
-        .burger-grid {
+
+        .burger-items-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 14px;
+            gap: 8px;
         }
-        .burger-item {
+
+        .burger-card {
             background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(245, 175, 25, 0.2);
             border-radius: 12px;
-            padding: 12px 8px;
+            padding: 10px 6px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: 0.2s;
         }
-        .burger-item:hover, .burger-item:active {
-            border-color: var(--accent-gold);
-            background: rgba(255, 193, 7, 0.1);
+
+        .burger-card:active {
+            background: rgba(245, 175, 25, 0.2);
+            border-color: var(--gold);
         }
-        .burger-item i {
-            font-size: 20px;
-            color: var(--accent-gold);
+
+        .burger-card i {
+            color: var(--gold);
+            font-size: 18px;
             margin-bottom: 6px;
         }
-        .burger-name {
-            font-size: 12px;
+
+        .burger-card .title {
+            font-size: 11px;
             font-weight: 700;
             color: #fff;
             margin-bottom: 2px;
         }
-        .burger-price {
+
+        .burger-card .price {
             font-size: 10px;
-            color: var(--accent-green);
-            font-family: 'Roboto Mono', monospace;
+            color: var(--neon-green);
+            font-family: 'Share Tech Mono', monospace;
         }
 
-        .agi-section {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
+        /* AGI 삐니 섹션 */
+        .agi-core-panel {
+            background: #0a1120;
+            border: 1px solid var(--border-glow);
             border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 32px;
+            padding: 18px;
+            margin-bottom: 28px;
         }
 
-        .agi-header {
+        .agi-core-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .agi-avatar {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--accent-cyan), #0066ff);
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--cyan), #0066ff);
             border-radius: 14px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 22px;
+            font-size: 20px;
             color: #fff;
-            box-shadow: 0 0 15px var(--accent-cyan-glow);
+            box-shadow: 0 0 15px var(--cyan-glow);
         }
 
-        .agi-title-box h3 {
-            font-size: 17px;
-            color: #fff;
-            font-weight: 800;
-        }
-
-        .agi-title-box p {
-            font-size: 11px;
-            color: var(--accent-cyan);
-        }
-
-        .sonpone-control {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .sonpone-bar-box {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.05);
             border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 16px;
+            padding: 12px;
+            margin-bottom: 14px;
         }
 
-        .sonpone-label {
+        .sonpone-flex {
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
+            font-size: 11px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
         }
 
-        .sonpone-label span.val {
-            color: var(--accent-gold);
+        .sonpone-flex span.val {
+            color: var(--gold);
             font-weight: 700;
         }
 
-        .range-slider {
+        .range-bar {
             width: 100%;
-            accent-color: var(--accent-gold);
-            height: 5px;
-            background: var(--card-border);
-            border-radius: 3px;
+            accent-color: var(--gold);
+            height: 4px;
+            background: var(--border-glow);
+            border-radius: 2px;
         }
 
-        .chat-box {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 14px;
-            padding: 14px;
-            height: 210px;
+        .chat-terminal {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 12px;
+            height: 190px;
             overflow-y: auto;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .chat-msg {
+        .terminal-msg {
             max-width: 88%;
-            padding: 12px 14px;
-            border-radius: 14px;
-            font-size: 12px;
-            line-height: 1.45;
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            line-height: 1.4;
         }
 
-        .chat-msg.beeni {
-            background: rgba(0, 240, 255, 0.1);
-            border: 1px solid rgba(0, 240, 255, 0.3);
+        .terminal-msg.beeni {
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.25);
             color: #d1f9ff;
             align-self: flex-start;
         }
 
-        .chat-msg.user {
-            background: rgba(255, 193, 7, 0.15);
-            border: 1px solid rgba(255, 193, 7, 0.4);
-            color: #fff3cd;
+        .terminal-msg.user {
+            background: rgba(245, 175, 25, 0.12);
+            border: 1px solid rgba(245, 175, 25, 0.35);
+            color: #fffae8;
             align-self: flex-end;
         }
 
-        .chat-input-box {
+        .terminal-input-row {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .chat-input {
+        .terminal-input {
             flex: 1;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--card-border);
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border-glow);
             border-radius: 10px;
-            padding: 12px 14px;
+            padding: 10px 12px;
             color: #fff;
-            font-size: 13px;
+            font-size: 12px;
             outline: none;
         }
 
-        .chat-send-btn {
-            background: var(--accent-gold);
-            color: #040609;
+        .terminal-send-btn {
+            background: var(--gold);
+            color: var(--bg-base);
             border: none;
-            padding: 0 18px;
+            padding: 0 16px;
             border-radius: 10px;
             font-weight: 800;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
         }
 
+        /* 푸터 */
         footer {
-            padding: 24px 20px;
-            background: #020305;
-            border-top: 1px solid var(--card-border);
+            padding: 22px 18px;
+            background: #010204;
+            border-top: 1px solid var(--border-glow);
             text-align: center;
-            font-size: 11px;
-            color: var(--text-muted);
-            line-height: 1.8;
+            font-size: 10px;
+            color: var(--text-sub);
         }
 
-        footer p.copyright {
+        footer p.mono {
+            font-family: 'Share Tech Mono', monospace;
             margin-bottom: 8px;
-            font-family: 'Roboto Mono', monospace;
         }
 
-        footer p.socials {
-            color: var(--accent-cyan);
-            word-break: break-all;
-        }
-
-        .btn-youtube-white {
-            color: #040609 !important;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: #ffffff !important;
-            padding: 8px 14px;
-            border-radius: 10px;
-            border: 1px solid #ffffff !important;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-youtube-white i {
-            color: #ff0000 !important;
-        }
-
-        .drawer-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(6px);
-            z-index: 200;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .drawer-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .drawer-content {
-            position: fixed;
-            top: 0;
-            left: -330px;
-            width: 310px;
-            height: 100vh;
-            background: var(--bg-secondary);
-            border-right: 1px solid var(--card-border);
-            z-index: 201;
-            transition: left 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
-            overflow-y: auto;
-            padding: 24px 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .drawer-overlay.active .drawer-content {
-            left: 0;
-        }
-
-        .drawer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .drawer-title {
-            font-size: 16px;
-            font-weight: 900;
-            color: var(--accent-gold);
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .drawer-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 22px;
-            cursor: pointer;
-        }
-
-        .menu-group {
-            margin-bottom: 22px;
-        }
-
-        .menu-group-title {
-            font-size: 11px;
-            color: var(--accent-cyan);
-            text-transform: uppercase;
-            font-weight: 800;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 14px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 13px;
-            border-radius: 10px;
-            margin-bottom: 6px;
-            background: rgba(255, 255, 255, 0.02);
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .menu-item:hover, .menu-item:active {
-            background: var(--card-bg);
-            color: var(--accent-gold);
-        }
-
-        .menu-item i {
-            width: 20px;
-            text-align: center;
-            color: var(--accent-gold);
-        }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 300;
+        .social-buttons {
             display: flex;
             justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s ease;
-            padding: 20px;
-        }
-
-        .modal.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-body {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            width: 100%;
-            max-width: 440px;
-            max-height: 85vh;
-            border-radius: 20px;
-            padding: 24px;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .modal-title {
-            font-size: 17px;
-            font-weight: 800;
-            color: var(--accent-gold);
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 22px;
-            cursor: pointer;
-        }
-
-        .input-group {
-            margin-bottom: 16px;
-        }
-
-        .input-label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .max-btn {
-            background: rgba(255, 193, 7, 0.15);
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 10px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .max-btn:active {
-            background: var(--accent-gold);
-            color: #040609;
-        }
-
-        .form-control {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            padding: 12px;
-            color: #fff;
-            font-size: 13px;
-            outline: none;
-        }
-
-        .form-control:focus {
-            border-color: var(--accent-gold);
-        }
-
-        .action-btn {
-            width: 100%;
-            background: var(--accent-gold);
-            color: #040609;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 14px;
-            cursor: pointer;
+            gap: 12px;
             margin-top: 10px;
         }
 
-        .loading-spinner {
-            display: none;
-            width: 14px;
-            height: 14px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: var(--accent-cyan);
-            animation: spin 0.8s linear infinite;
+        .btn-yt {
+            background: #fff !important;
+            color: #020408 !important;
+            text-decoration: none;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .btn-yt i { color: #ff0000; }
+
+        .btn-tk {
+            background: rgba(255,255,255,0.06);
+            color: #fff;
+            text-decoration: none;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* 서랍 메뉴 및 모달 */
+        .drawer-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(6px);
+            z-index: 200;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .drawer-layer.active { opacity: 1; pointer-events: auto; }
+
+        .drawer-box {
+            position: fixed; top: 0; left: -320px; width: 300px; height: 100vh;
+            background: var(--bg-panel);
+            border-right: 1px solid var(--border-glow);
+            z-index: 201;
+            transition: left 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .drawer-layer.active .drawer-box { left: 0; }
+
+        .modal-layer {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 300;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.25s;
+            padding: 20px;
+        }
+        .modal-layer.active { opacity: 1; pointer-events: auto; }
+
+        .modal-content-box {
+            background: #0d1526;
+            border: 1px solid var(--border-glow);
+            width: 100%; max-width: 420px;
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+        }
+
+        .modal-head {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 16px; padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-glow);
+        }
+        .modal-head h3 { font-size: 16px; font-weight: 800; color: var(--gold); }
+        .modal-close-btn { background: none; border: none; color: var(--text-sub); font-size: 20px; cursor: pointer; }
+
+        .input-box { margin-bottom: 14px; }
+        .input-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-sub); margin-bottom: 6px; }
+        .input-field {
+            width: 100%; background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border-glow);
+            border-radius: 10px; padding: 12px; color: #fff; font-size: 13px; outline: none;
+        }
+        .input-field:focus { border-color: var(--gold); }
+        .modal-btn {
+            width: 100%; background: var(--gold); color: var(--bg-base); border: none;
+            padding: 13px; border-radius: 10px; font-weight: 900; font-size: 14px; cursor: pointer; margin-top: 6px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <!-- 상단 고정 헤더 -->
+    <div class="app-shell">
+        <!-- 헤더 -->
         <header>
-            <button class="menu-btn" onclick="toggleDrawer()">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-            <div class="header-center-title">
-                <h2>HK WORLD BANK</h2>
-                <p data-i18n="headerSubText">글로벌 차세대 분산 금융</p>
+            <div class="action-icon-btn" onclick="toggleDrawer()">
+                <i class="fa-solid fa-bars-staggered"></i>
             </div>
-            <div class="profile-badge">HK</div>
+            <div class="brand-title">
+                <h1>HK WORLD BANK</h1>
+                <p data-i18n="headerSubText">DISTRIBUTED FINANCIAL CORE</p>
+            </div>
+            <div class="profile-chip">HK</div>
         </header>
 
-        <!-- 25개국 핵심 글로벌 언어 선택 바 -->
-        <div class="lang-bar">
-            <div class="lang-info">
+        <!-- 25개국 언어 엔진 바 -->
+        <div class="global-bar">
+            <div class="global-info">
                 <i class="fa-solid fa-globe"></i>
                 <span data-i18n="langEngineLabel">25개국 핵심 글로벌 언어 엔진</span>
-                <div class="loading-spinner" id="langSpinner"></div>
             </div>
-            <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
+            <select class="lang-dropdown" id="langSelect" onchange="changeLanguage(this.value)">
                 <option value="ko" selected>🇰🇷 한국어 (Korean)</option>
                 <option value="en">🇺🇸 영어 (English)</option>
                 <option value="zh-CN">🇨🇳 중국어 간체 (Chinese)</option>
@@ -916,290 +693,209 @@
         </div>
 
         <main>
-            <!-- 타이틀 영역 -->
-            <div class="hero-section">
-                <h1 class="main-title">HK WORLD BANK</h1>
-                <p class="sub-title" data-i18n="subTitle">빠른 금융 작업 마스터 코어</p>
-            </div>
-
-            <!-- 개인 자산 대시보드 카드 -->
-            <div class="dashboard-card">
-                <div class="dashboard-header">
+            <!-- 자산 대시보드 금고 -->
+            <div class="vault-card">
+                <div class="vault-header">
                     <span data-i18n="dashTitle">개인 자산 대시보드</span>
-                    <i class="fa-solid fa-vault" style="color: var(--accent-gold);"></i>
+                    <i class="fa-solid fa-vault" style="color: var(--gold);"></i>
                 </div>
 
-                <div class="pi-box">
-                    <div class="pi-box-title">
-                        <span class="pi-logo-icon">π</span>
+                <div class="pi-sync-box">
+                    <div style="font-size: 11px; color: var(--text-sub); display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                        <span class="pi-badge">π</span>
                         <span data-i18n="piSyncLabel">보유 수량 (파이 수량 원장 동기화)</span>
                     </div>
-                    <div class="pi-amount">
+                    <div class="balance-num">
                         <span id="walletBalanceDisplay">314,159.000000</span>
-                        <span class="unit" data-i18n="unitText">파이 / HK</span>
+                        <span style="color: var(--gold); font-size: 13px;" data-i18n="unitText">파이 / HK</span>
                     </div>
                 </div>
 
-                <div class="interest-box">
-                    <div class="interest-title">
-                        <i class="fa-solid fa-chart-line" style="color: var(--accent-green);"></i>
+                <div class="interest-vault">
+                    <div style="font-size: 11px; color: var(--text-sub); display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                        <i class="fa-solid fa-chart-line" style="color: var(--neon-green);"></i>
                         <span data-i18n="interestLabel">실시간 누적 이자 (3년 31.41% 연복리)</span>
                     </div>
-                    <div class="interest-value" id="accumulatedInterest">
+                    <div class="interest-num" id="accumulatedInterest">
                         12,450,892.600000 HK
                     </div>
                 </div>
 
-                <button class="mainnet-btn" data-i18n="mainnetBtnText" onclick="triggerMainnetRequest()">
+                <button class="mainnet-action-btn" data-i18n="mainnetBtnText" onclick="triggerMainnetRequest()">
                     코어팀에게 메인넷 즉시 신청하기
                 </button>
             </div>
 
-            <!-- 오리지널 10대 분산 연동망 -->
-            <div class="section-header">
-                <h2 class="section-title" data-i18n="gridSectionTitle">10대 분산 연동망</h2>
-                <span class="section-sub" data-i18n="gridSectionSub">[개별 프로세스 구동]</span>
+            <!-- 10대 분산 연동망 매트릭스 -->
+            <div class="sec-title-row">
+                <h2 class="sec-title" data-i18n="gridSectionTitle">10대 분산 연동망</h2>
+                <span class="sec-sub" data-i18n="gridSectionSub">[개별 프로세스 구동]</span>
             </div>
 
-            <div class="network-grid">
-                <div class="network-card" onclick="openProcessModal('wallet')">
-                    <div class="card-top-center"><i class="fa-solid fa-link card-icon-1"></i></div>
-                    <div>
-                        <div class="card-title" data-i18n="net1_title">지갑 연결</div>
-                        <div class="card-desc" data-i18n="net1_desc">노드 지갑 약정 연동 및 자동 연결</div>
-                    </div>
+            <div class="network-matrix">
+                <div class="matrix-node" onclick="openProcessModal('wallet')">
+                    <div class="node-icon-box"><i class="fa-solid fa-link" style="color: var(--cyan);"></i></div>
+                    <div class="node-name" data-i18n="net1_title">지갑 연결</div>
+                    <div class="node-desc" data-i18n="net1_desc">노드 지갑 약정 연동 및 자동 연결</div>
                 </div>
-
-                <div class="network-card" onclick="openProcessModal('transfer')">
-                    <div class="card-top-center"><i class="fa-solid fa-paper-plane card-icon-2"></i></div>
-                    <div>
-                        <div class="card-title" data-i18n="net2_title">송금</div>
-                        <div class="card-desc" data-i18n="net2_desc">대륙간 초고속 다중서명 암호화 전송 체계</div>
-                    </div>
+                <div class="matrix-node" onclick="openProcessModal('transfer')">
+                    <div class="node-icon-box"><i class="fa-solid fa-paper-plane" style="color: var(--gold);"></i></div>
+                    <div class="node-name" data-i18n="net2_title">송금</div>
+                    <div class="node-desc" data-i18n="net2_desc">대륙간 초고속 다중서명 암호화 전송 체계</div>
                 </div>
-
-                <div class="network-card" onclick="openProcessModal('payment')">
-                    <div class="card-top-center"><i class="fa-solid fa-credit-card card-icon-3"></i></div>
-                    <div>
-                        <div class="card-title" data-i18n="net3_title">결제</div>
-                        <div class="card-desc" data-i18n="net3_desc">현금·카드·타코인 실시간 상거래 안전결제</div>
-                    </div>
+                <div class="matrix-node" onclick="openProcessModal('payment')">
+                    <div class="node-icon-box"><i class="fa-solid fa-credit-card" style="color: var(--neon-green);"></i></div>
+                    <div class="node-name" data-i18n="net3_title">결제</div>
+                    <div class="node-desc" data-i18n="net3_desc">현금·카드·타코인 실시간 상거래 안전결제</div>
                 </div>
-
-                <div class="network-card" onclick="openProcessModal('deposit')">
-                    <div class="card-top-center"><i class="fa-solid fa-vault card-icon-4"></i></div>
-                    <div>
-                        <div class="card-title" data-i18n="net4_title">예치</div>
-                        <div class="card-desc" data-i18n="net4_desc">3년 만기 31.41% 연복리 자산 신탁 금고</div>
-                    </div>
+                <div class="matrix-node" onclick="openProcessModal('deposit')">
+                    <div class="node-icon-box"><i class="fa-solid fa-vault" style="color: #b085f5;"></i></div>
+                    <div class="node-name" data-i18n="net4_title">예치</div>
+                    <div class="node-desc" data-i18n="net4_desc">3년 만기 31.41% 연복리 자산 신탁 금고</div>
                 </div>
-
-                <div class="network-card" onclick="openProcessModal('reward')">
-                    <div class="card-top-center"><i class="fa-solid fa-gift card-icon-5"></i></div>
-                    <div>
-                        <div class="card-title" data-i18n="net5_title">보상</div>
-                        <div class="card-desc" data-i18n="net5_desc">기여도 기반 장려금 금고 적립 엔진</div>
-                    </div>
+                <div class="matrix-node" onclick="openProcessModal('reward')">
+                    <div class="node-icon-box"><i class="fa-solid fa-gift" style="color: #ff3b30;"></i></div>
+                    <div class="node-name" data-i18n="net5_title">보상</div>
+                    <div class="node-desc" data-i18n="net5_desc">기여도 기반 장려금 금고 적립 엔진</div>
                 </div>
-
-                <div class="network-card" onclick="openProcessModal('ubi')">
-                    <div class="card-top-center"><i class="fa-solid fa-hand-holding-dollar card-icon-6"></i></div>
-                    <div>
-                        <div class="card-title" data-i18n="net6_title">기본소득</div>
-                        <div class="card-desc" data-i18n="net6_desc">HK 사회 재단 & 지자체 기본소득 분배 모델</div>
-                    </div>
+                <div class="matrix-node" onclick="openProcessModal('ubi')">
+                    <div class="node-icon-box"><i class="fa-solid fa-hand-holding-dollar" style="color: #34c759;"></i></div>
+                    <div class="node-name" data-i18n="net6_title">기본소득</div>
+                    <div class="node-desc" data-i18n="net6_desc">HK 사회 재단 & 지자체 기본소득 분배 모델</div>
                 </div>
-
-                <div class="network-card" onclick="openProcessModal('swap')">
-                    <div class="card-top-center"><i class="fa-solid fa-right-left card-icon-7"></i></div>
-                    <div>
-                        <div class="card-title" data-i18n="net7_title">스왑</div>
-                        <div class="card-desc" data-i18n="net7_desc">현금·카드·타코인 즉시 맞교환 구매</div>
-                    </div>
+                <div class="matrix-node" onclick="openProcessModal('swap')">
+                    <div class="node-icon-box"><i class="fa-solid fa-right-left" style="color: #00c7be;"></i></div>
+                    <div class="node-name" data-i18n="net7_title">스왑</div>
+                    <div class="node-desc" data-i18n="net7_desc">현금·카드·타코인 즉시 맞교환 구매</div>
                 </div>
-
-                <div class="network-card" onclick="openProcessModal('dex')">
-                    <div class="card-top-center"><i class="fa-solid fa-bolt card-icon-8"></i></div>
-                    <div>
-                        <div class="card-title" data-i18n="net8_title">DEX 스왑</div>
-                        <div class="card-desc" data-i18n="net8_desc">자율 제어 개인 간 직접 거래 유동성 매칭</div>
-                    </div>
+                <div class="matrix-node" onclick="openProcessModal('dex')">
+                    <div class="node-icon-box"><i class="fa-solid fa-bolt" style="color: #ff9500;"></i></div>
+                    <div class="node-name" data-i18n="net8_title">DEX 스왑</div>
+                    <div class="node-desc" data-i18n="net8_desc">자율 제어 개인 간 직접 거래 유동성 매칭</div>
                 </div>
-
-                <div class="network-card" onclick="openProcessModal('lp')">
-                    <div class="card-top-center"><i class="fa-solid fa-layer-group card-icon-9"></i></div>
-                    <div>
-                        <div class="card-title" data-i18n="net9_title">LP 스테이킹</div>
-                        <div class="card-desc" data-i18n="net9_desc">유동성 공급 증명 및 고배당 권한 설정</div>
-                    </div>
+                <div class="matrix-node" onclick="openProcessModal('lp')">
+                    <div class="node-icon-box"><i class="fa-solid fa-layer-group" style="color: #5856d6;"></i></div>
+                    <div class="node-name" data-i18n="net9_title">LP 스테이킹</div>
+                    <div class="node-desc" data-i18n="net9_desc">유동성 공급 증명 및 고배당 권한 설정</div>
                 </div>
-
-                <div class="network-card" onclick="openProcessModal('pishow')">
-                    <div class="card-top-center"><span class="pi-logo-icon" style="width: 26px; height: 26px; font-size: 15px;">π</span></div>
-                    <div>
-                        <div class="card-title" data-i18n="net10_title">파이 수량</div>
-                        <div class="card-desc" data-i18n="net10_desc">파이 자산 메인넷 원장 실시간 일치화</div>
-                    </div>
+                <div class="matrix-node" onclick="openProcessModal('pishow')">
+                    <div class="node-icon-box"><span class="pi-badge" style="width:24px; height:24px; font-size:14px;">π</span></div>
+                    <div class="node-name" data-i18n="net10_title">파이 수량</div>
+                    <div class="node-desc" data-i18n="net10_desc">파이 자산 메인넷 원장 실시간 일치화</div>
                 </div>
             </div>
 
-            <!-- 🍔 HK 버거킹 제휴 상거래 패스트오더 섹션 -->
-            <div class="burger-section">
-                <div class="burger-header">
+            <!-- 버거 제휴 결제 마켓 -->
+            <div class="burger-market">
+                <div class="burger-market-header">
                     <h3 data-i18n="burgerSecTitle">🍔 HK 버거 제휴 결제 마켓</h3>
-                    <i class="fa-solid fa-burger" style="color: var(--accent-gold); font-size: 20px;"></i>
+                    <i class="fa-solid fa-burger" style="color: var(--gold);"></i>
                 </div>
-                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;" data-i18n="burgerSecSub">파이 및 HK 토큰으로 즉시 결제 가능한 프리미엄 버거 세트</div>
-                <div class="burger-grid">
-                    <div class="burger-item" onclick="openBurgerModal('메가 치즈 버거 세트', '3.14 Pi')">
+                <div style="font-size: 10px; color: var(--text-sub); margin-bottom: 12px;" data-i18n="burgerSecSub">파이 및 HK 토큰으로 즉시 결제 가능한 프리미엄 버거 세트</div>
+                <div class="burger-items-grid">
+                    <div class="burger-card" onclick="openBurgerModal('메가 치즈 버거 세트', '3.14 Pi')">
                         <i class="fa-solid fa-b"></i>
-                        <div class="burger-name">메가 치즈 세트</div>
-                        <div class="burger-price">3.14 Pi</div>
+                        <div class="title">메가 치즈 세트</div>
+                        <div class="price">3.14 Pi</div>
                     </div>
-                    <div class="burger-item" onclick="openBurgerModal('파이 골드 와퍼', '5.00 Pi')">
+                    <div class="burger-card" onclick="openBurgerModal('파이 골드 와퍼', '5.00 Pi')">
                         <i class="fa-solid fa-burger"></i>
-                        <div class="burger-name">파이 골드 와퍼</div>
-                        <div class="burger-price">5.00 Pi</div>
+                        <div class="title">파이 골드 와퍼</div>
+                        <div class="price">5.00 Pi</div>
                     </div>
-                    <div class="burger-item" onclick="openBurgerModal('삐니 스페셜 더블', '7.50 Pi')">
+                    <div class="burger-card" onclick="openBurgerModal('삐니 스페셜 더블', '7.50 Pi')">
                         <i class="fa-solid fa-fire"></i>
-                        <div class="burger-name">삐니 더블세트</div>
-                        <div class="burger-price">7.50 Pi</div>
+                        <div class="title">삐니 더블세트</div>
+                        <div class="price">7.50 Pi</div>
                     </div>
                 </div>
             </div>
 
             <!-- AGI 삐니 고객센터 -->
-            <div class="agi-section">
-                <div class="agi-header">
+            <div class="agi-core-panel">
+                <div class="agi-core-header">
                     <div class="agi-avatar"><i class="fa-solid fa-robot"></i></div>
-                    <div class="agi-title-box">
-                        <h3 data-i18n="agiTitle">AGI 삐니 고객센터</h3>
-                        <p data-i18n="agiSub">손폰(SONPONE) 자동 반응 및 AI 종합 제어</p>
+                    <div>
+                        <h3 style="font-size: 15px; font-weight: 800;" data-i18n="agiTitle">AGI 삐니 고객센터</h3>
+                        <p style="font-size: 10px; color: var(--cyan);" data-i18n="agiSub">손폰(SONPONE) 자동 반응 및 AI 종합 제어</p>
                     </div>
                 </div>
 
-                <div class="sonpone-control">
-                    <div class="sonpone-label">
+                <div class="sonpone-bar-box">
+                    <div class="sonpone-flex">
                         <span data-i18n="sonponeLabelText">손폰(SONPONE) 감지 감도:</span>
                         <span class="val" id="sonponeVal">99.9% (실시간 일치)</span>
                     </div>
-                    <input type="range" class="range-slider" min="50" max="100" value="99" id="sonponeSlider" oninput="updateSonpone(this.value)">
+                    <input type="range" class="range-bar" min="50" max="100" value="99" id="sonponeSlider" oninput="updateSonpone(this.value)">
                 </div>
 
-                <div class="chat-box" id="chatBox">
-                    <div class="chat-msg beeni" data-i18n="initialBeeniMsg">
+                <div class="chat-terminal" id="chatBox">
+                    <div class="terminal-msg beeni" data-i18n="initialBeeniMsg">
                         [AGI 삐니]: 바이낸스·시중은행 해킹 원천 차단형 자금세탁방지 보안 시스템 가동 중입니다. 혜공 형님, 지시해 주십시오!
                     </div>
                 </div>
 
-                <div class="chat-input-box">
-                    <input type="text" class="chat-input" id="chatInput" data-i18n-placeholder="chatInputPlaceholder" placeholder="삐니에게 질문 입력..." onkeypress="handleKeyPress(event)">
-                    <button class="chat-send-btn" data-i18n="chatSendBtn" onclick="sendChatMessage()">전송</button>
+                <div class="terminal-input-row">
+                    <input type="text" class="terminal-input" id="chatInput" data-i18n-placeholder="chatInputPlaceholder" placeholder="삐니에게 질문 입력..." onkeypress="handleKeyPress(event)">
+                    <button class="terminal-send-btn" data-i18n="chatSendBtn" onclick="sendChatMessage()">전송</button>
                 </div>
             </div>
         </main>
 
-        <!-- 푸터 영역 -->
+        <!-- 푸터 -->
         <footer>
-            <p class="copyright">© 2026 HK WORLD BANK. All Rights Reserved.</p>
-            <p class="socials" style="margin-bottom: 12px;" data-i18n="supportEmailText">
-                지원 문의: support@hkwb.world
-            </p>
-            <div style="display: flex; justify-content: center; gap: 16px; align-items: center;">
-                <a href="https://www.youtube.com/@Hyekong2026" target="_blank" class="btn-youtube-white">
+            <p class="mono">© 2026 HK WORLD BANK. All Rights Reserved.</p>
+            <p style="color: var(--cyan); margin-bottom: 10px;" data-i18n="supportEmailText">지원 문의: support@hkwb.world</p>
+            <div class="social-buttons">
+                <a href="https://www.youtube.com/@Hyekong2026" target="_blank" class="btn-yt">
                     <i class="fa-brands fa-youtube"></i> YouTube (@Hyekong2026)
                 </a>
-                <a href="https://www.tiktok.com/@hyekong2026" target="_blank" style="color: #fff; text-decoration: none; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 8px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15);">
+                <a href="https://www.tiktok.com/@hyekong2026" target="_blank" class="btn-tk">
                     <i class="fa-brands fa-tiktok"></i> TikTok (@hyekong2026)
                 </a>
             </div>
         </footer>
     </div>
 
-    <!-- 슬라이드 서랍 메뉴 -->
-    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawerOutside(event)">
-        <div class="drawer-content">
-            <div class="drawer-header">
-                <span class="drawer-title" data-i18n="drawerTitle">HK 탐색기</span>
-                <button class="drawer-close" onclick="toggleDrawer()"><i class="fa-solid fa-xmark"></i></button>
+    <!-- 탐색기 서랍 메뉴 -->
+    <div class="drawer-layer" id="drawerLayer" onclick="closeDrawerOutside(event)">
+        <div class="drawer-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border-glow);">
+                <span style="font-size: 15px; font-weight: 900; color: var(--gold);" data-i18n="drawerTitle">HK 탐색기</span>
+                <button onclick="toggleDrawer()" style="background:none; border:none; color:var(--text-sub); font-size:20px; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
             </div>
-
-            <div class="menu-group">
-                <div class="menu-group-title" data-i18n="menuGroup1Title">핵심 법률 및 보안 규격</div>
-                <div class="menu-item" onclick="openInfoModal('whitepaper')">
-                    <i class="fa-solid fa-file-contract"></i> <span data-i18n="menu_wp">백서 (Whitepaper v3.1 상세 40선)</span>
-                </div>
-                <div class="menu-item" onclick="openInfoModal('faq')">
-                    <i class="fa-solid fa-circle-question"></i> <span data-i18n="menu_faq">자주 묻는 질문 (FAQ 20선 심층)</span>
-                </div>
-                <div class="menu-item" onclick="openInfoModal('policies')">
-                    <i class="fa-solid fa-shield-halved"></i> <span data-i18n="menu_pol">3대 정책 (자금세탁방지·고객확인·철통보안)</span>
-                </div>
-                <div class="menu-item" onclick="openInfoModal('regulations')">
-                    <i class="fa-solid fa-scale-balanced"></i> <span data-i18n="menu_reg">25개국 디지털 자산법 및 해킹 방어 규격</span>
-                </div>
-                <div class="menu-item" onclick="openInfoModal('fatf_travel_rule')">
-                    <i class="fa-solid fa-gavel"></i> <span data-i18n="menu_fatf">국제 자금세탁방지 트래블룰 & 실시간 제재 검증</span>
-                </div>
+            <div style="font-size: 11px; color: var(--cyan); font-weight: 800; margin-bottom: 10px;" data-i18n="menuGroup1Title">핵심 법률 및 보안 규격</div>
+            <div class="matrix-node" style="min-height: auto; padding: 10px; margin-bottom: 6px; text-align: left; align-items: flex-start;" onclick="openInfoModal()">
+                <div style="font-size: 12px; font-weight: 700; color: #fff;" data-i18n="menu_wp">백서 및 컴플라이언스 상세 규격</div>
             </div>
-
-            <div class="menu-group">
-                <div class="menu-group-title" data-i18n="menuGroup2Title">HK 글로벌 생태계 거점</div>
-                <a class="menu-item" href="https://ljw2358.github.io/HK-ROBOT" target="_blank">
-                    <i class="fa-solid fa-robot"></i> <span data-i18n="hub_robot">로봇: HK-ROBOT</span>
-                </a>
-                <a class="menu-item" href="https://ljw2358.github.io/HK-NEXUS" target="_blank">
-                    <i class="fa-solid fa-glasses"></i> <span data-i18n="hub_nexus">스마트 글래스: HK-NEXUS</span>
-                </a>
-                <a class="menu-item" href="https://ljw2358.github.io/HK-UAM" target="_blank">
-                    <i class="fa-solid fa-helicopter" style="color:var(--accent-gold);"></i> <span data-i18n="hub_uam">도심항공교통: HK-UAM</span>
-                </a>
-                <a class="menu-item" href="https://ljw2358.github.io/HK-FUSION" target="_blank">
-                    <i class="fa-solid fa-atom"></i> <span data-i18n="hub_fusion">인공태양: HK-FUSION</span>
-                </a>
-                <a class="menu-item" href="https://ljw2358.github.io/HK-QUANTUMBIO" target="_blank">
-                    <i class="fa-solid fa-dna"></i> <span data-i18n="hub_bio">퀀텀바이오: HK-QUANTUMBIO</span>
-                </a>
-                <a class="menu-item" href="https://ljw2358.github.io/HK-SPACE" target="_blank">
-                    <i class="fa-solid fa-shuttle-space"></i> <span data-i18n="hub_space">우주모빌리티: HK-SPACE</span>
-                </a>
-                <a class="menu-item" href="https://ljw2358.github.io/HK-PARTSBANK" target="_blank">
-                    <i class="fa-solid fa-microchip"></i> <span data-i18n="hub_parts">부품뱅크: HK-PARTSBANK</span>
-                </a>
-                <a class="menu-item" href="https://ljw2358.github.io/HK-DEFENCE-HUB" target="_blank">
-                    <i class="fa-solid fa-shield-cat"></i> <span data-i18n="hub_defence">국방기술: HK-DEFENCE-HUB</span>
-                </a>
-                <div class="menu-item" onclick="openInfoModal('t165')">
-                    <i class="fa-solid fa-city"></i> <span data-i18n="hub_t165">T165 초특급 랜드마크 허브 (경주 사옥)</span>
-                </div>
-            </div>
+            <div style="font-size: 11px; color: var(--cyan); font-weight: 800; margin: 16px 0 10px;" data-i18n="menuGroup2Title">HK 글로벌 생태계 거점</div>
+            <a href="https://ljw2358.github.io/HK-ROBOT" target="_blank" style="display:block; padding:10px; color:#fff; text-decoration:none; font-size:12px; background:rgba(255,255,255,0.03); border-radius:8px; margin-bottom:6px;">🤖 로봇: HK-ROBOT</a>
+            <a href="https://ljw2358.github.io/HK-NEXUS" target="_blank" style="display:block; padding:10px; color:#fff; text-decoration:none; font-size:12px; background:rgba(255,255,255,0.03); border-radius:8px; margin-bottom:6px;">👓 스마트 글래스: HK-NEXUS</a>
+            <a href="https://ljw2358.github.io/HK-UAM" target="_blank" style="display:block; padding:10px; color:#fff; text-decoration:none; font-size:12px; background:rgba(255,255,255,0.03); border-radius:8px; margin-bottom:6px;">🚁 도심항공교통: HK-UAM</a>
         </div>
     </div>
 
-    <!-- 모달 팝업 창 -->
-    <div class="modal" id="appModal">
-        <div class="modal-body">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modalTitle">프로세스 구동</h3>
-                <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    <!-- 프로세스 및 결제 모달 -->
+    <div class="modal-layer" id="appModal">
+        <div class="modal-content-box">
+            <div class="modal-head">
+                <h3 id="modalTitle">프로세스 구동</h3>
+                <button class="modal-close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="modalContent"></div>
         </div>
     </div>
 
-    <!-- 런타임 스크립트 엔진 -->
+    <!-- 런타임 자바스크립트 엔진 -->
     <script>
         let baseInterest = 12450892.600000;
-        let currentWalletBalance = 314159.000000;
         let currentLang = 'ko';
         let generatedAuthCode = "123456";
         let activeProcessId = null;
 
         const koSource = {
-            headerSubText: "글로벌 차세대 분산 금융",
+            headerSubText: "DISTRIBUTED FINANCIAL CORE",
             langEngineLabel: "25개국 핵심 글로벌 언어 엔진",
-            subTitle: "빠른 금융 작업 마스터 코어",
             dashTitle: "개인 자산 대시보드",
             piSyncLabel: "보유 수량 (파이 수량 원장 동기화)",
             unitText: "파이 / HK",
@@ -1242,33 +938,15 @@
             drawerTitle: "HK 탐색기",
             menuGroup1Title: "핵심 법률 및 보안 규격",
             menuGroup2Title: "HK 글로벌 생태계 거점",
-            menu_wp: "백서 (Whitepaper v3.1 상세 40선)",
-            menu_faq: "자주 묻는 질문 (FAQ 20선 심층)",
-            menu_pol: "3대 정책 (자금세탁방지·고객확인·철통보안)",
-            menu_reg: "25개국 디지털 자산법 및 해킹 방어 규격",
-            menu_fatf: "국제 자금세탁방지 트래블룰 & 실시간 제재 검증",
-            hub_robot: "로봇: HK-ROBOT",
-            hub_nexus: "스마트 글래스: HK-NEXUS",
-            hub_uam: "도심항공교통: HK-UAM",
-            hub_fusion: "인공태양: HK-FUSION",
-            hub_bio: "퀀텀바이오: HK-QUANTUMBIO",
-            hub_space: "우주모빌리티: HK-SPACE",
-            hub_parts: "부품뱅크: HK-PARTSBANK",
-            hub_defence: "국방기술: HK-DEFENCE-HUB",
-            hub_t165: "T165 초특급 랜드마크 허브 (경주 사옥)"
+            menu_wp: "백서 및 컴플라이언스 상세 규격"
         };
 
         const translationCache = { ko: koSource };
 
         async function fetchAutoTranslation(targetLang) {
             if (translationCache[targetLang]) return translationCache[targetLang];
-
-            const spinner = document.getElementById('langSpinner');
-            if (spinner) spinner.style.display = 'inline-block';
-
             const translatedObj = {};
             const keys = Object.keys(koSource);
-           
             try {
                 const promises = keys.map(async (key) => {
                     const text = koSource[key];
@@ -1277,22 +955,13 @@
                     const data = await res.json();
                     translatedObj[key] = data[0][0][0];
                 });
-
                 await Promise.all(promises);
                 translationCache[targetLang] = translatedObj;
             } catch (err) {
-                console.error("Translation API error:", err);
                 return koSource;
-            } finally {
-                if (spinner) spinner.style.display = 'none';
             }
-
             return translatedObj;
         }
-
-        window.onload = function() {
-            openProcessModal('wallet');
-        };
 
         setInterval(() => {
             baseInterest += 0.001250;
@@ -1305,172 +974,120 @@
         }, 1000);
 
         function toggleDrawer() {
-            document.getElementById('drawerOverlay').classList.toggle('active');
+            document.getElementById('drawerLayer').classList.toggle('active');
         }
 
-        function closeDrawerOutside(event) {
-            if (event.target.id === 'drawerOverlay') {
-                toggleDrawer();
-            }
+        function closeDrawerOutside(e) {
+            if(e.target.id === 'drawerLayer') toggleDrawer();
         }
 
         function updateSonpone(val) {
-            const sonponeValEl = document.getElementById('sonponeVal');
-            if(sonponeValEl) {
+            const el = document.getElementById('sonponeVal');
+            if(el) {
                 const curDict = translationCache[currentLang] || koSource;
-                sonponeValEl.innerText = val + "% " + (curDict.syncText || "(실시간 일치)");
+                el.innerText = val + "% " + (curDict.syncText || "(실시간 일치)");
             }
         }
 
         function triggerMainnetRequest() {
-            alert("🚀 코어팀 메인넷 원장 동기화 및 자금세탁방지(AML) 철통 보안 전송 신청이 완료되었습니다!");
+            alert("🚀 코어팀 메인넷 원장 동기화 및 자금세탁방지(AML) 보안 전송 신청이 완료되었습니다!");
         }
 
         function sendChatMessage() {
             const input = document.getElementById('chatInput');
             const chatBox = document.getElementById('chatBox');
             const text = input.value.trim();
+            if(!text) return;
 
-            if (!text) return;
-
-            const userMsg = document.createElement('div');
-            userMsg.className = 'chat-msg user';
-            userMsg.innerText = text;
-            chatBox.appendChild(userMsg);
-
+            const uMsg = document.createElement('div');
+            uMsg.className = 'terminal-msg user';
+            uMsg.innerText = text;
+            chatBox.appendChild(uMsg);
             input.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
 
             setTimeout(() => {
-                const beeniMsg = document.createElement('div');
-                beeniMsg.className = 'chat-msg beeni';
-                beeniMsg.innerText = `[AGI 삐니]: "${text}" 지시를 완벽히 수신했습니다. 해킹 방어 백엔드 검증을 거쳐 실시간 연산 중입니다, 혜공 형님!`;
-                chatBox.appendChild(beeniMsg);
+                const bMsg = document.createElement('div');
+                bMsg.className = 'terminal-msg beeni';
+                bMsg.innerText = `[AGI 삐니]: "${text}" 지시 완벽 수신! 해킹 방어 백엔드 연산을 거쳐 실시간 처리 중입니다, 혜공 형님!`;
+                chatBox.appendChild(bMsg);
                 chatBox.scrollTop = chatBox.scrollHeight;
-            }, 600);
+            }, 500);
         }
 
         function handleKeyPress(e) {
-            if (e.key === 'Enter') sendChatMessage();
+            if(e.key === 'Enter') sendChatMessage();
         }
 
         function openProcessModal(processId) {
             activeProcessId = processId;
-            renderProcessModalContent();
-        }
-
-        function autoLoadWalletAddress() {
-            const walletInput = document.getElementById('nodeWalletAddress');
-            if(walletInput) {
-                walletInput.value = "GBX7QZ4HKWB2026AMLKYCSECNODEUSER";
-            }
-        }
-
-        function renderProcessModalContent() {
-            const processId = activeProcessId;
-            if (!processId) return;
-
             const modal = document.getElementById('appModal');
             const title = document.getElementById('modalTitle');
             const content = document.getElementById('modalContent');
-
             generatedAuthCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-            const processNames = {
-                wallet: "지갑 연결",
-                transfer: "송금",
-                payment: "결제",
-                deposit: "예치",
-                reward: "보상",
-                ubi: "기본소득",
-                swap: "스왑",
-                dex: "DEX 스왑",
-                lp: "LP 스테이킹",
-                pishow: "파이 수량"
+            const names = {
+                wallet: "지갑 연결", transfer: "송금", payment: "결제", deposit: "예치",
+                reward: "보상", ubi: "기본소득", swap: "스왑", dex: "DEX 스왑",
+                lp: "LP 스테이킹", pishow: "파이 수량"
             };
+            const dName = names[processId] || processId.toUpperCase();
 
-            const displayName = processNames[processId] || processId.toUpperCase();
-
-            if (processId === 'wallet') {
-                title.innerText = "노드 지갑 연결 및 약정 연동";
-                content.innerHTML = `
-                    <div style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">자동 연동 버튼을 눌러 테스트 지갑 주소를 불러오세요.</div>
-                    <div class="input-group">
-                        <label class="input-label"><span>테스트넷 지갑 주소</span> <button class="max-btn" onclick="autoLoadWalletAddress()">자동 연동</button></label>
-                        <input class="form-control" id="nodeWalletAddress" placeholder="자동 연동 버튼을 누르세요">
-                    </div>
-                    <div class="input-group">
-                        <label class="input-label">인증번호 (발급됨: <span style="color:var(--accent-gold); font-weight:700;">${generatedAuthCode}</span>)</label>
-                        <input class="form-control" id="userInputCode" placeholder="6자리 인증번호 입력" maxlength="6">
-                    </div>
-                    <button class="action-btn" onclick="verifyAndExecute('${processId}')">인증 승인 및 지갑 연결</button>
-                `;
-            } else {
-                title.innerText = `분산 연동 프로세스 구동 (${displayName})`;
-                content.innerHTML = `
-                    <div style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">철통 보안 프로토콜 및 실시간 AML 검증을 진행합니다.</div>
-                    <div class="input-group">
-                        <label class="input-label">인증번호 (발급됨: <span style="color:var(--accent-gold); font-weight:700;">${generatedAuthCode}</span>)</label>
-                        <input class="form-control" id="userInputCode" placeholder="6자리 인증번호 입력" maxlength="6">
-                    </div>
-                    <button class="action-btn" onclick="verifyAndExecute('${processId}')">${displayName} 승인 및 실행</button>
-                `;
-            }
-            modal.classList.add('active');
-        }
-
-        function openBurgerModal(burgerName, price) {
-            const modal = document.getElementById('appModal');
-            const title = document.getElementById('modalTitle');
-            const content = document.getElementById('modalContent');
-            generatedAuthCode = Math.floor(100000 + Math.random() * 900000).toString();
-
-            title.innerText = `🍔 ${burgerName} 실시간 결제`;
+            title.innerText = `분산 연동 프로세스 구동 (${dName})`;
             content.innerHTML = `
-                <div style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">주문 메뉴: <span style="color:var(--accent-gold); font-weight:700;">${burgerName}</span> (결제금액: <span style="color:var(--accent-green); font-weight:700;">${price}</span>)</div>
-                <div class="input-group">
-                    <label class="input-label">결제 인증번호 (발급됨: <span style="color:var(--accent-gold); font-weight:700;">${generatedAuthCode}</span>)</label>
-                    <input class="form-control" id="burgerAuthCode" placeholder="6자리 인증번호 입력" maxlength="6">
+                <div style="font-size:11px; color:var(--text-sub); margin-bottom:14px;">철통 보안 프로토콜 및 실시간 AML 검증을 진행합니다.</div>
+                <div class="input-box">
+                    <label class="input-label">인증번호 (발급됨: <span style="color:var(--gold); font-weight:700;">${generatedAuthCode}</span>)</label>
+                    <input class="input-field" id="userInputCode" placeholder="6자리 인증번호 입력" maxlength="6">
                 </div>
-                <button class="action-btn" onclick="verifyBurgerOrder('${burgerName}')">결제 승인 및 주문 완료</button>
+                <button class="modal-btn" onclick="verifyAndExecute('${processId}')">${dName} 승인 및 실행</button>
             `;
             modal.classList.add('active');
         }
 
-        function verifyBurgerOrder(burgerName) {
-            const codeInput = document.getElementById('burgerAuthCode');
-            const userEntered = codeInput ? codeInput.value.trim() : "";
-
-            if(userEntered !== generatedAuthCode) {
+        function verifyAndExecute(pid) {
+            const code = document.getElementById('userInputCode').value.trim();
+            if(code !== generatedAuthCode) {
                 alert("❌ 인증번호가 일치하지 않습니다. 올바른 6자리 번호를 입력해 주세요.");
                 return;
             }
-           
-            alert(`✅ [상거래 결제 완료] '${burgerName}' 주문이 정상 승인되었습니다! 삐니가 배달 노드를 호출합니다.`);
+            alert(`✅ [철통 보안 인증 성공] '${pid}' 프로세스가 정상 완료되었습니다.`);
             closeModal();
         }
 
-        function verifyAndExecute(processId) {
-            const codeInput = document.getElementById('userInputCode');
-            const userEntered = codeInput ? codeInput.value.trim() : "";
-
-            if(userEntered !== generatedAuthCode) {
-                alert("❌ 인증번호가 일치하지 않습니다. 발급된 6자리 번호를 정확히 입력해 주세요.");
-                return;
-            }
-           
-            alert(`✅ [철통 보안 인증 성공] '${processId}' 프로세스가 정상 완료되었습니다.`);
-            closeModal();
-        }
-
-        function openInfoModal(type) {
-            toggleDrawer();
+        function openBurgerModal(bName, price) {
             const modal = document.getElementById('appModal');
             const title = document.getElementById('modalTitle');
             const content = document.getElementById('modalContent');
+            generatedAuthCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-            title.innerText = "정보 및 보안 규격 문서";
-            content.innerHTML = `<div style="font-size:12px; line-height:1.6; color:var(--text-muted);">HK WORLD BANK 25개국 글로벌 디지털 자산법 컴플라이언스 및 해킹 방어 백서 상세 규격 문서입니다.</div>`;
+            title.innerText = `🍔 ${bName} 실시간 결제`;
+            content.innerHTML = `
+                <div style="font-size:11px; color:var(--text-sub); margin-bottom:14px;">주문 메뉴: <span style="color:var(--gold); font-weight:700;">${bName}</span> (금액: <span style="color:var(--neon-green); font-weight:700;">${price}</span>)</div>
+                <div class="input-box">
+                    <label class="input-label">결제 인증번호 (발급됨: <span style="color:var(--gold); font-weight:700;">${generatedAuthCode}</span>)</label>
+                    <input class="input-field" id="burgerCode" placeholder="6자리 인증번호 입력" maxlength="6">
+                </div>
+                <button class="modal-btn" onclick="verifyBurger('${bName}')">결제 승인 및 주문 완료</button>
+            `;
+            modal.classList.add('active');
+        }
+
+        function verifyBurger(bName) {
+            const code = document.getElementById('burgerCode').value.trim();
+            if(code !== generatedAuthCode) {
+                alert("❌ 인증번호가 일치하지 않습니다.");
+                return;
+            }
+            alert(`✅ [상거래 결제 완료] '${bName}' 주문 승인 완료! 삐니가 배달 노드를 호출합니다.`);
+            closeModal();
+        }
+
+        function openInfoModal() {
+            toggleDrawer();
+            const modal = document.getElementById('appModal');
+            document.getElementById('modalTitle').innerText = "백서 및 컴플라이언스 규격";
+            document.getElementById('modalContent').innerHTML = `<div style="font-size:11px; line-height:1.6; color:var(--text-sub);">HK WORLD BANK 25개국 글로벌 디지털 자산법 컴플라이언스 및 해킹 방어 백서 상세 규격 문서입니다.</div>`;
             modal.classList.add('active');
         }
 
@@ -1481,33 +1098,17 @@
         async function changeLanguage(lang) {
             currentLang = lang;
             let t = await fetchAutoTranslation(lang);
-
-            const metaTitleEl = document.getElementById('metaTitle');
-            if(metaTitleEl) {
-                metaTitleEl.innerText = t.dashTitle ? `HK WORLD BANK | ${t.dashTitle}` : "HK WORLD BANK";
-            }
-           
-            const elements = document.querySelectorAll('[data-i18n]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if(t[key]) {
-                    el.innerText = t[key];
-                }
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const k = el.getAttribute('data-i18n');
+                if(t[k]) el.innerText = t[k];
             });
-
-            const inputs = document.querySelectorAll('[data-i18n-placeholder]');
-            inputs.forEach(input => {
-                const key = input.getAttribute('data-i18n-placeholder');
-                if(t[key]) {
-                    input.placeholder = t[key];
-                }
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const k = el.getAttribute('data-i18n-placeholder');
+                if(t[k]) el.placeholder = t[k];
             });
-
             document.dir = ['ar', 'fa', 'ur', 'he'].includes(lang) ? 'rtl' : 'ltr';
             const slider = document.getElementById('sonponeSlider');
-            if(slider) {
-                updateSonpone(slider.value);
-            }
+            if(slider) updateSonpone(slider.value);
         }
     </script>
 </body>
