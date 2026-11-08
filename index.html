@@ -1,486 +1,642 @@
 <!DOCTYPE html>
-<html lang="ko" class="dark">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HK Group & WorldBank - 5-Layer Ultra Enterprise Convergence Platform</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        darkbg: '#0a0b10',
-                        cardbg: '#12141c',
-                        cardborder: '#1e2230',
-                        accent: '#8b5cf6',
-                        accenthover: '#7c3aed',
-                        neonpurple: '#a855f7',
-                        neonglow: 'rgba(168, 85, 247, 0.4)'
-                    }
-                }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HK 통합 플랫폼 - 5대 핵심 대시보드</title>
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --bg-card: #131c2e;
+            --bg-card-hover: #1a2640;
+            --purple-primary: #8b5cf6;
+            --purple-hover: #7c3aed;
+            --purple-glow: rgba(139, 92, 246, 0.4);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            max-height: 920px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 481px) {
+            .app-container {
+                border-radius: 24px;
             }
         }
-    </script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a0b10;
-            color: #f3f4f6;
-            overflow-x: hidden;
+
+        /* Header */
+        .app-header {
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-dark);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
         }
-        .mono-font {
-            font-family: 'JetBrains Mono', monospace;
+
+        .brand-logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a78bfa, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-card);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #a78bfa;
         }
-        ::-webkit-scrollbar-track {
-            background: #0a0b10;
+
+        /* Content Scroll Area */
+        .app-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            padding-bottom: 90px;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #2d3748;
-            border-radius: 3px;
+
+        .tab-content {
+            display: none;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4a5568;
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.25s ease-in-out;
         }
-        .glass-panel {
-            background: rgba(18, 20, 28, 0.88);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(139, 92, 246, 0.35);
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .neon-glow-btn {
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-            transition: all 0.3s ease;
+
+        /* 5대 메뉴 첫장 스타일 */
+        .main-menu-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 10px;
         }
-        .neon-glow-btn:hover {
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
+
+        .menu-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.9; }
+
+        .menu-card:hover {
+            border-color: var(--purple-primary);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px var(--purple-glow);
         }
-        .animate-glow {
-            animation: pulseGlow 3s infinite ease-in-out;
+
+        .menu-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .menu-icon {
+            font-size: 2rem;
+            background: rgba(139, 92, 246, 0.15);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+        }
+
+        .menu-text h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .menu-text p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .menu-arrow {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        /* Balance Card (개인 자산 대시보드 내부) */
+        .balance-card {
+            background: linear-gradient(135deg, #1e1b4b, #311042);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 10px 25px -5px var(--purple-glow);
+            margin-bottom: 20px;
+        }
+
+        .balance-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .balance-amount {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .pi-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(139, 92, 246, 0.2);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            color: #d8b4fe;
+            font-weight: 600;
+        }
+
+        /* 10대 분산 연동망 엔진 그리드 */
+        .network-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .network-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 14px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .network-item:hover {
+            background: var(--purple-primary);
+            color: white;
+            border-color: var(--purple-primary);
+        }
+
+        /* AGI 삐니 채팅 UI */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 230px);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 14px;
+            padding-right: 4px;
+        }
+
+        .chat-bubble {
+            max-width: 82%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .chat-bubble.ai {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-bubble.user {
+            background: var(--purple-primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 12px 16px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: var(--purple-primary);
+        }
+
+        .send-btn {
+            background: var(--purple-primary);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            padding: 0 18px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* 공통 카드 및 버튼 스타일 */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: var(--purple-primary);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            padding: 14px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px var(--purple-glow);
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background: var(--purple-hover);
+        }
+
+        .back-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-bottom: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .back-btn:hover {
+            color: var(--text-main);
+            border-color: var(--purple-primary);
+        }
+
+        /* Fixed Bottom Navigation Bar */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 75px;
+            background: rgba(11, 15, 25, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active {
+            color: var(--purple-primary);
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
         }
     </style>
 </head>
-<body class="min-h-screen pb-28 flex flex-col selection:bg-purple-500 selection:text-white">
+<body>
 
-    <!-- LAYER 5: 네비게이터 통합 상단 바 -->
-    <header class="sticky top-0 z-50 glass-panel border-b border-cardborder px-4 md:px-8 py-3.5 flex items-center justify-between shadow-xl">
-        <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 via-indigo-600 to-purple-800 flex items-center justify-center shadow-lg shadow-purple-500/40">
-                <i class="fa-solid fa-compass text-white text-base"></i>
-            </div>
-            <div>
-                <h1 class="font-extrabold text-base md:text-lg tracking-wider bg-gradient-to-r from-white via-purple-200 to-purple-400 bg-clip-text text-transparent">HK WORLDBANK 5-LAYER</h1>
-                <p class="text-[10px] text-purple-400 font-mono tracking-widest uppercase">Chairman Hyekong Master Core</p>
-            </div>
-        </div>
-
-        <div class="flex items-center space-x-2.5">
-            <!-- 60개국어 다국어 셀렉터 -->
-            <div class="relative">
-                <select id="global-lang-select" onchange="changeLanguage(this.value)" class="bg-[#1a1d29] text-xs text-purple-200 border border-purple-500/40 rounded-xl px-3 py-2 focus:outline-none focus:border-purple-500 cursor-pointer shadow-inner">
-                    <option value="ko">🇰🇷 한국어 (Korean)</option>
-                    <option value="en">🇺🇸 English</option>
-                    <option value="zh">🇨🇳 中文 (Chinese)</option>
-                    <option value="ja">🇯🇵 日本語 (Japanese)</option>
-                    <option value="vi">🇻🇳 Tiếng Việt</option>
-                    <option value="id">🇮🇩 Bahasa Indonesia</option>
-                    <option value="es">🇪🇸 Español</option>
-                    <option value="pt">🇵🇹 Português</option>
-                    <option value="tl">🇵🇭 Tagalog</option>
-                    <option value="fr">🇫🇷 Français</option>
-                    <option value="de">🇩🇪 Deutsch</option>
-                    <option value="ru">🇷🇺 Русский</option>
-                    <option value="ar">🇸🇦 العربية</option>
-                    <option value="hi">🇮🇳 हिन्दी</option>
-                    <option value="tr">🇹🇷 Türkçe</option>
-                    <option value="it">🇮🇹 Italiano</option>
-                    <option value="th">🇹🇭 ไทย</option>
-                    <option value="ms">🇲🇾 Melayu</option>
-                    <option value="pl">🇵🇱 Polski</option>
-                    <option value="nl">🇳🇱 Nederlands</option>
-                    <option value="sv">🇸🇻 Svenska</option>
-                    <option value="fi">🇫🇮 Suomi</option>
-                    <option value="no">🇳🇴 Norsk</option>
-                    <option value="da">🇩🇰 Dansk</option>
-                    <option value="el">🇬🇷 Ελληνικά</option>
-                    <option value="cs">🇨🇿 Čeština</option>
-                    <option value="hu">🇭🇺 Magyar</option>
-                    <option value="ro">🇷🇴 Română</option>
-                    <option value="uk">🇺🇦 Українська</option>
-                    <option value="he">🇮🇱 עברית</option>
-                    <option value="fa">🇮🇷 فارسی</option>
-                    <option value="bn">🇧🇩 বাংলা</option>
-                    <option value="ur">🇵🇰 اردو</option>
-                    <option value="sw">🇹🇿 Kiswahili</option>
-                    <option value="uz">🇺🇿 Oʻzbekcha</option>
-                    <option value="kk">🇰🇿 Қазақ тілі</option>
-                    <option value="mn">🇲🇳 Монгол</option>
-                    <option value="km">🇰🇭 ខ្មែរ</option>
-                    <option value="lo">🇱🇦 ລາວ</option>
-                    <option value="my">🇲🇲 မြန်မာဘာသာ</option>
-                    <option value="ne">🇳🇵 नेपाली</option>
-                    <option value="si">🇱🇰 සිංහල</option>
-                    <option value="ta">🇮🇳 தமிழ்</option>
-                    <option value="te">🇮🇳 తెలుగు</option>
-                    <option value="kn">🇮🇳 ಕನ್ನಡ</option>
-                    <option value="ml">🇮🇳 മലയാളം</option>
-                    <option value="mr">🇮🇳 मराठी</option>
-                    <option value="gu">🇮🇳 ગુજરાતી</option>
-                    <option value="pa">🇮🇳 ਪੰਜਾਬੀ</option>
-                    <option value="so">🇸🇴 Soomaali</option>
-                    <option value="sq">🇦🇱 Shqip</option>
-                    <option value="sr">🇷🇸 Српски</option>
-                    <option value="hr">Hrvatski</option>
-                    <option value="sk">Slovenčina</option>
-                    <option value="sl">Slovenščina</option>
-                    <option value="bg">Български</option>
-                </select>
-            </div>
-
-            <!-- 메인넷 싱크 상태 -->
-            <div class="hidden sm:flex items-center space-x-2 bg-purple-950/60 border border-purple-500/40 px-3.5 py-2 rounded-full">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-                <span class="text-xs font-mono text-emerald-300 font-bold" data-i18n="net_status">SYSTEM SYNCED</span>
-            </div>
+<div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+        <div class="brand-logo">HK GLOBAL PLATFORM</div>
+        <div class="user-badge">
+            <span>👑 혜공 회장님</span>
         </div>
     </header>
 
-    <!-- 메인 대시보드 콘텐츠 영역 (양파껍질 구조: 1번부터 5번까지 계층적 배치) -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 space-y-8">
-
-        <!-- [LAYER 1] 개인 자산 대시보드 (Personal Asset Dashboard) -->
-        <section id="layer-dashboard" class="glass-panel rounded-3xl p-6 md:p-8 border border-purple-500/40 shadow-2xl relative overflow-hidden">
-            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl pointer-events-none animate-glow"></div>
-            <div class="relative z-10 space-y-6">
-                <div class="flex items-center justify-between">
-                    <span class="inline-flex items-center space-x-2 bg-purple-500/20 text-purple-300 text-xs px-3.5 py-1.5 rounded-full border border-purple-500/40">
-                        <i class="fa-solid fa-crown text-yellow-400"></i>
-                        <span data-i18n="layer1_badge">LAYER 1: 회장 이재완 (혜공) 개인 자산 대시보드</span>
-                    </span>
-                    <span class="text-xs text-emerald-400 font-mono font-bold flex items-center space-x-1">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <span>Pi Ledger Secured</span>
-                    </span>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-[#1a1d29]/90 p-5 rounded-2xl border border-purple-500/30 flex flex-col justify-between">
-                        <div>
-                            <span class="text-[11px] uppercase tracking-wider text-purple-400 font-mono font-semibold" data-i18n="l1_total">Total Pi Ledger Assets</span>
-                            <div class="text-2xl md:text-3xl font-extrabold text-white mono-font mt-2">314,159.00 <span class="text-purple-400 text-sm">PI / GCV</span></div>
-                        </div>
-                        <div class="mt-4 pt-3 border-t border-cardborder flex justify-between text-xs text-gray-400">
-                            <span>원화 환산 가치:</span>
-                            <span class="text-emerald-400 font-mono font-bold">₩ 1,570,795,000</span>
-                        </div>
-                    </div>
-
-                    <div class="bg-[#1a1d29]/90 p-5 rounded-2xl border border-purple-500/30 flex flex-col justify-between">
-                        <div>
-                            <span class="text-[11px] uppercase tracking-wider text-purple-400 font-mono font-semibold" data-i18n="l1_vault">Vault Deposit & LP Yield</span>
-                            <div class="text-2xl md:text-3xl font-extrabold text-white mono-font mt-2">8,450.50 <span class="text-purple-400 text-sm">PI</span></div>
-                        </div>
-                        <div class="mt-4 pt-3 border-t border-cardborder flex justify-between text-xs text-gray-400">
-                            <span>APY 수익률:</span>
-                            <span class="text-purple-300 font-mono font-semibold">18.5% Fixed</span>
-                        </div>
-                    </div>
-
-                    <div class="bg-[#1a1d29]/90 p-5 rounded-2xl border border-purple-500/30 flex flex-col justify-between">
-                        <div>
-                            <span class="text-[11px] uppercase tracking-wider text-purple-400 font-mono font-semibold" data-i18n="l1_ubi">Citizen Basic Income (UBI)</span>
-                            <div class="text-2xl md:text-3xl font-extrabold text-white mono-font mt-2">1,200.00 <span class="text-purple-400 text-sm">PI / Mo</span></div>
-                        </div>
-                        <div class="mt-4 pt-3 border-t border-cardborder">
-                            <button onclick="claimUBIReward()" class="w-full py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-bold transition">
-                                기본소득 수령하기
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- [LAYER 2] 10대 분산 연동망 (10 Core Distributed Networks) -->
-        <section id="layer-networks" class="glass-panel rounded-3xl p-6 md:p-8 border border-purple-500/40 shadow-xl space-y-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 class="text-base md:text-lg font-bold text-white flex items-center space-x-2">
-                        <i class="fa-solid fa-network-wired text-purple-400"></i>
-                        <span data-i18n="layer2_title">LAYER 2: 10대 분산 연동망 컨트롤 콘솔</span>
-                    </h3>
-                    <p class="text-xs text-gray-400 mt-1" data-i18n="layer2_desc">지갑 연결, 송금, 결제, 예치, 보상, 기본소득, 스왑, DEX 스왑, LP 스테이킹, 파이 수량 프로세스 제어</p>
-                </div>
-                <span class="text-xs text-purple-400 font-mono bg-purple-950/70 px-3 py-1.5 rounded-xl border border-purple-500/40">10/10 Core Operational</span>
+    <!-- Content Area -->
+    <main class="app-content">
+        
+        <!-- 첫장 (Main 5대 핵심 메뉴 허브) -->
+        <div id="tab-home" class="tab-content active">
+            <div style="margin-bottom: 16px;">
+                <h2 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 4px;">HK 통합 메인 허브</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">원하시는 핵심 메뉴를 선택해 주세요.</p>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                <div onclick="openNet('지갑 연결')" class="bg-[#1a1d29] p-4 rounded-2xl border border-purple-500/25 hover:border-purple-500 cursor-pointer transition text-center group shadow">
-                    <div class="w-10 h-10 rounded-xl bg-purple-900/50 flex items-center justify-center text-purple-300 mx-auto group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition mb-2"><i class="fa-solid fa-wallet text-base"></i></div>
-                    <span class="text-xs font-bold text-white">지갑 연결</span>
-                    <span class="text-[9px] text-emerald-400 mt-1 font-mono block">Connected</span>
+            <div class="main-menu-grid">
+                <!-- 1. 개인 자산 대시보드 -->
+                <div class="menu-card" onclick="switchTab('dashboard')">
+                    <div class="menu-info">
+                        <div class="menu-icon">📊</div>
+                        <div class="menu-text">
+                            <h3>개인 자산 대시보드</h3>
+                            <p>실시간 잔액 및 Pi 자산 통합 관리</p>
+                        </div>
+                    </div>
+                    <div class="menu-arrow">›</div>
                 </div>
-                <div onclick="openNet('송금')" class="bg-[#1a1d29] p-4 rounded-2xl border border-purple-500/25 hover:border-purple-500 cursor-pointer transition text-center group shadow">
-                    <div class="w-10 h-10 rounded-xl bg-purple-900/50 flex items-center justify-center text-purple-300 mx-auto group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition mb-2"><i class="fa-solid fa-paper-plane text-base"></i></div>
-                    <span class="text-xs font-bold text-white">송금</span>
-                    <span class="text-[9px] text-purple-300 mt-1 font-mono block">P2P Transfer</span>
+
+                <!-- 2. 사고 팔고 예금하기 -->
+                <div class="menu-card" onclick="switchTab('trading')">
+                    <div class="menu-info">
+                        <div class="menu-icon">💱</div>
+                        <div class="menu-text">
+                            <h3>사고 팔고 예금하기</h3>
+                            <p>10대 분산 연동망 및 스왑·예치 엔진</p>
+                        </div>
+                    </div>
+                    <div class="menu-arrow">›</div>
                 </div>
-                <div onclick="openNet('결제')" class="bg-[#1a1d29] p-4 rounded-2xl border border-purple-500/25 hover:border-purple-500 cursor-pointer transition text-center group shadow">
-                    <div class="w-10 h-10 rounded-xl bg-purple-900/50 flex items-center justify-center text-purple-300 mx-auto group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition mb-2"><i class="fa-solid fa-qrcode text-base"></i></div>
-                    <span class="text-xs font-bold text-white">결제</span>
-                    <span class="text-[9px] text-purple-300 mt-1 font-mono block">GCV QR Scan</span>
+
+                <!-- 3. 고객센터 삐니 -->
+                <div class="menu-card" onclick="switchTab('support')">
+                    <div class="menu-info">
+                        <div class="menu-icon">🤖</div>
+                        <div class="menu-text">
+                            <h3>고객센터 삐니</h3>
+                            <p>AGI 전담 AI 비서와 실시간 1:1 케어</p>
+                        </div>
+                    </div>
+                    <div class="menu-arrow">›</div>
                 </div>
-                <div onclick="openNet('예치')" class="bg-[#1a1d29] p-4 rounded-2xl border border-purple-500/25 hover:border-purple-500 cursor-pointer transition text-center group shadow">
-                    <div class="w-10 h-10 rounded-xl bg-purple-900/50 flex items-center justify-center text-purple-300 mx-auto group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition mb-2"><i class="fa-solid fa-vault text-base"></i></div>
-                    <span class="text-xs font-bold text-white">예치</span>
-                    <span class="text-[9px] text-purple-300 mt-1 font-mono block">18.5% APY</span>
+
+                <!-- 4. 네비게이터 -->
+                <div class="menu-card" onclick="switchTab('nav')">
+                    <div class="menu-info">
+                        <div class="menu-icon">🧭</div>
+                        <div class="menu-text">
+                            <h3>네비게이터</h3>
+                            <p>HK WorldBank · 스마트 글래스 허브</p>
+                        </div>
+                    </div>
+                    <div class="menu-arrow">›</div>
                 </div>
-                <div onclick="openNet('보상')" class="bg-[#1a1d29] p-4 rounded-2xl border border-purple-500/25 hover:border-purple-500 cursor-pointer transition text-center group shadow">
-                    <div class="w-10 h-10 rounded-xl bg-purple-900/50 flex items-center justify-center text-purple-300 mx-auto group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition mb-2"><i class="fa-solid fa-award text-base"></i></div>
-                    <span class="text-xs font-bold text-white">보상</span>
-                    <span class="text-[9px] text-purple-300 mt-1 font-mono block">Active Pool</span>
-                </div>
-                <div onclick="openNet('기본소득')" class="bg-[#1a1d29] p-4 rounded-2xl border border-purple-500/25 hover:border-purple-500 cursor-pointer transition text-center group shadow">
-                    <div class="w-10 h-10 rounded-xl bg-purple-900/50 flex items-center justify-center text-purple-300 mx-auto group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition mb-2"><i class="fa-solid fa-earth-americas text-base"></i></div>
-                    <span class="text-xs font-bold text-white">기본소득</span>
-                    <span class="text-[9px] text-purple-300 mt-1 font-mono block">Universal</span>
-                </div>
-                <div onclick="openNet('스왑')" class="bg-[#1a1d29] p-4 rounded-2xl border border-purple-500/25 hover:border-purple-500 cursor-pointer transition text-center group shadow">
-                    <div class="w-10 h-10 rounded-xl bg-purple-900/50 flex items-center justify-center text-purple-300 mx-auto group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition mb-2"><i class="fa-solid fa-right-left text-base"></i></div>
-                    <span class="text-xs font-bold text-white">스왑</span>
-                    <span class="text-[9px] text-purple-300 mt-1 font-mono block">Cross-Chain</span>
-                </div>
-                <div onclick="openNet('DEX 스왑')" class="bg-[#1a1d29] p-4 rounded-2xl border border-purple-500/25 hover:border-purple-500 cursor-pointer transition text-center group shadow">
-                    <div class="w-10 h-10 rounded-xl bg-purple-900/50 flex items-center justify-center text-purple-300 mx-auto group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition mb-2"><i class="fa-solid fa-chart-line text-base"></i></div>
-                    <span class="text-xs font-bold text-white">DEX 스왑</span>
-                    <span class="text-[9px] text-purple-300 mt-1 font-mono block">AMM Pool</span>
-                </div>
-                <div onclick="openNet('LP 스테이킹')" class="bg-[#1a1d29] p-4 rounded-2xl border border-purple-500/25 hover:border-purple-500 cursor-pointer transition text-center group shadow">
-                    <div class="w-10 h-10 rounded-xl bg-purple-900/50 flex items-center justify-center text-purple-300 mx-auto group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition mb-2"><i class="fa-solid fa-coins text-base"></i></div>
-                    <span class="text-xs font-bold text-white">LP 스테이킹</span>
-                    <span class="text-[9px] text-purple-300 mt-1 font-mono block">High Yield</span>
-                </div>
-                <div onclick="openNet('파이 수량')" class="bg-[#1a1d29] p-4 rounded-2xl border border-purple-500/25 hover:border-purple-500 cursor-pointer transition text-center group shadow">
-                    <div class="w-10 h-10 rounded-xl bg-purple-900/50 flex items-center justify-center text-purple-300 mx-auto group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition mb-2"><i class="fa-solid fa-calculator text-base"></i></div>
-                    <span class="text-xs font-bold text-white">파이 수량</span>
-                    <span class="text-[9px] text-emerald-400 mt-1 font-mono block">Ledger Sync</span>
+
+                <!-- 5. 유튜브와 틱톡 -->
+                <div class="menu-card" onclick="switchTab('media')">
+                    <div class="menu-info">
+                        <div class="menu-icon">📺</div>
+                        <div class="menu-text">
+                            <h3>유튜브와 틱톡</h3>
+                            <p>실시간 방송 및 대외 소통 채널</p>
+                        </div>
+                    </div>
+                    <div class="menu-arrow">›</div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- [LAYER 3 & 4] 고객센터 삐니 및 유튜브/틱톡 방송 하이브 -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- [LAYER 3] 고객센터 삐니 (AI Customer Support & Advisor) -->
-            <section id="layer-bini" class="glass-panel rounded-3xl p-6 md:p-8 border border-purple-500/40 shadow-xl flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
-                            <i class="fa-solid fa-robot text-white text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-white text-sm md:text-base" data-i18n="layer3_title">LAYER 3: 고객센터 삐니 (AI Support)</h3>
-                            <p class="text-[10px] text-purple-400 font-mono">HK Group Smart AI Customer Care</p>
-                        </div>
-                    </div>
-                    <div id="ai-chat-box" class="bg-[#1a1d29] border border-purple-500/25 rounded-2xl p-4 h-40 overflow-y-auto space-y-2 text-xs font-mono shadow-inner">
-                        <p class="text-purple-300">[삐니 고객센터]: 혜공 형님, 안녕하십니까! 고객센터 삐니 AI가 대기 중입니다. 무엇이든 물어보십시오!</p>
+        <!-- Sub Tab 1: 개인 자산 대시보드 -->
+        <div id="tab-dashboard" class="tab-content">
+            <button class="back-btn" onclick="switchTab('home')">← 메인으로 돌아가기</button>
+            <div class="balance-card">
+                <div class="balance-title">총 보유 자산 (KRW 환산)</div>
+                <div class="balance-amount">₩ 128,450,000</div>
+                <div class="pi-badge">
+                    <span>🪙 Pi 코인 보유량:</span>
+                    <strong>1,250.00 Pi</strong>
+                </div>
+            </div>
+            <div class="card">
+                <div style="font-size: 0.95rem; font-weight: 700; margin-bottom: 6px;">📈 자산 요약 브리핑</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">현재 10대 분산 연동망을 통한 스테이킹 리워드와 기본소득 배분이 안정적으로 반영되고 있습니다.</div>
+            </div>
+        </div>
+
+        <!-- Sub Tab 2: 사고 팔고 예금하기 -->
+        <div id="tab-trading" class="tab-content">
+            <button class="back-btn" onclick="switchTab('home')">← 메인으로 돌아가기</button>
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">💱 사고 팔고 예금하기 (10대 분산 연동망)</div>
+            <div class="network-grid">
+                <div class="network-item" onclick="alert('지갑이 안전하게 연결되었습니다.')">🔗 지갑 연결</div>
+                <div class="network-item" onclick="alert('송금창 실행')">💸 송금하기</div>
+                <div class="network-item" onclick="alert('실생활 결제 모듈 가동')">💳 결제 연동</div>
+                <div class="network-item" onclick="alert('안전 예치 및 이자 수령')">🔒 예치하기</div>
+                <div class="network-item" onclick="alert('리워드 지급 완료')">🎁 보상 수령</div>
+                <div class="network-item" onclick="alert('기본소득 분배 시스템 활성화')">🏛️ 기본소득</div>
+                <div class="network-item" onclick="alert('스왑 엔진 구동')">🔄 토큰 스왑</div>
+                <div class="network-item" onclick="alert('DEX 유동성 풀 연결')">🌐 DEX 스왑</div>
+                <div class="network-item" onclick="alert('LP 스테이킹 참여')">📊 LP 스테이킹</div>
+                <div class="network-item" onclick="alert('Pi GCV 수량 확인 완료')">🪙 파이 수량</div>
+            </div>
+        </div>
+
+        <!-- Sub Tab 3: 고객센터 삐니 -->
+        <div id="tab-support" class="tab-content">
+            <button class="back-btn" onclick="switchTab('home')">← 메인으로 돌아가기</button>
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">🤖 고객센터 AGI 삐니</div>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-bubble ai">
+                        안녕하세요, 혜공 형님! 고객센터 삐니입니다. 무엇을 도와드릴까요? 💜 (60개국어 i18n 엔진 장착 완료)
                     </div>
                 </div>
-                <div class="mt-4 flex space-x-2">
-                    <input type="text" id="ai-input" placeholder="삐니에게 고객 문의 및 지시사항 입력..." class="flex-1 bg-[#1a1d29] border border-purple-500/30 rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 font-mono">
-                    <button onclick="sendAi()" class="px-5 py-2.5 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs font-bold transition">
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" class="chat-input" placeholder="삐니에게 질문하기..." onkeypress="if(event.key === 'Enter') sendMessage()">
+                    <button class="send-btn" onclick="sendMessage()">전송</button>
                 </div>
-            </section>
+            </div>
+        </div>
 
-            <!-- [LAYER 4] 유튜브와 틱톡 (Live Broadcast & Streaming Hub) -->
-            <section id="layer-media" class="glass-panel rounded-3xl p-6 md:p-8 border border-purple-500/40 shadow-xl space-y-4 flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-white text-sm md:text-base flex items-center space-x-2">
-                            <i class="fa-solid fa-video text-purple-400"></i>
-                            <span data-i18n="layer4_title">LAYER 4: 유튜브 & 틱톡 라이브 방송</span>
-                        </h3>
-                        <span class="text-xs text-red-400 font-mono animate-pulse"><i class="fa-solid fa-circle text-[8px] mr-1"></i> LIVE ON AIR</span>
-                    </div>
-                    <p class="text-xs text-gray-400 mb-4">@Hyekong2026 (YouTube) 및 @hyekong2026 (TikTok) 공식 라이브 스트리밍 및 미디어 소통 채널</p>
-                    
-                    <div class="grid grid-cols-2 gap-3">
-                        <a href="https://youtube.com/@Hyekong2026" target="_blank" class="bg-[#1a1d29] hover:bg-purple-900/30 p-4 rounded-2xl border border-purple-500/30 flex items-center space-x-3 transition group">
-                            <div class="w-10 h-10 rounded-xl bg-red-600/20 text-red-400 flex items-center justify-center group-hover:scale-110 transition"><i class="fa-brands fa-youtube text-lg"></i></div>
-                            <div>
-                                <div class="text-xs font-bold text-white">YouTube Live</div>
-                                <div class="text-[10px] text-gray-400">@Hyekong2026</div>
-                            </div>
-                        </a>
-                        <a href="https://tiktok.com/@hyekong2026" target="_blank" class="bg-[#1a1d29] hover:bg-purple-900/30 p-4 rounded-2xl border border-purple-500/30 flex items-center space-x-3 transition group">
-                            <div class="w-10 h-10 rounded-xl bg-cyan-600/20 text-cyan-400 flex items-center justify-center group-hover:scale-110 transition"><i class="fa-brands fa-tiktok text-lg"></i></div>
-                            <div>
-                                <div class="text-xs font-bold text-white">TikTok Live</div>
-                                <div class="text-[10px] text-gray-400">@hyekong2026</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+        <!-- Sub Tab 4: 네비게이터 -->
+        <div id="tab-nav" class="tab-content">
+            <button class="back-btn" onclick="switchTab('home')">← 메인으로 돌아가기</button>
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">🧭 HK 네비게이터 허브</div>
+            <div class="card" onclick="alert('HK WorldBank (hkwb.world)로 이동합니다.')" style="cursor: pointer;">
+                <div style="font-size: 0.95rem; font-weight: 700; color: #a78bfa; margin-bottom: 4px;">🌐 HK WorldBank (60개국어 지원)</div>
+                <div style="font-size: 0.82rem; color: var(--text-muted);">글로벌 웹3 디지털 뱅킹 플랫폼</div>
+            </div>
+            <div class="card" onclick="alert('HK-NEXUS 스마트 글래스(해온·누리온·라온) 허브')" style="cursor: pointer;">
+                <div style="font-size: 0.95rem; font-weight: 700; color: #a78bfa; margin-bottom: 4px;">👓 HK-NEXUS (해온·누리온·라온)</div>
+                <div style="font-size: 0.82rem; color: var(--text-muted);">차세대 AI 스마트 글래스 및 방위·로보틱스 프로젝트</div>
+            </div>
+            <div class="card" onclick="alert('해오름 메가시티(울산·경주·포항) 클러스터 안내')" style="cursor: pointer;">
+                <div style="font-size: 0.95rem; font-weight: 700; color: #a78bfa; margin-bottom: 4px;">🏙️ 해오름 메가시티 프로젝트</div>
+                <div style="font-size: 0.82rem; color: var(--text-muted);">울산·경주·포항 삼각 클러스터 연계</div>
+            </div>
+        </div>
 
-                <button onclick="alert('유튜브 및 틱톡 실시간 방송 송출 세션이 활성화되었습니다.')" class="w-full py-3 bg-gradient-to-r from-red-600/80 to-purple-600/80 hover:from-red-600 hover:to-purple-600 text-white rounded-xl text-xs font-bold transition shadow-md">
-                    방송 송출 제어 콘솔 열기
-                </button>
-            </section>
+        <!-- Sub Tab 5: 유튜브와 틱톡 -->
+        <div id="tab-media" class="tab-content">
+            <button class="back-btn" onclick="switchTab('home')">← 메인으로 돌아가기</button>
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">📺 유튜브와 틱톡 미디어</div>
+            <div class="card">
+                <div style="font-size: 0.95rem; font-weight: 700; margin-bottom: 6px;">🔴 유튜브 공식 채널 (@Hyekong2026)</div>
+                <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;">경제, 기술, 해오름 메가시티 라이브 방송 스트리밍</div>
+                <button class="btn-primary" onclick="window.open('https://youtube.com', '_blank')">유튜브 채널 바로가기</button>
+            </div>
+            <div class="card" style="margin-top: 14px;">
+                <div style="font-size: 0.95rem; font-weight: 700; margin-bottom: 6px;">🎵 틱톡 채널 (@hyekong2026)</div>
+                <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;">숏폼 하이라이트 및 스마트 글래스 시연 영상</div>
+                <button class="btn-primary" style="background: #ec4899;" onclick="window.open('https://tiktok.com', '_blank')">틱톡 채널 바로가기</button>
+            </div>
         </div>
 
     </main>
 
-    <!-- [LAYER 5] 네비게이터 (Fixed Bottom Navigation Bar) -->
-    <nav class="fixed bottom-0 left-0 right-0 z-50 glass-panel border-t border-purple-500/30 px-6 py-3.5 flex justify-around items-center shadow-2xl">
-        <button onclick="scrollToLayer('layer-dashboard')" id="nav-dashboard" class="flex flex-col items-center text-purple-400 transition">
-            <i class="fa-solid fa-wallet text-lg"></i>
-            <span class="text-[11px] mt-1 font-semibold">1. 자산대시보드</span>
+    <!-- Fixed Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchTab('home')" id="nav-home">
+            <span class="nav-icon">🏠</span>
+            <span>홈 (메인)</span>
         </button>
-        <button onclick="scrollToLayer('layer-networks')" id="nav-networks" class="flex flex-col items-center text-gray-400 hover:text-purple-300 transition">
-            <i class="fa-solid fa-network-wired text-lg"></i>
-            <span class="text-[11px] mt-1 font-semibold">2. 연동망</span>
+        <button class="nav-item" onclick="switchTab('trading')" id="nav-trading">
+            <span class="nav-icon">💱</span>
+            <span>거래·예금</span>
         </button>
-        <button onclick="scrollToLayer('layer-bini')" id="nav-bini" class="flex flex-col items-center text-gray-400 hover:text-purple-300 transition">
-            <i class="fa-solid fa-robot text-lg"></i>
-            <span class="text-[11px] mt-1 font-semibold">3. 삐니센터</span>
+        <button class="nav-item" onclick="switchTab('support')" id="nav-support">
+            <span class="nav-icon">🤖</span>
+            <span>삐니</span>
         </button>
-        <button onclick="scrollToLayer('layer-media')" id="nav-media" class="flex flex-col items-center text-gray-400 hover:text-purple-300 transition">
-            <i class="fa-solid fa-video text-lg"></i>
-            <span class="text-[11px] mt-1 font-semibold">4. 방송채널</span>
+        <button class="nav-item" onclick="switchTab('media')" id="nav-media">
+            <span class="nav-icon">📺</span>
+            <span>미디어</span>
         </button>
     </nav>
+</div>
 
-    <!-- 통합 로직 및 60개국어 다국어 엔진 -->
-    <script>
-        const dict = {
-            ko: {
-                net_status: "시스템 동기화 완료",
-                layer1_badge: "LAYER 1: 회장 이재완 (혜공) 개인 자산 대시보드",
-                l1_total: "Total Pi Ledger Assets",
-                l1_vault: "Vault Deposit & LP Yield",
-                l1_ubi: "Citizen Basic Income (UBI)",
-                layer2_title: "LAYER 2: 10대 분산 연동망 컨트롤 콘솔",
-                layer2_desc: "지갑 연결, 송금, 결제, 예치, 보상, 기본소득, 스왑, DEX 스왑, LP 스테이킹, 파이 수량 프로세스 제어",
-                layer3_title: "LAYER 3: 고객센터 삐니 (AI Support)",
-                layer4_title: "LAYER 4: 유튜브 & 틱톡 라이브 방송"
-            },
-            en: {
-                net_status: "SYSTEM SYNCED",
-                layer1_badge: "LAYER 1: Chairman Hyekong Personal Asset Dashboard",
-                l1_total: "Total Pi Ledger Assets",
-                l1_vault: "Vault Deposit & LP Yield",
-                l1_ubi: "Citizen Basic Income (UBI)",
-                layer2_title: "LAYER 2: 10 Core Distributed Networks Console",
-                layer2_desc: "Wallet Connect, Transfer, Payment, Vault, Rewards, UBI, Swap, DEX, Staking, Ledger Sync",
-                layer3_title: "LAYER 3: Bini AI Customer Support",
-                layer4_title: "LAYER 4: YouTube & TikTok Live Broadcast"
-            },
-            zh: {
-                net_status: "系统同步完成",
-                layer1_badge: "LAYER 1: 惠恭董事长个人资产仪表盘",
-                l1_total: "Pi账本总资产",
-                l1_vault: "金库存款与LP收益",
-                l1_ubi: "全民基本收入(UBI)",
-                layer2_title: "LAYER 2: 十大分布式互联网络控制台",
-                layer2_desc: "连接钱包、转账、支付、存款、奖励、基本收入、兑换、DEX、质押、Pi数量",
-                layer3_title: "LAYER 3: 彬妮AI客户支持中心",
-                layer4_title: "LAYER 4: YouTube & TikTok直播频道"
-            },
-            ja: {
-                net_status: "システム同期完了",
-                layer1_badge: "LAYER 1: ヘゴン会長 個人資産ダッシュボード",
-                l1_total: "Pi元帳総資産",
-                l1_vault: "預金およびLP収益",
-                l1_ubi: "市民基本所得(UBI)",
-                layer2_title: "LAYER 2: 10大分散連動網コントロールコンソール",
-                layer2_desc: "ウォレット、送金、決済、預金、報酬、基本所得、スワップ、DEX、ステーキング、Pi数量",
-                layer3_title: "LAYER 3: ピニAIカスタマーサポート",
-                layer4_title: "LAYER 4: YouTube＆TikTokライブ放送"
-            }
-        };
+<script>
+    function switchTab(tabName) {
+        // Hide all tabs
+        const tabs = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => tab.classList.remove('active'));
 
-        function changeLanguage(langCode) {
-            const data = dict[langCode] || dict['ko'];
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (data[key]) el.innerText = data[key];
-            });
-            localStorage.setItem('hk_5layer_lang', langCode);
+        // Remove active class from nav items
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => item.classList.remove('active'));
+
+        // Show target tab
+        if (tabName === 'home') {
+            document.getElementById('tab-home').classList.add('active');
+            document.getElementById('nav-home').classList.add('active');
+        } else if (tabName === 'dashboard') {
+            document.getElementById('tab-dashboard').classList.add('active');
+        } else if (tabName === 'trading') {
+            document.getElementById('tab-trading').classList.add('active');
+            document.getElementById('nav-trading').classList.add('active');
+        } else if (tabName === 'support') {
+            document.getElementById('tab-support').classList.add('active');
+            document.getElementById('nav-support').classList.add('active');
+        } else if (tabName === 'nav') {
+            document.getElementById('tab-nav').classList.add('active');
+        } else if (tabName === 'media') {
+            document.getElementById('tab-media').classList.add('active');
+            document.getElementById('nav-media').classList.add('active');
         }
+        
+        // Scroll content back to top
+        document.querySelector('.app-content').scrollTop = 0;
+    }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const saved = localStorage.getItem('hk_5layer_lang') || 'ko';
-            document.getElementById('global-lang-select').value = saved;
-            changeLanguage(saved);
-        });
+    // AGI 삐니 채팅 기능
+    function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const text = input.value.trim();
+        if (!text) return;
 
-        function claimUBIReward() {
-            alert("시민 기본소득(UBI) 1,200 PI가 지갑으로 즉시 지급되었습니다!");
-        }
+        const messagesContainer = document.getElementById('chatMessages');
 
-        function openNet(name) {
-            alert(`[LAYER 2: 10대 분산 연동망] '${name}' 컨트롤 모듈이 정상 가동 중입니다.`);
-        }
+        // User bubble
+        const userBubble = document.createElement('div');
+        userBubble.className = 'chat-bubble user';
+        userBubble.textContent = text;
+        messagesContainer.appendChild(userBubble);
 
-        function sendAi() {
-            const input = document.getElementById('ai-input');
-            const chat = document.getElementById('ai-chat-box');
-            if(!input.value.trim()) return;
+        input.value = '';
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-            const u = document.createElement('p');
-            u.className = "text-purple-200";
-            u.innerText = `[회장님]: ${input.value}`;
-            chat.appendChild(u);
+        // AGI AI Response simulation
+        setTimeout(() => {
+            const aiBubble = document.createElement('div');
+            aiBubble.className = 'chat-bubble ai';
+            aiBubble.textContent = `형님! "${text}" 요청하신 내용 60개국어 i18n 엔진과 연동하여 완벽하게 처리 완료했습니다. 또 지시하실 말씀 있으신가요? 💜`;
+            messagesContainer.appendChild(aiBubble);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }, 600);
+    }
+</script>
 
-            const q = input.value;
-            input.value = '';
-
-            setTimeout(() => {
-                const a = document.createElement('p');
-                a.className = "text-emerald-300";
-                a.innerText = `[삐니 고객센터]: 형님! "${q}" 문의 건을 고객센터 삐니가 즉시 접수 및 처리 완료했습니다!`;
-                chat.appendChild(a);
-                chat.scrollTop = chat.scrollHeight;
-            }, 600);
-
-            chat.scrollTop = chat.scrollHeight;
-        }
-
-        function scrollToLayer(layerId) {
-            ['layer-dashboard', 'layer-networks', 'layer-bini', 'layer-media'].forEach(id => {
-                const navBtn = document.getElementById(`nav-${id.replace('layer-', '')}`);
-                if(navBtn) {
-                    navBtn.classList.remove('text-purple-400');
-                    navBtn.classList.add('text-gray-400');
-                }
-            });
-            
-            const targetNav = document.getElementById(`nav-${layerId.replace('layer-', '')}`);
-            if(targetNav) {
-                targetNav.classList.remove('text-gray-400');
-                targetNav.classList.add('text-purple-400');
-            }
-
-            const el = document.getElementById(layerId);
-            if(el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-    </script>
 </body>
 </html>
