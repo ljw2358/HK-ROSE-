@@ -889,7 +889,7 @@
                 </button>
             </div>
 
-            <!-- 10대 분산 연동망 -->
+            <!-- 오리지널 10대 분산 연동망 -->
             <div class="section-header">
                 <h2 class="section-title" data-i18n="gridSectionTitle">10대 분산 연동망</h2>
                 <span class="section-sub" data-i18n="gridSectionSub">[개별 프로세스 구동]</span>
@@ -899,7 +899,7 @@
                 <div class="network-card" onclick="openProcessModal('wallet')">
                     <div class="card-top-center"><i class="fa-solid fa-link card-icon-1"></i></div>
                     <div>
-                        <div class="card-title" data-i18n="net1_title">지갑연결</div>
+                        <div class="card-title" data-i18n="net1_title">지갑 연결</div>
                         <div class="card-desc" data-i18n="net1_desc">노드 지갑 약정 연동 및 자동 연결</div>
                     </div>
                 </div>
@@ -947,7 +947,7 @@
                 <div class="network-card" onclick="openProcessModal('swap')">
                     <div class="card-top-center"><i class="fa-solid fa-right-left card-icon-7"></i></div>
                     <div>
-                        <div class="card-title" data-i18n="net7_title">교환</div>
+                        <div class="card-title" data-i18n="net7_title">스왑</div>
                         <div class="card-desc" data-i18n="net7_desc">현금·카드·타코인 즉시 맞교환 구매</div>
                     </div>
                 </div>
@@ -955,7 +955,7 @@
                 <div class="network-card" onclick="openProcessModal('dex')">
                     <div class="card-top-center"><i class="fa-solid fa-bolt card-icon-8"></i></div>
                     <div>
-                        <div class="card-title" data-i18n="net8_title">탈중앙화 교환</div>
+                        <div class="card-title" data-i18n="net8_title">DEX 스왑</div>
                         <div class="card-desc" data-i18n="net8_desc">자율 제어 개인 간 직접 거래 유동성 매칭</div>
                     </div>
                 </div>
@@ -963,7 +963,7 @@
                 <div class="network-card" onclick="openProcessModal('lp')">
                     <div class="card-top-center"><i class="fa-solid fa-layer-group card-icon-9"></i></div>
                     <div>
-                        <div class="card-title" data-i18n="net9_title">유동성 예치</div>
+                        <div class="card-title" data-i18n="net9_title">LP 스테이킹</div>
                         <div class="card-desc" data-i18n="net9_desc">유동성 공급 증명 및 고배당 권한 설정</div>
                     </div>
                 </div>
@@ -971,7 +971,7 @@
                 <div class="network-card" onclick="openProcessModal('pishow')">
                     <div class="card-top-center"><span class="pi-logo-icon" style="width: 26px; height: 26px; font-size: 15px;">π</span></div>
                     <div>
-                        <div class="card-title" data-i18n="net10_title">파이 수량 동기화</div>
+                        <div class="card-title" data-i18n="net10_title">파이 수량</div>
                         <div class="card-desc" data-i18n="net10_desc">파이 자산 메인넷 원장 실시간 일치화</div>
                     </div>
                 </div>
@@ -1096,14 +1096,13 @@
         </div>
     </div>
 
-    <!-- 실시간 다국어 동적 변환 엔진 스크립트 -->
+    <!-- 오리지널 10대 프로세스 및 25개국어 변환 엔진 스크립트 -->
     <script>
         let baseInterest = 12450892.600000;
         let currentWalletBalance = 314159.000000;
         let currentLang = 'ko';
         let generatedAuthCode = "123456";
         let activeProcessId = null;
-        let activeModalType = null;
 
         const koSource = {
             headerSubText: "글로벌 차세대 분산 금융", langEngineLabel: "25개국 핵심 글로벌 언어 엔진", subTitle: "빠른 금융 작업 마스터 코어",
@@ -1113,16 +1112,16 @@
             agiTitle: "AGI 삐니 고객센터", agiSub: "손폰(SONPONE) 자동 반응 및 AI 종합 제어", sonponeLabelText: "손폰(SONPONE) 감지 감도:", syncText: "(실시간 일치)",
             initialBeeniMsg: "[AGI 삐니]: 바이낸스·시중은행 해킹 원천 차단형 자금세탁방지 보안 시스템 가동 중입니다. 혜공 형님, 지시해 주십시오!",
             chatInputPlaceholder: "삐니에게 질문 입력...", chatSendBtn: "전송", supportEmailText: "지원 문의: support@hkwb.world",
-            net1_title: "지갑연결", net1_desc: "노드 지갑 약정 연동 및 자동 연결",
+            net1_title: "지갑 연결", net1_desc: "노드 지갑 약정 연동 및 자동 연결",
             net2_title: "송금", net2_desc: "대륙간 초고속 다중서명 암호화 전송 체계",
             net3_title: "결제", net3_desc: "현금·카드·타코인 실시간 상거래 안전결제",
             net4_title: "예치", net4_desc: "3년 만기 31.41% 연복리 자산 신탁 금고",
             net5_title: "보상", net5_desc: "기여도 기반 장려금 금고 적립 엔진",
             net6_title: "기본소득", net6_desc: "HK 사회 재단 & 지자체 기본소득 분배 모델",
-            net7_title: "교환", net7_desc: "현금·카드·타코인 즉시 맞교환 구매",
-            net8_title: "탈중앙화 교환", net8_desc: "자율 제어 개인 간 직접 거래 유동성 매칭",
-            net9_title: "유동성 예치", net9_desc: "유동성 공급 증명 및 고배당 권한 설정",
-            net10_title: "파이 수량 동기화", net10_desc: "파이 자산 메인넷 원장 실시간 일치화",
+            net7_title: "스왑", net7_desc: "현금·카드·타코인 즉시 맞교환 구매",
+            net8_title: "DEX 스왑", net8_desc: "자율 제어 개인 간 직접 거래 유동성 매칭",
+            net9_title: "LP 스테이킹", net9_desc: "유동성 공급 증명 및 고배당 권한 설정",
+            net10_title: "파이 수량", net10_desc: "파이 자산 메인넷 원장 실시간 일치화",
             drawerTitle: "HK 탐색기", menuGroup1Title: "핵심 법률 및 보안 규격", menuGroup2Title: "HK 글로벌 생태계 거점",
             menu_wp: "백서 (Whitepaper v3.1 상세 40선)", menu_faq: "자주 묻는 질문 (FAQ 20선 심층)", menu_pol: "3대 정책 (자금세탁방지·고객확인·철통보안)",
             menu_reg: "25개국 디지털 자산법 및 해킹 방어 규격", menu_fatf: "국제 자금세탁방지 트래블룰 & 실시간 제재 검증",
@@ -1229,7 +1228,6 @@
 
         function openProcessModal(processId) {
             activeProcessId = processId;
-            activeModalType = null;
             renderProcessModalContent();
         }
 
@@ -1250,8 +1248,23 @@
 
             generatedAuthCode = Math.floor(100000 + Math.random() * 900000).toString();
 
+            const processNames = {
+                wallet: "지갑 연결",
+                transfer: "송금",
+                payment: "결제",
+                deposit: "예치",
+                reward: "보상",
+                ubi: "기본소득",
+                swap: "스왑",
+                dex: "DEX 스왑",
+                lp: "LP 스테이킹",
+                pishow: "파이 수량"
+            };
+
+            const displayName = processNames[processId] || processId.toUpperCase();
+
             if (processId === 'wallet') {
-                title.innerText = "노드 지갑 약정 연동";
+                title.innerText = "노드 지갑 연결 및 약정 연동";
                 content.innerHTML = `
                     <div style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">자동 연동 버튼을 눌러 테스트 지갑 주소를 불러오세요.</div>
                     <div class="input-group">
@@ -1262,17 +1275,17 @@
                         <label class="input-label">인증번호 (발급됨: <span style="color:var(--accent-gold); font-weight:700;">${generatedAuthCode}</span>)</label>
                         <input class="form-control" id="userInputCode" placeholder="6자리 인증번호 입력" maxlength="6">
                     </div>
-                    <button class="action-btn" onclick="verifyAndExecute('wallet')">인증 승인 및 지갑 연결</button>
+                    <button class="action-btn" onclick="verifyAndExecute('${processId}')">인증 승인 및 지갑 연결</button>
                 `;
             } else {
-                title.innerText = "프로세스 구동 승인 (" + processId.toUpperCase() + ")";
+                title.innerText = `분산 연동 프로세스 구동 (${displayName})`;
                 content.innerHTML = `
                     <div style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">철통 보안 프로토콜 및 실시간 AML 검증을 진행합니다.</div>
                     <div class="input-group">
                         <label class="input-label">인증번호 (발급됨: <span style="color:var(--accent-gold); font-weight:700;">${generatedAuthCode}</span>)</label>
                         <input class="form-control" id="userInputCode" placeholder="6자리 인증번호 입력" maxlength="6">
                     </div>
-                    <button class="action-btn" onclick="verifyAndExecute('${processId}')">승인 및 실행</button>
+                    <button class="action-btn" onclick="verifyAndExecute('${processId}')">${displayName} 승인 및 실행</button>
                 `;
             }
             modal.classList.add('active');
@@ -1287,13 +1300,11 @@
                 return;
             }
            
-            alert("✅ [철통 보안 인증 성공] " + processId + " 프로세스가 정상 완료되었습니다.");
+            alert(`✅ [철통 보안 인증 성공] '${processId}' 프로세스가 정상 승인 및 구동되었습니다.`);
             closeModal();
         }
 
         function openInfoModal(type) {
-            activeModalType = type;
-            activeProcessId = null;
             toggleDrawer();
             const modal = document.getElementById('appModal');
             const title = document.getElementById('modalTitle');
@@ -1306,7 +1317,6 @@
 
         function closeModal() {
             document.getElementById('appModal').classList.remove('active');
-            activeModalType = null;
             activeProcessId = null;
         }
 
