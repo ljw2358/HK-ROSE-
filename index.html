@@ -54,7 +54,7 @@
 
         /* 상단 헤더 */
         .app-header {
-            padding: 16px 20px;
+            padding: 14px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -63,14 +63,28 @@
             z-index: 10;
         }
 
+        /* 브랜드 로고: HK 위, WORLDBANK 아래 2줄 배치 */
         .brand-logo {
-            font-size: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            line-height: 1.1;
+        }
+
+        .brand-hk {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #a78bfa;
+            letter-spacing: 1px;
+        }
+
+        .brand-worldbank {
+            font-size: 1.35rem;
             font-weight: 900;
             background: linear-gradient(135deg, #c084fc, #a855f7, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
-            cursor: pointer;
         }
 
         .header-right {
@@ -589,9 +603,12 @@
 <body>
 
 <div class="app-container">
-    <!-- 상단 헤더 -->
+    <!-- 상단 헤더: HK 위, WORLDBANK 아래 2줄 배치 -->
     <header class="app-header">
-        <div class="brand-logo" id="uiBrand" onclick="switchTab('home')">HK WORLDBANK</div>
+        <div class="brand-logo" id="uiBrand" onclick="switchTab('home')">
+            <span class="brand-hk">HK</span>
+            <span class="brand-worldbank">WORLDBANK</span>
+        </div>
         <div class="header-right">
             <!-- 60개국어 선택 드롭다운 확장 -->
             <select class="lang-selector" id="langSelect" onchange="changeLanguage(this.value)">
@@ -661,7 +678,7 @@
                         <div class="menu-icon">🧭</div>
                         <div class="menu-text">
                             <h3 id="m4Title">네비게이터 (메뉴 보기)</h3>
-                            <p id="m4Sub">백서 50선·FAQ·3대정책·21개국법안 허브</p>
+                            <p id="m4Sub">백서 50선·FATF 트래블룰·21개국법안 허브</p>
                         </div>
                     </div>
                     <div class="menu-arrow">›</div>
@@ -669,7 +686,7 @@
             </div>
         </div>
 
-        <!-- Tab 2: 개인 자산 대시보드 -->
+        <!-- Tab 2: 개인 자산 대시보드 (천 단위 콤마 및 현실적인 이자 마이닝 시작치 반영) -->
         <div id="tab-dashboard" class="tab-content">
             <button class="back-btn" onclick="switchTab('home')">← <span id="btBack1">메인으로 돌아가기</span></button>
            
@@ -689,10 +706,10 @@
                 <button class="max-btn" onclick="alert('메인넷 원장 동기화 완료!')" id="syncBtnText">동기화</button>
             </div>
 
-            <!-- 실시간 이자 변동 (3년 예치 예상수익 398,751.07 HK/Pi 정확히 반영) -->
+            <!-- 현실적인 이자 시작치(12.500000) 및 천 단위 콤마 적용 -->
             <div class="interest-card">
                 <div class="balance-title" id="interestTitle">실시간 누적 이자 (3년 31.41% APY 복리 실시간 마이닝)</div>
-                <div class="balance-amount" style="color: #d8b4fe;"><span id="liveInterestVal">+ 398,751.070000</span> <span style="font-size: 1rem; font-weight: normal; color: #a78bfa;">HK/Pi</span></div>
+                <div class="balance-amount" style="color: #d8b4fe;"><span id="liveInterestVal">+ 12.500000</span> <span style="font-size: 1rem; font-weight: normal; color: #a78bfa;">HK/Pi</span></div>
             </div>
 
             <div class="card">
@@ -741,7 +758,7 @@
             </div>
         </div>
 
-        <!-- Tab 5: 네비게이터 허브 (백서 50선, 유튜브, 틱톡, 에코시스템 완벽 포함) -->
+        <!-- Tab 5: 네비게이터 허브 (백서 50선, FATF 트래블룰 및 실시간 제재 리스트 반영) -->
         <div id="tab-nav" class="tab-content">
             <button class="back-btn" onclick="switchTab('home')">← <span id="btBack4">메인으로 돌아가기</span></button>
             <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;" id="navHubTitle">🧭 HK 네비게이터 허브</div>
@@ -756,7 +773,7 @@
                 <div style="font-size: 0.75rem; color: var(--text-muted);">숏폼 인사이트 및 핵심 브리핑 시청</div>
             </div>
 
-            <div class="drawer-section-title">CORE LEGAL & COMPLIANCE (백서 50선 상향 반영)</div>
+            <div class="drawer-section-title">CORE LEGAL & COMPLIANCE (백서 50선 & FATF 트래블룰)</div>
             <div class="card" onclick="alert('📄 백서 v3.5 상세 50선: 글로벌 웹3 금융 표준, ASI 오케스트레이션 및 21개국 규제 방어 아키텍처가 완벽히 로드되었습니다.')">
                 <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;" id="n1Title">📄 백서 (Whitepaper v3.5 상세 50선)</div>
                 <div style="font-size: 0.78rem; color: var(--text-muted);" id="n1Sub">글로벌 웹3 금융 표준 및 50가지 아키텍처 명세</div>
@@ -768,6 +785,10 @@
             <div class="card" onclick="alert('🛡️ 3대 POLICIES: 국제자금세탁방지기구(FATF) 트래블룰 및 KYC/KYB 정책 적용.')">
                 <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;" id="n3Title">🛡️ 3대 POLICIES (KYC·KYB 철저보안)</div>
                 <div style="font-size: 0.78rem; color: var(--text-muted);" id="n3Sub">국제 자금세탁 방지 및 최고 수준 보안 정책</div>
+            </div>
+            <div class="card" onclick="alert('🌐 FATF 트래블룰 & 실시간 제재 리스트 검증 규격: 크로스보더 자금 이동 실시간 필터링 시스템 가동 중.')">
+                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;">🌐 FATF 트래블룰 & 실시간 제재 리스트 검증 규격</div>
+                <div style="font-size: 0.78rem; color: var(--text-muted);">국제 자금세탁 방지 및 테러자금 조달 차단 실시간 규격</div>
             </div>
             <div class="card" onclick="alert('🌐 21개국 디지털 자산법: 크로스보더 규제 호환성 준수 완료.')">
                 <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;" id="n4Title">🌐 21개국 디지털 자산법 매칭 라이언스</div>
@@ -803,7 +824,7 @@
                 <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🎵 틱톡 채널 (hyekong2026)</div>
             </div>
 
-            <div class="drawer-section-title">CORE LEGAL & COMPLIANCE (백서 50선)</div>
+            <div class="drawer-section-title">CORE LEGAL & COMPLIANCE</div>
             <div class="card" onclick="alert('백서 v3.5 상세 50선 로드됨')">
                 <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">📄 백서 (Whitepaper v3.5 상세 50선)</div>
             </div>
@@ -812,6 +833,9 @@
             </div>
             <div class="card" onclick="alert('3대 POLICIES 로드됨')">
                 <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🛡️ 3대 POLICIES (KYC·KYB 철저보안)</div>
+            </div>
+            <div class="card" onclick="alert('FATF 트래블룰 및 실시간 제재 리스트 검증 규격 로드됨')">
+                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🌐 FATF 트래블룰 & 실시간 제재 리스트 검증 규격</div>
             </div>
             <div class="card" onclick="alert('21개국 디지털 자산법 규격 로드됨')">
                 <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🌐 21개국 디지털 자산법 및 제재 리스트</div>
@@ -880,25 +904,24 @@
 </div>
 
 <script>
-    // 실시간 이자 마이닝 엔진 (3년 예치 예상수익 398,751.07 기준으로 실시간 째깍째깍 증가)
-    let currentInterest = 398751.070000;
+    // 현실적인 이자 시작치(12.500000) 및 천 단위 콤마 반영 실시간 마이닝 엔진
+    let currentInterest = 12.500000;
     setInterval(() => {
         currentInterest += 0.000314;
         const el = document.getElementById('liveInterestVal');
         if(el) {
-            el.textContent = "+ " + currentInterest.toFixed(6);
+            el.textContent = "+ " + currentInterest.toLocaleString('en-US', { minimumFractionDigits: 6, maximumFractionDigits: 6 });
         }
     }, 1000);
 
     const i18nDict = {
         ko: {
-            brand: "HK WORLDBANK",
             hMainTitle: "HK 통합 메인 허브",
             pMainSub: "5대 핵심 기능 및 에코시스템 바로가기",
             m1Title: "개인 자산 대시보드", m1Sub: "실시간 잔액 및 Pi 자산 통합 관리",
             m2Title: "사고 팔고 예금하기", m2Sub: "10대 분산 연동망 볼트 실행",
             m3Title: "고객센터 ASI 삐니", m3Sub: "초지능 ASI 전담 AI 비서 철저한 KYC/KYB",
-            m4Title: "네비게이터 (메뉴 보기)", m4Sub: "백서 50선·FAQ·3대정책·21개국법안 허브",
+            m4Title: "네비게이터 (메뉴 보기)", m4Sub: "백서 50선·FATF 트래블룰·21개국법안 허브",
             balTitle: "총 보유 자산 (KRW 환산)",
             piBoxTitle: "Pi 코인 보유량",
             syncBtnText: "동기화",
@@ -921,13 +944,12 @@
             btBack1: "메인으로 돌아가기", btBack2: "메인으로 돌아가기", btBack3: "메인으로 돌아가기", btBack4: "메인으로 돌아가기"
         },
         en: {
-            brand: "HK WORLDBANK",
             hMainTitle: "HK Integrated Main Hub",
             pMainSub: "Quick access to 5 core features & ecosystem",
             m1Title: "Personal Asset Dashboard", m1Sub: "Real-time balance & Pi asset management",
             m2Title: "Trade & Deposit", m2Sub: "10 Decentralized Networks Vault",
             m3Title: "Concierge ASI Beeny", m3Sub: "Superintelligent ASI Assistant with Strict KYC/KYB",
-            m4Title: "Navigator (Menu)", m4Sub: "Whitepaper 50-Specs, FAQ, Policies & 21-Nation Laws",
+            m4Title: "Navigator (Menu)", m4Sub: "Whitepaper 50-Specs, FATF & 21-Nation Laws",
             balTitle: "Total Assets (USD Converted)",
             piBoxTitle: "Pi Coin Balance",
             syncBtnText: "Sync",
@@ -953,7 +975,6 @@
 
     function changeLanguage(lang) {
         const dict = i18nDict[lang] || i18nDict['ko'];
-        document.getElementById('uiBrand').textContent = dict.brand;
         document.getElementById('hMainTitle').textContent = dict.hMainTitle;
         document.getElementById('pMainSub').textContent = dict.pMainSub;
         document.getElementById('m1Title').textContent = dict.m1Title;
@@ -1034,7 +1055,7 @@
             alert('질문 내용을 입력해주세요!');
             return;
         }
-        alert(`[ASI 삐니 전담 비서 답변]: 회장님("혜공")의 질의("${input.value}")가 접수되었습니다. KYC/KYB 철저 검증을 거쳐 즉시 처리됩니다! 💜`);
+        alert(`[ASI 삐니 전담 비서 답변]: 회장님("혜공")의 질의("${input.value}")가 접수되었습니다. KYC/KYB 검증을 거쳐 즉시 처리됩니다! 💜`);
         input.value = '';
     }
 
@@ -1288,7 +1309,6 @@
 
         // 고유 6자리 승인번호 실시간 생성 절차 수행
         generatedUniqueOtp = Math.floor(100000 + Math.random() * 900000).toString();
-        document.getElementById('dynamicOtpBoxinnerHTML').innerHTML = ""; // placeholder
         document.getElementById('dynamicOtpBox').innerHTML = `🔒 보안 통신 채널을 통해 발급된 <strong>고유 승인번호</strong>: <span style="color:#fde047; font-size:1rem; letter-spacing:2px;">${generatedUniqueOtp}</span>`;
         document.getElementById('userOtpInput').value = "";
 
