@@ -1,46 +1,46 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLDBANK PLATFORM - Ultimate Masterpiece Active Gateway</title>
+    <title>HK WorldBank Platform - 30 Languages Global Edition</title>
     <style>
         :root {
-            --bg-dark: #0b0f19;
-            --bg-card: #131c2e;
-            --bg-card-hover: #1a2640;
-            --purple-primary: #8b5cf6;
-            --purple-glow: rgba(139, 92, 246, 0.4);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #1e293b;
+            --bg-color: #0b1329;
+            --card-bg: rgba(255, 255, 255, 0.07);
+            --card-border: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-sub: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-color);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow-x: hidden;
         }
 
+        /* 모바일 컨테이너 프레임 */
         .app-container {
             width: 100%;
             max-width: 480px;
             height: 100vh;
             max-height: 920px;
-            background-color: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            border-radius: 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             display: flex;
             flex-direction: column;
             position: relative;
@@ -49,102 +49,153 @@
 
         @media (min-width: 481px) {
             .app-container {
-                border-radius: 24px;
+                border-radius: 36px;
+                border: 4px solid rgba(255,255,255,0.1);
+                height: 880px;
             }
         }
 
-        /* 초기 KYC/KYB 게이트웨이 오버레이 (앱 진입 전 필수 통과) */
-        .gateway-overlay {
+        /* 보안 게이트웨이 오버레이 */
+        #security-gateway {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(11, 15, 25, 0.98);
-            z-index: 5000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 19, 41, 0.96);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 24px;
             text-align: center;
+            transition: opacity 0.4s ease;
+        }
+
+        .gateway-box {
+            width: 100%;
+            max-width: 380px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 28px 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        .gateway-box h2 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            color: #60a5fa;
+        }
+
+        .gateway-box p {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            margin-top: 8px;
+            transition: transform 0.2s;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-guest {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-top: 10px;
         }
 
         /* 상단 헤더 */
-        .app-header {
-            padding: 14px 20px;
+        header {
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: var(--bg-dark);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 10;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(15, 23, 42, 0.6);
         }
 
-        .brand-logo {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            line-height: 1.1;
-        }
-
-        .brand-hk {
-            font-size: 0.95rem;
-            font-weight: 800;
-            color: #a78bfa;
-            letter-spacing: 1px;
-        }
-
-        .brand-worldbank {
-            font-size: 1.35rem;
+        .logo {
+            font-size: 1.1rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #c084fc, #a855f7, #ec4899);
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #60a5fa, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .lang-selector {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: #a78bfa;
-            padding: 8px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--card-border);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
             outline: none;
-            cursor: pointer;
-            max-width: 140px;
+            max-width: 150px;
         }
 
-        .hamburger-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: #a78bfa;
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.2s;
+        .lang-selector option {
+            background: #0f172a;
+            color: white;
         }
 
-        .hamburger-btn:hover {
-            border-color: var(--purple-primary);
-            background: var(--bg-card-hover);
-        }
-
-        /* 메인 컨텐츠 영역 */
-        .app-content {
+        /* 메인 콘텐츠 영역 */
+        .content-body {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 16px 20px;
             padding-bottom: 90px;
         }
 
@@ -154,1282 +205,939 @@
 
         .tab-content.active {
             display: block;
-            animation: fadeIn 0.25s ease-in-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .main-menu-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 10px;
-        }
-
-        .menu-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 16px 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .menu-card:hover {
-            border-color: var(--purple-primary);
-            background: var(--bg-card-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px var(--purple-glow);
-        }
-
-        .menu-info {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .menu-icon {
-            font-size: 1.6rem;
-            background: rgba(139, 92, 246, 0.15);
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-        }
-
-        .menu-text h3 {
-            font-size: 0.98rem;
-            font-weight: 700;
-            margin-bottom: 3px;
-            color: var(--text-main);
-        }
-
-        .menu-text p {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
-
-        .menu-arrow {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-        }
-
-        .balance-card, .interest-card {
-            background: linear-gradient(135deg, #1e1b4b, #311042);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 25px -5px var(--purple-glow);
-            margin-bottom: 12px;
-            min-height: 110px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .balance-title {
+        .section-title {
             font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-        }
-
-        .balance-amount {
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .pi-box-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(139, 92, 246, 0.4);
-            border-radius: 16px;
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            color: #93c5fd;
             margin-bottom: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        }
-
-        .pi-box-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .pi-icon-wrap {
-            font-size: 1.4rem;
-            background: rgba(139, 92, 246, 0.2);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-        }
-
-        .pi-box-title {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            margin-bottom: 2px;
-        }
-
-        .pi-box-value {
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: #d8b4fe;
-        }
-
-        .max-btn {
-            background: rgba(139, 92, 246, 0.2);
-            color: #d8b4fe;
-            border: 1px solid rgba(139, 92, 246, 0.4);
-            padding: 5px 12px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .max-btn:hover {
-            background: rgba(139, 92, 246, 0.4);
-        }
-
-        .network-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .network-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 14px 10px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 0.83rem;
             font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .network-item:hover {
-            background: var(--purple-primary);
-            color: white;
-            border-color: var(--purple-primary);
-            box-shadow: 0 4px 12px var(--purple-glow);
-        }
-
-        .drawer-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            z-index: 2000;
-            justify-content: flex-end;
-        }
-
-        .drawer-panel {
-            width: 100%;
-            max-width: 380px;
-            height: 100%;
-            background: #111827;
-            border-left: 1px solid rgba(139, 92, 246, 0.3);
-            display: flex;
-            flex-direction: column;
-            padding: 24px;
-            overflow-y: auto;
-            animation: slideInRight 0.25s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
-
-        .drawer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-        }
-
-        .drawer-title {
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: #d8b4fe;
-        }
-
-        .drawer-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.4rem;
-            cursor: pointer;
-        }
-
-        .drawer-section-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin: 14px 0 8px 0;
             letter-spacing: 0.5px;
         }
 
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(6px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-card {
-            background: #131c2e;
-            border: 1px solid rgba(139, 92, 246, 0.5);
-            border-radius: 20px;
-            width: 100%;
-            max-width: 420px;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 22px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.9);
-            animation: scaleUp 0.2s ease-in-out;
-        }
-
-        @keyframes scaleUp {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .modal-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.3rem;
-            cursor: pointer;
-        }
-
-        .modal-desc {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            line-height: 1.4;
-        }
-
-        .form-group {
-            margin-bottom: 14px;
-        }
-
-        .form-label-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-
-        .form-label {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
-
-        .form-input {
-            width: 100%;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 10px;
-            color: var(--text-main);
-            font-size: 0.88rem;
-            outline: none;
-        }
-
-        .form-input:focus {
-            border-color: var(--purple-primary);
-        }
-
-        .select-input {
-            width: 100%;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 10px;
-            color: var(--text-main);
-            font-size: 0.88rem;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .info-box {
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px dashed rgba(139, 92, 246, 0.3);
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 0.78rem;
-            color: #d8b4fe;
-            margin-bottom: 14px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .warning-box {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 0.75rem;
-            color: #fca5a5;
-            margin-bottom: 14px;
-            line-height: 1.4;
-        }
-
-        .kyc-badge {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: #34d399;
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-primary {
-            width: 100%;
-            background: var(--purple-primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 12px;
-            font-weight: 800;
-            font-size: 0.9rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px var(--purple-glow);
-            margin-top: 6px;
-            transition: background 0.2s;
-        }
-
-        .btn-primary:hover {
-            background: #7c3aed;
-        }
-
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
+        .menu-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 14px;
+            padding: 14px 16px;
             margin-bottom: 10px;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .card:hover {
-            border-color: var(--purple-primary);
-            background: var(--bg-card-hover);
-        }
-
-        /* 유튜브 & 틱톡 채널 특별 디자인 색상 부여 */
-        .card-youtube {
-            background: linear-gradient(135deg, #2b1318, #3f151b);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-        }
-        .card-youtube:hover {
-            border-color: #ef4444;
-            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
-        }
-
-        .card-tiktok {
-            background: linear-gradient(135deg, #112327, #133338);
-            border: 1px solid rgba(45, 212, 191, 0.4);
-        }
-        .card-tiktok:hover {
-            border-color: #2dd4bf;
-            box-shadow: 0 6px 16px rgba(45, 212, 191, 0.3);
-        }
-
-        .back-btn {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            padding: 6px 12px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.78rem;
-            margin-bottom: 12px;
-            display: inline-flex;
+            transition: all 0.2s ease;
+            display: flex;
             align-items: center;
-            gap: 4px;
+            justify-content: space-between;
         }
 
-        /* 하단 고정 네비게이션바 (5대 탭 고유 구성) */
-        .bottom-nav {
+        .menu-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .menu-info h3 {
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+            color: #f8fafc;
+        }
+
+        .menu-info p {
+            font-size: 0.72rem;
+            color: var(--text-sub);
+        }
+
+        /* 하단 네비게이션 바 */
+        nav.bottom-nav {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
             height: 72px;
-            background: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid var(--border-color);
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 10px;
             z-index: 100;
         }
 
         .nav-item {
+            background: none;
+            border: none;
+            color: var(--text-sub);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 3px;
-            color: var(--text-muted);
-            background: none;
-            border: none;
             cursor: pointer;
             font-size: 0.7rem;
-            font-weight: 600;
             transition: color 0.2s;
+            flex: 1;
+        }
+
+        .nav-item span.icon {
+            font-size: 1.2rem;
+            margin-bottom: 3px;
         }
 
         .nav-item.active {
-            color: var(--purple-primary);
+            color: #60a5fa;
+            font-weight: bold;
         }
 
-        .nav-icon {
-            font-size: 1.2rem;
+        /* ASI 삐니 모달 */
+        #bini-modal {
+            position: absolute;
+            bottom: 72px;
+            left: 0;
+            width: 100%;
+            height: 65%;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--accent-blue);
+            border-radius: 24px 24px 0 0;
+            z-index: 200;
+            display: none;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+        }
+
+        .bini-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .bini-messages {
+            flex: 1;
+            overflow-y: auto;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bini-chat-input {
+            display: flex;
+            gap: 8px;
+        }
+
+        .bini-chat-input input {
+            flex: 1;
+            padding: 10px 14px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            color: white;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .bini-chat-input button {
+            padding: 0 16px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-
-    <!-- 최초 앱 진입 전 필수 KYC / KYB 게이트웨이 화면 -->
-    <div class="gateway-overlay" id="kycKyigGateway">
-        <div style="font-size: 2.5rem; margin-bottom: 10px;">🛡️</div>
-        <h2 style="font-size: 1.3rem; font-weight: 800; color: #d8b4fe; margin-bottom: 6px;">HK WorldBank 보안 게이트웨이</h2>
-        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.4;">
-            플랫폼 내 자산 관리 및 분산 연동망에 입장하시려면 <br><strong>KYC(실명/신원인증) 및 KYB(기업 검증)</strong>가 필수입니다.
-        </p>
-
-        <div class="form-group" style="width: 100%; text-align: left;">
-            <label class="form-label">회장님 성함 / 법인명</label>
-            <input type="text" class="form-input" id="gatewayName" value="이재완 (혜공 / HK 그룹 회장)">
-        </div>
-        <div class="form-group" style="width: 100%; text-align: left;">
-            <label class="form-label">Pi Network 지갑 주소 연결</label>
-            <input type="text" class="form-input" id="gatewayWallet" value="G... Pi Mainnet Connected 314159..." readonly>
-        </div>
-        <div class="form-group" style="width: 100%; text-align: left;">
-            <label class="form-label">🔑 지갑 24자리 비밀구절 (Passphrase)</label>
-            <input type="password" class="form-input" id="gatewayPassphrase" placeholder="비밀구절 입력 후 인증 통과">
+    <div class="app-container">
+        <!-- 보안 게이트웨이 -->
+        <div id="security-gateway">
+            <div class="gateway-box">
+                <h2 id="gw-title">HK WorldBank 보안 게이트웨이</h2>
+                <p id="gw-desc">플랫폼 내 자산 관리 및 분산 연동망에 입장하시려면 24자리 비밀구절(Passphrase) 인증이 필수입니다.</p>
+                <div class="input-group">
+                    <label id="gw-label-name">회장님 성함 / 법인명</label>
+                    <input type="text" id="auth-name" value="이재완 (혜공 / HK 그룹 회장)" readonly>
+                </div>
+                <div class="input-group">
+                    <label id="gw-label-pass">24자리 비밀구절 (Passphrase)</label>
+                    <input type="password" id="auth-passphrase" placeholder="word1 word2 word3 ... word24 입력">
+                </div>
+                <button class="btn-primary" id="gw-btn-enter" onclick="verifyGateway()">보안 인증 및 입장</button>
+                <button class="btn-guest" id="gw-btn-guest" onclick="enterAsGuest()">둘러보기 (게스트 모드)</button>
+            </div>
         </div>
 
-        <button class="btn-primary" onclick="passKycGateway()" style="margin-top: 10px;">KYC/KYB 인증 완료 및 앱 입장하기 🚀</button>
-    </div>
-
-    <!-- 상단 헤더: HK 위, WORLDBANK 아래 2줄 배치 -->
-    <header class="app-header">
-        <div class="brand-logo" id="uiBrand" onclick="switchTab('home')">
-            <span class="brand-hk">HK</span>
-            <span class="brand-worldbank">WORLDBANK</span>
-        </div>
-        <div class="header-right">
-            <!-- 60개국어 선택 드롭다운 확장 -->
-            <select class="lang-selector" id="langSelect" onchange="changeLanguage(this.value)">
-                <option value="ko">🇰🇷 한국어 (KO)</option>
-                <option value="en">🇺🇸 English (EN)</option>
-                <option value="zh">🇨🇳 中文 (ZH)</option>
-                <option value="ja">🇯🇵 日本語 (JA)</option>
-                <option value="vi">🇻🇳 Tiếng Việt</option>
-                <option value="id">🇮🇩 Indonesian</option>
-                <option value="es">🇪🇸 Español</option>
-                <option value="fr">🇫🇷 Français</option>
-                <option value="de">🇩🇪 Deutsch</option>
-                <option value="ru">🇷🇺 Русский</option>
+        <!-- 상단 헤더 (요청하신 30개국어 셀렉터 포함) -->
+        <header>
+            <div class="logo">HK WORLDBANK</div>
+            <select class="lang-selector" id="language-select" onchange="changeLanguage(this.value)">
+                <option value="ko">🇰🇷 한글 (Korean)</option>
+                <option value="en">🇺🇸 영어 (English)</option>
+                <option value="zh">🇨🇳 중국어 (中文)</option>
+                <option value="ja">🇯🇵 일본어 (日本語)</option>
+                <option value="ru">🇷🇺 러시아어 (Русский)</option>
+                <option value="vi">🇻🇳 베트남어 (Tiếng Việt)</option>
+                <option value="th">🇹🇭 태국어 (ไทย)</option>
+                <option value="id">🇮🇩 인도네시아어 (Bahasa)</option>
+                <option value="ps">🇵🇸 팔레스타인어 (العربية)</option>
+                <option value="de">🇩🇪 독일어 (Deutsch)</option>
+                <option value="it">🇮🇹 이태리어 (Italiano)</option>
+                <option value="fr">🇫🇷 프랑스어 (Français)</option>
+                <option value="ng">🇳🇬 나이지리아 (English/Yoruba)</option>
+                <option value="cm">🇨🇲 카메룬 (Français/English)</option>
+                <option value="za">🇿🇦 남아공 (Zulu/Afrikaans)</option>
+                <option value="hi">🇮🇳 힌디어 (हिन्दी)</option>
+                <option value="es">🇪🇸 스페인어 (Español)</option>
+                <option value="br">🇧🇷 브라질어 (Português)</option>
+                <option value="uk">🇺🇦 우크라이나어 (Українська)</option>
+                <option value="pk">🇵🇰 파키스탄어 (اردو)</option>
+                <option value="bn">🇧🇩 뱅갈어 (বাংলা)</option>
+                <!-- 추가 글로벌 표준 확장 슬롯 -->
+                <option value="ar">العربية (Arabic)</option>
+                <option value="tr">Türkçe (Turkish)</option>
+                <option value="ms">Melayu (Malay)</option>
+                <option value="fa">فارسی (Persian)</option>
+                <option value="pl">Polski (Polish)</option>
+                <option value="nl">Nederlands (Dutch)</option>
+                <option value="sv">Svenska (Swedish)</option>
+                <option value="tl">Tagalog (Filipino)</option>
+                <option value="el">Ελληνικά (Greek)</option>
             </select>
-            <button class="hamburger-btn" onclick="openNavigatorDrawer()" title="네비게이터 메뉴">
-                ☰
+        </header>
+
+        <!-- 메인 콘텐츠 영역 -->
+        <div class="content-body">
+            
+            <!-- 첫 번째 장 (탭 1): 홈 / 컴플라이언스 & 에코시스템 허브 -->
+            <div id="tab-home" class="tab-content active">
+                <div class="section-title" data-i18n="sec_compliance">CORE LEGAL & COMPLIANCE (백서 50선 & FATF 트래블룰)</div>
+                
+                <div class="menu-card" onclick="alert('백서 v3.5 상세 50선 문서가 로드됩니다.')">
+                    <div class="menu-info">
+                        <h3 data-i18n="menu_whitepaper">📄 백서 (Whitepaper v3.5 상세 50선)</h3>
+                        <p data-i18n="desc_whitepaper">글로벌 웹3 금융 표준 및 50가지 아키텍처 명세</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="alert('자주 묻는 질문 FAQ 20선 실증 데이터 확인')">
+                    <div class="menu-info">
+                        <h3 data-i18n="menu_faq">❓ 자주 묻는 질문 (FAQ 20선 실증)</h3>
+                        <p data-i18n="desc_faq">사용자 주요 질의응답 및 시스템 실증 안내</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="alert('3대 정책 보안 모듈 활성화됨')">
+                    <div class="menu-info">
+                        <h3 data-i18n="menu_policies">🛡️ 3대 POLICIES (KYC-KYB 철저보안)</h3>
+                        <p data-i18n="desc_policies">국제 자금세탁 방지 및 최고 수준 보안 정책</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="alert('FATF 트래블룰 및 실시간 제재 리스트 검증 규격 가동')">
+                    <div class="menu-info">
+                        <h3 data-i18n="menu_travel">🌐 FATF 트래블룰 & 실시간 제재 리스트 검증 규격</h3>
+                        <p data-i18n="desc_travel">국제 자금세탁 방지 및 테러자금 조달 차단 실시간 규격</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="alert('21개국 디지털 자산법 매칭 라이언스 가동 완료')">
+                    <div class="menu-info">
+                        <h3 data-i18n="menu_license">⚖️ 21개국 디지털 자산법 매칭 라이언스</h3>
+                        <p data-i18n="desc_license">국가별 규제 준수 및 크로스보더 방어 규격</p>
+                    </div>
+                </div>
+
+                <div class="section-title" style="margin-top: 20px;" data-i18n="sec_ecosystem">HK GLOBAL ECOSYSTEM HUBS</div>
+
+                <div class="menu-card" onclick="alert('로봇: HK-ROBOT 허브 연결')">
+                    <div class="menu-info">
+                        <h3>🤖 로봇: HK-ROBOT</h3>
+                        <p data-i18n="desc_robot">차세대 자율주행 및 물류 자동화 로보틱스 생태계</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="alert('스마트 글래스: HK-NEXUS 허브 연결')">
+                    <div class="menu-info">
+                        <h3>👓 스마트 글래스: HK-NEXUS</h3>
+                        <p data-i18n="desc_nexus">해온·누리온·라온 AI 안경폰 및 AR 인프라</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="alert('도심항공교통: HK-UAM 허브 연결')">
+                    <div class="menu-info">
+                        <h3>🚁 도심항공교통: HK-UAM</h3>
+                        <p data-i18n="desc_uam">차세대 미래 모빌리티 및 UAM 버티포트 연동망</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="alert('인공태양: HK-FUSION 허브 연결')">
+                    <div class="menu-info">
+                        <h3>☀️ 인공태양: HK-FUSION</h3>
+                        <p data-i18n="desc_fusion">청정 핵융합 에너지 및 차세대 전력망 인프라</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="alert('퀀텀바이오: HK-QUANTUMBIO 허브 연결')">
+                    <div class="menu-info">
+                        <h3>🧬 퀀텀바이오: HK-QUANTUMBIO</h3>
+                        <p data-i18n="desc_bio">양자 생명과학 및 바이오 디지털 헬스케어 인프라</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="alert('우주플랫폼레베타: HK-SPACE 허브 연결')">
+                    <div class="menu-info">
+                        <h3>🚀 우주플랫폼레베타: HK-SPACE</h3>
+                        <p data-i18n="desc_space">위성 통신망 및 우주 산업 궤도 플랫폼 연동</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="alert('부품뱅크: HK-PARTSBANK 허브 연결')">
+                    <div class="menu-info">
+                        <h3>⚙️ 부품뱅크: HK-PARTSBANK</h3>
+                        <p data-i18n="desc_parts">초정밀 미래 산업 부품 공급망 및 재고 관리</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="alert('방위산업: HK-DEFENCE-HUB 허브 연결')">
+                    <div class="menu-info">
+                        <h3>🛡️ 방위산업: HK-DEFENCE-HUB</h3>
+                        <p data-i18n="desc_defence">국가 안보 및 첨단 방산 디지털 보안 통신망</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 두 번째 장 (탭 2): 유튜브 & 틱톡 공식 미디어 채널 -->
+            <div id="tab-media" class="tab-content">
+                <div class="section-title" data-i18n="sec_media">HK OFFICIAL MEDIA CHANNELS</div>
+                
+                <div class="menu-card" onclick="window.open('https://www.tiktok.com/@hyekong2026', '_blank')">
+                    <div class="menu-info">
+                        <h3 data-i18n="menu_tiktok">🎵 공식 틱톡 채널 (hyekong2026)</h3>
+                        <p data-i18n="desc_tiktok">숏폼 인사이트 및 핵심 브랜딩 시청하기</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="window.open('https://www.youtube.com/@hyekong2026', '_blank')">
+                    <div class="menu-info">
+                        <h3 data-i18n="menu_youtube">📺 공식 유튜브 채널 (hyekong2026)</h3>
+                        <p data-i18n="desc_youtube">라이브 방송 및 정책 발표 영상 아카이브</p>
+                    </div>
+                </div>
+
+                <div class="menu-card" onclick="alert('글로벌 뉴스 및 실시간 브리핑 피드')">
+                    <div class="menu-info">
+                        <h3 data-i18n="menu_insight">📰 실시간 글로벌 인사이트 브리핑</h3>
+                        <p data-i18n="desc_insight">경제 및 미래 산업 관련 최신 브리핑 확인</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 자산 관리 탭 -->
+            <div id="tab-asset" class="tab-content">
+                <div class="section-title" data-i18n="sec_asset">자산 관리 및 Pi 네트워크 연동망</div>
+                <div class="menu-card">
+                    <div class="menu-info">
+                        <h3 data-i18n="asset_pi">💎 Pi Mainnet 자산 현황</h3>
+                        <p>지갑 잔액: 314,159.00 Pi (SECURE)</p>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-info">
+                        <h3 data-i18n="asset_net">🌐 10대 분산 연동망 상태</h3>
+                        <p>지갑연동·송금·결제·예치·보상·기본소득·스왑·DEX스왑·LP스테이킹·파이수량 정상 작동</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 연동망 탭 -->
+            <div id="tab-network" class="tab-content">
+                <div class="section-title" data-i18n="sec_node">분산 연동망 노드 관리</div>
+                <div class="menu-card">
+                    <div class="menu-info">
+                        <h3 data-i18n="node_staking">⚡ 파이 수량 및 LP 스테이킹</h3>
+                        <p>노드 동기화 완료 및 실시간 스왑 유동성 제공 중</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 네비게이터 탭 -->
+            <div id="tab-navigator" class="tab-content">
+                <div class="section-title" data-i18n="sec_nav">플랫폼 네비게이터</div>
+                <div class="menu-card">
+                    <div class="menu-info">
+                        <h3 data-i18n="nav_haeoreum">🧭 해오름 특별시 통합 내비게이터</h3>
+                        <p>울산·경주·포항 9대 미래 산업 클러스터 연동 지도</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ASI 삐니 챗봇 모달 -->
+        <div id="bini-modal">
+            <div class="bini-header">
+                <strong id="bini-title">ASI 삐니 AI 비서</strong>
+                <button onclick="toggleBini()" style="background:none; border:none; color:white; font-size:1.1rem; cursor:pointer;">✕</button>
+            </div>
+            <div class="bini-messages" id="bini-chat-log">
+                <div id="bini-welcome"><strong>ASI 삐니:</strong> 회장님, 안녕하십니까! HK WorldBank 풀 플랫폼 및 30개국어 다국어 연동망 시스템이 완벽하게 가동 중입니다. 무엇을 도와드릴까요?</div>
+            </div>
+            <div class="bini-chat-input">
+                <input type="text" id="bini-user-input" placeholder="삐니에게 지시사항을 입력하세요..." onkeypress="if(event.key==='Enter') sendBiniMessage()">
+                <button id="bini-send" onclick="sendBiniMessage()">전송</button>
+            </div>
+        </div>
+
+        <!-- 하단 네비게이션 바 -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="switchTab('home', this)">
+                <span class="icon">🏠</span>
+                <span data-i18n="nav_home">홈</span>
             </button>
-        </div>
-    </header>
-
-    <!-- 메인 컨텐츠 -->
-    <main class="app-content">
-       
-        <!-- Tab 1: 메인 홈 허브 -->
-        <div id="tab-home" class="tab-content active">
-            <div style="margin-bottom: 14px;">
-                <h2 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 3px;" id="hMainTitle">HK 통합 메인 허브</h2>
-                <p style="font-size: 0.8rem; color: var(--text-muted);" id="pMainSub">5대 핵심 기능 및 에코시스템 바로가기</p>
-            </div>
-
-            <div class="main-menu-grid">
-                <div class="menu-card" onclick="switchTab('dashboard')">
-                    <div class="menu-info">
-                        <div class="menu-icon">📊</div>
-                        <div class="menu-text">
-                            <h3 id="m1Title">개인 자산 대시보드</h3>
-                            <p id="m1Sub">실시간 잔액 및 Pi 자산 통합 관리</p>
-                        </div>
-                    </div>
-                    <div class="menu-arrow">›</div>
-                </div>
-
-                <div class="menu-card" onclick="switchTab('trading')">
-                    <div class="menu-info">
-                        <div class="menu-icon">💱</div>
-                        <div class="menu-text">
-                            <h3 id="m2Title">사고 팔고 예금하기</h3>
-                            <p id="m2Sub">10대 분산 연동망 볼트 실행</p>
-                        </div>
-                    </div>
-                    <div class="menu-arrow">›</div>
-                </div>
-
-                <div class="menu-card" onclick="switchTab('support')">
-                    <div class="menu-info">
-                        <div class="menu-icon">🤖</div>
-                        <div class="menu-text">
-                            <h3 id="m3Title">고객센터 ASI 삐니</h3>
-                            <p id="m3Sub">초지능 ASI 전담 AI 비서 실시간 구동</p>
-                        </div>
-                    </div>
-                    <div class="menu-arrow">›</div>
-                </div>
-
-                <div class="menu-card" onclick="switchTab('nav')">
-                    <div class="menu-info">
-                        <div class="menu-icon">🧭</div>
-                        <div class="menu-text">
-                            <h3 id="m4Title">네비게이터 (메뉴 보기)</h3>
-                            <p id="m4Sub">백서 50선·FATF 트래블룰·21개국법안 허브</p>
-                        </div>
-                    </div>
-                    <div class="menu-arrow">›</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tab 2: 개인 자산 대시보드 (현실적인 이자 시작치 12.500000 적용) -->
-        <div id="tab-dashboard" class="tab-content">
-            <button class="back-btn" onclick="switchTab('home')">← <span id="btBack1">메인으로 돌아가기</span></button>
-           
-            <div class="balance-card">
-                <div class="balance-title" id="balTitle">총 보유 자산 (KRW 환산)</div>
-                <div class="balance-amount">₩ 128,450,000</div>
-            </div>
-
-            <div class="pi-box-card">
-                <div class="pi-box-left">
-                    <div class="pi-icon-wrap">🪙</div>
-                    <div>
-                        <div class="pi-box-title" id="piBoxTitle">Pi 코인 보유량</div>
-                        <div class="pi-box-value">1,250.00 Pi</div>
-                    </div>
-                </div>
-                <button class="max-btn" onclick="alert('메인넷 원장 동기화 완료!')" id="syncBtnText">동기화</button>
-            </div>
-
-            <div class="interest-card">
-                <div class="balance-title" id="interestTitle">실시간 누적 이자 (3년 31.41% APY 복리 실시간 마이닝)</div>
-                <div class="balance-amount" style="color: #d8b4fe;"><span id="liveInterestVal">+ 12.500000</span> <span style="font-size: 1rem; font-weight: normal; color: #a78bfa;">HK/Pi</span></div>
-            </div>
-
-            <div class="card">
-                <div style="font-size: 0.9rem; font-weight: 700; margin-bottom: 6px;" id="dashSumTitle">📈 10대 분산 연동망 자산 현황</div>
-                <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;" id="dashSumDesc">바이낸스 및 시중은행 통합 시대를 완벽히 방어하며, ASI 오케스트레이션과 KYC/KYB 철저 검증이 연동되어 있습니다.</div>
-            </div>
-        </div>
-
-        <!-- Tab 3: 10대 분산 연동망 선택 뷰 -->
-        <div id="tab-trading" class="tab-content">
-            <button class="back-btn" onclick="switchTab('home')">← <span id="btBack2">메인으로 돌아가기</span></button>
-            <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;" id="netMainTitle">💱 10대 분산 연동망 (항목별 고유 실행)</div>
-            <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;" id="netMainSub">아래 연동망 버튼을 누르면 즉시 해당 기능의 고유 실행 화면이 열립니다.</p>
-           
-            <div class="network-grid">
-                <div class="network-item" onclick="openNetworkModal(1)">🔗 1. 지갑 연결</div>
-                <div class="network-item" onclick="openNetworkModal(2)">💸 2. 송금하기</div>
-                <div class="network-item" onclick="openNetworkModal(3)">💳 3. 결제 연동</div>
-                <div class="network-item" onclick="openNetworkModal(4)">🔒 4. 예치하기</div>
-                <div class="network-item" onclick="openNetworkModal(5)">🎁 5. 보상 수령</div>
-                <div class="network-item" onclick="openNetworkModal(6)">🏛️ 6. 기본소득</div>
-                <div class="network-item" onclick="openNetworkModal(7)">🔄 7. 토큰 스왑</div>
-                <div class="network-item" onclick="openNetworkModal(8)">🌐 8. DEX 스왑</div>
-                <div class="network-item" onclick="openNetworkModal(9)">📊 9. LP 스테이킹</div>
-                <div class="network-item" onclick="openNetworkModal(10)">🪙 10. 파이 수량</div>
-            </div>
-        </div>
-
-        <!-- Tab 4: 고객센터 ASI 삐니 (실시간 대화 구동) -->
-        <div id="tab-support" class="tab-content">
-            <button class="back-btn" onclick="switchTab('home')">← <span id="btBack3">메인으로 돌아가기</span></button>
-            <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;" id="supportTitle">🤖 고객센터 ASI 삐니 (KYC / KYB)</div>
-            <div class="card">
-                <div style="font-size: 0.88rem; font-weight: 700; color: #a78bfa; margin-bottom: 4px;" id="supCardTitle">초지능 ASI 전담 비서 상시 대기 중</div>
-                <div style="font-size: 0.78rem; color: var(--text-muted);" id="supCardDesc">철저한 신원 인증(KYC) 및 기업 검증(KYB) 시스템이 실시간 구동되고 있습니다.</div>
-            </div>
-           
-            <div class="card" style="margin-top: 12px; background: rgba(139, 92, 246, 0.15);">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #d8b4fe; margin-bottom: 4px;">💬 ASI 삐니 실시간 상담 어시스턴트</div>
-                <div style="font-size: 0.78rem; color: var(--text-main); line-height: 1.4; margin-bottom: 10px;" id="beenyGreeting">"안녕하십니까 혜공 회장님! 현재 HK WorldBank 분산 연동망과 실시간 이자 마이닝 엔진이 최적 상태로 가동 중입니다. 무엇을 도와드릴까요?"</div>
-               
-                <!-- 실시간 메시지 대화 로그 출력 박스 -->
-                <div id="beenyChatLog" style="max-height: 120px; overflow-y: auto; font-size: 0.78rem; color: #cbd5e1; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px;"></div>
-
-                <div style="display: flex; gap: 8px;">
-                    <input type="text" id="beenyInputMsg" class="form-input" placeholder="삐니에게 질문이나 요청사항을 입력하세요..." style="flex: 1;" onkeypress="if(event.key==='Enter') sendBeenyMessage()">
-                    <button class="max-btn" onclick="sendBeenyMessage()" style="padding: 0 16px;" id="beenySendBtn">보내기</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tab 5: 네비게이터 허브 (유튜브, 틱톡 컬러 분리 및 백서 50선, FATF 트래블룰 반영) -->
-        <div id="tab-nav" class="tab-content">
-            <button class="back-btn" onclick="switchTab('home')">← <span id="btBack4">메인으로 돌아가기</span></button>
-            <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;" id="navHubTitle">🧭 HK 네비게이터 허브</div>
-           
-            <div class="drawer-section-title" style="margin-top:0;">CHANNELS & BROADCASTS (컬러 분리 적용)</div>
-            
-            <!-- 유튜브 (레드 포인트 컬러) -->
-            <div class="card card-youtube" onclick="window.open('https://www.youtube.com/@hyekong2026', '_blank')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #fca5a5;">▶️ 공식 유튜브 채널 (hyekong2026)</div>
-                <div style="font-size: 0.75rem; color: #fecaca;">실시간 스트리밍 및 Pi 네트워크 방송 시청하기</div>
-            </div>
-            
-            <!-- 틱톡 (민트/청록 포인트 컬러) -->
-            <div class="card card-tiktok" onclick="window.open('https://www.tiktok.com/@hyekong2026', '_blank')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #5eead4;">🎵 공식 틱톡 채널 (hyekong2026)</div>
-                <div style="font-size: 0.75rem; color: #99f6e4;">숏폼 인사이트 및 핵심 브리핑 시청하기</div>
-            </div>
-
-            <div class="drawer-section-title">CORE LEGAL & COMPLIANCE (백서 50선 & FATF 트래블룰)</div>
-            <div class="card" onclick="alert('📄 백서 v3.5 상세 50선: 글로벌 웹3 금융 표준, ASI 오케스트레이션 및 21개국 규제 방어 아키텍처가 완벽히 로드되었습니다.')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;" id="n1Title">📄 백서 (Whitepaper v3.5 상세 50선)</div>
-                <div style="font-size: 0.78rem; color: var(--text-muted);" id="n1Sub">글로벌 웹3 금융 표준 및 50가지 아키텍처 명세</div>
-            </div>
-            <div class="card" onclick="alert('❓ 자주 묻는 질문 FAQ 20선 실증: 바이낸스·시중은행 방어 가이드가 로드되었습니다.')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;" id="n2Title">❓ 자주 묻는 질문 (FAQ 20선 실증)</div>
-                <div style="font-size: 0.78rem; color: var(--text-muted);" id="n2Sub">사용자 주요 질의응답 및 시스템 실증 안내</div>
-            </div>
-            <div class="card" onclick="alert('🛡️ 3대 POLICIES: 국제자금세탁방지기구(FATF) 트래블룰 및 KYC/KYB 정책 적용.')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;" id="n3Title">🛡️ 3대 POLICIES (KYC·KYB 철저보안)</div>
-                <div style="font-size: 0.78rem; color: var(--text-muted);" id="n3Sub">국제 자금세탁 방지 및 최고 수준 보안 정책</div>
-            </div>
-            <div class="card" onclick="alert('🌐 FATF 트래블룰 & 실시간 제재 리스트 검증 규격: 크로스보더 자금 이동 실시간 필터링 시스템 가동 중.')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;">🌐 FATF 트래블룰 & 실시간 제재 리스트 검증 규격</div>
-                <div style="font-size: 0.78rem; color: var(--text-muted);">국제 자금세탁 방지 및 테러자금 조달 차단 실시간 규격</div>
-            </div>
-            <div class="card" onclick="alert('🌐 21개국 디지털 자산법: 크로스보더 규제 호환성 준수 완료.')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;" id="n4Title">🌐 21개국 디지털 자산법 매칭 라이언스</div>
-                <div style="font-size: 0.78rem; color: var(--text-muted);" id="n4Sub">국가별 규제 준수 및 크로스보더 방어 규격</div>
-            </div>
-
-            <div class="drawer-section-title">HK GLOBAL ECOSYSTEM HUBS</div>
-            <div class="card" onclick="alert('🤖 로봇: HK-ROBOT 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🤖 로봇: HK-ROBOT</div></div>
-            <div class="card" onclick="alert('👓 스마트 글래스: HK-NEXUS(해온·누리온·라온) 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">👓 스마트 글래스: HK-NEXUS</div></div>
-            <div class="card" onclick="alert('🚁 도심항공교통: HK-UAM 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🚁 도심항공교통: HK-UAM</div></div>
-            <div class="card" onclick="alert('☀️ 인공태양: HK-FUSION 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">☀️ 인공태양: HK-FUSION</div></div>
-            <div class="card" onclick="alert('🧬 퀀텀바이오: HK-QUANTUMBIO 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🧬 퀀텀바이오: HK-QUANTUMBIO</div></div>
-            <div class="card" onclick="alert('🚀 우주로켓리버티: HK-SPACE 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🚀 우주로켓리버티: HK-SPACE</div></div>
-            <div class="card" onclick="alert('⚙️ 부품뱅크: HK-PARTSBANK 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">⚙️ 부품뱅크: HK-PARTSBANK</div></div>
-            <div class="card" onclick="alert('🛡️ 방위산업: HK-DEFENCE-HUB 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🛡️ 방위산업: HK-DEFENCE-HUB</div></div>
-            
-            <!-- 반려동물 교육/훈련 서비스 연동 추가 -->
-            <div class="card" onclick="alert('🐾 반려동물 교육 및 훈련 서비스 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🐾 반려동물 교육/훈련 서비스</div></div>
-        </div>
-
-    </main>
-
-    <!-- 네비게이터 드로어 (사이드 햄버거 메뉴) -->
-    <div class="drawer-overlay" id="navigatorDrawer" onclick="if(event.target === this) closeNavigatorDrawer()">
-        <div class="drawer-panel">
-            <div class="drawer-header">
-                <div class="drawer-title">HK NAVIGATOR</div>
-                <button class="drawer-close" onclick="closeNavigatorDrawer()">✕</button>
-            </div>
-
-            <div class="drawer-section-title" style="margin-top:0;">CHANNELS & BROADCASTS</div>
-            <div class="card card-youtube" onclick="window.open('https://www.youtube.com/@hyekong2026', '_blank')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #fca5a5;">▶️ 유튜브 채널 (hyekong2026)</div>
-            </div>
-            <div class="card card-tiktok" onclick="window.open('https://www.tiktok.com/@hyekong2026', '_blank')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #5eead4;">🎵 틱톡 채널 (hyekong2026)</div>
-            </div>
-
-            <div class="drawer-section-title">CORE LEGAL & COMPLIANCE</div>
-            <div class="card" onclick="alert('백서 v3.5 상세 50선 로드됨')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">📄 백서 (Whitepaper v3.5 상세 50선)</div>
-            </div>
-            <div class="card" onclick="alert('FAQ 20선 실증 로드됨')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">❓ 자주 묻는 질문 (FAQ 20선 실증)</div>
-            </div>
-            <div class="card" onclick="alert('3대 POLICIES 로드됨')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🛡️ 3대 POLICIES (KYC·KYB 철저보안)</div>
-            </div>
-            <div class="card" onclick="alert('FATF 트래블룰 및 실시간 제재 리스트 검증 규격 로드됨')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🌐 FATF 트래블룰 & 실시간 제재 리스트 검증 규격</div>
-            </div>
-            <div class="card" onclick="alert('21개국 디지털 자산법 규격 로드됨')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🌐 21개국 디지털 자산법 및 제재 리스트</div>
-            </div>
-
-            <div class="drawer-section-title" style="margin-top: 18px;">HK GLOBAL ECOSYSTEM HUBS</div>
-            <div class="card" onclick="alert('HK-ROBOT 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🤖 로봇: HK-ROBOT</div></div>
-            <div class="card" onclick="alert('HK-NEXUS 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">👓 스마트 글래스: HK-NEXUS</div></div>
-            <div class="card" onclick="alert('HK-UAM 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🚁 도심항공교통: HK-UAM</div></div>
-            <div class="card" onclick="alert('HK-FUSION 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">☀️ 인공태양: HK-FUSION</div></div>
-            <div class="card" onclick="alert('HK-QUANTUMBIO 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🧬 퀀텀바이오: HK-QUANTUMBIO</div></div>
-            <div class="card" onclick="alert('HK-SPACE 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🚀 우주로켓리버티: HK-SPACE</div></div>
-            <div class="card" onclick="alert('HK-PARTSBANK 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">⚙️ 부품뱅크: HK-PARTSBANK</div></div>
-            <div class="card" onclick="alert('HK-DEFENCE-HUB 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🛡️ 방위산업: HK-DEFENCE-HUB</div></div>
-            <div class="card" onclick="alert('반려견 교육/훈련 서비스 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🐾 반려동물 교육/훈련 서비스</div></div>
-        </div>
+            <button class="nav-item" onclick="switchTab('media', this)">
+                <span class="icon">📺</span>
+                <span data-i18n="nav_media">미디어</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('asset', this)">
+                <span class="icon">💰</span>
+                <span data-i18n="nav_asset">자산</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('network', this)">
+                <span class="icon">🔗</span>
+                <span data-i18n="nav_net">연동망</span>
+            </button>
+            <button class="nav-item" onclick="toggleBini()">
+                <span class="icon">🤖</span>
+                <span>ASI 삐니</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('navigator', this)">
+                <span class="icon">🗺️</span>
+                <span data-i18n="nav_navigator">네비게이터</span>
+            </button>
+        </nav>
     </div>
 
-    <!-- 10대 분산 연동망 고유 실행 모달 팝업 -->
-    <div class="modal-overlay" id="exactModal" onclick="if(event.target === this) closePopupModal()">
-        <div class="modal-card">
-            <div class="modal-header">
-                <div class="modal-title" id="popTitle">프로세스 실행</div>
-                <button class="modal-close" onclick="closePopupModal()">✕</button>
-            </div>
-            <div class="modal-desc" id="popDesc">상세 프로세스 실행 모달입니다.</div>
-           
-            <div class="kyc-badge" id="kycStatusBadge">
-                <span>🛡️</span> <span id="kycBadgeText">KYC 실명 및 KYB 기업 인증 완료 [Status: SECURE]</span>
-            </div>
+    <script>
+        // 30개국어 다국어 번역 사전 데이터베이스 객체
+        const i18nDict = {
+            ko: {
+                gw_title: "HK WorldBank 보안 게이트웨이",
+                gw_desc: "플랫폼 내 자산 관리 및 분산 연동망에 입장하시려면 24자리 비밀구절(Passphrase) 인증이 필수입니다.",
+                gw_label_name: "회장님 성함 / 법인명",
+                gw_label_pass: "24자리 비밀구절 (Passphrase)",
+                gw_btn_enter: "보안 인증 및 입장",
+                gw_btn_guest: "둘러보기 (게스트 모드)",
+                sec_compliance: "CORE LEGAL & COMPLIANCE (백서 50선 & FATF 트래블룰)",
+                menu_whitepaper: "📄 백서 (Whitepaper v3.5 상세 50선)",
+                desc_whitepaper: "글로벌 웹3 금융 표준 및 50가지 아키텍처 명세",
+                menu_faq: "❓ 자주 묻는 질문 (FAQ 20선 실증)",
+                desc_faq: "사용자 주요 질의응답 및 시스템 실증 안내",
+                menu_policies: "🛡️ 3대 POLICIES (KYC-KYB 철저보안)",
+                desc_policies: "국제 자금세탁 방지 및 최고 수준 보안 정책",
+                menu_travel: "🌐 FATF 트래블룰 & 실시간 제재 리스트 검증 규격",
+                desc_travel: "국제 자금세탁 방지 및 테러자금 조달 차단 실시간 규격",
+                menu_license: "⚖️ 21개국 디지털 자산법 매칭 라이언스",
+                desc_license: "국가별 규제 준수 및 크로스보더 방어 규격",
+                sec_ecosystem: "HK GLOBAL ECOSYSTEM HUBS",
+                desc_robot: "차세대 자율주행 및 물류 자동화 로보틱스 생태계",
+                desc_nexus: "해온·누리온·라온 AI 안경폰 및 AR 인프라",
+                desc_uam: "차세대 미래 모빌리티 및 UAM 버티포트 연동망",
+                desc_fusion: "청정 핵융합 에너지 및 차세대 전력망 인프라",
+                desc_bio: "양자 생명과학 및 바이오 디지털 헬스케어 인프라",
+                desc_space: "위성 통신망 및 우주 산업 궤도 플랫폼 연동",
+                desc_parts: "초정밀 미래 산업 부품 공급망 및 재고 관리",
+                desc_defence: "국가 안보 및 첨단 방산 디지털 보안 통신망",
+                sec_media: "HK OFFICIAL MEDIA CHANNELS",
+                menu_tiktok: "🎵 공식 틱톡 채널 (hyekong2026)",
+                desc_tiktok: "숏폼 인사이트 및 핵심 브랜딩 시청하기",
+                menu_youtube: "📺 공식 유튜브 채널 (hyekong2026)",
+                desc_youtube: "라이브 방송 및 정책 발표 영상 아카이브",
+                menu_insight: "📰 실시간 글로벌 인사이트 브리핑",
+                desc_insight: "경제 및 미래 산업 관련 최신 브리핑 확인",
+                sec_asset: "자산 관리 및 Pi 네트워크 연동망",
+                asset_pi: "💎 Pi Mainnet 자산 현황",
+                asset_net: "🌐 10대 분산 연동망 상태",
+                sec_node: "분산 연동망 노드 관리",
+                node_staking: "⚡ 파이 수량 및 LP 스테이킹",
+                sec_nav: "플랫폼 네비게이터",
+                nav_haeoreum: "🧭 해오름 특별시 통합 내비게이터",
+                nav_home: "홈", nav_media: "미디어", nav_asset: "자산", nav_net: "연동망", nav_navigator: "네비게이터"
+            },
+            en: {
+                gw_title: "HK WorldBank Security Gateway",
+                gw_desc: "24-word Passphrase authentication is required to enter asset management and decentralized networks.",
+                gw_label_name: "Chairman Name / Entity",
+                gw_label_pass: "24-Word Passphrase",
+                gw_btn_enter: "Secure Authentication & Enter",
+                gw_btn_guest: "Explore (Guest Mode)",
+                sec_compliance: "CORE LEGAL & COMPLIANCE (Whitepaper & FATF Travel Rule)",
+                menu_whitepaper: "📄 Whitepaper (v3.5 Detailed 50)",
+                desc_whitepaper: "Global Web3 finance standards and 50 architecture specs",
+                menu_faq: "❓ FAQ (Top 20 Verification)",
+                desc_faq: "User Q&A and system verification guide",
+                menu_policies: "🛡️ 3 POLICIES (Strict KYC-KYB Security)",
+                desc_policies: "International anti-money laundering & high-level security policy",
+                menu_travel: "🌐 FATF Travel Rule & Real-time Sanctions Verification",
+                desc_travel: "AML and anti-terrorist financing real-time compliance standards",
+                menu_license: "⚖️ 21-Nation Digital Asset Law Matching License",
+                desc_license: "Cross-border compliance and defense standards",
+                sec_ecosystem: "HK GLOBAL ECOSYSTEM HUBS",
+                desc_robot: "Next-gen autonomous driving & logistics robotics ecosystem",
+                desc_nexus: "Haeon·Nurion·Raon AI smart glasses & AR infrastructure",
+                desc_uam: "Next-gen future mobility & UAM vertiport network",
+                desc_fusion: "Clean nuclear fusion energy & grid infrastructure",
+                desc_bio: "Quantum life science & bio digital healthcare infrastructure",
+                desc_space: "Satellite communication & space orbital platform integration",
+                desc_parts: "Ultra-precision future industrial parts supply chain & inventory",
+                desc_defence: "National security & advanced defense digital secure network",
+                sec_media: "HK OFFICIAL MEDIA CHANNELS",
+                menu_tiktok: "🎵 Official TikTok Channel (hyekong2026)",
+                desc_tiktok: "Watch short-form insights & core branding",
+                menu_youtube: "📺 Official YouTube Channel (hyekong2026)",
+                desc_youtube: "Live broadcasts and policy announcement archive",
+                menu_insight: "📰 Real-time Global Insight Briefing",
+                desc_insight: "Check latest briefings on economy & future industries",
+                sec_asset: "Asset Management & Pi Network Integration",
+                asset_pi: "💎 Pi Mainnet Asset Status",
+                asset_net: "🌐 Top 10 Decentralized Network Status",
+                sec_node: "Decentralized Network Node Management",
+                node_staking: "⚡ Pi Quantity & LP Staking",
+                sec_nav: "Platform Navigator",
+                nav_haeoreum: "🧭 Haeoreum Special City Integrated Navigator",
+                nav_home: "Home", nav_media: "Media", nav_asset: "Assets", nav_net: "Network", nav_navigator: "Navigator"
+            },
+            zh: {
+                gw_title: "HK WorldBank 安全网关",
+                gw_desc: "进入平台资产管理和分布式互联网络需要24个助记词（Passphrase）认证。",
+                gw_label_name: "会长姓名 / 实体",
+                gw_label_pass: "24字助记词 (Passphrase)",
+                gw_btn_enter: "安全认证并进入",
+                gw_btn_guest: "浏览 (访客模式)",
+                sec_compliance: "核心法律与合规 (白皮书及FATF旅行规则)",
+                menu_whitepaper: "📄 白皮书 (v3.5 详细 50 项)",
+                desc_whitepaper: "全球 Web3 金融标准及 50 种架构规范",
+                menu_faq: "❓ 常见问题 (FAQ 20 项实证)",
+                desc_faq: "用户主要问答及系统实证指南",
+                menu_policies: "🛡️ 三大政策 (KYC-KYB 严格安全)",
+                desc_policies: "国际反洗钱与最高级别安全政策",
+                menu_travel: "🌐 FATF 旅行规则及实时制裁名单验证",
+                desc_travel: "反洗钱与反恐融资实时阻断标准",
+                menu_license: "⚖️ 21国数字资产法匹配牌照",
+                desc_license: "各国合规与跨境防御标准",
+                sec_ecosystem: "HK 全球生态系统中心",
+                desc_robot: "下一代自动驾驶与物流自动化机器人生态系统",
+                desc_nexus: "海温·努里温·拉翁 AI 眼镜手机与 AR 基础设施",
+                desc_uam: "下一代未来出行与 UAM 垂直起降场互联网络",
+                desc_fusion: "清洁核聚变能源与下一代电网基础设施",
+                desc_bio: "量子生命科学与生物数字医疗基础设施",
+                desc_space: "卫星通信网络与太空产业轨道平台集成",
+                desc_parts: "超精密未来产业零部件供应链及库存管理",
+                desc_defence: "国家安全与先进国防数字安全通信网",
+                sec_media: "HK 官方媒体频道",
+                menu_tiktok: "🎵 官方抖音/TikTok 频道 (hyekong2026)",
+                desc_tiktok: "观看短视频洞察与核心品牌建设",
+                menu_youtube: "📺 官方 YouTube 频道 (hyekong2026)",
+                desc_youtube: "直播及政策发布视频归档",
+                menu_insight: "📰 实时全球洞察简报",
+                desc_insight: "查看有关经济和未来产业的最新简报",
+                sec_asset: "资产管理与 Pi 网络互联",
+                asset_pi: "💎 Pi 主网资产状态",
+                asset_net: "🌐 十大分布式互联网络状态",
+                sec_node: "分布式网络节点管理",
+                node_staking: "⚡ Pi 数量与 LP 质押",
+                sec_nav: "平台导航器",
+                nav_haeoreum: "🧭 海欧勒姆特别市综合导航器",
+                nav_home: "首页", nav_media: "媒体", nav_asset: "资产", nav_net: "互联网络", nav_navigator: "导航器"
+            },
+            ja: {
+                gw_title: "HK WorldBank セキュリティゲートウェイ",
+                gw_desc: "プラットフォーム内の資産管理および分散連動網への入場には、24単語のパスフレーズ認証が必須です。",
+                gw_label_name: "会長氏名 / 法人名",
+                gw_label_pass: "24単語パスフレーズ (Passphrase)",
+                gw_btn_enter: "セキュリティ認証して入場",
+                gw_btn_guest: "閲覧する (ゲストモード)",
+                sec_compliance: "コアリーガル＆コンプライアンス (ホワイトペーパー & FATFトラベルルール)",
+                menu_whitepaper: "📄 ホワイトペーパー (v3.5 詳細50選)",
+                desc_whitepaper: "グローバルWeb3金融標準および50のアーキテクチャ仕様",
+                menu_faq: "❓ よくある質問 (FAQ20選実証)",
+                desc_faq: "ユーザー主要Q&Aおよびシステム実証案内",
+                menu_policies: "🛡️ 3大ポリシー (KYC-KYB徹底セキュリティ)",
+                desc_policies: "国際マネーロンダリング防止および最高水準のセキュリティ政策",
+                menu_travel: "🌐 FATFトラベルルール & リアルタイム制裁リスト検証規格",
+                desc_travel: "国際マネーロンダリング防止およびテロ資金調達遮断リアルタイム規格",
+                menu_license: "⚖️ 21か国デジタル資産法マッチングライセンス",
+                desc_license: "各国規制遵守およびクロスボーダー防御規格",
+                sec_ecosystem: "HK グローバルエコシステムハブ",
+                desc_robot: "次世代自動運転および物流自動化ロボティクス生態系",
+                desc_nexus: "ヘオン・ヌリオン・ラオン AIメガネフォンおよびARインフラ",
+                desc_uam: "次世代未来モビリティおよびUAMバーティポート連動網",
+                desc_fusion: "クリーン核融合エネルギーおよび次世代電力網インフラ",
+                desc_bio: "量子生命科学およびバイオデジタルヘルスケアインフラ",
+                desc_space: "衛星通信網および宇宙産業軌道プラットフォーム連動",
+                desc_parts: "超精密未来産業部品サプライチェーンおよび在庫管理",
+                desc_defence: "国家安保および先端防衛デジタル安全通信網",
+                sec_media: "HK 公式メディアチャンネル",
+                menu_tiktok: "🎵 公式TikTokチャンネル (hyekong2026)",
+                desc_tiktok: "ショートフォームインサイトおよびコアブランディング視聴",
+                menu_youtube: "📺 公式YouTubeチャンネル (hyekong2026)",
+                desc_youtube: "ライブ放送および政策発表映像アーカイブ",
+                menu_insight: "📰 リアルタイムグローバルインサイトブリーフィング",
+                desc_insight: "経済および未来産業に関する最新ブリーフィング確認",
+                sec_asset: "資産管理およびPiネットワーク連動網",
+                asset_pi: "💎 Piメインネット資産状況",
+                asset_net: "🌐 10大分散連動網状態",
+                sec_node: "分散連動網ノード管理",
+                node_staking: "⚡ パイ数量およびLPステーキング",
+                sec_nav: "プラットフォームナビゲーター",
+                nav_haeoreum: "🧭 ヘオルム特別市統合ナビゲーター",
+                nav_home: "ホーム", nav_media: "メディア", nav_asset: "資産", nav_net: "連動網", nav_navigator: "ナビゲーター"
+            },
+            ru: {
+                gw_title: "Шлюз безопасности HK WorldBank",
+                gw_desc: "Для входа требуется аутентификация по 24-словной фразе-паролю (Passphrase).",
+                gw_label_name: "Имя председателя / Субъект",
+                gw_label_pass: "24-словная фраза-пароль",
+                gw_btn_enter: "Безопасный вход",
+                gw_btn_guest: "Обзор (Гостевой режим)",
+                sec_compliance: "ПРАВОВОЕ СООТВЕТСТВИЕ (Белая книга и правило FATF)",
+                menu_whitepaper: "📄 Белая книга (v3.5 Подробно 50)",
+                desc_whitepaper: "Глобальные финансовые стандарты Web3",
+                sec_ecosystem: "ГЛОБАЛЬНЫЕ ЭКОСИСТЕМНЫЕ ХАБЫ HK",
+                sec_media: "ОФИЦИАЛЬНЫЕ МЕДИА-КАНАЛЫ HK",
+                sec_asset: "Управление активами и сеть Pi",
+                sec_node: "Управление узлами",
+                sec_nav: "Навигатор платформы",
+                nav_home: "Главная", nav_media: "Медиа", nav_asset: "Активы", nav_net: "Сеть", nav_navigator: "Навигатор"
+            },
+            vi: {
+                gw_title: "Cổng bảo mật HK WorldBank",
+                gw_desc: "Cần xác thực cụm mật khẩu 24 từ để truy cập quản lý tài sản và mạng phân tán.",
+                gw_label_name: "Tên Chủ tịch / Tổ chức",
+                gw_label_pass: "Cụm mật khẩu 24 từ",
+                gw_btn_enter: "Xác thực bảo mật & Vào",
+                gw_btn_guest: "Khám phá (Chế độ khách)",
+                sec_compliance: "TUÂN THỦ PHÁP LÝ (Whitepaper & Quy tắc FATF)",
+                sec_ecosystem: "TRУM HỆ SINH THÁI TOÀN CẦU HK",
+                sec_media: "KENH TRУУН THÔNG CHÍNH THỨC HK",
+                sec_asset: "Quản lý tài sản & Mạng Pi",
+                sec_node: "Quản lý nút mạng",
+                sec_nav: "Trình điều hướng nền tảng",
+                nav_home: "Trang chủ", nav_media: "Truyền thông", nav_asset: "Tài sản", nav_net: "Mạng", nav_navigator: "Điều hướng"
+            },
+            th: {
+                gw_title: "เกตเวย์ความปลอดภัย HK WorldBank",
+                gw_desc: "ต้องมีการยืนยันตัวตนด้วยรหัสผ่าน 24 คำเพื่อเข้าสู่ระบบจัดการสินทรัพย์",
+                gw_label_name: "ชื่อประธาน / นิติบุคคล",
+                gw_label_pass: "รหัสผ่าน 24 คำ",
+                gw_btn_enter: "ยืนยันความปลอดภัยและเข้าสู่ระบบ",
+                gw_btn_guest: "สำรวจ (โหมดแขก)",
+                sec_compliance: "การปฏิบัติตามกฎหมาย (Whitepaper และกฎ FATF)",
+                sec_ecosystem: "ฮับระบบนิเวศระดับโลก HK",
+                sec_media: "ช่องสื่ออย่างเป็นทางการของ HK",
+                sec_asset: "การจัดการสินทรัพย์ & เครือข่าย Pi",
+                sec_node: "การจัดการโหนด",
+                sec_nav: "ตัวนำทางแพลตฟอร์ม",
+                nav_home: "หน้าแรก", nav_media: "สื่อ", nav_asset: "สินทรัพย์", nav_net: "เครือข่าย", nav_navigator: "ตัวนำทาง"
+            },
+            id: {
+                gw_title: "Gateway Keamanan HK WorldBank",
+                gw_desc: "Autentikasi Passphrase 24 kata diperlukan untuk masuk ke manajemen aset.",
+                gw_label_name: "Nama Ketua / Entitas",
+                gw_label_pass: "Passphrase 24 Kata",
+                gw_btn_enter: "Autentikasi & Masuk",
+                gw_btn_guest: "Jelajahi (Mode Tamu)",
+                sec_compliance: "KEPATUHAN HUKUM (Whitepaper & Aturan Perjalanan FATF)",
+                sec_ecosystem: "HUB EKOSISTEM GLOBAL HK",
+                sec_media: "SALURAN MEDIA RESMI HK",
+                sec_asset: "Manajemen Aset & Jaringan Pi",
+                sec_node: "Manajemen Node",
+                sec_nav: "Navigator Platform",
+                nav_home: "Beranda", nav_media: "Media", nav_asset: "Aset", nav_net: "Jaringan", nav_navigator: "Navigator"
+            },
+            ps: {
+                gw_title: "بوابة الأمان HK WorldBank",
+                gw_desc: "مطلوب مصادقة عبارة المرور المكونة من 24 كلمة للدخول إلى إدارة الأصول.",
+                gw_label_name: "اسم الرئيس / الكيان",
+                gw_label_pass: "عبارة المرور (24 كلمة)",
+                gw_btn_enter: "مصادقة آمنة والدخول",
+                gw_btn_guest: "استكشاف (وضع الضيف)",
+                sec_compliance: "الامتثال القانوني وتنظيم السفر FATF",
+                sec_ecosystem: "مراكز النظام البيئي العالمي HK",
+                sec_media: "قنوات وسائل الإعلام الرسمية HK",
+                sec_asset: "إدارة الأصول وشبكة Pi",
+                sec_node: "إدارة عقد الشبكة",
+                sec_nav: "ملاحة المنصة",
+                nav_home: "الرئيسية", nav_media: "الإعلام", nav_asset: "الأصول", nav_net: "الشبكة", nav_navigator: "الملاحة"
+            },
+            de: {
+                gw_title: "HK WorldBank Sicherheits-Gateway",
+                gw_desc: "Eine 24-Wort-Passphrase-Authentifizierung ist erforderlich.",
+                gw_label_name: "Name des Vorsitzenden / Entität",
+                gw_label_pass: "24-Wort-Passphrase",
+                gw_btn_enter: "Sichere Authentifizierung & Eintritt",
+                gw_btn_guest: "Erkunden (Gastmodus)",
+                sec_compliance: "RECHTLICHE EINHALTUNG & FATF-Reiseregel",
+                sec_ecosystem: "HK GLOBALE ÖKOSYSTEM-HUBS",
+                sec_media: "HK OFFIZIELLE MEDIENKANÄLE",
+                sec_asset: "Asset-Management & Pi-Netzwerk",
+                sec_node: "Knotenverwaltung",
+                sec_nav: "Plattform-Navigator",
+                nav_home: "Startseite", nav_media: "Medien", nav_asset: "Vermögen", nav_net: "Netzwerk", nav_navigator: "Navigator"
+            },
+            it: {
+                gw_title: "Gateway di Sicurezza HK WorldBank",
+                gw_desc: "È richiesta l'autenticazione con passphrase di 24 parole.",
+                gw_label_name: "Nome Presidente / Entità",
+                gw_label_pass: "Passphrase di 24 parole",
+                gw_btn_enter: "Autenticazione Sicura e Accesso",
+                gw_btn_guest: "Esplora (Modalità Ospite)",
+                sec_compliance: "CONFORMITÀ LEGALE E NORME FATF",
+                sec_ecosystem: "HUB DELL'ECOSISTEMA GLOBALE HK",
+                sec_media: "CANALI MEDIA UFFICIALI HK",
+                sec_asset: "Gestione Asset e Rete Pi",
+                sec_node: "Gestione Nodi",
+                sec_nav: "Navigatore Piattaforma",
+                nav_home: "Home", nav_media: "Media", nav_asset: "Asset", nav_net: "Rete", nav_navigator: "Navigatore"
+            },
+            fr: {
+                gw_title: "Passerelle de Sécurité HK WorldBank",
+                gw_desc: "L'authentification par phrase de passe de 24 mots est requise.",
+                gw_label_name: "Nom du Président / Entité",
+                gw_label_pass: "Phrase de passe (24 mots)",
+                gw_btn_enter: "Authentification sécurisée et Entrer",
+                gw_btn_guest: "Explorer (Mode Invité)",
+                sec_compliance: "CONFORMITÉ JURIDIQUE & RÈGLE DE VOYAGE FATF",
+                sec_ecosystem: "CENTRES DE L'ÉCOSYSTÈME GLOBAL HK",
+                sec_media: "CANAUX MÉDIAS OFFICIELS HK",
+                sec_asset: "Gestion des actifs & Réseau Pi",
+                sec_node: "Gestion des nœuds",
+                sec_nav: "Navigateur de la plateforme",
+                nav_home: "Accueil", nav_media: "Médias", nav_asset: "Actifs", nav_net: "Réseau", nav_navigator: "Navigateur"
+            },
+            ng: {
+                gw_title: "HK WorldBank Security Gateway (Nigeria)",
+                gw_desc: "24-word Passphrase authentication required to enter.",
+                gw_label_name: "Chairman Name / Entity",
+                gw_label_pass: "24-Word Passphrase",
+                gw_btn_enter: "Secure Auth & Enter",
+                gw_btn_guest: "Explore (Guest Mode)",
+                sec_compliance: "CORE LEGAL & COMPLIANCE",
+                sec_ecosystem: "HK GLOBAL ECOSYSTEM HUBS",
+                sec_media: "HK OFFICIAL MEDIA CHANNELS",
+                sec_asset: "Asset Management & Pi Network",
+                sec_node: "Node Management",
+                sec_nav: "Platform Navigator",
+                nav_home: "Home", nav_media: "Media", nav_asset: "Assets", nav_net: "Network", nav_navigator: "Navigator"
+            },
+            cm: {
+                gw_title: "Passerelle de Sécurité HK WorldBank (Cameroon)",
+                gw_desc: "Authentification par phrase de passe de 24 mots requise.",
+                gw_label_name: "Nom du Président / Entité",
+                gw_label_pass: "Phrase de passe (24 mots)",
+                gw_btn_enter: "Authentification & Entrer",
+                gw_btn_guest: "Explorer",
+                sec_compliance: "CONFORMITÉ JURIDIQUE",
+                sec_ecosystem: "CENTRES HK",
+                sec_media: "MÉDIAS OFFICIELS",
+                sec_asset: "Gestion des actifs",
+                sec_node: "Gestion des nœuds",
+                sec_nav: "Navigateur",
+                nav_home: "Accueil", nav_media: "Médias", nav_asset: "Actifs", nav_net: "Réseau", nav_navigator: "Navigateur"
+            },
+            za: {
+                gw_title: "HK WorldBank Security Gateway (South Africa)",
+                gw_desc: "24-word Passphrase authentication required.",
+                gw_label_name: "Chairman Name / Entity",
+                gw_label_pass: "24-Word Passphrase",
+                gw_btn_enter: "Secure Auth & Enter",
+                gw_btn_guest: "Explore (Guest Mode)",
+                sec_compliance: "LEGAL & COMPLIANCE",
+                sec_ecosystem: "HK GLOBAL HUBS",
+                sec_media: "HK MEDIA CHANNELS",
+                sec_asset: "Asset Management",
+                sec_node: "Node Management",
+                sec_nav: "Platform Navigator",
+                nav_home: "Home", nav_media: "Media", nav_asset: "Assets", nav_net: "Network", nav_navigator: "Navigator"
+            },
+            hi: {
+                gw_title: "HK WorldBank सुरक्षा गेटवे",
+                gw_desc: "परिसंपत्ति प्रबंधन में प्रवेश करने के लिए 24-शब्द पासफ़्रेज़ प्रमाणीकरण आवश्यक है।",
+                gw_label_name: "अध्यक्ष का नाम / इकाई",
+                gw_label_pass: "24-शब्द पासफ़्रेज़",
+                gw_btn_enter: "सुरक्षित प्रमाणीकरण और प्रवेश",
+                gw_btn_guest: "अन्वेषण करें (अतिथि मोड)",
+                sec_compliance: "कानूनी और अनुपालन (Whitepaper और FATF नियम)",
+                sec_ecosystem: "HK वैश्विक इकोसिस्टम हब",
+                sec_media: "HK आधिकारिक मीडिया चैनल",
+                sec_asset: "परिसंपत्ति प्रबंधन और Pi नेटवर्क",
+                sec_node: "नोड प्रबंधन",
+                sec_nav: "प्लेटफ़ॉर्म नेविगेटर",
+                nav_home: "होम", nav_media: "मीडिया", nav_asset: "परिसंपत्ति", nav_net: "नेटवर्क", nav_navigator: "नेविगेटर"
+            },
+            es: {
+                gw_title: "Pasarela de Seguridad HK WorldBank",
+                gw_desc: "Se requiere autenticación de frase de contraseña de 24 palabras.",
+                gw_label_name: "Nombre del Presidente / Entidad",
+                gw_label_pass: "Frase de contraseña (24 palabras)",
+                gw_btn_enter: "Autenticación Segura y Entrar",
+                gw_btn_guest: "Explorar (Modo Invitado)",
+                sec_compliance: "CUMPLIMIENTO LEGAL Y REGLAS FATF",
+                sec_ecosystem: "CENTROS DE ECOSISTEMA GLOBAL HK",
+                sec_media: "CANALES DE MEDIOS OFICIALES HK",
+                sec_asset: "Gestión de Activos y Red Pi",
+                sec_node: "Gestión de Nodos",
+                sec_nav: "Navegador de la Plataforma",
+                nav_home: "Inicio", nav_media: "Medios", nav_asset: "Activos", nav_net: "Red", nav_navigator: "Navegador"
+            },
+            br: {
+                gw_title: "Gateway de Segurança HK WorldBank",
+                gw_desc: "A autenticação de frase secreta de 24 palavras é obrigatória.",
+                gw_label_name: "Nome do Presidente / Entidade",
+                gw_label_pass: "Frase Secreta de 24 Palavras",
+                gw_btn_enter: "Autenticação Segura e Entrar",
+                gw_btn_guest: "Explorar (Modo Convidado)",
+                sec_compliance: "CONFORMIDADE LEGAL E REGREAS FATF",
+                sec_ecosystem: "CENTROS DE ECOSSISTEMA GLOBAL HK",
+                sec_media: "CANAIS DE MÍDIA OFICIAIS HK",
+                sec_asset: "Gerenciamento de Ativos e Rede Pi",
+                sec_node: "Gerenciamento de Nós",
+                sec_nav: "Navegador da Plataforma",
+                nav_home: "Início", nav_media: "Mídia", nav_asset: "Ativos", nav_net: "Rede", nav_navigator: "Navegador"
+            },
+            uk: {
+                gw_title: "Шлюз безпеки HK WorldBank",
+                gw_desc: "Для входу необхідна аутентифікація за 24-слівну фразу-пароль.",
+                gw_label_name: "Ім'я голови / Суб'єкт",
+                gw_label_pass: "24-слівна фраза-пароль",
+                gw_btn_enter: "Безпечний вхід",
+                gw_btn_guest: "Огляд (Гостьовий режим)",
+                sec_compliance: "ПРАВОВЕ ВІДПОВІДНІСТЬ ТА ПРАВИЛА FATF",
+                sec_ecosystem: "ГЛОБАЛЬНІ ЕКОСИСТЕМНІ ХАБИ HK",
+                sec_media: "ОФІЦІЙНІ МЕДІА-КАНАЛИ HK",
+                sec_asset: "Управління активами та мережа Pi",
+                sec_node: "Управління вузлами",
+                sec_nav: "Навігатор платформи",
+                nav_home: "Головна", nav_media: "Медіа", nav_asset: "Активи", nav_net: "Мережа", nav_navigator: "Навігатор"
+            },
+            pk: {
+                gw_title: "HK WorldBank سیکیورٹی گیٹ وے",
+                gw_desc: "اثاثہ جات کے انتظام میں داخل ہونے کے لیے 24 الفاظ کی پاس فریز تصدیق درکار ہے۔",
+                gw_label_name: "چیئرمین کا نام / ادارہ",
+                gw_label_pass: "24 الفاظ کا پاس فریز",
+                gw_btn_enter: "محفوظ تصدیق اور داخل ہوں",
+                gw_btn_guest: "پڑتال کریں (گیسٹ موڈ)",
+                sec_compliance: "قانونی اور تعمیل (FATF قوانین)",
+                sec_ecosystem: "HK عالمی ایکو سسٹم ہبز",
+                sec_media: "HK سرکاری میڈیا چینلز",
+                sec_asset: "اثاثہ جات کا انتظام اور Pi نیٹ ورک",
+                sec_node: "نوڈ مینجمنٹ",
+                sec_nav: "پلیٹ فارم نیویگیٹر",
+                nav_home: "ہوم", nav_media: "میڈیا", nav_asset: "اثاثے", nav_net: "نیٹ ورک", nav_navigator: "نیویگیٹر"
+            },
+            bn: {
+                gw_title: "HK WorldBank নিরাপত্তা গেটওয়ে",
+                gw_desc: "সম্পদ ব্যবস্থাপনায় প্রবেশ করতে ২৪-শব্দের পাসফ্রেজ প্রমাণীকরণ প্রয়োজন।",
+                gw_label_name: "চেয়ারম্যানের নাম / সত্তা",
+                gw_label_pass: "২৪-শব্দের পাসফ্রেজ",
+                gw_btn_enter: "নিরাপদ প্রমাণীকরণ এবং প্রবেশ করুন",
+                gw_btn_guest: "অন্বেষণ করুন (গেস্ট মোড)",
+                sec_compliance: "আইনি এবং সম্মতি (Whitepaper এবং FATF নিয়ম)",
+                sec_ecosystem: "HK বৈশ্বিক ইকোসিস্টেম হাব",
+                sec_media: "HK অফিসিয়াল মিডিয়া চ্যানেল",
+                sec_asset: "সম্পদ ব্যবস্থাপনা ও Pi নেটওয়ার্ক",
+                sec_node: "নোট ব্যবস্থাপনা",
+                sec_nav: "প্লাটফর্ম নেভিগেটর",
+                nav_home: "হোম", nav_media: "মিডিয়া", nav_asset: "সম্পদ", nav_net: "নেটওয়ার্ক", nav_navigator: "নেভিগেটর"
+            }
+        };
 
-            <div id="popupDynamicContent"></div>
+        // 선택된 언어로 실시간 텍스트 반영 함수
+        function changeLanguage(lang) {
+            const dict = i18nDict[lang] || i18nDict['en'];
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.innerText = dict[key];
+                }
+            });
 
-            <div class="info-box" id="dynamicOtpBox">실시간 고유 승인번호 생성 중...</div>
-            <div class="form-group">
-                <label class="form-label">🔑 실시간 고유 6자리 승인번호 입력</label>
-                <input type="text" class="form-input" id="userOtpInput" placeholder="생성된 6자리 번호를 입력하세요" maxlength="6">
-            </div>
-
-            <button class="btn-primary" id="popBtn" onclick="submitPopupAction()">승인 및 실행</button>
-        </div>
-    </div>
-
-    <!-- 하단 고정 네비게이션바 (5대 탭) -->
-    <nav class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('home')" id="nav-home">
-            <span class="nav-icon">🏠</span>
-            <span id="nHome">홈</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('dashboard')" id="nav-dashboard">
-            <span class="nav-icon">📊</span>
-            <span id="nDash">자산</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('trading')" id="nav-trading">
-            <span class="nav-icon">💱</span>
-            <span id="nTrading">연동망</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('support')" id="nav-support">
-            <span class="nav-icon">🤖</span>
-            <span id="nSupport">ASI 삐니</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('nav')" id="nav-nav">
-            <span class="nav-icon">🧭</span>
-            <span id="nNav">네비게이터</span>
-        </button>
-    </nav>
-</div>
-
-<script>
-    // KYC / KYB 게이트웨이 통과 함수
-    function passKycGateway() {
-        const passphrase = document.getElementById('gatewayPassphrase').value.trim();
-        if(!passphrase) {
-            alert('지갑 24자리 비밀구절(Passphrase)을 입력하셔야 KYC/KYB 검증을 통과할 수 있습니다!');
-            return;
-        }
-        alert('🎉 [KYC/KYB 보안 인증 완료] 회장님("이재완 / 혜공")의 지갑 원장 및 법인 인증이 성공적으로 확인되었습니다. HK WorldBank에 입장합니다! 💜');
-        document.getElementById('kycKyigGateway').style.display = 'none';
-    }
-
-    // 실시간 이자 마이닝 엔진
-    let currentInterest = 12.500000;
-    setInterval(() => {
-        currentInterest += 0.000314;
-        const el = document.getElementById('liveInterestVal');
-        if(el) {
-            el.textContent = "+ " + currentInterest.toLocaleString('en-US', { minimumFractionDigits: 6, maximumFractionDigits: 6 });
-        }
-    }, 1000);
-
-    const i18nDict = {
-        ko: {
-            hMainTitle: "HK 통합 메인 허브",
-            pMainSub: "5대 핵심 기능 및 에코시스템 바로가기",
-            m1Title: "개인 자산 대시보드", m1Sub: "실시간 잔액 및 Pi 자산 통합 관리",
-            m2Title: "사고 팔고 예금하기", m2Sub: "10대 분산 연동망 볼트 실행",
-            m3Title: "고객센터 ASI 삐니", m3Sub: "초지능 ASI 전담 AI 비서 실시간 구동",
-            m4Title: "네비게이터 (메뉴 보기)", m4Sub: "백서 50선·FATF 트래블룰·21개국법안 허브",
-            balTitle: "총 보유 자산 (KRW 환산)",
-            piBoxTitle: "Pi 코인 보유량",
-            syncBtnText: "동기화",
-            interestTitle: "실시간 누적 이자 (3년 31.41% APY 복리 실시간 마이닝)",
-            dashSumTitle: "📈 10대 분산 연동망 자산 현황",
-            dashSumDesc: "바이낸스 및 시중은행 통합 시대를 완벽히 방어하며, ASI 오케스트레이션과 KYC/KYB 철저 검증이 연동되어 있습니다.",
-            netMainTitle: "💱 10대 분산 연동망 (항목별 고유 실행)",
-            netMainSub: "아래 연동망 버튼을 누르면 즉시 해당 기능의 고유 실행 화면이 열립니다.",
-            supportTitle: "🤖 고객센터 ASI 삐니 (KYC / KYB)",
-            supCardTitle: "초지능 ASI 전담 비서 상시 대기 중",
-            supCardDesc: "철저한 신원 인증(KYC) 및 기업 검증(KYB) 시스템이 실시간 구동되고 있습니다.",
-            beenyGreeting: "\"안녕하십니까 혜공 회장님! 현재 HK WorldBank 분산 연동망과 실시간 이자 마이닝 엔진이 최적 상태로 가동 중입니다. 무엇을 도와드릴까요?\"",
-            beenySendBtn: "보내기",
-            navHubTitle: "🧭 HK 네비게이터 허브",
-            n1Title: "📄 백서 (Whitepaper v3.5 상세 50선)", n1Sub: "글로벌 웹3 금융 표준 및 50가지 아키텍처 명세",
-            n2Title: "❓ 자주 묻는 질문 (FAQ 20선 실증)", n2Sub: "사용자 주요 질의응답 및 시스템 실증 안내",
-            n3Title: "🛡️ 3대 POLICIES (KYC·KYB 철저보안)", n3Sub: "국제 자금세탁 방지 및 최고 수준 보안 정책",
-            n4Title: "🌐 21개국 디지털 자산법 매칭 라이언스", n4Sub: "국가별 규제 준수 및 크로스보더 방어 규격",
-            nHome: "홈", nDash: "자산", nTrading: "연동망", nSupport: "ASI 삐니", nNav: "네비게이터",
-            btBack1: "메인으로 돌아가기", btBack2: "메인으로 돌아가기", btBack3: "메인으로 돌아가기", btBack4: "메인으로 돌아가기"
-        },
-        en: {
-            hMainTitle: "HK Integrated Main Hub",
-            pMainSub: "Quick access to 5 core features & ecosystem",
-            m1Title: "Personal Asset Dashboard", m1Sub: "Real-time balance & Pi asset management",
-            m2Title: "Trade & Deposit", m2Sub: "10 Decentralized Networks Vault",
-            m3Title: "Concierge ASI Beeny", m3Sub: "Superintelligent ASI Assistant Active",
-            m4Title: "Navigator (Menu)", m4Sub: "Whitepaper 50-Specs, FATF & 21-Nation Laws",
-            balTitle: "Total Assets (USD Converted)",
-            piBoxTitle: "Pi Coin Balance",
-            syncBtnText: "Sync",
-            interestTitle: "Real-time Accumulated Interest (3Y 31.41% APY Live Mining)",
-            dashSumTitle: "📈 10 Decentralized Networks Status",
-            dashSumDesc: "Defending against Binance & traditional banks with ASI orchestration and strict KYC/KYB verification.",
-            netMainTitle: "💱 10 Decentralized Networks (Unique Execution)",
-            netMainSub: "Click any network below to immediately open its dedicated execution screen.",
-            supportTitle: "🤖 Concierge ASI Beeny (KYC / KYB)",
-            supCardTitle: "Superintelligent ASI Assistant Standing By",
-            supCardDesc: "Strict identity verification (KYC) and corporate vetting (KYB) systems are active in real-time.",
-            beenyGreeting: "\"Hello Chairman Hyekong! HK WorldBank decentralized networks and real-time interest mining engines are running at peak performance. How can I assist you?\"",
-            beenySendBtn: "Send",
-            navHubTitle: "🧭 HK Navigator Hub",
-            n1Title: "📄 Whitepaper (v3.5 50 Specs)", n1Sub: "Global Web3 financial standards & 50 architecture specs",
-            n2Title: "❓ Frequently Asked Questions (FAQ 20)", n2Sub: "User guides and system demonstration Q&A",
-            n3Title: "🛡️ 3 POLICIES (KYC·KYB Security)", n3Sub: "International AML and highest level security policies",
-            n4Title: "🌐 21-Nation Digital Asset Laws", n4Sub: "Cross-border regulatory compliance and defense specs",
-            nHome: "Home", nDash: "Assets", nTrading: "Networks", nSupport: "ASI Beeny", nNav: "Navigator",
-            btBack1: "Back to Main", btBack2: "Back to Main", btBack3: "Back to Main", btBack4: "Back to Main"
-        }
-    };
-
-    function changeLanguage(lang) {
-        const dict = i18nDict[lang] || i18nDict['ko'];
-        document.getElementById('hMainTitle').textContent = dict.hMainTitle;
-        document.getElementById('pMainSub').textContent = dict.pMainSub;
-        document.getElementById('m1Title').textContent = dict.m1Title;
-        document.getElementById('m1Sub').textContent = dict.m1Sub;
-        document.getElementById('m2Title').textContent = dict.m2Title;
-        document.getElementById('m2Sub').textContent = dict.m2Sub;
-        document.getElementById('m3Title').textContent = dict.m3Title;
-        document.getElementById('m3Sub').textContent = dict.m3Sub;
-        document.getElementById('m4Title').textContent = dict.m4Title;
-        document.getElementById('m4Sub').textContent = dict.m4Sub;
-        document.getElementById('balTitle').textContent = dict.balTitle;
-        document.getElementById('piBoxTitle').textContent = dict.piBoxTitle;
-        document.getElementById('syncBtnText').textContent = dict.syncBtnText;
-        if(document.getElementById('interestTitle')) document.getElementById('interestTitle').textContent = dict.interestTitle;
-        document.getElementById('dashSumTitle').textContent = dict.dashSumTitle;
-        document.getElementById('dashSumDesc').textContent = dict.dashSumDesc;
-        document.getElementById('netMainTitle').textContent = dict.netMainTitle;
-        document.getElementById('netMainSub').textContent = dict.netMainSub;
-        document.getElementById('supportTitle').textContent = dict.supportTitle;
-        document.getElementById('supCardTitle').textContent = dict.supCardTitle;
-        document.getElementById('supCardDesc').textContent = dict.supCardDesc;
-        document.getElementById('beenyGreeting').textContent = dict.beenyGreeting;
-        document.getElementById('beenySendBtn').textContent = dict.beenySendBtn;
-        document.getElementById('navHubTitle').textContent = dict.navHubTitle;
-        document.getElementById('n1Title').textContent = dict.n1Title;
-        document.getElementById('n1Sub').textContent = dict.n1Sub;
-        document.getElementById('n2Title').textContent = dict.n2Title;
-        document.getElementById('n2Sub').textContent = dict.n2Sub;
-        document.getElementById('n3Title').textContent = dict.n3Title;
-        document.getElementById('n3Sub').textContent = dict.n3Sub;
-        document.getElementById('n4Title').textContent = dict.n4Title;
-        document.getElementById('n4Sub').textContent = dict.n4Sub;
-        document.getElementById('nHome').textContent = dict.nHome;
-        document.getElementById('nDash').textContent = dict.nDash;
-        document.getElementById('nTrading').textContent = dict.nTrading;
-        document.getElementById('nSupport').textContent = dict.nSupport;
-        document.getElementById('nNav').textContent = dict.nNav;
-        document.getElementById('btBack1').textContent = dict.btBack1;
-        document.getElementById('btBack2').textContent = dict.btBack2;
-        document.getElementById('btBack3').textContent = dict.btBack3;
-        document.getElementById('btBack4').textContent = dict.btBack4;
-    }
-
-    function switchTab(tabName) {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-
-        if (tabName === 'home') {
-            document.getElementById('tab-home').classList.add('active');
-            document.getElementById('nav-home').classList.add('active');
-        } else if (tabName === 'dashboard') {
-            document.getElementById('tab-dashboard').classList.add('active');
-            document.getElementById('nav-dashboard').classList.add('active');
-        } else if (tabName === 'trading') {
-            document.getElementById('tab-trading').classList.add('active');
-            document.getElementById('nav-trading').classList.add('active');
-        } else if (tabName === 'support') {
-            document.getElementById('tab-support').classList.add('active');
-            document.getElementById('nav-support').classList.add('active');
-        } else if (tabName === 'nav') {
-            document.getElementById('tab-nav').classList.add('active');
-            document.getElementById('nav-nav').classList.add('active');
-        }
-        document.querySelector('.app-content').scrollTop = 0;
-    }
-
-    function openNavigatorDrawer() {
-        document.getElementById('navigatorDrawer').style.display = 'flex';
-    }
-
-    function closeNavigatorDrawer() {
-        document.getElementById('navigatorDrawer').style.display = 'none';
-    }
-
-    // ASI 삐니 실시간 대화 전송 기능
-    function sendBeenyMessage() {
-        const input = document.getElementById('beenyInputMsg');
-        const text = input.value.trim();
-        if(!text) {
-            alert('질문 내용을 입력해주세요!');
-            return;
-        }
-
-        const logBox = document.getElementById('beenyChatLog');
-        
-        // 회장님 질문 추가
-        const userMsgDiv = document.createElement('div');
-        userMsgDiv.style.textAlign = 'right';
-        userMsgDiv.style.color = '#f8fafc';
-        userMsgDiv.innerHTML = `<strong>회장님:</strong> ${text}`;
-        logBox.appendChild(userMsgDiv);
-
-        input.value = '';
-
-        // ASI 삐니 실시간 답변 자동 출력 (0.6초 후)
-        setTimeout(() => {
-            const aiMsgDiv = document.createElement('div');
-            aiMsgDiv.style.textAlign = 'left';
-            aiMsgDiv.style.color = '#d8b4fe';
-            aiMsgDiv.innerHTML = `<strong>🤖 ASI 삐니:</strong> 회장님("혜공")의 요청("${text}")에 따라 KYC/KYB 보안 필터링과 블록체인 원장 동기화를 완벽히 처리했습니다! 💜`;
-            logBox.appendChild(aiMsgDiv);
-            logBox.scrollTop = logBox.scrollHeight;
-        }, 600);
-    }
-
-    // 전역 변수: 현재 생성된 고유 6자리 승인번호 저장
-    let generatedUniqueOtp = "123456";
-
-    const networkModalData = {
-        1: {
-            title: "🔗 1. 지갑 연결 프로세스 (KYC 인증)",
-            desc: "Pi Network 공식 메인넷 원장 지갑 브리지 및 멀티시그 보안 인증",
-            html: `
-                <div class="form-group">
-                    <label class="form-label">테스트넷 지갑 주소</label>
-                    <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" class="form-input" value="G... Pi Test Address 314159..." readonly>
-                        <button class="max-btn" onclick="alert('지갑 자동 연동 완료!')">Auto-Link</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">🔑 24자리 비밀구절 (Passphrase) 입력</label>
-                    <input type="password" class="form-input" placeholder="word1 word2 word3 ... word24">
-                </div>
-            `,
-            btn: "지갑 연결 승인"
-        },
-        2: {
-            title: "💸 2. 송금하기 프로세스 (KYC/KYB 검증)",
-            desc: "대륙간 초고속 멀티시그 암호화 전송 및 FATF 트래블룰 검증",
-            html: `
-                <div class="form-group">
-                    <label class="form-label">수신자 지갑 주소 또는 QR 스캔</label>
-                    <input type="text" class="form-input" placeholder="G... 또는 Pi Test ID 입력">
-                </div>
-                <div class="form-group">
-                    <div class="form-label-row">
-                        <label class="form-label">전송 수량</label>
-                        <button class="max-btn" onclick="document.getElementById('txAmt').value='314159.000000'">MAX</button>
-                    </div>
-                    <input type="text" class="form-input" id="txAmt" value="314159.000000">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">🔑 비밀구절 (Passphrase) 인증</label>
-                    <input type="password" class="form-input" placeholder="비밀구절 24단어 입력">
-                </div>
-            `,
-            btn: "송금 실행"
-        },
-        3: {
-            title: "💳 3. 결제 연동 프로세스 (KYB 에스크로)",
-            desc: "글로벌 온·오프라인 가맹점 QR 에스크로 및 KYB 기업 증빙",
-            html: `
-                <div class="form-group">
-                    <label class="form-label">📷 QR 코드 에스크로 스캔 주소</label>
-                    <input type="text" class="form-input" value="hk-escrow://pay-merchant-314159">
-                </div>
-                <div class="form-group">
-                    <div class="form-label-row">
-                        <label class="form-label">결제 수량 및 금액</label>
-                        <button class="max-btn" onclick="document.getElementById('payAmt').value='314159.000000'">MAX</button>
-                    </div>
-                    <input type="text" class="form-input" id="payAmt" value="314159.000000">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">🔑 지갑 비밀구절 (Passphrase)</label>
-                    <input type="password" class="form-input" placeholder="지갑 비밀구절 입력">
-                </div>
-            `,
-            btn: "에스크로 결제 승인"
-        },
-        4: {
-            title: "🔒 4. 예치하기 (신탁 볼트) 프로세스",
-            desc: "3년 만기 31.41% APY 복리 락업 및 중도 해지 방어 이율 보장",
-            html: `
-                <div class="form-group">
-                    <div class="form-label-row">
-                        <label class="form-label">예치할 수량</label>
-                        <button class="max-btn" onclick="document.getElementById('stakeAmt').value='314159.000000'">MAX</button>
-                    </div>
-                    <input type="text" class="form-input" id="stakeAmt" value="314159.000000">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">예치 기간 선택</label>
-                    <select class="select-input">
-                        <option>3년 만기 (APY 31.41%)</option>
-                        <option>1년 만기 (APY 15.20%)</option>
-                        <option>수시 입출금 파킹 (APY 8.5%)</option>
-                    </select>
-                </div>
-                <div class="warning-box">
-                    ⚠️ <strong>중도 해지 규정 안내:</strong> 3년 만기를 채우지 못하고 중도 해지하실 경우에도 <strong>원금 100% 온전하게 보장</strong>되며, 기본 방어 이율 <strong>8.5%</strong>가 즉시 소급 적용됩니다.
-                </div>
-                <div class="info-box">3년 복리 적용 시 예상 수익: +398,751.07 HK/Pi</div>
-            `,
-            btn: "볼트 예치 승인"
-        },
-        5: {
-            title: "🎁 5. 보상 수령 프로세스 (지갑 주소 연동)",
-            desc: "에코시스템 기여도 및 마이닝 리워드 일일 즉시 클레임",
-            html: `
-                <div class="form-group">
-                    <label class="form-label">📥 수령할 내 지갑 주소</label>
-                    <input type="text" class="form-input" value="G... Connected User Wallet Address 314159..." readonly>
-                </div>
-                <div class="form-group">
-                    <div class="form-label-row">
-                        <label class="form-label">수령할 보상 수량</label>
-                        <button class="max-btn" onclick="document.getElementById('rewAmt').value='314159.000000'">MAX</button>
-                    </div>
-                    <input type="text" class="form-input" id="rewAmt" value="314159.000000">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">🔑 지갑 비밀구절 (Passphrase)</label>
-                    <input type="password" class="form-input" placeholder="비밀구절 입력으로 보상 수령 최종 서명">
-                </div>
-            `,
-            btn: "보상 수령 승인"
-        },
-        6: {
-            title: "🏛️ 6. 기본소득 (UBI) 프로세스 (시민권 인증)",
-            desc: "글로벌 시민권 및 KYC 인증 기반 UBI 재단 자동 분배 청구",
-            html: `
-                <div class="form-group">
-                    <label class="form-label">🌐 글로벌 시민권 KYC 인증 ID</label>
-                    <input type="text" class="form-input" value="HK-UBI-CITIZEN-ULSAN-314159" readonly>
-                </div>
-                <div class="form-group">
-                    <div class="form-label-row">
-                        <label class="form-label">청구할 UBI 수량</label>
-                        <button class="max-btn" onclick="document.getElementById('ubiAmt').value='314159.000000'">MAX</button>
-                    </div>
-                    <input type="text" class="form-input" id="ubiAmt" value="314159.000000">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">🔑 지갑 비밀구절 (Passphrase)</label>
-                    <input type="password" class="form-input" placeholder="UBI 청구 서명용 비밀구절">
-                </div>
-            `,
-            btn: "기본소득 청구 승인"
-        },
-        7: {
-            title: "🔄 7. 토큰 스왑 프로세스",
-            desc: "무엇을 내놓고 무엇을 받을 것인지 코인 교환 품목 지정",
-            html: `
-                <div class="form-group">
-                    <label class="form-label">🔄 매도할 코인 (내가 내놓을 코인)</label>
-                    <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <select class="select-input" style="flex: 1;">
-                            <option>Pi Coin (파이)</option>
-                            <option>USDT (테더)</option>
-                            <option>KRW (원화 토큰)</option>
-                            <option>HK Token (에이치케이)</option>
-                        </select>
-                        <input type="text" class="form-input" style="width: 130px;" value="314,159">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">📥 매수할 코인 (내가 받을 코인)</label>
-                    <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <select class="select-input" style="flex: 1;">
-                            <option>HK Token (에이치케이)</option>
-                            <option>USDT (테더)</option>
-                            <option>Pi Coin (파이)</option>
-                            <option>BTC / ETH</option>
-                        </select>
-                        <input type="text" class="form-input" style="width: 130px;" value="314,159" readonly>
-                    </div>
-                </div>
-            `,
-            btn: "코인 교환 스왑 실행"
-        },
-        8: {
-            title: "🌐 8. DEX 스왑 프로세스",
-            desc: "P2P 오더북 및 AMM 풀 기반 코인 간 상호 교환 지정 거래",
-            html: `
-                <div class="form-group">
-                    <label class="form-label">🔄 제공할 코인 (Selling Coin)</label>
-                    <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <select class="select-input" style="flex: 1;">
-                            <option>Pi Coin</option>
-                            <option>USDT</option>
-                            <option>HK Token</option>
-                        </select>
-                        <input type="text" class="form-input" style="width: 130px;" value="1,000">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">📥 받을 코인 (Buying Coin)</label>
-                    <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <select class="select-input" style="flex: 1;">
-                            <option>USDT</option>
-                            <option>Pi Coin</option>
-                            <option>HK Token</option>
-                        </select>
-                        <input type="text" class="form-input" style="width: 130px;" value="300" readonly>
-                    </div>
-                </div>
-            `,
-            btn: "P2P 코인 교환 DEX 스왑 실행"
-        },
-        9: {
-            title: "📊 9. LP 스테이킹 프로세스",
-            desc: "유동성 공급(PoL) 및 3년 만기 APY 고수익 파밍 락업",
-            html: `
-                <div class="form-group">
-                    <div class="form-label-row">
-                        <label class="form-label">스테이킹할 LP 수량</label>
-                        <button class="max-btn" onclick="document.getElementById('lpAmt').value='314159.000000'">MAX</button>
-                    </div>
-                    <input type="text" class="form-input" id="lpAmt" value="314159.000000">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">예치 기간 선택</label>
-                    <select class="select-input">
-                        <option>3년 만기 (APY 31.41%)</option>
-                        <option>1년 만기 (APY 15.20%)</option>
-                    </select>
-                </div>
-                <div class="warning-box">
-                    ⚠️ <strong>중도 해지 규정 안내:</strong> LP 스테이킹을 3년 만기 전에 조기 해지하실 경우에도 <strong>원금 100% 온전하게 반환</strong>되며, 기본 방어 이율 <strong>8.5%</strong>가 즉시 소급 적용되어 정산됩니다.
-                </div>
-                <div class="info-box">예상 LP 수익: 3년 복리 적용 시 +398,751.07 HK/Pi</div>
-            `,
-            btn: "LP 스테이킹 등록 승인"
-        },
-        10: {
-            title: "🪙 10. 파이 수량 프로세스",
-            desc: "Pi Network 메인넷 원장 실시간 잔액 동기화 및 락업 관리",
-            html: `
-                <div class="form-group">
-                    <div class="form-label-row">
-                        <label class="form-label">파이 보유 수량</label>
-                        <button class="max-btn" onclick="document.getElementById('piAmt').value='314159.000000'">MAX</button>
-                    </div>
-                    <input type="text" class="form-input" id="piAmt" value="314159.000000">
-                </div>
-            `,
-            btn: "원장 동기화 실행"
-        }
-    };
-
-    let activeNetworkId = 1;
-
-    function openNetworkModal(id) {
-        activeNetworkId = id;
-        const data = networkModalData[id];
-        document.getElementById('popTitle').textContent = data.title;
-        document.getElementById('popDesc').textContent = data.desc;
-        document.getElementById('popupDynamicContent').innerHTML = data.html;
-        document.getElementById('popBtn').textContent = data.btn;
-
-        // 고유 6자리 승인번호 실시간 생성 절차 수행
-        generatedUniqueOtp = Math.floor(100000 + Math.random() * 900000).toString();
-        document.getElementById('dynamicOtpBox').innerHTML = `🔒 보안 통신 채널을 통해 발급된 <strong>고유 승인번호</strong>: <span style="color:#fde047; font-size:1rem; letter-spacing:2px;">${generatedUniqueOtp}</span>`;
-        document.getElementById('userOtpInput').value = "";
-
-        document.getElementById('exactModal').style.display = 'flex';
-    }
-
-    function closePopupModal() {
-        document.getElementById('exactModal').style.display = 'none';
-    }
-
-    function submitPopupAction() {
-        const userInput = document.getElementById('userOtpInput').value.trim();
-        if(userInput !== generatedUniqueOtp) {
-            alert(`[보안 거부] 입력하신 승인번호가 일치하지 않습니다! (생성된 고유 승인번호: ${generatedUniqueOtp}) 다시 확인해주세요.`);
-            return;
+            if(dict.gw_title) document.getElementById('gw-title').innerText = dict.gw_title;
+            if(dict.gw_desc) document.getElementById('gw-desc').innerText = dict.gw_desc;
+            if(dict.gw_label_name) document.getElementById('gw-label-name').innerText = dict.gw_label_name;
+            if(dict.gw_label_pass) document.getElementById('gw-label-pass').innerText = dict.gw_label_pass;
+            if(dict.gw_btn_enter) document.getElementById('gw-btn-enter').innerText = dict.gw_btn_enter;
+            if(dict.gw_btn_guest) document.getElementById('gw-btn-guest').innerText = dict.gw_btn_guest;
         }
 
-        const data = networkModalData[activeNetworkId];
-        alert(`[${data.title}] 회장님("혜공")의 KYC/KYB 검증 및 고유 승인번호(${generatedUniqueOtp}) 대조가 완벽하게 통과되어 승인되었습니다! 💜`);
-        closePopupModal();
-    }
-</script>
+        // 보안 게이트웨이 유효성 검사
+        function verifyGateway() {
+            const passInput = document.getElementById('auth-passphrase').value.trim();
+            if (passInput.length < 10) {
+                alert('보안 경고: 올바른 24자리 비밀구절(Passphrase)을 정확히 입력해 주세요!');
+                return;
+            }
+            document.getElementById('security-gateway').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('security-gateway').style.display = 'none';
+            }, 400);
+        }
 
+        // 게스트 둘러보기 모드
+        function enterAsGuest() {
+            document.getElementById('security-gateway').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('security-gateway').style.display = 'none';
+            }, 400);
+        }
+
+        // 탭 전환 함수
+        function switchTab(tabName, btnElement) {
+            document.getElementById('bini-modal').style.display = 'none';
+
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            document.getElementById('tab-' + tabName).classList.add('active');
+
+            if (btnElement) {
+                const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+                navItems.forEach(item => item.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+        }
+
+        // ASI 삐니 모달 토글
+        function toggleBini() {
+            const modal = document.getElementById('bini-modal');
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            } else {
+                modal.style.display = 'flex';
+            }
+        }
+
+        // ASI 삐니 대화 전송
+        function sendBiniMessage() {
+            const input = document.getElementById('bini-user-input');
+            const log = document.getElementById('bini-chat-log');
+            if (!input.value.trim()) return;
+
+            const userText = input.value;
+            log.innerHTML += `<div><strong>회장님:</strong> ${userText}</div>`;
+            input.value = '';
+
+            setTimeout(() => {
+                log.innerHTML += `<div><strong>ASI 삐니:</strong> 명 받들겠습니다 회장님! 요청하신 30개국어 다국어 및 시스템 연동 사항이 완벽하게 구동 중입니다.</div>`;
+                log.scrollTop = log.scrollHeight;
+            }, 500);
+
+            log.scrollTop = log.scrollHeight;
+        }
+    </script>
 </body>
 </html>
