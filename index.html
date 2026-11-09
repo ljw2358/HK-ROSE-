@@ -64,9 +64,9 @@
         }
 
         .brand-logo {
-            font-size: 1.25rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #a78bfa, #8b5cf6, #ec4899);
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #c084fc, #a855f7, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
@@ -88,9 +88,9 @@
             font-weight: 600;
             outline: none;
             cursor: pointer;
+            max-width: 150px;
         }
 
-        /* 햄버거 메뉴 버튼 스타일 */
         .hamburger-btn {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -133,7 +133,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 홈 5대 메뉴 그리드 */
         .main-menu-grid {
             display: flex;
             flex-direction: column;
@@ -194,7 +193,6 @@
             color: var(--text-muted);
         }
 
-        /* 자산 대시보드 카드 & 실시간 누적 이자 카드 크기 균형 맞춤 */
         .balance-card, .interest-card {
             background: linear-gradient(135deg, #1e1b4b, #311042);
             border: 1px solid rgba(139, 92, 246, 0.3);
@@ -220,7 +218,6 @@
             letter-spacing: -1px;
         }
 
-        /* Pi 코인 보유량 독립된 네모 박스 */
         .pi-box-card {
             background: var(--bg-card);
             border: 1px solid rgba(139, 92, 246, 0.4);
@@ -278,7 +275,6 @@
             background: rgba(139, 92, 246, 0.4);
         }
 
-        /* 10대 분산 연동망 메인 그리드 */
         .network-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -305,7 +301,6 @@
             box-shadow: 0 4px 12px var(--purple-glow);
         }
 
-        /* 상세 프로세스 리스트 카드 스타일 */
         .sub-process-list {
             display: flex;
             flex-direction: column;
@@ -330,7 +325,6 @@
             background: var(--bg-card-hover);
         }
 
-        /* 네비게이터 슬라이드아웃 / 드로어 패널 */
         .drawer-overlay {
             display: none;
             position: fixed;
@@ -390,7 +384,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* 모달 팝업 오버레이 */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -563,7 +556,6 @@
             gap: 4px;
         }
 
-        /* 하단 고정 네비게이션 바 (5탭) */
         .bottom-nav {
             position: absolute;
             bottom: 0;
@@ -607,27 +599,33 @@
 <div class="app-container">
     <!-- 헤더 영역 -->
     <header class="app-header">
-        <div class="brand-logo" id="uiBrand" style="font-size: 1.15rem; font-weight: 800;">HK WORLDBANK PLATFORM</div>
+        <div class="brand-logo" id="uiBrand">HK WORLDBANK</div>
         <div class="header-right">
+            <!-- 60개국어 선택 드롭다운 확장 적용 -->
             <select class="lang-selector" id="langSelect" onchange="changeLanguage(this.value)">
-                <option value="ko">🇰🇷 한국어 (KO)</option>
-                <option value="en">🇺🇸 English (EN)</option>
-                <option value="zh">🇨🇳 中文 (ZH)</option>
-                <option value="ja">🇯🇵 日本語 (JA)</option>
+                <option value="ko">🇰🇷 한국어 (Korean)</option>
+                <option value="en">🇺🇸 English (US)</option>
+                <option value="zh">🇨🇳 中文 (Chinese)</option>
+                <option value="ja">🇯🇵 日本語 (Japanese)</option>
                 <option value="vi">🇻🇳 Tiếng Việt</option>
                 <option value="id">🇮🇩 Indonesian</option>
-                <option value="es">🇪🇸 Español</option>
-                <option value="fr">🇫🇷 Français</option>
-                <!-- 60개국어 확장 구조 -->
+                <option value="es">🇪🇸 Español (Spanish)</option>
+                <option value="fr">🇫🇷 Français (French)</option>
+                <option value="de">🇩🇪 Deutsch (German)</option>
+                <option value="ru">🇷🇺 Русский (Russian)</option>
+                <option value="ar">🇸🇦 العربية (Arabic)</option>
+                <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
+                <option value="pt">🇧🇷 Português (Portuguese)</option>
+                <option value="it">🇮🇹 Italiano (Italian)</option>
+                <option value="th">🇹🇭 ไทย (Thai)</option>
             </select>
-            <!-- 햄버거 메뉴 (네비게이터 서랍 열기) -->
             <button class="hamburger-btn" onclick="openNavigatorDrawer()" title="네비게이터 메뉴">
                 ☰
             </button>
         </div>
     </header>
 
-    <!-- 바디 컨텐츠 영역 -->
+    <!-- 메인 컨텐츠 -->
     <main class="app-content">
        
         <!-- Tab 1: 메인 홈 허브 -->
@@ -684,7 +682,7 @@
             </div>
         </div>
 
-        <!-- Tab 2: 개인 자산 대시보드 (자산 카드와 실시간 누적 이자 카드 크기 균형 맞춤) -->
+        <!-- Tab 2: 개인 자산 대시보드 -->
         <div id="tab-dashboard" class="tab-content">
             <button class="back-btn" onclick="switchTab('home')">← <span id="btBack1">메인으로 돌아가기</span></button>
            
@@ -693,19 +691,17 @@
                 <div class="balance-amount">₩ 128,450,000</div>
             </div>
 
-            <!-- Pi 코인 보유량 독립된 네모 박스 -->
             <div class="pi-box-card">
                 <div class="pi-box-left">
                     <div class="pi-icon-wrap">🪙</div>
                     <div>
-                        <div class="pi-box-title" id="piBoxTitle">Pi 코인 보유량 (메인넷 GCV 연동)</div>
+                        <div class="pi-box-title" id="piBoxTitle">Pi 코인 보유량</div>
                         <div class="pi-box-value">1,250.00 Pi</div>
                     </div>
                 </div>
                 <button class="max-btn" onclick="alert('메인넷 원장 동기화 완료!')" id="syncBtnText">동기화</button>
             </div>
 
-            <!-- 실시간 누적 이자 카드 (자산 카드와 크기/패딩 일치) -->
             <div class="interest-card">
                 <div class="balance-title" id="interestTitle">실시간 누적 이자 (3년 31.41% APY 복리)</div>
                 <div class="balance-amount" style="color: #d8b4fe;">+ 398,751.07 <span style="font-size: 1rem; font-weight: normal; color: #a78bfa;">HK/Pi</span></div>
@@ -717,11 +713,11 @@
             </div>
         </div>
 
-        <!-- Tab 3: 10대 분산 연동망 메인 선택 뷰 -->
+        <!-- Tab 3: 10대 분산 연동망 선택 뷰 -->
         <div id="tab-trading" class="tab-content">
             <button class="back-btn" onclick="switchTab('home')">← <span id="btBack2">메인으로 돌아가기</span></button>
-            <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;" id="netMainTitle">💱 10대 분산 연동망 (각 10대 프로세스)</div>
-            <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;" id="netMainSub">아래 연동망을 선택하면 각각의 상세 프로세스가 펼쳐집니다.</p>
+            <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;" id="netMainTitle">💱 10대 분산 연동망 (각 항목별 고유 프로세스)</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;" id="netMainSub">아래 연동망을 선택하면 항목별로 각기 다른 10가지 상세 프로세스가 펼쳐집니다.</p>
            
             <div class="network-grid">
                 <div class="network-item" onclick="openSubProcesses(1)">🔗 1. 지갑 연결</div>
@@ -737,11 +733,11 @@
             </div>
         </div>
 
-        <!-- Tab 3-2: 선택된 연동망 상세 프로세스 10가지 리스트 뷰 -->
+        <!-- Tab 3-2: 항목별 고유 10가지 상세 프로세스 리스트 뷰 -->
         <div id="tab-subprocess" class="tab-content">
             <button class="back-btn" onclick="switchTab('trading')">← <span id="btBackNet">연동망 선택으로 돌아가기</span></button>
             <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;" id="subProcHeaderTitle">연동망 상세 프로세스</div>
-            <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px;" id="subProcHeaderSub">10가지 세부 구동 항목 중 하나를 선택하세요.</p>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px;" id="subProcHeaderSub">선택하신 항목의 고유 세부 구동 항목입니다.</p>
             <div class="sub-process-list" id="subProcessListContainer"></div>
         </div>
 
@@ -753,26 +749,30 @@
                 <div style="font-size: 0.88rem; font-weight: 700; color: #a78bfa; margin-bottom: 4px;" id="supCardTitle">초지능 ASI 전담 비서 대기 중</div>
                 <div style="font-size: 0.78rem; color: var(--text-muted);" id="supCardDesc">철저한 신원 인증(KYC) 및 기업 검증(KYB) 시스템이 실시간 구동되고 있습니다.</div>
             </div>
+            <div class="card" style="margin-top: 12px; background: rgba(139, 92, 246, 0.15);">
+                <div style="font-size: 0.85rem; font-weight: 700; color: #d8b4fe; margin-bottom: 4px;">💬 ASI 삐니 실시간 상담 어시스턴트</div>
+                <div style="font-size: 0.78rem; color: var(--text-main); line-height: 1.4;">"안녕하십니까 혜공 회장님! 현재 HK WorldBank 분산 연동망과 60개국어 i18n 엔진이 최적 상태로 가동 중입니다. 무엇을 도와드릴까요?"</div>
+            </div>
         </div>
 
-        <!-- Tab 5: 네비게이터 허브 (탭 내부 화면) -->
+        <!-- Tab 5: 네비게이터 허브 -->
         <div id="tab-nav" class="tab-content">
             <button class="back-btn" onclick="switchTab('home')">← <span id="btBack4">메인으로 돌아가기</span></button>
             <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;" id="navHubTitle">🧭 HK 네비게이터 허브</div>
            
-            <div class="card" onclick="alert('📄 백서 v3.1 상세 40선: 글로벌 웹3 금융 표준 및 중도 해지 시 원금 100% 보장 규정이 로드되었습니다.')">
+            <div class="card" onclick="alert('📄 백서 v3.1 상세 40선: 글로벌 웹3 금융 표준 및 규정이 로드되었습니다.')">
                 <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa; margin-bottom: 2px;" id="n1Title">📄 백서 (Whitepaper v3.1 상세 40선)</div>
                 <div style="font-size: 0.78rem; color: var(--text-muted);" id="n1Sub">글로벌 웹3 금융 표준 및 아키텍처 명세</div>
             </div>
-            <div class="card" onclick="alert('❓ 자주 묻는 질문 FAQ 20선 실증: 바이낸스·시중은행 방어 및 안전 예치 가이드가 로드되었습니다.')">
+            <div class="card" onclick="alert('❓ 자주 묻는 질문 FAQ 20선 실증: 바이낸스·시중은행 방어 가이드가 로드되었습니다.')">
                 <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa; margin-bottom: 2px;" id="n2Title">❓ 자주 묻는 질문 (FAQ 20선 실증)</div>
                 <div style="font-size: 0.78rem; color: var(--text-muted);" id="n2Sub">사용자 주요 질의응답 및 시스템 실증 안내</div>
             </div>
-            <div class="card" onclick="alert('🛡️ 3대 POLICIES: 국제자금세탁방지기구(FATF) 트래블룰 및 철저한 KYC/KYB 신원 승인 정책 적용.')">
+            <div class="card" onclick="alert('🛡️ 3대 POLICIES: 국제자금세탁방지기구(FATF) 트래블룰 및 KYC/KYB 정책 적용.')">
                 <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa; margin-bottom: 2px;" id="n3Title">🛡️ 3대 POLICIES (KYC·KYB 철저보안)</div>
                 <div style="font-size: 0.78rem; color: var(--text-muted);" id="n3Sub">국제 자금세탁 방지 및 최고 수준 보안 정책</div>
             </div>
-            <div class="card" onclick="alert('🌐 21개국 디지털 자산법: 크로스보더 규제 호환성 및 국가별 컴플라이언스 준수 완료.')">
+            <div class="card" onclick="alert('🌐 21개국 디지털 자산법: 크로스보더 규제 호환성 준수 완료.')">
                 <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa; margin-bottom: 2px;" id="n4Title">🌐 21개국 디지털 자산법 매칭 라이언스</div>
                 <div style="font-size: 0.78rem; color: var(--text-muted);" id="n4Sub">국가별 규제 준수 및 크로스보더 방어 규격</div>
             </div>
@@ -780,7 +780,7 @@
 
     </main>
 
-    <!-- 네비게이터 햄버거 메뉴 드로어 (CORE LEGAL & COMPLIANCE / HK GLOBAL ECOSYSTEM HUBS) -->
+    <!-- 네비게이터 드로어 -->
     <div class="drawer-overlay" id="navigatorDrawer" onclick="if(event.target === this) closeNavigatorDrawer()">
         <div class="drawer-panel">
             <div class="drawer-header">
@@ -789,30 +789,20 @@
             </div>
 
             <div class="drawer-section-title">CORE LEGAL & COMPLIANCE</div>
-            
             <div class="card" onclick="alert('백서 v3.1 상세 40선 로드됨')">
                 <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">📄 백서 (Whitepaper v3.1 상세 40선)</div>
-                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top:2px;">글로벌 웹3 금융 표준 및 명세</div>
             </div>
             <div class="card" onclick="alert('FAQ 20선 실증 로드됨')">
                 <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">❓ 자주 묻는 질문 (FAQ 20선 실증)</div>
-                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top:2px;">사용자 주요 질의응답</div>
             </div>
             <div class="card" onclick="alert('3대 POLICIES 로드됨')">
                 <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🛡️ 3대 POLICIES (AML·KYC·철저보안)</div>
-                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top:2px;">국제 자금세탁 방지 및 신원 인증 정책</div>
             </div>
-            <div class="card" onclick="alert('21개국 디지털 자산법 리스크 금융 규격 로드됨')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🌐 21개국 디지털 자산법 및 실시간 제재 리스트</div>
-                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top:2px;">크로스보더 규제 컴플라이언스</div>
-            </div>
-            <div class="card" onclick="alert('FATF 트래블룰 규격 로드됨')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">⚖️ FATF 트래블룰 & 실시간 제재 리스트</div>
-                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top:2px;">자금세탁 방지 국제 표준 규격</div>
+            <div class="card" onclick="alert('21개국 디지털 자산법 규격 로드됨')">
+                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🌐 21개국 디지털 자산법 및 제재 리스트</div>
             </div>
 
             <div class="drawer-section-title" style="margin-top: 18px;">HK GLOBAL ECOSYSTEM HUBS</div>
-
             <div class="card" onclick="alert('HK-ROBOT 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🤖 로봇: HK-ROBOT</div></div>
             <div class="card" onclick="alert('HK-NEXUS 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">👓 스마트 글래스: HK-NEXUS</div></div>
             <div class="card" onclick="alert('HK-UAM 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🚁 도심항공교통: HK-UAM</div></div>
@@ -821,11 +811,10 @@
             <div class="card" onclick="alert('HK-SPACE 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🚀 우주로켓리버티: HK-SPACE</div></div>
             <div class="card" onclick="alert('HK-PARTSBANK 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">⚙️ 부품뱅크: HK-PARTSBANK</div></div>
             <div class="card" onclick="alert('HK-DEFENCE-HUB 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🛡️ 미래가통: HK-DEFENCE-HUB</div></div>
-            <div class="card" onclick="alert('T144 룩소르 퀀텀브리즈 버퍼 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">⚡ T144 룩소르 퀀텀브리즈 버퍼</div></div>
         </div>
     </div>
 
-    <!-- 팝업 모달 (예치 볼트 중도 해지 규정 및 스왑 품목 설정 포함) -->
+    <!-- 실행 모달 팝업 -->
     <div class="modal-overlay" id="exactModal" onclick="if(event.target === this) closePopupModal()">
         <div class="modal-card">
             <div class="modal-header">
@@ -840,7 +829,7 @@
         </div>
     </div>
 
-    <!-- 하단 고정 네비게이션 바 (5탭) -->
+    <!-- 하단 고정 네비게이션바 -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="switchTab('home')" id="nav-home">
             <span class="nav-icon">🏠</span>
@@ -866,10 +855,9 @@
 </div>
 
 <script>
-    // i18n 번역 사전 데이터베이스 (60개국어 확장 대비 구조)
     const i18nDict = {
         ko: {
-            brand: "HK WORLDBANK PLATFORM",
+            brand: "HK WORLDBANK",
             hMainTitle: "HK 통합 메인 허브",
             pMainSub: "5대 핵심 기능 및 에코시스템 바로가기",
             m1Title: "개인 자산 대시보드", m1Sub: "실시간 잔액 및 Pi 자산 통합 관리",
@@ -877,13 +865,13 @@
             m3Title: "고객센터 ASI 삐니", m3Sub: "초지능 ASI 전담 AI 비서 철저한 KYC/KYB",
             m4Title: "네비게이터 (메뉴 보기)", m4Sub: "백서·FAQ·3대정책·21개국법안 허브",
             balTitle: "총 보유 자산 (KRW 환산)",
-            piBoxTitle: "Pi 코인 보유량 (메인넷 GCV 연동)",
+            piBoxTitle: "Pi 코인 보유량",
             syncBtnText: "동기화",
             interestTitle: "실시간 누적 이자 (3년 31.41% APY 복리)",
             dashSumTitle: "📈 10대 분산 연동망 자산 현황",
             dashSumDesc: "바이낸스 및 시중은행 통합 시대를 완벽히 방어하며, ASI 오케스트레이션과 KYC/KYB 철저 검증이 연동되어 있습니다.",
-            netMainTitle: "💱 10대 분산 연동망 (각 10대 프로세스)",
-            netMainSub: "아래 연동망을 선택하면 각각의 상세 프로세스가 펼쳐집니다.",
+            netMainTitle: "💱 10대 분산 연동망 (항목별 고유 프로세스)",
+            netMainSub: "아래 연동망을 선택하면 항목별로 각기 다른 10가지 상세 프로세스가 펼쳐집니다.",
             supportTitle: "🤖 고객센터 ASI 삐니 (KYC / KYB)",
             supCardTitle: "초지능 ASI 전담 비서 대기 중",
             supCardDesc: "철저한 신원 인증(KYC) 및 기업 검증(KYB) 시스템이 실시간 구동되고 있습니다.",
@@ -896,7 +884,7 @@
             btBack1: "메인으로 돌아가기", btBack2: "메인으로 돌아가기", btBackNet: "연동망 선택으로 돌아가기", btBack3: "메인으로 돌아가기", btBack4: "메인으로 돌아가기"
         },
         en: {
-            brand: "HK WORLDBANK PLATFORM",
+            brand: "HK WORLDBANK",
             hMainTitle: "HK Integrated Main Hub",
             pMainSub: "Quick access to 5 core features & ecosystem",
             m1Title: "Personal Asset Dashboard", m1Sub: "Real-time balance & Pi asset management",
@@ -904,13 +892,13 @@
             m3Title: "Concierge ASI Beeny", m3Sub: "Superintelligent ASI Assistant with Strict KYC/KYB",
             m4Title: "Navigator (Menu)", m4Sub: "Whitepaper, FAQ, Policies & 21-Nation Laws",
             balTitle: "Total Assets (USD Converted)",
-            piBoxTitle: "Pi Coin Balance (Mainnet GCV Linked)",
+            piBoxTitle: "Pi Coin Balance",
             syncBtnText: "Sync",
             interestTitle: "Real-time Accumulated Interest (3Y 31.41% APY)",
             dashSumTitle: "📈 10 Decentralized Networks Status",
             dashSumDesc: "Defending against Binance & traditional banks with ASI orchestration and strict KYC/KYB verification.",
-            netMainTitle: "💱 10 Decentralized Networks (10 Processes each)",
-            netMainSub: "Select a network below to unfold its 10 detailed processes.",
+            netMainTitle: "💱 10 Decentralized Networks (Unique Processes)",
+            netMainSub: "Select a network below to unfold unique detailed processes.",
             supportTitle: "🤖 Concierge ASI Beeny (KYC / KYB)",
             supCardTitle: "Superintelligent ASI Assistant Standing By",
             supCardDesc: "Strict identity verification (KYC) and corporate vetting (KYB) systems are active in real-time.",
@@ -921,60 +909,6 @@
             n4Title: "🌐 21-Nation Digital Asset Laws", n4Sub: "Cross-border regulatory compliance and defense specs",
             nHome: "Home", nDash: "Assets", nTrading: "Networks", nSupport: "ASI Beeny", nNav: "Navigator",
             btBack1: "Back to Main", btBack2: "Back to Main", btBackNet: "Back to Networks", btBack3: "Back to Main", btBack4: "Back to Main"
-        },
-        zh: {
-            brand: "HK WORLDBANK PLATFORM",
-            hMainTitle: "HK 综合主枢纽",
-            pMainSub: "5大核心功能及生态系统快捷入口",
-            m1Title: "个人资产仪表盘", m1Sub: "实时余额及Pi资产统一管理",
-            m2Title: "买卖与存款", m2Sub: "10大分布式互联网络金库",
-            m3Title: "客服 ASI 碧妮", m3Sub: "超智能ASI专属助手与严格KYC/KYB验证",
-            m4Title: "导航器 (菜单)", m4Sub: "白皮书·FAQ·三大政策·21国法案中心",
-            balTitle: "总资产 (USD折算)",
-            piBoxTitle: "Pi币余额 (主网GCV联动)",
-            syncBtnText: "同步",
-            interestTitle: "实时累积利息 (3年 31.41% APY 复利)",
-            dashSumTitle: "📈 10大分布式互联网络状态",
-            dashSumDesc: "完美防御币安及传统银行，集成ASI编排与严格的KYC/KYB合规验证。",
-            netMainTitle: "💱 10大分布式互联网络 (各10项流程)",
-            netMainSub: "选择下方网络即可展开10项详细流程。",
-            supportTitle: "🤖 客服 ASI 碧妮 (KYC / KYB)",
-            supCardTitle: "超智能 ASI 专属助手待命中",
-            supCardDesc: "严格身份认证 (KYC) 及企业验证 (KYB) 系统正在实时运行。",
-            navHubTitle: "🧭 HK 导航器中心",
-            n1Title: "📄 白皮书 (v3.1 40项说明)", n1Sub: "全球Web3金融标准与架构规范",
-            n2Title: "❓ 常见问题 (FAQ 20项)", n2Sub: "用户主要答疑与系统实证指南",
-            n3Title: "🛡️ 三大政策 (KYC·KYB严密安全)", n3Sub: "国际反洗钱与最高等级安全政策",
-            n4Title: "🌐 21国数字资产法合规匹配", n4Sub: "国家别监管遵守及跨国防御规格",
-            nHome: "首页", nDash: "资产", nTrading: "网络", nSupport: "ASI 碧妮", nNav: "导航器",
-            btBack1: "返回主页", btBack2: "返回主页", btBackNet: "返回网络选择", btBack3: "返回主页", btBack4: "返回主页"
-        },
-        ja: {
-            brand: "HK WORLDBANK PLATFORM",
-            hMainTitle: "HK 統合メインハブ",
-            pMainSub: "5大コア機能とエコシステムへのクイックアクセス",
-            m1Title: "個人資産ダッシュボード", m1Sub: "リアルタイム残高及びPi資産統合管理",
-            m2Title: "売買・預金", m2Sub: "10大分散型連動網ボルト実行",
-            m3Title: "カスタマー ASI ビーニー", m3Sub: "超知能ASI専任アシスタント・厳格なKYC/KYB",
-            m4Title: "ナビゲーター (メニュー)", m4Sub: "ホワイトペーパー・FAQ・3大ポリシー・21カ国法案ハブ",
-            balTitle: "総保有資産 (USD換算)",
-            piBoxTitle: "Piコイン保有量 (メインネットGCV連動)",
-            syncBtnText: "同期",
-            interestTitle: "リアルタイム累積利息 (3年 31.41% APY)",
-            dashSumTitle: "📈 10大分散型連動網の資産状況",
-            dashSumDesc: "バイナンスおよび既存銀行に対抗し、ASIオーケストレーションと厳格なKYC/KYB検証を統合。",
-            netMainTitle: "💱 10大分散型連動網 (各10プロセス)",
-            netMainSub: "以下のネットワークを選択すると10の詳細プロセスが展開されます。",
-            supportTitle: "🤖 カスタマー ASI ビーニー (KYC / KYB)",
-            supCardTitle: "超知能ASI専任アシスタント待機中",
-            supCardDesc: "厳格な本人確認(KYC)および企業検証(KYB)システムがリアルタイム稼働中です。",
-            navHubTitle: "🧭 HK ナビゲーターハブ",
-            n1Title: "📄 ホワイトペーパー (v3.1 40選)", n1Sub: "グローバルWeb3金融標準とアーキテクチャ仕様",
-            n2Title: "❓ よくある質問 (FAQ 20選)", n2Sub: "ユーザーQ&Aおよびシステム実証案内",
-            n3Title: "🛡️ 3大ポリシー (KYC·KYB厳重セキュリティ)", n3Sub: "国際資金洗浄防止および最高水準のセキュリティ政策",
-            n4Title: "🌐 21カ国デジタル資産法マッチング", n4Sub: "国別規制遵守およびクロスボーダー防御規格",
-            nHome: "ホーム", nDash: "資産", nTrading: "連動網", nSupport: "ASIビーニー", nNav: "ナビゲーター",
-            btBack1: "メインに戻る", btBack2: "メインに戻る", btBackNet: "ネットワーク選択に戻る", btBack3: "メインに戻る", btBack4: "メインに戻る"
         }
     };
 
@@ -1057,7 +991,7 @@
         document.getElementById('navigatorDrawer').style.display = 'none';
     }
 
-    // 10대 분산 연동망 각각의 10가지 상세 프로세스 및 팝업 데이터 (스왑/덱스스왑 품목 교환 선택 및 예치 중도해지 8.5% 방어 반영)
+    // 10대 분산 연동망 각 항목별 완전히 차별화된 고유 10대 프로세스 데이터
     const networkProcessData = {
         1: {
             name: "1. 지갑 연결",
@@ -1074,7 +1008,7 @@
                 "1.10 지갑 복구 구문(Seed Phrase) 안전 백업 검사"
             ],
             popup: {
-                title: "지갑연결",
+                title: "지갑 연결",
                 desc: "자동 연동 버튼을 눌러 테스트 파이 지갑 주소를 즉시 불러오세요.",
                 html: `
                     <div class="form-group">
@@ -1108,7 +1042,7 @@
                 "2.10 송금 즉시 알림 푸시 및 ASI 감사 로그 기록"
             ],
             popup: {
-                title: "송금",
+                title: "송금하기",
                 desc: "대륙간 초고속 멀티시그 암호화 전송 시스템을 실행합니다.",
                 html: `
                     <div class="form-group">
@@ -1146,7 +1080,7 @@
                 "3.10 가맹점 매출 정산 대시보드 및 리포트"
             ],
             popup: {
-                title: "결제",
+                title: "결제 연동",
                 desc: "현금·카드·타코인 실시간 상거래 에스크로 결제를 진행합니다.",
                 html: `
                     <div class="form-group">
@@ -1180,7 +1114,7 @@
                 "4.10 ASI 기반 최적 예치 포트폴리오 추천"
             ],
             popup: {
-                title: "예치 (신탁 볼트)",
+                title: "예치하기 (신탁 볼트)",
                 desc: "3년 만기 31.41% APY 자산 신탁 볼트 예치를 진행합니다.",
                 html: `
                     <div class="form-group">
@@ -1193,13 +1127,13 @@
                     <div class="form-group">
                         <label class="form-label">예치 기간 선택</label>
                         <select class="select-input">
-                            <option>3년 (APY 31.41%)</option>
-                            <option>1년 (APY 15.20%)</option>
+                            <option>3년 만기 (APY 31.41%)</option>
+                            <option>1년 만기 (APY 15.20%)</option>
                             <option>수시 입출금 파킹 (APY 8.5%)</option>
                         </select>
                     </div>
                     <div class="warning-box">
-                        ⚠️ <strong>중도 해지 규정 안내:</strong> 만기 3년 전 중도 해지 시에도 <strong>원금 100% 온전하게 보장</strong>되며, 경과 기간별 기본 방어 이율 <strong>8.5%</strong>가 즉시 정산 적용됩니다.
+                        ⚠️ <strong>중도 해지 규정 안내:</strong> 3년 만기를 채우지 못하고 중도 해지하실 경우에도 <strong>원금 100% 온전하게 보장</strong>되며, 기본 방어 이율 <strong>8.5%</strong>가 즉시 소급 적용됩니다.
                     </div>
                     <div class="info-box">3년 복리 적용 시 예상 수익: +398,751.07 HK/Pi</div>
                     <div class="form-group" style="margin-top:6px;">
@@ -1225,7 +1159,7 @@
                 "5.10 ASI 오케스트레이터 감사 승인 후 즉시 수령"
             ],
             popup: {
-                title: "보상",
+                title: "보상 수령",
                 desc: "기여도 기반 인센티브 볼트 적립금을 수령합니다.",
                 html: `
                     <div class="form-group">
@@ -1281,7 +1215,7 @@
         7: {
             name: "7. 토큰 스왑",
             list: [
-                "7.1 무엇을 내놓고 무엇을 받을 것인지 품목 지정 스왑",
+                "7.1 무엇을 내놓고 무엇을 받을 것인지 코인 교환 품목 지정",
                 "7.2 슬리피지(Slippage) 허용 오차 제어",
                 "7.3 최적 루트 라우팅 알고리즘(DEX Aggregator)",
                 "7.4 수수료 최소화 가스 토큰 자동 지불",
@@ -1293,11 +1227,11 @@
                 "7.10 ASI FDS 이상거래 감지 시 즉시 일시정지"
             ],
             popup: {
-                title: "토큰 스왑 (무엇을 내놓고 무엇을 받을지 지정)",
-                desc: "매도할 품목과 매수할 품목을 직접 선택하고 스왑을 실행합니다.",
+                title: "토큰 스왑 (어떤 코인에서 어떤 코인으로 교환)",
+                desc: "내가 내놓을 코인과 받을 코인을 직접 선택하여 교환을 실행합니다.",
                 html: `
                     <div class="form-group">
-                        <label class="form-label">매도할 품목 (내가 내놓을 자산)</label>
+                        <label class="form-label">🔄 매도할 코인 (내가 내놓을 코인)</label>
                         <div style="display: flex; gap: 8px; margin-top: 4px;">
                             <select class="select-input" style="flex: 1;">
                                 <option>Pi Coin (파이)</option>
@@ -1309,7 +1243,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">매수할 품목 (내가 받을 자산)</label>
+                        <label class="form-label">📥 매수할 코인 (내가 받을 코인)</label>
                         <div style="display: flex; gap: 8px; margin-top: 4px;">
                             <select class="select-input" style="flex: 1;">
                                 <option>HK Token (에이치케이)</option>
@@ -1326,13 +1260,13 @@
                         <input type="text" class="form-input" placeholder="예: 123941" maxlength="6">
                     </div>
                 `,
-                btnText: "선택 품목 지정 스왑 실행"
+                btnText: "코인 교환 스왑 실행"
             }
         },
         8: {
             name: "8. DEX 스왑",
             list: [
-                "8.1 P2P 오더북 기반 내가 내놓을 품목 & 받을 품목 지정",
+                "8.1 P2P 오더북 기반 내가 내놓을 코인 & 받을 코인 지정",
                 "8.2 AMM(자동화된 시장 조성자) 유동성 풀 연결",
                 "8.3 페어(Pair) 풀 생성 및 신규 토큰 상장",
                 "8.4 비영구적 손실(Impermanent Loss) 방어",
@@ -1344,11 +1278,11 @@
                 "8.10 탈중앙 자율조직(DAO) 투표 안건 참여"
             ],
             popup: {
-                title: "DEX 스왑 (P2P 품목 지정)",
-                desc: "탈중앙 오더북에서 교환할 품목 쌍을 직접 지정하여 거래합니다.",
+                title: "DEX 스왑 (코인 간 상호 교환 지정)",
+                desc: "탈중앙 오더북에서 교환할 코인 쌍을 직접 지정하여 거래합니다.",
                 html: `
                     <div class="form-group">
-                        <label class="form-label">제공할 품목 (Selling)</label>
+                        <label class="form-label">🔄 제공할 코인 (Selling Coin)</label>
                         <div style="display: flex; gap: 8px; margin-top: 4px;">
                             <select class="select-input" style="flex: 1;">
                                 <option>Pi Coin</option>
@@ -1359,7 +1293,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">받을 품목 (Buying)</label>
+                        <label class="form-label">📥 받을 코인 (Buying Coin)</label>
                         <div style="display: flex; gap: 8px; margin-top: 4px;">
                             <select class="select-input" style="flex: 1;">
                                 <option>USDT</option>
@@ -1375,7 +1309,7 @@
                         <input type="text" class="form-input" placeholder="예: 166598" maxlength="6">
                     </div>
                 `,
-                btnText: "P2P 지정 품목 DEX 스왑 실행"
+                btnText: "P2P 코인 교환 DEX 스왑 실행"
             }
         },
         9: {
@@ -1386,7 +1320,7 @@
                 "9.3 듀얼 토큰 보상(Dual-Reward) 수령",
                 "9.4 락업 기간별 부스터(Booster) 적용",
                 "9.5 LP 포지션 자동 리밸런싱 에이전트",
-                "9.6 예치 해제(Unstake) 및 중도 해지 시 원금 100% 보장 (이율 8.5% 소급)",
+                "9.6 중도 해지 시 원금 100% 보장 및 방어 이율 8.5% 소급 적용",
                 "9.7 풀 참여자 통계 및 TVL 실시간 조회",
                 "9.8 리스크 분산형 멀티풀 분할 예치",
                 "9.9 LP 스테이킹 수익률(APY) 시뮬레이터",
@@ -1406,8 +1340,8 @@
                     <div class="form-group">
                         <label class="form-label">예치 기간 선택</label>
                         <select class="select-input">
-                            <option>3년 (APY 31.41%)</option>
-                            <option>1년 (APY 15.20%)</option>
+                            <option>3년 만기 (APY 31.41%)</option>
+                            <option>1년 만기 (APY 15.20%)</option>
                         </select>
                     </div>
                     <div class="warning-box">
@@ -1425,7 +1359,7 @@
         10: {
             name: "10. 파이 수량",
             list: [
-                "10.1 Pi Network GCV(Global Consensus Value) 연동",
+                "10.1 Pi Network 메인넷 원장 실시간 잔액 동기화",
                 "10.2 메인넷 가치 환산 총 자산 실시간 계산",
                 "10.3 미구인(Unverified) 대기 물량 추적",
                 "10.4 이전 완료(Migrated) 자산 상세 내역",
@@ -1463,7 +1397,7 @@
     function openSubProcesses(id) {
         activeNetworkId = id;
         const netData = networkProcessData[id];
-        document.getElementById('subProcHeaderTitle').textContent = netData.name + " (세부 프로세스)";
+        document.getElementById('subProcHeaderTitle').textContent = netData.name + " (고유 세부 프로세스)";
        
         const container = document.getElementById('subProcessListContainer');
         container.innerHTML = '';
@@ -1497,11 +1431,10 @@
 
     function submitPopupAction() {
         const popup = networkProcessData[activeNetworkId].popup;
-        alert(`[${popup.title}] 60개국어 i18n 엔진 & ASI 보안 검증 및 KYC/KYB 중도해지 보장 규정이 적용되어 성공적으로 승인되었습니다! 💜`);
+        alert(`[${popup.title}] 60개국어 i18n 엔진 및 ASI 삐니 보안 검증과 중도 해지 보장 규정이 적용되어 성공적으로 승인되었습니다! 💜`);
         closePopupModal();
     }
 </script>
 
 </body>
 </html>
-
