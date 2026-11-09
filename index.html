@@ -53,7 +53,7 @@
     <!-- 메인 컨테이너 -->
     <main class="flex-grow max-w-7xl mx-auto w-full px-6 py-12">
 
-        <!-- [스크린 1] 보안 인증 관문 (24자리 비밀구절) -->
+        <!-- [스크린 1] 보안 인증 관문 (24자리 비밀구절 - 지갑 주소란 제거됨) -->
         <section id="screenAuth" class="max-w-2xl mx-auto py-16">
             <div class="glass-panel p-10 sm:p-12 rounded-[2.5rem] shadow-2xl relative overflow-hidden border border-slate-700/60">
                 <div class="absolute -top-24 -right-24 w-72 h-72 bg-blue-500/15 rounded-full blur-3xl pointer-events-none"></div>
@@ -71,11 +71,6 @@
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">지갑 소유자 성명 / 법인명</label>
                         <input type="text" id="ownerName" required placeholder="예: HK 그룹 회장 이재완 (혜공)" class="w-full bg-slate-900/90 border border-slate-700 rounded-2xl px-5 py-4 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm font-medium shadow-inner">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">지갑 주소 / 네트워크 식별자</label>
-                        <input type="text" id="walletAddress" required placeholder="Pi Network / HK-Nexus Connected Wallet Address" class="w-full bg-slate-900/90 border border-slate-700 rounded-2xl px-5 py-4 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm font-mono shadow-inner">
                     </div>
 
                     <div>
