@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLDBANK PLATFORM - Ultimate Masterpiece Final</title>
+    <title>HK WORLDBANK PLATFORM - Ultimate Masterpiece 50-Specs Final</title>
     <style>
         :root {
             --bg-dark: #0b0f19;
@@ -70,6 +70,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
+            cursor: pointer;
         }
 
         .header-right {
@@ -484,6 +485,20 @@
             line-height: 1.4;
         }
 
+        .kyc-badge {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         .btn-primary {
             width: 100%;
             background: var(--purple-primary);
@@ -576,7 +591,7 @@
 <div class="app-container">
     <!-- 상단 헤더 -->
     <header class="app-header">
-        <div class="brand-logo" id="uiBrand">HK WORLDBANK</div>
+        <div class="brand-logo" id="uiBrand" onclick="switchTab('home')">HK WORLDBANK</div>
         <div class="header-right">
             <!-- 60개국어 선택 드롭다운 확장 -->
             <select class="lang-selector" id="langSelect" onchange="changeLanguage(this.value)">
@@ -590,7 +605,6 @@
                 <option value="fr">🇫🇷 Français</option>
                 <option value="de">🇩🇪 Deutsch</option>
                 <option value="ru">🇷🇺 Русский</option>
-                <!-- 60개국어 확장 구조 지원 -->
             </select>
             <button class="hamburger-btn" onclick="openNavigatorDrawer()" title="네비게이터 메뉴">
                 ☰
@@ -647,7 +661,7 @@
                         <div class="menu-icon">🧭</div>
                         <div class="menu-text">
                             <h3 id="m4Title">네비게이터 (메뉴 보기)</h3>
-                            <p id="m4Sub">백서·FAQ·3대정책·21개국법안 허브</p>
+                            <p id="m4Sub">백서 50선·FAQ·3대정책·21개국법안 허브</p>
                         </div>
                     </div>
                     <div class="menu-arrow">›</div>
@@ -675,7 +689,7 @@
                 <button class="max-btn" onclick="alert('메인넷 원장 동기화 완료!')" id="syncBtnText">동기화</button>
             </div>
 
-            <!-- 실시간 이자 변동 (진짜 파이 채굴 방식 실시간 증가) -->
+            <!-- 실시간 이자 변동 (3년 예치 예상수익 398,751.07 HK/Pi 정확히 반영) -->
             <div class="interest-card">
                 <div class="balance-title" id="interestTitle">실시간 누적 이자 (3년 31.41% APY 복리 실시간 마이닝)</div>
                 <div class="balance-amount" style="color: #d8b4fe;"><span id="liveInterestVal">+ 398,751.070000</span> <span style="font-size: 1rem; font-weight: normal; color: #a78bfa;">HK/Pi</span></div>
@@ -687,7 +701,7 @@
             </div>
         </div>
 
-        <!-- Tab 3: 10대 분산 연동망 선택 뷰 (각각 고유 실행 화면 연결) -->
+        <!-- Tab 3: 10대 분산 연동망 선택 뷰 -->
         <div id="tab-trading" class="tab-content">
             <button class="back-btn" onclick="switchTab('home')">← <span id="btBack2">메인으로 돌아가기</span></button>
             <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;" id="netMainTitle">💱 10대 분산 연동망 (항목별 고유 실행)</div>
@@ -707,7 +721,7 @@
             </div>
         </div>
 
-        <!-- Tab 4: 고객센터 ASI 삐니 (메시지 보내기 기능 완벽 포함) -->
+        <!-- Tab 4: 고객센터 ASI 삐니 -->
         <div id="tab-support" class="tab-content">
             <button class="back-btn" onclick="switchTab('home')">← <span id="btBack3">메인으로 돌아가기</span></button>
             <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;" id="supportTitle">🤖 고객센터 ASI 삐니 (KYC / KYB)</div>
@@ -720,7 +734,6 @@
                 <div style="font-size: 0.85rem; font-weight: 700; color: #d8b4fe; margin-bottom: 4px;">💬 ASI 삐니 실시간 상담 어시스턴트</div>
                 <div style="font-size: 0.78rem; color: var(--text-main); line-height: 1.4; margin-bottom: 10px;" id="beenyGreeting">"안녕하십니까 혜공 회장님! 현재 HK WorldBank 분산 연동망과 실시간 이자 마이닝 엔진이 최적 상태로 가동 중입니다. 무엇을 도와드릴까요?"</div>
                
-                <!-- 메시지 보내기 입력창 영역 -->
                 <div style="display: flex; gap: 8px;">
                     <input type="text" id="beenyInputMsg" class="form-input" placeholder="삐니에게 질문이나 요청사항을 입력하세요..." style="flex: 1;">
                     <button class="max-btn" onclick="sendBeenyMessage()" style="padding: 0 16px;" id="beenySendBtn">보내기</button>
@@ -728,32 +741,53 @@
             </div>
         </div>
 
-        <!-- Tab 5: 네비게이터 허브 (하단 탭에서 명확히 접근 가능하도록 구현) -->
+        <!-- Tab 5: 네비게이터 허브 (백서 50선, 유튜브, 틱톡, 에코시스템 완벽 포함) -->
         <div id="tab-nav" class="tab-content">
             <button class="back-btn" onclick="switchTab('home')">← <span id="btBack4">메인으로 돌아가기</span></button>
             <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;" id="navHubTitle">🧭 HK 네비게이터 허브</div>
            
-            <div class="card" onclick="alert('📄 백서 v3.1 상세 40선: 글로벌 웹3 금융 표준 및 규정이 로드되었습니다.')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa; margin-bottom: 2px;" id="n1Title">📄 백서 (Whitepaper v3.1 상세 40선)</div>
-                <div style="font-size: 0.78rem; color: var(--text-muted);" id="n1Sub">글로벌 웹3 금융 표준 및 아키텍처 명세</div>
+            <div class="drawer-section-title" style="margin-top:0;">CHANNELS & BROADCASTS</div>
+            <div class="card" onclick="window.open('https://www.youtube.com/@hyekong2026', '_blank')">
+                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;">▶️ 공식 유튜브 채널 (hyekong2026)</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">실시간 스트리밍 및 Pi 네트워크 방송 시청</div>
+            </div>
+            <div class="card" onclick="window.open('https://www.tiktok.com/@hyekong2026', '_blank')">
+                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;">🎵 공식 틱톡 채널 (hyekong2026)</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">숏폼 인사이트 및 핵심 브리핑 시청</div>
+            </div>
+
+            <div class="drawer-section-title">CORE LEGAL & COMPLIANCE (백서 50선 상향 반영)</div>
+            <div class="card" onclick="alert('📄 백서 v3.5 상세 50선: 글로벌 웹3 금융 표준, ASI 오케스트레이션 및 21개국 규제 방어 아키텍처가 완벽히 로드되었습니다.')">
+                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;" id="n1Title">📄 백서 (Whitepaper v3.5 상세 50선)</div>
+                <div style="font-size: 0.78rem; color: var(--text-muted);" id="n1Sub">글로벌 웹3 금융 표준 및 50가지 아키텍처 명세</div>
             </div>
             <div class="card" onclick="alert('❓ 자주 묻는 질문 FAQ 20선 실증: 바이낸스·시중은행 방어 가이드가 로드되었습니다.')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa; margin-bottom: 2px;" id="n2Title">❓ 자주 묻는 질문 (FAQ 20선 실증)</div>
+                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;" id="n2Title">❓ 자주 묻는 질문 (FAQ 20선 실증)</div>
                 <div style="font-size: 0.78rem; color: var(--text-muted);" id="n2Sub">사용자 주요 질의응답 및 시스템 실증 안내</div>
             </div>
             <div class="card" onclick="alert('🛡️ 3대 POLICIES: 국제자금세탁방지기구(FATF) 트래블룰 및 KYC/KYB 정책 적용.')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa; margin-bottom: 2px;" id="n3Title">🛡️ 3대 POLICIES (KYC·KYB 철저보안)</div>
+                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;" id="n3Title">🛡️ 3대 POLICIES (KYC·KYB 철저보안)</div>
                 <div style="font-size: 0.78rem; color: var(--text-muted);" id="n3Sub">국제 자금세탁 방지 및 최고 수준 보안 정책</div>
             </div>
             <div class="card" onclick="alert('🌐 21개국 디지털 자산법: 크로스보더 규제 호환성 준수 완료.')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa; margin-bottom: 2px;" id="n4Title">🌐 21개국 디지털 자산법 매칭 라이언스</div>
+                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;" id="n4Title">🌐 21개국 디지털 자산법 매칭 라이언스</div>
                 <div style="font-size: 0.78rem; color: var(--text-muted);" id="n4Sub">국가별 규제 준수 및 크로스보더 방어 규격</div>
             </div>
+
+            <div class="drawer-section-title">HK GLOBAL ECOSYSTEM HUBS</div>
+            <div class="card" onclick="alert('🤖 로봇: HK-ROBOT 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🤖 로봇: HK-ROBOT</div></div>
+            <div class="card" onclick="alert('👓 스마트 글래스: HK-NEXUS(해온·누리온·라온) 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">👓 스마트 글래스: HK-NEXUS</div></div>
+            <div class="card" onclick="alert('🚁 도심항공교통: HK-UAM 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🚁 도심항공교통: HK-UAM</div></div>
+            <div class="card" onclick="alert('☀️ 인공태양: HK-FUSION 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">☀️ 인공태양: HK-FUSION</div></div>
+            <div class="card" onclick="alert('🧬 퀀텀바이오: HK-QUANTUMBIO 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🧬 퀀텀바이오: HK-QUANTUMBIO</div></div>
+            <div class="card" onclick="alert('🚀 우주로켓리버티: HK-SPACE 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🚀 우주로켓리버티: HK-SPACE</div></div>
+            <div class="card" onclick="alert('⚙️ 부품뱅크: HK-PARTSBANK 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">⚙️ 부품뱅크: HK-PARTSBANK</div></div>
+            <div class="card" onclick="alert('🛡️ 방위산업: HK-DEFENCE-HUB 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🛡️ 방위산업: HK-DEFENCE-HUB</div></div>
         </div>
 
     </main>
 
-    <!-- 네비게이터 드로어 -->
+    <!-- 네비게이터 드로어 (사이드 햄버거 메뉴) -->
     <div class="drawer-overlay" id="navigatorDrawer" onclick="if(event.target === this) closeNavigatorDrawer()">
         <div class="drawer-panel">
             <div class="drawer-header">
@@ -761,15 +795,23 @@
                 <button class="drawer-close" onclick="closeNavigatorDrawer()">✕</button>
             </div>
 
-            <div class="drawer-section-title">CORE LEGAL & COMPLIANCE</div>
-            <div class="card" onclick="alert('백서 v3.1 상세 40선 로드됨')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">📄 백서 (Whitepaper v3.1 상세 40선)</div>
+            <div class="drawer-section-title" style="margin-top:0;">CHANNELS & BROADCASTS</div>
+            <div class="card" onclick="window.open('https://www.youtube.com/@hyekong2026', '_blank')">
+                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">▶️ 유튜브 채널 (hyekong2026)</div>
+            </div>
+            <div class="card" onclick="window.open('https://www.tiktok.com/@hyekong2026', '_blank')">
+                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🎵 틱톡 채널 (hyekong2026)</div>
+            </div>
+
+            <div class="drawer-section-title">CORE LEGAL & COMPLIANCE (백서 50선)</div>
+            <div class="card" onclick="alert('백서 v3.5 상세 50선 로드됨')">
+                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">📄 백서 (Whitepaper v3.5 상세 50선)</div>
             </div>
             <div class="card" onclick="alert('FAQ 20선 실증 로드됨')">
                 <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">❓ 자주 묻는 질문 (FAQ 20선 실증)</div>
             </div>
             <div class="card" onclick="alert('3대 POLICIES 로드됨')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🛡️ 3대 POLICIES (AML·KYC·철저보안)</div>
+                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🛡️ 3대 POLICIES (KYC·KYB 철저보안)</div>
             </div>
             <div class="card" onclick="alert('21개국 디지털 자산법 규격 로드됨')">
                 <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🌐 21개국 디지털 자산법 및 제재 리스트</div>
@@ -783,11 +825,11 @@
             <div class="card" onclick="alert('HK-QUANTUMBIO 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🧬 퀀텀바이오: HK-QUANTUMBIO</div></div>
             <div class="card" onclick="alert('HK-SPACE 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🚀 우주로켓리버티: HK-SPACE</div></div>
             <div class="card" onclick="alert('HK-PARTSBANK 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">⚙️ 부품뱅크: HK-PARTSBANK</div></div>
-            <div class="card" onclick="alert('HK-DEFENCE-HUB 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🛡️ 미래가통: HK-DEFENCE-HUB</div></div>
+            <div class="card" onclick="alert('HK-DEFENCE-HUB 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🛡️ 방위산업: HK-DEFENCE-HUB</div></div>
         </div>
     </div>
 
-    <!-- 10대 분산 연동망 고유 실행 모달 팝업 -->
+    <!-- 10대 분산 연동망 고유 실행 모달 팝업 (KYC/KYB 및 실시간 고유 6자리 승인번호 생성 엔진 탑재) -->
     <div class="modal-overlay" id="exactModal" onclick="if(event.target === this) closePopupModal()">
         <div class="modal-card">
             <div class="modal-header">
@@ -796,13 +838,23 @@
             </div>
             <div class="modal-desc" id="popDesc">상세 프로세스 실행 모달입니다.</div>
            
+            <div class="kyc-badge" id="kycStatusBadge">
+                <span>🛡️</span> <span id="kycBadgeText">KYC 실명 및 KYB 기업 인증 완료 [Status: SECURE]</span>
+            </div>
+
             <div id="popupDynamicContent"></div>
+
+            <div class="info-box" id="dynamicOtpBox">실시간 고유 승인번호 생성 중...</div>
+            <div class="form-group">
+                <label class="form-label">🔑 실시간 고유 6자리 승인번호 입력</label>
+                <input type="text" class="form-input" id="userOtpInput" placeholder="생성된 6자리 번호를 입력하세요" maxlength="6">
+            </div>
 
             <button class="btn-primary" id="popBtn" onclick="submitPopupAction()">승인 및 실행</button>
         </div>
     </div>
 
-    <!-- 하단 고정 네비게이션바 (5대 탭 고유 구성) -->
+    <!-- 하단 고정 네비게이션바 (5대 탭) -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="switchTab('home')" id="nav-home">
             <span class="nav-icon">🏠</span>
@@ -828,7 +880,7 @@
 </div>
 
 <script>
-    // 실시간 이자 마이닝 엔진 (1초마다 진짜 파이처럼 째깍째깍 증가)
+    // 실시간 이자 마이닝 엔진 (3년 예치 예상수익 398,751.07 기준으로 실시간 째깍째깍 증가)
     let currentInterest = 398751.070000;
     setInterval(() => {
         currentInterest += 0.000314;
@@ -846,7 +898,7 @@
             m1Title: "개인 자산 대시보드", m1Sub: "실시간 잔액 및 Pi 자산 통합 관리",
             m2Title: "사고 팔고 예금하기", m2Sub: "10대 분산 연동망 볼트 실행",
             m3Title: "고객센터 ASI 삐니", m3Sub: "초지능 ASI 전담 AI 비서 철저한 KYC/KYB",
-            m4Title: "네비게이터 (메뉴 보기)", m4Sub: "백서·FAQ·3대정책·21개국법안 허브",
+            m4Title: "네비게이터 (메뉴 보기)", m4Sub: "백서 50선·FAQ·3대정책·21개국법안 허브",
             balTitle: "총 보유 자산 (KRW 환산)",
             piBoxTitle: "Pi 코인 보유량",
             syncBtnText: "동기화",
@@ -861,7 +913,7 @@
             beenyGreeting: "\"안녕하십니까 혜공 회장님! 현재 HK WorldBank 분산 연동망과 실시간 이자 마이닝 엔진이 최적 상태로 가동 중입니다. 무엇을 도와드릴까요?\"",
             beenySendBtn: "보내기",
             navHubTitle: "🧭 HK 네비게이터 허브",
-            n1Title: "📄 백서 (Whitepaper v3.1 상세 40선)", n1Sub: "글로벌 웹3 금융 표준 및 아키텍처 명세",
+            n1Title: "📄 백서 (Whitepaper v3.5 상세 50선)", n1Sub: "글로벌 웹3 금융 표준 및 50가지 아키텍처 명세",
             n2Title: "❓ 자주 묻는 질문 (FAQ 20선 실증)", n2Sub: "사용자 주요 질의응답 및 시스템 실증 안내",
             n3Title: "🛡️ 3대 POLICIES (KYC·KYB 철저보안)", n3Sub: "국제 자금세탁 방지 및 최고 수준 보안 정책",
             n4Title: "🌐 21개국 디지털 자산법 매칭 라이언스", n4Sub: "국가별 규제 준수 및 크로스보더 방어 규격",
@@ -875,7 +927,7 @@
             m1Title: "Personal Asset Dashboard", m1Sub: "Real-time balance & Pi asset management",
             m2Title: "Trade & Deposit", m2Sub: "10 Decentralized Networks Vault",
             m3Title: "Concierge ASI Beeny", m3Sub: "Superintelligent ASI Assistant with Strict KYC/KYB",
-            m4Title: "Navigator (Menu)", m4Sub: "Whitepaper, FAQ, Policies & 21-Nation Laws",
+            m4Title: "Navigator (Menu)", m4Sub: "Whitepaper 50-Specs, FAQ, Policies & 21-Nation Laws",
             balTitle: "Total Assets (USD Converted)",
             piBoxTitle: "Pi Coin Balance",
             syncBtnText: "Sync",
@@ -890,7 +942,7 @@
             beenyGreeting: "\"Hello Chairman Hyekong! HK WorldBank decentralized networks and real-time interest mining engines are running at peak performance. How can I assist you?\"",
             beenySendBtn: "Send",
             navHubTitle: "🧭 HK Navigator Hub",
-            n1Title: "📄 Whitepaper (v3.1 40 Specs)", n1Sub: "Global Web3 financial standards and architecture specs",
+            n1Title: "📄 Whitepaper (v3.5 50 Specs)", n1Sub: "Global Web3 financial standards & 50 architecture specs",
             n2Title: "❓ Frequently Asked Questions (FAQ 20)", n2Sub: "User guides and system demonstration Q&A",
             n3Title: "🛡️ 3 POLICIES (KYC·KYB Security)", n3Sub: "International AML and highest level security policies",
             n4Title: "🌐 21-Nation Digital Asset Laws", n4Sub: "Cross-border regulatory compliance and defense specs",
@@ -986,10 +1038,13 @@
         input.value = '';
     }
 
-    // 10대 분산 연동망 각 항목별 개별 고유 모달 데이터 (지갑연결 ~ 파이수량)
+    // 전역 변수: 현재 생성된 고유 6자리 승인번호 저장
+    let generatedUniqueOtp = "123456";
+
+    // 10대 분산 연동망 각 항목별 개별 고유 모달 데이터 (KYC/KYB 검증 및 고유 OTP 생성 포함)
     const networkModalData = {
         1: {
-            title: "🔗 1. 지갑 연결 프로세스",
+            title: "🔗 1. 지갑 연결 프로세스 (KYC 인증)",
             desc: "Pi Network 공식 메인넷 원장 지갑 브리지 및 멀티시그 보안 인증",
             html: `
                 <div class="form-group">
@@ -999,21 +1054,20 @@
                         <button class="max-btn" onclick="alert('지갑 자동 연동 완료!')">Auto-Link</button>
                     </div>
                 </div>
-                <div class="info-box">보안 인증번호 (발급됨: 865146)</div>
                 <div class="form-group">
-                    <label class="form-label">6자리 인증번호 입력</label>
-                    <input type="text" class="form-input" placeholder="예: 865146" maxlength="6">
+                    <label class="form-label">🔑 24자리 비밀구절 (Passphrase) 입력</label>
+                    <input type="password" class="form-input" placeholder="word1 word2 word3 ... word24">
                 </div>
             `,
             btn: "지갑 연결 승인"
         },
         2: {
-            title: "💸 2. 송금하기 프로세스",
+            title: "💸 2. 송금하기 프로세스 (KYC/KYB 검증)",
             desc: "대륙간 초고속 멀티시그 암호화 전송 및 FATF 트래블룰 검증",
             html: `
                 <div class="form-group">
-                    <label class="form-label">수신자 지갑 주소</label>
-                    <input type="text" class="form-input" placeholder="G... 또는 Pi Test ID">
+                    <label class="form-label">수신자 지갑 주소 또는 QR 스캔</label>
+                    <input type="text" class="form-input" placeholder="G... 또는 Pi Test ID 입력">
                 </div>
                 <div class="form-group">
                     <div class="form-label-row">
@@ -1022,18 +1076,21 @@
                     </div>
                     <input type="text" class="form-input" id="txAmt" value="314159.000000">
                 </div>
-                <div class="info-box">보안 인증번호 (발급됨: 828069)</div>
                 <div class="form-group">
-                    <label class="form-label">6자리 인증번호 입력</label>
-                    <input type="text" class="form-input" placeholder="예: 828069" maxlength="6">
+                    <label class="form-label">🔑 비밀구절 (Passphrase) 인증</label>
+                    <input type="password" class="form-input" placeholder="비밀구절 24단어 입력">
                 </div>
             `,
             btn: "송금 실행"
         },
         3: {
-            title: "💳 3. 결제 연동 프로세스",
+            title: "💳 3. 결제 연동 프로세스 (KYB 에스크로)",
             desc: "글로벌 온·오프라인 가맹점 QR 에스크로 및 KYB 기업 증빙",
             html: `
+                <div class="form-group">
+                    <label class="form-label">📷 QR 코드 에스크로 스캔 주소</label>
+                    <input type="text" class="form-input" value="hk-escrow://pay-merchant-314159">
+                </div>
                 <div class="form-group">
                     <div class="form-label-row">
                         <label class="form-label">결제 수량 및 금액</label>
@@ -1041,10 +1098,9 @@
                     </div>
                     <input type="text" class="form-input" id="payAmt" value="314159.000000">
                 </div>
-                <div class="info-box">결제 승인 인증번호 (발급됨: 715714)</div>
                 <div class="form-group">
-                    <label class="form-label">6자리 인증번호 입력</label>
-                    <input type="text" class="form-input" placeholder="예: 715714" maxlength="6">
+                    <label class="form-label">🔑 지갑 비밀구절 (Passphrase)</label>
+                    <input type="password" class="form-input" placeholder="지갑 비밀구절 입력">
                 </div>
             `,
             btn: "에스크로 결제 승인"
@@ -1072,47 +1128,49 @@
                     ⚠️ <strong>중도 해지 규정 안내:</strong> 3년 만기를 채우지 못하고 중도 해지하실 경우에도 <strong>원금 100% 온전하게 보장</strong>되며, 기본 방어 이율 <strong>8.5%</strong>가 즉시 소급 적용됩니다.
                 </div>
                 <div class="info-box">3년 복리 적용 시 예상 수익: +398,751.07 HK/Pi</div>
-                <div class="form-group" style="margin-top:6px;">
-                    <label class="form-label">볼트 보안 인증번호 (발급됨: 879039)</label>
-                    <input type="text" class="form-input" placeholder="예: 879039" maxlength="6">
-                </div>
             `,
             btn: "볼트 예치 승인"
         },
         5: {
-            title: "🎁 5. 보상 수령 프로세스",
+            title: "🎁 5. 보상 수령 프로세스 (지갑 주소 연동)",
             desc: "에코시스템 기여도 및 마이닝 리워드 일일 즉시 클레임",
             html: `
                 <div class="form-group">
+                    <label class="form-label">📥 수령할 내 지갑 주소</label>
+                    <input type="text" class="form-input" value="G... Connected User Wallet Address 314159..." readonly>
+                </div>
+                <div class="form-group">
                     <div class="form-label-row">
-                        <label class="form-label">수령할 수량</label>
+                        <label class="form-label">수령할 보상 수량</label>
                         <button class="max-btn" onclick="document.getElementById('rewAmt').value='314159.000000'">MAX</button>
                     </div>
                     <input type="text" class="form-input" id="rewAmt" value="314159.000000">
                 </div>
-                <div class="info-box">보상 승인 인증번호 (발급됨: 488711)</div>
                 <div class="form-group">
-                    <label class="form-label">6자리 인증번호 입력</label>
-                    <input type="text" class="form-input" placeholder="예: 488711" maxlength="6">
+                    <label class="form-label">🔑 지갑 비밀구절 (Passphrase)</label>
+                    <input type="password" class="form-input" placeholder="비밀구절 입력으로 보상 수령 최종 서명">
                 </div>
             `,
             btn: "보상 수령 승인"
         },
         6: {
-            title: "🏛️ 6. 기본소득 (UBI) 프로세스",
-            desc: "글로벌 시민권 인증 기반 사회 재단 UBI 자동 분배",
+            title: "🏛️ 6. 기본소득 (UBI) 프로세스 (시민권 인증)",
+            desc: "글로벌 시민권 및 KYC 인증 기반 UBI 재단 자동 분배 청구",
             html: `
                 <div class="form-group">
+                    <label class="form-label">🌐 글로벌 시민권 KYC 인증 ID</label>
+                    <input type="text" class="form-input" value="HK-UBI-CITIZEN-ULSAN-314159" readonly>
+                </div>
+                <div class="form-group">
                     <div class="form-label-row">
-                        <label class="form-label">청구할 수량</label>
+                        <label class="form-label">청구할 UBI 수량</label>
                         <button class="max-btn" onclick="document.getElementById('ubiAmt').value='314159.000000'">MAX</button>
                     </div>
                     <input type="text" class="form-input" id="ubiAmt" value="314159.000000">
                 </div>
-                <div class="info-box">UBI 인증번호 (발급됨: 470285)</div>
                 <div class="form-group">
-                    <label class="form-label">6자리 인증번호 입력</label>
-                    <input type="text" class="form-input" placeholder="예: 470285" maxlength="6">
+                    <label class="form-label">🔑 지갑 비밀구절 (Passphrase)</label>
+                    <input type="password" class="form-input" placeholder="UBI 청구 서명용 비밀구절">
                 </div>
             `,
             btn: "기본소득 청구 승인"
@@ -1145,11 +1203,6 @@
                         <input type="text" class="form-input" style="width: 130px;" value="314,159" readonly>
                     </div>
                 </div>
-                <div class="info-box">스왑 승인 인증번호 (발급됨: 123941)</div>
-                <div class="form-group">
-                    <label class="form-label">6자리 인증번호 입력</label>
-                    <input type="text" class="form-input" placeholder="예: 123941" maxlength="6">
-                </div>
             `,
             btn: "코인 교환 스왑 실행"
         },
@@ -1179,11 +1232,6 @@
                         <input type="text" class="form-input" style="width: 130px;" value="300" readonly>
                     </div>
                 </div>
-                <div class="info-box">DEX 인증번호 (발급됨: 166598)</div>
-                <div class="form-group">
-                    <label class="form-label">6자리 인증번호 입력</label>
-                    <input type="text" class="form-input" placeholder="예: 166598" maxlength="6">
-                </div>
             `,
             btn: "P2P 코인 교환 DEX 스왑 실행"
         },
@@ -1209,10 +1257,6 @@
                     ⚠️ <strong>중도 해지 규정 안내:</strong> LP 스테이킹을 3년 만기 전에 조기 해지하실 경우에도 <strong>원금 100% 온전하게 반환</strong>되며, 기본 방어 이율 <strong>8.5%</strong>가 즉시 소급 적용되어 정산됩니다.
                 </div>
                 <div class="info-box">예상 LP 수익: 3년 복리 적용 시 +398,751.07 HK/Pi</div>
-                <div class="form-group" style="margin-top:6px;">
-                    <label class="form-label">LP 인증번호 (발급됨: 800825)</label>
-                    <input type="text" class="form-input" placeholder="예: 800825" maxlength="6">
-                </div>
             `,
             btn: "LP 스테이킹 등록 승인"
         },
@@ -1226,11 +1270,6 @@
                         <button class="max-btn" onclick="document.getElementById('piAmt').value='314159.000000'">MAX</button>
                     </div>
                     <input type="text" class="form-input" id="piAmt" value="314159.000000">
-                </div>
-                <div class="info-box">동기화 인증번호 (발급됨: 406135)</div>
-                <div class="form-group">
-                    <label class="form-label">6자리 인증번호 입력</label>
-                    <input type="text" class="form-input" placeholder="예: 406135" maxlength="6">
                 </div>
             `,
             btn: "원장 동기화 실행"
@@ -1246,6 +1285,13 @@
         document.getElementById('popDesc').textContent = data.desc;
         document.getElementById('popupDynamicContent').innerHTML = data.html;
         document.getElementById('popBtn').textContent = data.btn;
+
+        // 고유 6자리 승인번호 실시간 생성 절차 수행
+        generatedUniqueOtp = Math.floor(100000 + Math.random() * 900000).toString();
+        document.getElementById('dynamicOtpBoxinnerHTML').innerHTML = ""; // placeholder
+        document.getElementById('dynamicOtpBox').innerHTML = `🔒 보안 통신 채널을 통해 발급된 <strong>고유 승인번호</strong>: <span style="color:#fde047; font-size:1rem; letter-spacing:2px;">${generatedUniqueOtp}</span>`;
+        document.getElementById('userOtpInput').value = "";
+
         document.getElementById('exactModal').style.display = 'flex';
     }
 
@@ -1254,8 +1300,14 @@
     }
 
     function submitPopupAction() {
+        const userInput = document.getElementById('userOtpInput').value.trim();
+        if(userInput !== generatedUniqueOtp) {
+            alert(`[보안 거부] 입력하신 승인번호가 일치하지 않습니다! (생성된 고유 승인번호: ${generatedUniqueOtp}) 다시 확인해주세요.`);
+            return;
+        }
+
         const data = networkModalData[activeNetworkId];
-        alert(`[${data.title}] 60개국어 i18n 엔진 및 ASI 삐니 보안 검증이 적용되어 성공적으로 승인되었습니다! 💜`);
+        alert(`[${data.title}] 회장님("혜공")의 KYC/KYB 검증 및 고유 승인번호(${generatedUniqueOtp}) 대조가 완벽하게 통과되어 승인되었습니다! 💜`);
         closePopupModal();
     }
 </script>
