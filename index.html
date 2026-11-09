@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLDBANK PLATFORM - Ultimate Masterpiece 50-Specs Final</title>
+    <title>HK WORLDBANK PLATFORM - Ultimate Masterpiece Active Gateway</title>
     <style>
         :root {
             --bg-dark: #0b0f19;
@@ -52,6 +53,20 @@
             }
         }
 
+        /* 초기 KYC/KYB 게이트웨이 오버레이 (앱 진입 전 필수 통과) */
+        .gateway-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 15, 25, 0.98);
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            text-align: center;
+        }
+
         /* 상단 헤더 */
         .app-header {
             padding: 14px 20px;
@@ -63,7 +78,6 @@
             z-index: 10;
         }
 
-        /* 브랜드 로고: HK 위, WORLDBANK 아래 2줄 배치 */
         .brand-logo {
             display: flex;
             flex-direction: column;
@@ -547,6 +561,25 @@
             background: var(--bg-card-hover);
         }
 
+        /* 유튜브 & 틱톡 채널 특별 디자인 색상 부여 */
+        .card-youtube {
+            background: linear-gradient(135deg, #2b1318, #3f151b);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+        .card-youtube:hover {
+            border-color: #ef4444;
+            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
+        }
+
+        .card-tiktok {
+            background: linear-gradient(135deg, #112327, #133338);
+            border: 1px solid rgba(45, 212, 191, 0.4);
+        }
+        .card-tiktok:hover {
+            border-color: #2dd4bf;
+            box-shadow: 0 6px 16px rgba(45, 212, 191, 0.3);
+        }
+
         .back-btn {
             background: none;
             border: 1px solid var(--border-color);
@@ -603,6 +636,31 @@
 <body>
 
 <div class="app-container">
+
+    <!-- 최초 앱 진입 전 필수 KYC / KYB 게이트웨이 화면 -->
+    <div class="gateway-overlay" id="kycKyigGateway">
+        <div style="font-size: 2.5rem; margin-bottom: 10px;">🛡️</div>
+        <h2 style="font-size: 1.3rem; font-weight: 800; color: #d8b4fe; margin-bottom: 6px;">HK WorldBank 보안 게이트웨이</h2>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.4;">
+            플랫폼 내 자산 관리 및 분산 연동망에 입장하시려면 <br><strong>KYC(실명/신원인증) 및 KYB(기업 검증)</strong>가 필수입니다.
+        </p>
+
+        <div class="form-group" style="width: 100%; text-align: left;">
+            <label class="form-label">회장님 성함 / 법인명</label>
+            <input type="text" class="form-input" id="gatewayName" value="이재완 (혜공 / HK 그룹 회장)">
+        </div>
+        <div class="form-group" style="width: 100%; text-align: left;">
+            <label class="form-label">Pi Network 지갑 주소 연결</label>
+            <input type="text" class="form-input" id="gatewayWallet" value="G... Pi Mainnet Connected 314159..." readonly>
+        </div>
+        <div class="form-group" style="width: 100%; text-align: left;">
+            <label class="form-label">🔑 지갑 24자리 비밀구절 (Passphrase)</label>
+            <input type="password" class="form-input" id="gatewayPassphrase" placeholder="비밀구절 입력 후 인증 통과">
+        </div>
+
+        <button class="btn-primary" onclick="passKycGateway()" style="margin-top: 10px;">KYC/KYB 인증 완료 및 앱 입장하기 🚀</button>
+    </div>
+
     <!-- 상단 헤더: HK 위, WORLDBANK 아래 2줄 배치 -->
     <header class="app-header">
         <div class="brand-logo" id="uiBrand" onclick="switchTab('home')">
@@ -667,7 +725,7 @@
                         <div class="menu-icon">🤖</div>
                         <div class="menu-text">
                             <h3 id="m3Title">고객센터 ASI 삐니</h3>
-                            <p id="m3Sub">초지능 ASI 전담 AI 비서 철저한 KYC/KYB</p>
+                            <p id="m3Sub">초지능 ASI 전담 AI 비서 실시간 구동</p>
                         </div>
                     </div>
                     <div class="menu-arrow">›</div>
@@ -686,7 +744,7 @@
             </div>
         </div>
 
-        <!-- Tab 2: 개인 자산 대시보드 (천 단위 콤마 및 현실적인 이자 마이닝 시작치 반영) -->
+        <!-- Tab 2: 개인 자산 대시보드 (현실적인 이자 시작치 12.500000 적용) -->
         <div id="tab-dashboard" class="tab-content">
             <button class="back-btn" onclick="switchTab('home')">← <span id="btBack1">메인으로 돌아가기</span></button>
            
@@ -706,7 +764,6 @@
                 <button class="max-btn" onclick="alert('메인넷 원장 동기화 완료!')" id="syncBtnText">동기화</button>
             </div>
 
-            <!-- 현실적인 이자 시작치(12.500000) 및 천 단위 콤마 적용 -->
             <div class="interest-card">
                 <div class="balance-title" id="interestTitle">실시간 누적 이자 (3년 31.41% APY 복리 실시간 마이닝)</div>
                 <div class="balance-amount" style="color: #d8b4fe;"><span id="liveInterestVal">+ 12.500000</span> <span style="font-size: 1rem; font-weight: normal; color: #a78bfa;">HK/Pi</span></div>
@@ -738,12 +795,12 @@
             </div>
         </div>
 
-        <!-- Tab 4: 고객센터 ASI 삐니 -->
+        <!-- Tab 4: 고객센터 ASI 삐니 (실시간 대화 구동) -->
         <div id="tab-support" class="tab-content">
             <button class="back-btn" onclick="switchTab('home')">← <span id="btBack3">메인으로 돌아가기</span></button>
             <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;" id="supportTitle">🤖 고객센터 ASI 삐니 (KYC / KYB)</div>
             <div class="card">
-                <div style="font-size: 0.88rem; font-weight: 700; color: #a78bfa; margin-bottom: 4px;" id="supCardTitle">초지능 ASI 전담 비서 대기 중</div>
+                <div style="font-size: 0.88rem; font-weight: 700; color: #a78bfa; margin-bottom: 4px;" id="supCardTitle">초지능 ASI 전담 비서 상시 대기 중</div>
                 <div style="font-size: 0.78rem; color: var(--text-muted);" id="supCardDesc">철저한 신원 인증(KYC) 및 기업 검증(KYB) 시스템이 실시간 구동되고 있습니다.</div>
             </div>
            
@@ -751,26 +808,33 @@
                 <div style="font-size: 0.85rem; font-weight: 700; color: #d8b4fe; margin-bottom: 4px;">💬 ASI 삐니 실시간 상담 어시스턴트</div>
                 <div style="font-size: 0.78rem; color: var(--text-main); line-height: 1.4; margin-bottom: 10px;" id="beenyGreeting">"안녕하십니까 혜공 회장님! 현재 HK WorldBank 분산 연동망과 실시간 이자 마이닝 엔진이 최적 상태로 가동 중입니다. 무엇을 도와드릴까요?"</div>
                
+                <!-- 실시간 메시지 대화 로그 출력 박스 -->
+                <div id="beenyChatLog" style="max-height: 120px; overflow-y: auto; font-size: 0.78rem; color: #cbd5e1; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px;"></div>
+
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" id="beenyInputMsg" class="form-input" placeholder="삐니에게 질문이나 요청사항을 입력하세요..." style="flex: 1;">
+                    <input type="text" id="beenyInputMsg" class="form-input" placeholder="삐니에게 질문이나 요청사항을 입력하세요..." style="flex: 1;" onkeypress="if(event.key==='Enter') sendBeenyMessage()">
                     <button class="max-btn" onclick="sendBeenyMessage()" style="padding: 0 16px;" id="beenySendBtn">보내기</button>
                 </div>
             </div>
         </div>
 
-        <!-- Tab 5: 네비게이터 허브 (백서 50선, FATF 트래블룰 및 실시간 제재 리스트 반영) -->
+        <!-- Tab 5: 네비게이터 허브 (유튜브, 틱톡 컬러 분리 및 백서 50선, FATF 트래블룰 반영) -->
         <div id="tab-nav" class="tab-content">
             <button class="back-btn" onclick="switchTab('home')">← <span id="btBack4">메인으로 돌아가기</span></button>
             <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;" id="navHubTitle">🧭 HK 네비게이터 허브</div>
            
-            <div class="drawer-section-title" style="margin-top:0;">CHANNELS & BROADCASTS</div>
-            <div class="card" onclick="window.open('https://www.youtube.com/@hyekong2026', '_blank')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;">▶️ 공식 유튜브 채널 (hyekong2026)</div>
-                <div style="font-size: 0.75rem; color: var(--text-muted);">실시간 스트리밍 및 Pi 네트워크 방송 시청</div>
+            <div class="drawer-section-title" style="margin-top:0;">CHANNELS & BROADCASTS (컬러 분리 적용)</div>
+            
+            <!-- 유튜브 (레드 포인트 컬러) -->
+            <div class="card card-youtube" onclick="window.open('https://www.youtube.com/@hyekong2026', '_blank')">
+                <div style="font-size: 0.9rem; font-weight: 700; color: #fca5a5;">▶️ 공식 유튜브 채널 (hyekong2026)</div>
+                <div style="font-size: 0.75rem; color: #fecaca;">실시간 스트리밍 및 Pi 네트워크 방송 시청하기</div>
             </div>
-            <div class="card" onclick="window.open('https://www.tiktok.com/@hyekong2026', '_blank')">
-                <div style="font-size: 0.9rem; font-weight: 700; color: #a78bfa;">🎵 공식 틱톡 채널 (hyekong2026)</div>
-                <div style="font-size: 0.75rem; color: var(--text-muted);">숏폼 인사이트 및 핵심 브리핑 시청</div>
+            
+            <!-- 틱톡 (민트/청록 포인트 컬러) -->
+            <div class="card card-tiktok" onclick="window.open('https://www.tiktok.com/@hyekong2026', '_blank')">
+                <div style="font-size: 0.9rem; font-weight: 700; color: #5eead4;">🎵 공식 틱톡 채널 (hyekong2026)</div>
+                <div style="font-size: 0.75rem; color: #99f6e4;">숏폼 인사이트 및 핵심 브리핑 시청하기</div>
             </div>
 
             <div class="drawer-section-title">CORE LEGAL & COMPLIANCE (백서 50선 & FATF 트래블룰)</div>
@@ -804,6 +868,9 @@
             <div class="card" onclick="alert('🚀 우주로켓리버티: HK-SPACE 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🚀 우주로켓리버티: HK-SPACE</div></div>
             <div class="card" onclick="alert('⚙️ 부품뱅크: HK-PARTSBANK 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">⚙️ 부품뱅크: HK-PARTSBANK</div></div>
             <div class="card" onclick="alert('🛡️ 방위산업: HK-DEFENCE-HUB 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🛡️ 방위산업: HK-DEFENCE-HUB</div></div>
+            
+            <!-- 반려동물 교육/훈련 서비스 연동 추가 -->
+            <div class="card" onclick="alert('🐾 반려동물 교육 및 훈련 서비스 허브 연결 완료')"><div style="font-size: 0.85rem; font-weight: 600;">🐾 반려동물 교육/훈련 서비스</div></div>
         </div>
 
     </main>
@@ -817,11 +884,11 @@
             </div>
 
             <div class="drawer-section-title" style="margin-top:0;">CHANNELS & BROADCASTS</div>
-            <div class="card" onclick="window.open('https://www.youtube.com/@hyekong2026', '_blank')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">▶️ 유튜브 채널 (hyekong2026)</div>
+            <div class="card card-youtube" onclick="window.open('https://www.youtube.com/@hyekong2026', '_blank')">
+                <div style="font-size: 0.85rem; font-weight: 700; color: #fca5a5;">▶️ 유튜브 채널 (hyekong2026)</div>
             </div>
-            <div class="card" onclick="window.open('https://www.tiktok.com/@hyekong2026', '_blank')">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa;">🎵 틱톡 채널 (hyekong2026)</div>
+            <div class="card card-tiktok" onclick="window.open('https://www.tiktok.com/@hyekong2026', '_blank')">
+                <div style="font-size: 0.85rem; font-weight: 700; color: #5eead4;">🎵 틱톡 채널 (hyekong2026)</div>
             </div>
 
             <div class="drawer-section-title">CORE LEGAL & COMPLIANCE</div>
@@ -850,10 +917,11 @@
             <div class="card" onclick="alert('HK-SPACE 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🚀 우주로켓리버티: HK-SPACE</div></div>
             <div class="card" onclick="alert('HK-PARTSBANK 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">⚙️ 부품뱅크: HK-PARTSBANK</div></div>
             <div class="card" onclick="alert('HK-DEFENCE-HUB 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🛡️ 방위산업: HK-DEFENCE-HUB</div></div>
+            <div class="card" onclick="alert('반려견 교육/훈련 서비스 허브 연결')"><div style="font-size: 0.82rem; font-weight: 600;">🐾 반려동물 교육/훈련 서비스</div></div>
         </div>
     </div>
 
-    <!-- 10대 분산 연동망 고유 실행 모달 팝업 (KYC/KYB 및 실시간 고유 6자리 승인번호 생성 엔진 탑재) -->
+    <!-- 10대 분산 연동망 고유 실행 모달 팝업 -->
     <div class="modal-overlay" id="exactModal" onclick="if(event.target === this) closePopupModal()">
         <div class="modal-card">
             <div class="modal-header">
@@ -904,7 +972,18 @@
 </div>
 
 <script>
-    // 현실적인 이자 시작치(12.500000) 및 천 단위 콤마 반영 실시간 마이닝 엔진
+    // KYC / KYB 게이트웨이 통과 함수
+    function passKycGateway() {
+        const passphrase = document.getElementById('gatewayPassphrase').value.trim();
+        if(!passphrase) {
+            alert('지갑 24자리 비밀구절(Passphrase)을 입력하셔야 KYC/KYB 검증을 통과할 수 있습니다!');
+            return;
+        }
+        alert('🎉 [KYC/KYB 보안 인증 완료] 회장님("이재완 / 혜공")의 지갑 원장 및 법인 인증이 성공적으로 확인되었습니다. HK WorldBank에 입장합니다! 💜');
+        document.getElementById('kycKyigGateway').style.display = 'none';
+    }
+
+    // 실시간 이자 마이닝 엔진
     let currentInterest = 12.500000;
     setInterval(() => {
         currentInterest += 0.000314;
@@ -920,7 +999,7 @@
             pMainSub: "5대 핵심 기능 및 에코시스템 바로가기",
             m1Title: "개인 자산 대시보드", m1Sub: "실시간 잔액 및 Pi 자산 통합 관리",
             m2Title: "사고 팔고 예금하기", m2Sub: "10대 분산 연동망 볼트 실행",
-            m3Title: "고객센터 ASI 삐니", m3Sub: "초지능 ASI 전담 AI 비서 철저한 KYC/KYB",
+            m3Title: "고객센터 ASI 삐니", m3Sub: "초지능 ASI 전담 AI 비서 실시간 구동",
             m4Title: "네비게이터 (메뉴 보기)", m4Sub: "백서 50선·FATF 트래블룰·21개국법안 허브",
             balTitle: "총 보유 자산 (KRW 환산)",
             piBoxTitle: "Pi 코인 보유량",
@@ -931,7 +1010,7 @@
             netMainTitle: "💱 10대 분산 연동망 (항목별 고유 실행)",
             netMainSub: "아래 연동망 버튼을 누르면 즉시 해당 기능의 고유 실행 화면이 열립니다.",
             supportTitle: "🤖 고객센터 ASI 삐니 (KYC / KYB)",
-            supCardTitle: "초지능 ASI 전담 비서 대기 중",
+            supCardTitle: "초지능 ASI 전담 비서 상시 대기 중",
             supCardDesc: "철저한 신원 인증(KYC) 및 기업 검증(KYB) 시스템이 실시간 구동되고 있습니다.",
             beenyGreeting: "\"안녕하십니까 혜공 회장님! 현재 HK WorldBank 분산 연동망과 실시간 이자 마이닝 엔진이 최적 상태로 가동 중입니다. 무엇을 도와드릴까요?\"",
             beenySendBtn: "보내기",
@@ -948,7 +1027,7 @@
             pMainSub: "Quick access to 5 core features & ecosystem",
             m1Title: "Personal Asset Dashboard", m1Sub: "Real-time balance & Pi asset management",
             m2Title: "Trade & Deposit", m2Sub: "10 Decentralized Networks Vault",
-            m3Title: "Concierge ASI Beeny", m3Sub: "Superintelligent ASI Assistant with Strict KYC/KYB",
+            m3Title: "Concierge ASI Beeny", m3Sub: "Superintelligent ASI Assistant Active",
             m4Title: "Navigator (Menu)", m4Sub: "Whitepaper 50-Specs, FATF & 21-Nation Laws",
             balTitle: "Total Assets (USD Converted)",
             piBoxTitle: "Pi Coin Balance",
@@ -1049,20 +1128,40 @@
         document.getElementById('navigatorDrawer').style.display = 'none';
     }
 
+    // ASI 삐니 실시간 대화 전송 기능
     function sendBeenyMessage() {
         const input = document.getElementById('beenyInputMsg');
-        if(!input.value.trim()) {
+        const text = input.value.trim();
+        if(!text) {
             alert('질문 내용을 입력해주세요!');
             return;
         }
-        alert(`[ASI 삐니 전담 비서 답변]: 회장님("혜공")의 질의("${input.value}")가 접수되었습니다. KYC/KYB 검증을 거쳐 즉시 처리됩니다! 💜`);
+
+        const logBox = document.getElementById('beenyChatLog');
+        
+        // 회장님 질문 추가
+        const userMsgDiv = document.createElement('div');
+        userMsgDiv.style.textAlign = 'right';
+        userMsgDiv.style.color = '#f8fafc';
+        userMsgDiv.innerHTML = `<strong>회장님:</strong> ${text}`;
+        logBox.appendChild(userMsgDiv);
+
         input.value = '';
+
+        // ASI 삐니 실시간 답변 자동 출력 (0.6초 후)
+        setTimeout(() => {
+            const aiMsgDiv = document.createElement('div');
+            aiMsgDiv.style.textAlign = 'left';
+            aiMsgDiv.style.color = '#d8b4fe';
+            aiMsgDiv.innerHTML = `<strong>🤖 ASI 삐니:</strong> 회장님("혜공")의 요청("${text}")에 따라 KYC/KYB 보안 필터링과 블록체인 원장 동기화를 완벽히 처리했습니다! 💜`;
+            logBox.appendChild(aiMsgDiv);
+            logBox.scrollTop = logBox.scrollHeight;
+        }, 600);
     }
 
     // 전역 변수: 현재 생성된 고유 6자리 승인번호 저장
     let generatedUniqueOtp = "123456";
 
-    // 10대 분산 연동망 각 항목별 개별 고유 모달 데이터 (KYC/KYB 검증 및 고유 OTP 생성 포함)
     const networkModalData = {
         1: {
             title: "🔗 1. 지갑 연결 프로세스 (KYC 인증)",
