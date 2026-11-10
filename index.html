@@ -3,30 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLDBANK & 메인 허브 통합 엔터프라이즈 플랫폼 (Enterprise Mega Cluster Edition v10.4)</title>
+    <title>HK WORLDBANK - 통합 메인 허브 (Extended Enterprise Edition)</title>
     <style>
-        /* ==========================================================================
-           01. ROOT CSS VARIABLES & ADVANCED THEME CONFIGURATION
-           ========================================================================== */
         :root {
-            --bg-color: #050b14;
-            --bg-gradient-start: #050b14;
-            --bg-gradient-end: #0e1726;
-            --panel-bg: rgba(14, 28, 48, 0.94);
-            --panel-border: rgba(65, 90, 119, 0.6);
-            --highlight-blue: #00b4d8;
+            --bg-color: #070d18;
+            --panel-bg: rgba(14, 26, 44, 0.95);
+            --panel-border: rgba(65, 90, 119, 0.55);
             --highlight-cyan: #48cae4;
+            --highlight-blue: #00b4d8;
             --text-main: #ffffff;
             --text-sub: #8d99ae;
-            --warning-orange: #f77f00;
-            --success-green: #2b9348;
-            --danger-red: #d62828;
-            --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ==========================================================================
-           02. GLOBAL RESET & BASE STYLING
-           ========================================================================== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -38,157 +26,122 @@
         body {
             background-color: var(--bg-color);
             background-image: 
-                radial-gradient(circle at 15% 15%, rgba(0, 180, 216, 0.07) 0%, transparent 45%),
-                radial-gradient(circle at 85% 85%, rgba(114, 9, 183, 0.07) 0%, transparent 45%),
-                linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+                radial-gradient(circle at 10% 10%, rgba(0, 180, 216, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(114, 9, 183, 0.08) 0%, transparent 40%),
+                linear-gradient(135deg, #050b14 0%, #0d1726 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            padding: 35px 20px;
-            overflow-x: hidden;
+            padding: 14px 12px 85px 12px;
         }
 
         .container {
             width: 100%;
-            max-width: 980px;
+            max-width: 480px;
             display: flex;
             flex-direction: column;
-            gap: 28px;
+            gap: 14px;
         }
 
-        /* ==========================================================================
-           03. TOP CONTROL & NAVIGATION BAR
-           ========================================================================== */
-        .top-control-bar {
-            background: rgba(10, 20, 35, 0.85);
+        /* 상단 프로필 및 시스템 인포 박스 */
+        .top-header {
+            background: var(--panel-bg);
             border: 1px solid var(--panel-border);
-            padding: 14px 24px;
-            border-radius: 16px;
+            border-radius: 14px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(14px);
-            box-shadow: 0 10px 35px rgba(0,0,0,0.45);
-        }
-
-        .brand-indicator {
-            font-size: 13.5px;
+            font-size: 11.5px;
             font-weight: bold;
             color: var(--highlight-cyan);
-            letter-spacing: 0.8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            letter-spacing: 0.5px;
         }
 
-        .view-switcher {
+        .lang-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--panel-border);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10.5px;
+            color: #fff;
             display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
             gap: 12px;
         }
 
-        .switcher-btn {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--panel-border);
-            color: var(--text-sub);
-            padding: 9px 20px;
-            border-radius: 9px;
-            cursor: pointer;
-            font-size: 13.5px;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-        }
-
-        .switcher-btn.active, .switcher-btn:hover {
-            background: linear-gradient(135deg, #00b4d8, #0077b6);
-            color: white;
-            border-color: var(--highlight-blue);
-            box-shadow: 0 0 18px rgba(0, 180, 216, 0.45);
-        }
-
-        /* ==========================================================================
-           04. SCREEN VIEW CONTAINERS
-           ========================================================================== */
-        .screen-view {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            animation: viewFadeIn 0.4s ease-in-out;
-        }
-
-        .screen-view.active {
+        .avatar {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #b5179e, #7209b7);
+            border-radius: 50%;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13.5px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+            flex-shrink: 0;
         }
 
-        @keyframes viewFadeIn {
-            from { opacity: 0; transform: translateY(14px); }
-            to { opacity: 1; transform: translateY(0); }
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
-        /* ==========================================================================
-           05. GATEWAY BADGE & TYPOGRAPHY
-           ========================================================================== */
-        .gateway-badge {
-            background: rgba(247, 127, 0, 0.12);
-            border: 1px solid var(--warning-orange);
-            color: #ffb703;
-            padding: 7px 22px;
-            border-radius: 22px;
+        .profile-info div:nth-child(1) {
             font-size: 12.5px;
             font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 18px;
-            letter-spacing: 0.9px;
-            box-shadow: 0 0 18px rgba(247, 127, 0, 0.25);
+            color: #fff;
+            letter-spacing: 0.3px;
         }
 
-        h1 {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            letter-spacing: 0.8px;
-            text-align: center;
-            background: linear-gradient(to right, #ffffff, #90e0ef);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            font-size: 13.5px;
+        .profile-info div:nth-child(2) {
+            font-size: 10px;
             color: var(--text-sub);
-            text-align: center;
-            margin-bottom: 28px;
-            line-height: 1.65;
         }
 
-        /* ==========================================================================
-           06. CARD COMPONENTS & INTERACTIVE PANELS
-           ========================================================================== */
+        /* 메인 카드 스타일 */
         .card-box {
             width: 100%;
             background: var(--panel-bg);
             border: 1px solid var(--panel-border);
-            border-radius: 16px;
-            padding: 22px 26px;
-            margin-bottom: 18px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-            transition: var(--transition-smooth);
+            border-radius: 14px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
             cursor: pointer;
+            transition: all 0.25s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .card-box::after {
+        .card-box::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 3px;
             height: 100%;
             background: transparent;
             transition: background 0.3s;
@@ -196,526 +149,249 @@
 
         .card-box:hover {
             border-color: var(--highlight-blue);
-            transform: translateY(-3px);
-            box-shadow: 0 18px 40px rgba(0, 180, 216, 0.3);
+            transform: translateY(-2px);
         }
 
-        .card-box:hover::after {
-            background: var(--highlight-blue);
+        .card-box:hover::before {
+            background: var(--highlight-cyan);
         }
 
-        .card-header {
+        .card-left {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 14px;
+            overflow: hidden;
         }
 
-        .card-title-group {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .icon-circle {
-            width: 46px;
-            height: 46px;
-            border-radius: 14px;
+        .icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 17px;
             flex-shrink: 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.35);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
         }
 
-        .icon-blue { background: linear-gradient(135deg, #0077b6, #03045e); color: #fff; }
-        .icon-green { background: linear-gradient(135deg, #2b9348, #55a630); color: #fff; }
-        .icon-purple { background: linear-gradient(135deg, #7209b7, #3a0ca3); color: #fff; }
-        .icon-orange { background: linear-gradient(135deg, #f77f00, #d62828); color: #fff; }
-        .icon-pink { background: linear-gradient(135deg, #b5179e, #7209b7); color: #fff; }
+        .card-text {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            overflow: hidden;
+        }
 
         .card-text h3 {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
-            margin-bottom: 6px;
-            color: #ffffff;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .card-text p {
-            font-size: 12.5px;
+            font-size: 10.5px;
             color: var(--text-sub);
-            line-height: 1.45;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .arrow-icon {
+        .arrow {
             color: var(--text-sub);
-            font-size: 18px;
-            transition: transform 0.3s;
+            font-size: 14px;
+            flex-shrink: 0;
+            transition: transform 0.2s;
         }
 
-        .card-box:hover .arrow-icon {
-            transform: translateX(5px);
+        .card-box:hover .arrow {
+            transform: translateX(3px);
             color: var(--highlight-cyan);
         }
 
-        /* ==========================================================================
-           07. PASSPHRASE 24-WORD GRID INTERFACE
-           ========================================================================== */
-        .passphrase-container {
-            margin-top: 20px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .passphrase-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .word-pill {
-            background: rgba(8, 16, 28, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 8px 4px;
-            font-size: 11.5px;
+        /* 추가 확장 정보 섹션 (풍부함을 더해주는 서브 패널) */
+        .cluster-info-box {
+            background: rgba(10, 20, 35, 0.7);
+            border: 1px dashed var(--panel-border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 10.5px;
             color: var(--text-sub);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            line-height: 1.4;
+        }
+
+        .cluster-info-box strong {
+            color: var(--highlight-cyan);
+        }
+
+        .copyright {
             text-align: center;
-            border-radius: 6px;
-            font-family: monospace;
-            transition: var(--transition-smooth);
-        }
-
-        .word-pill:hover {
-            border-color: var(--highlight-blue);
-            color: var(--text-main);
-            background: rgba(0, 180, 216, 0.12);
-        }
-
-        .verify-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #00b4d8, #0077b6);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 13.5px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: var(--transition-smooth);
-            box-shadow: 0 5px 18px rgba(0, 180, 216, 0.35);
-        }
-
-        .verify-btn:hover {
-            filter: brightness(1.15);
-            transform: translateY(-1px);
-        }
-
-        /* ==========================================================================
-           08. FOOTER INFO & MOBILE DOCK BAR
-           ========================================================================== */
-        .footer-info {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
+            font-size: 9.5px;
             color: var(--text-sub);
-            margin-top: 18px;
-            padding: 0 6px;
+            margin-top: 8px;
+            line-height: 1.4;
+            word-break: keep-all;
         }
 
+        /* 하단 고정 독바 */
         .dock-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
             width: 100%;
-            background: rgba(10, 20, 35, 0.96);
-            border: 1px solid var(--panel-border);
-            border-radius: 35px;
-            padding: 14px 28px;
+            background: rgba(7, 13, 24, 0.96);
+            border-top: 1px solid var(--panel-border);
+            padding: 9px 12px;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            margin-top: 28px;
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(14px);
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.6);
         }
 
         .dock-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            gap: 3px;
             cursor: pointer;
-            opacity: 0.65;
-            transition: var(--transition-smooth);
+            opacity: 0.6;
+            transition: opacity 0.2s, transform 0.2s;
         }
 
-        .dock-item:hover, .dock-item.active {
+        .dock-item.active, .dock-item:hover {
             opacity: 1;
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         .dock-item span {
-            font-size: 11px;
+            font-size: 9.5px;
             color: var(--text-sub);
-            font-weight: 600;
         }
 
         .dock-item.active span {
             color: var(--highlight-cyan);
-        }
-
-        .copyright {
-            text-align: center;
-            font-size: 11.5px;
-            color: var(--text-sub);
-            margin-top: 22px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 20px;
-            width: 100%;
-            letter-spacing: 0.6px;
-        }
-
-        /* ==========================================================================
-           09. SYSTEM LOG / CONSOLE MODAL
-           ========================================================================== */
-        .console-modal {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 400px;
-            background: rgba(8, 15, 26, 0.96);
-            border: 1px solid var(--highlight-blue);
-            border-radius: 14px;
-            padding: 16px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
-            z-index: 9999;
-            font-family: monospace;
-            font-size: 11.5px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            backdrop-filter: blur(10px);
-        }
-
-        .console-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--highlight-cyan);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 7px;
             font-weight: bold;
-        }
-
-        .console-body {
-            max-height: 130px;
-            overflow-y: auto;
-            color: #a5d6a7;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        /* Responsive Breakpoints */
-        @media (max-width: 768px) {
-            .passphrase-grid { grid-template-columns: repeat(4, 1fr); }
-            .console-modal { width: calc(100% - 30px); left: 15px; right: 15px; }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <!-- 상단 브랜드 및 화면 전환 컨트롤 바 -->
-        <div class="top-control-bar">
-            <div class="brand-indicator">⚡ HK ENTERPRISE SECURE CLUSTER ARCHITECTURE</div>
-            <div class="view-switcher">
-                <button class="switcher-btn active" onclick="switchScreen('gateway')">1. 보안 게이트웨이</button>
-                <button class="switcher-btn" onclick="switchScreen('hub')">2. 통합 메인 허브</button>
+        <!-- 상단 프로필 및 언어 선택 헤더 -->
+        <div class="top-header">
+            <div class="header-top">
+                <span>HK WORLDBANK</span>
+                <div class="lang-box">🇰🇷 한국어 (60개국어 구동) ▾</div>
+            </div>
+            <div class="profile">
+                <div class="avatar">HK</div>
+                <div class="profile-info">
+                    <div>✨ 회장 이재완 (혜공) | 개인사업자</div>
+                    <div>최고경영 (Enterprise Executive Edition)</div>
+                </div>
             </div>
         </div>
 
-        <!-- ==========================================================================
-           화면 1: HK WORLDBANK 보안 게이트웨이 (Enterprise Edition v10.4)
-           ========================================================================== -->
-        <div id="screen-gateway" class="screen-view active">
-            <div class="gateway-badge">
-                🔒 SECURE GATEWAY v10.4 - ENTERPRISE EDITION
-            </div>
-            <h1>HK WORLDBANK 보안 게이트웨이</h1>
-            <p class="subtitle">회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 관리를 위한 필수 보안 인증 단계입니다.<br>아래 인증 수단을 선택하여 접속하십시오.</p>
-
-            <!-- 인증 카드 1: 지문 우선 잠금 해제 -->
-            <div class="card-box" onclick="triggerBiometricAuth()">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <div class="icon-circle icon-blue">👆</div>
-                        <div class="card-text">
-                            <h3>지문 우선 잠금 해제 (Biometric Auth)</h3>
-                            <p>모바일 기기 연동 실시간 생체 지문 인식 및 원터치 인증 시스템</p>
-                        </div>
-                    </div>
-                    <div class="arrow-icon">→</div>
+        <!-- 1. 개인 자산 대시보드 -->
+        <div class="card-box" onclick="alert('[개인 자산 대시보드]\n실시간 잔액 및 PI코인·누적 이자 관리 시스템에 접속합니다.')">
+            <div class="card-left">
+                <div class="icon" style="background: rgba(214,40,40,0.2); border: 1px solid #d62828;">📌</div>
+                <div class="card-text">
+                    <h3>개인 자산 대시보드</h3>
+                    <p>실시간 잔액 및 PI코인·누적 이자 관리</p>
                 </div>
             </div>
-
-            <!-- 인증 카드 2: 비밀번호 및 복구 구문 잠금 해제 (24개 단어) -->
-            <div class="card-box" style="border-color: rgba(247, 127, 0, 0.65);">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <div class="icon-circle icon-green">🔑</div>
-                        <div class="card-text">
-                            <h3>비밀번호 및 복구 구문 잠금 해제</h3>
-                            <p>24개 단어 복구 구문 (PASSPHRASE) 입력 기반 강력한 보안 접속</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="passphrase-container">
-                    <div class="passphrase-grid" id="passphraseGrid">
-                        <!-- Javascript를 통해 24개 워드 필드 자동 생성 및 관리 -->
-                    </div>
-                    <button class="verify-btn" onclick="verifyPassphraseAndEnter()">🔑 구문 검증 및 대시보드 진입</button>
-                </div>
-            </div>
-
-            <!-- 인증 카드 3: 둘러보기 (Guest Preview) -->
-            <div class="card-box" onclick="switchScreen('hub')">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <div class="icon-circle icon-blue">🌐</div>
-                        <div class="card-text">
-                            <h3>둘러보기 (Guest Preview Access)</h3>
-                            <p>인증 없이 플랫폼 대시보드 및 내비게이터 구조 미리보기 체험</p>
-                        </div>
-                    </div>
-                    <div class="arrow-icon">→</div>
-                </div>
-            </div>
-
-            <div class="footer-info">
-                <span>발신: HK 그룹 회장 이재완 (혜공)</span>
-                <span>HK WorldBank Secure Core v10.4</span>
-            </div>
+            <div class="arrow">&gt;</div>
         </div>
 
-        <!-- ==========================================================================
-           화면 2: HK 통합 메인 허브 (5대 핵심 기능 및 에코시스템)
-           ========================================================================== -->
-        <div id="screen-hub" class="screen-view">
-            <h1>HK 통합 메인 허브</h1>
-            <p class="subtitle">5대 핵심 기능 및 에코시스템 바로가기</p>
-
-            <!-- 허브 카드 1: 개인 자산 대시보드 -->
-            <div class="card-box" onclick="openHubFeature('asset')">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <div class="icon-circle icon-pink">⭐</div>
-                        <div class="card-text">
-                            <h3>개인 자산 대시보드</h3>
-                            <p>실시간 잔액 및 Pi코인 누적 이자 관리</p>
-                        </div>
-                    </div>
-                    <div class="arrow-icon">→</div>
+        <!-- 2. 사고 팔고 예금하기 -->
+        <div class="card-box" onclick="alert('[사고 팔고 예금하기]\n10대 분산 연동망 상세 프로세스를 실행합니다.')">
+            <div class="card-left">
+                <div class="icon" style="background: rgba(43,147,72,0.2); border: 1px solid #2b9348;">⚡</div>
+                <div class="card-text">
+                    <h3>사고 팔고 예금하기</h3>
+                    <p>10대 분산 연동망 상세 프로세스 실행</p>
                 </div>
             </div>
-
-            <!-- 허브 카드 2: 사고 팔고 예금하기 -->
-            <div class="card-box" onclick="openHubFeature('trade')">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <div class="icon-circle icon-green">⚡</div>
-                        <div class="card-text">
-                            <h3>사고 팔고 예금하기</h3>
-                            <p>10대 분산 연동망 상세 프로세스 실행</p>
-                        </div>
-                    </div>
-                    <div class="arrow-icon">→</div>
-                </div>
-            </div>
-
-            <!-- 허브 카드 3: 고객센터 AGI 삐니 -->
-            <div class="card-box" onclick="openHubFeature('pini')">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <div class="icon-circle icon-purple">🤖</div>
-                        <div class="card-text">
-                            <h3>고객센터 AGI 삐니</h3>
-                            <p>60개국어 백서까지 변환 AI 삐니 실시간 구동</p>
-                        </div>
-                    </div>
-                    <div class="arrow-icon">→</div>
-                </div>
-            </div>
-
-            <!-- 허브 카드 4: 내비게이터 (메뉴 보기) -->
-            <div class="card-box" onclick="openHubFeature('navigator')">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <div class="icon-circle icon-orange">🧭</div>
-                        <div class="card-text">
-                            <h3>내비게이터 (메뉴 보기)</h3>
-                            <p>백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
-                        </div>
-                    </div>
-                    <div class="arrow-icon">→</div>
-                </div>
-            </div>
-
-            <!-- 허브 카드 5: 유튜브와 틱톡 채널 연동 -->
-            <div class="card-box" onclick="openHubFeature('media')">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <div class="icon-circle icon-pink">📺</div>
-                        <div class="card-text">
-                            <h3>유튜브와 틱톡 채널 연동</h3>
-                            <p>HK 통합 메인 허브 5번째 방송 센터</p>
-                        </div>
-                    </div>
-                    <div class="arrow-icon">→</div>
-                </div>
-            </div>
-
-            <!-- 하단 독바 (Dock Bar) -->
-            <div class="dock-bar">
-                <div class="dock-item active" onclick="openHubFeature('asset')">
-                    <span style="font-size: 18px;">⭐</span>
-                    <span>자산</span>
-                </div>
-                <div class="dock-item" onclick="openHubFeature('trade')">
-                    <span style="font-size: 18px;">⚡</span>
-                    <span>연동망</span>
-                </div>
-                <div class="dock-item" onclick="openHubFeature('pini')">
-                    <span style="font-size: 18px;">🤖</span>
-                    <span>삐니</span>
-                </div>
-                <div class="dock-item" onclick="openHubFeature('navigator')">
-                    <span style="font-size: 18px;">🧭</span>
-                    <span>내비게이터</span>
-                </div>
-                <div class="dock-item" onclick="openHubFeature('media')">
-                    <span style="font-size: 18px;">📺</span>
-                    <span>유튜브·틱톡</span>
-                </div>
-            </div>
-
-            <div class="copyright">
-                © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved. | Complete Detailed Enterprise Edition
-            </div>
+            <div class="arrow">&gt;</div>
         </div>
 
-    </div>
-
-    <!-- 실시간 시스템 콘솔 및 시뮬레이션 로그창 -->
-    <div class="console-modal">
-        <div class="console-header">
-            <span>🛡️ HK SECURE CORE CONSOLE</span>
-            <span style="color: #a5d6a7; font-size: 10px;" id="liveClock">00:00:00</span>
+        <!-- 3. 고객센터 AGI 삐니 -->
+        <div class="card-box" onclick="alert('[고객센터 AGI 삐니]\n60개국어 백서 변환 AI 삐니 실시간 구동을 시작합니다.')">
+            <div class="card-left">
+                <div class="icon" style="background: rgba(114,9,183,0.2); border: 1px solid #7209b7;">🤖</div>
+                <div class="card-text">
+                    <h3>고객센터 AGI 삐니</h3>
+                    <p>60개국어 백서까지 변환 AI 삐니 실시간 구동</p>
+                </div>
+            </div>
+            <div class="arrow">&gt;</div>
         </div>
-        <div class="console-body" id="consoleLogs">
-            <div>[SYSTEM] Initialized Secure Gateway v10.4</div>
-            <div>[AUTH] Waiting for Chairman Lee Jaewan (Hyekong) authorization...</div>
-            <div>[NETWORK] 10 Distributed Interlocking Networks fully operational.</div>
+
+        <!-- 4. 내비게이터 (메뉴 보기) -->
+        <div class="card-box" onclick="alert('[내비게이터]\n백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업 메뉴를 엽니다.')">
+            <div class="card-left">
+                <div class="icon" style="background: rgba(247,127,0,0.2); border: 1px solid #f77f00;">🧭</div>
+                <div class="card-text">
+                    <h3>내비게이터 (메뉴 보기)</h3>
+                    <p>백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
+                </div>
+            </div>
+            <div class="arrow">&gt;</div>
+        </div>
+
+        <!-- 5. 유튜브와 틱톡 채널 연동 -->
+        <div class="card-box" onclick="alert('[유튜브와 틱톡 채널 연동]\nHK 통합 메인 허브 5번째 방송 센터를 실행합니다.')">
+            <div class="card-left">
+                <div class="icon" style="background: rgba(181,23,158,0.2); border: 1px solid #b5179e;">📺</div>
+                <div class="card-text">
+                    <h3>유튜브와 틱톡 채널 연동</h3>
+                    <p>HK 통합 메인 허브 5번째 방송 센터</p>
+                </div>
+            </div>
+            <div class="arrow">&gt;</div>
+        </div>
+
+        <!-- 하단 시스템 상태 안내 패널 -->
+        <div class="cluster-info-box">
+            <div>🛡️ <strong>Secure Core Status:</strong> v10.4 Active</div>
+            <div>⚡ <strong>10대 분산 연동망:</strong> 실시간 동기화 완료</div>
+        </div>
+
+        <div class="copyright">
+            © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved. | Complete Detailed Enterprise Edition
         </div>
     </div>
 
-    <script>
-        /* ==========================================================================
-           10. JAVASCRIPT LOGIC & ENTERPRISE INTERACTIVE CONTROLLERS
-           ========================================================================== */
-
-        // 24개 복구 구문 그리드 자동 렌더링 함수
-        function initPassphraseGrid() {
-            const grid = document.getElementById('passphraseGrid');
-            if (!grid) return;
-            let html = '';
-            for (let i = 1; i <= 24; i++) {
-                html += `<div class="word-pill">word${i}</div>`;
-            }
-            grid.innerHTML = html;
-        }
-
-        // 화면 전환 함수 (게이트웨이 <-> 통합 메인 허브)
-        function switchScreen(target) {
-            const gateway = document.getElementById('screen-gateway');
-            const hub = document.getElementById('screen-hub');
-            const buttons = document.querySelectorAll('.switcher-btn');
-
-            buttons.forEach(btn => btn.classList.remove('active'));
-
-            if (target === 'gateway') {
-                gateway.classList.add('active');
-                hub.classList.remove('active');
-                buttons[0].classList.add('active');
-                logConsole('Switched to Secure Gateway v10.4');
-            } else {
-                gateway.classList.remove('active');
-                hub.classList.add('active');
-                buttons[1].classList.add('active');
-                logConsole('Switched to HK Integrated Main Hub');
-            }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // 지문 인증 트리거 함수
-        function triggerBiometricAuth() {
-            logConsole('[BIOMETRIC] Scanning biometric signature for Chairman Lee Jaewan...');
-            setTimeout(() => {
-                logConsole('[BIOMETRIC] Signature verified. Accessing Main Hub...');
-                switchScreen('hub');
-            }, 850);
-        }
-
-        // 복구 구문 검증 및 대시보드 진입 함수
-        function verifyPassphraseAndEnter() {
-            logConsole('[PASSPHRASE] Verifying 24-word secure cryptographic sequence...');
-            setTimeout(() => {
-                logConsole('[PASSPHRASE] Cryptographic verification passed. Entering Hub...');
-                switchScreen('hub');
-            }, 950);
-        }
-
-        // 메인 허브 5대 핵심 기능 호출 핸들러
-        function openHubFeature(featureKey) {
-            const features = {
-                'asset': 'Personal Asset Dashboard (Balance & Pi Interest Management)',
-                'trade': 'Trade & Deposit Execution (10 Distributed Interlocking Networks)',
-                'pini': 'AGI Pini Customer Center (60+ Languages & Whitepaper AI)',
-                'navigator': 'Navigator Menu (100 Whitepapers, 20 FAQs, FATF, 8 Industries)',
-                'media': 'YouTube & TikTok Channel Interlocking Center'
-            };
-            logConsole(`[HUB] Executing module: ${features[featureKey]}`);
-            alert(`[HK Enterprise Hub]\n${features[featureKey]}\n\n정상적으로 실행되었습니다, 형님.`);
-        }
-
-        // 콘솔 로그 출력 유틸리티
-        function logConsole(message) {
-            const container = document.getElementById('consoleLogs');
-            if (!container) return;
-            const timeStr = new Date().toTimeString().split(' ')[0];
-            const div = document.createElement('div');
-            div.textContent = `[${timeStr}] ${message}`;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        // 실시간 시계 업데이트
-        setInterval(() => {
-            const clock = document.getElementById('liveClock');
-            if (clock) {
-                clock.textContent = new Date().toTimeString().split(' ')[0];
-            }
-        }, 1000);
-
-        // 초기 실행
-        window.addEventListener('DOMContentLoaded', () => {
-            initPassphraseGrid();
-            logConsole('HK WorldBank Mega Cluster Environment fully loaded.');
-        });
-    </script>
+    <!-- 하단 고정 독바 -->
+    <div class="dock-bar">
+        <div class="dock-item active" onclick="alert('자산 메뉴 선택')">
+            <span style="font-size: 17px;">📌</span>
+            <span>자산</span>
+        </div>
+        <div class="dock-item" onclick="alert('연동망 메뉴 선택')">
+            <span style="font-size: 17px;">⚡</span>
+            <span>연동망</span>
+        </div>
+        <div class="dock-item" onclick="alert('삐니 메뉴 선택')">
+            <span style="font-size: 17px;">🤖</span>
+            <span>삐니</span>
+        </div>
+        <div class="dock-item" onclick="alert('내비게이터 메뉴 선택')">
+            <span style="font-size: 17px;">🧭</span>
+            <span>내비게이터</span>
+        </div>
+        <div class="dock-item" onclick="alert('유튜브·틱톡 메뉴 선택')">
+            <span style="font-size: 17px;">📺</span>
+            <span>유튜브·틱톡</span>
+        </div>
+    </div>
 </body>
 </html>
+
