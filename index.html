@@ -3,563 +3,719 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLDBANK - Enterprise Master Edition (2000+ Lines Enterprise Core)</title>
+    <title>HK WORLDBANK & 메인 허브 통합 엔터프라이즈 플랫폼 (Enterprise Mega Cluster Edition v10.4)</title>
     <style>
+        /* ==========================================================================
+           01. ROOT CSS VARIABLES & ADVANCED THEME CONFIGURATION
+           ========================================================================== */
         :root {
-            --bg-dark: #0b0f19;
-            --bg-card: #131b2e;
-            --bg-card-hover: #1a2540;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --primary-blue: #3b82f6;
-            --primary-glow: rgba(59, 130, 246, 0.3);
-            --accent-yellow: #f59e0b;
-            --accent-green: #10b981;
-            --accent-purple: #8b5cf6;
-            --accent-pink: #ec4899;
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
+            --bg-color: #050b14;
+            --bg-gradient-start: #050b14;
+            --bg-gradient-end: #0e1726;
+            --panel-bg: rgba(14, 28, 48, 0.94);
+            --panel-border: rgba(65, 90, 119, 0.6);
+            --highlight-blue: #00b4d8;
+            --highlight-cyan: #48cae4;
+            --text-main: #ffffff;
+            --text-sub: #8d99ae;
+            --warning-orange: #f77f00;
+            --success-green: #2b9348;
+            --danger-red: #d62828;
+            --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* ==========================================================================
+           02. GLOBAL RESET & BASE STYLING
+           ========================================================================== */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 180, 216, 0.07) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(114, 9, 183, 0.07) 0%, transparent 45%),
+                linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding: 20px 10px 90px 10px;
+            padding: 35px 20px;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 720px;
-        }
-
-        /* 상단 프로필 및 언어 선택 바 */
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 18px 22px;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-
-        .profile-area {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .profile-avatar {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #ec4899, #8b5cf6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-            color: white;
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
-        }
-
-        .profile-info h2 {
-            font-size: 16px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .profile-info h2 span {
-            color: var(--accent-yellow);
-        }
-
-        .profile-info p {
-            font-size: 12px;
-            color: var(--text-sub);
-            margin-top: 4px;
-        }
-
-        .lang-select-box {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 10px 16px;
-            color: var(--text-main);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: background 0.2s;
-        }
-
-        .lang-select-box:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* 메인 허브 카드 리스트 */
-        .hub-list {
+            max-width: 980px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            margin-bottom: 30px;
+            gap: 28px;
         }
 
-        .hub-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 24px;
+        /* ==========================================================================
+           03. TOP CONTROL & NAVIGATION BAR
+           ========================================================================== */
+        .top-control-bar {
+            background: rgba(10, 20, 35, 0.85);
+            border: 1px solid var(--panel-border);
+            padding: 14px 24px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.45);
+        }
+
+        .brand-indicator {
+            font-size: 13.5px;
+            font-weight: bold;
+            color: var(--highlight-cyan);
+            letter-spacing: 0.8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .view-switcher {
+            display: flex;
+            gap: 12px;
+        }
+
+        .switcher-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--panel-border);
+            color: var(--text-sub);
+            padding: 9px 20px;
+            border-radius: 9px;
             cursor: pointer;
-            transition: all 0.25s ease;
+            font-size: 13.5px;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .switcher-btn.active, .switcher-btn:hover {
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            color: white;
+            border-color: var(--highlight-blue);
+            box-shadow: 0 0 18px rgba(0, 180, 216, 0.45);
+        }
+
+        /* ==========================================================================
+           04. SCREEN VIEW CONTAINERS
+           ========================================================================== */
+        .screen-view {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            animation: viewFadeIn 0.4s ease-in-out;
+        }
+
+        .screen-view.active {
+            display: flex;
+        }
+
+        @keyframes viewFadeIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================================================
+           05. GATEWAY BADGE & TYPOGRAPHY
+           ========================================================================== */
+        .gateway-badge {
+            background: rgba(247, 127, 0, 0.12);
+            border: 1px solid var(--warning-orange);
+            color: #ffb703;
+            padding: 7px 22px;
+            border-radius: 22px;
+            font-size: 12.5px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            letter-spacing: 0.9px;
+            box-shadow: 0 0 18px rgba(247, 127, 0, 0.25);
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: 0.8px;
+            text-align: center;
+            background: linear-gradient(to right, #ffffff, #90e0ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 13.5px;
+            color: var(--text-sub);
+            text-align: center;
+            margin-bottom: 28px;
+            line-height: 1.65;
+        }
+
+        /* ==========================================================================
+           06. CARD COMPONENTS & INTERACTIVE PANELS
+           ========================================================================== */
+        .card-box {
+            width: 100%;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 16px;
+            padding: 22px 26px;
+            margin-bottom: 18px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: transparent;
+            transition: background 0.3s;
+        }
+
+        .card-box:hover {
+            border-color: var(--highlight-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 18px 40px rgba(0, 180, 216, 0.3);
+        }
+
+        .card-box:hover::after {
+            background: var(--highlight-blue);
+        }
+
+        .card-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
-        .hub-card:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 20px var(--primary-glow);
-            transform: translateY(-2px);
-        }
-
-        .hub-card-left {
+        .card-title-group {
             display: flex;
             align-items: center;
             gap: 18px;
         }
 
-        .hub-icon {
-            width: 50px;
-            height: 50px;
+        .icon-circle {
+            width: 46px;
+            height: 46px;
             border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 20px;
             flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.35);
         }
 
-        .icon-red { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        .icon-yellow { background: rgba(245, 158, 11, 0.2); color: var(--accent-yellow); }
-        .icon-purple { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
-        .icon-gold { background: rgba(217, 119, 6, 0.2); color: #fbbf24; }
-        .icon-pink { background: rgba(236, 72, 153, 0.2); color: var(--accent-pink); }
+        .icon-blue { background: linear-gradient(135deg, #0077b6, #03045e); color: #fff; }
+        .icon-green { background: linear-gradient(135deg, #2b9348, #55a630); color: #fff; }
+        .icon-purple { background: linear-gradient(135deg, #7209b7, #3a0ca3); color: #fff; }
+        .icon-orange { background: linear-gradient(135deg, #f77f00, #d62828); color: #fff; }
+        .icon-pink { background: linear-gradient(135deg, #b5179e, #7209b7); color: #fff; }
 
-        .hub-text h3 {
-            font-size: 17px;
-            font-weight: 600;
+        .card-text h3 {
+            font-size: 16px;
+            font-weight: 700;
             margin-bottom: 6px;
+            color: #ffffff;
         }
 
-        .hub-text p {
-            font-size: 13px;
+        .card-text p {
+            font-size: 12.5px;
             color: var(--text-sub);
-            line-height: 1.4;
+            line-height: 1.45;
         }
 
-        .arrow {
+        .arrow-icon {
             color: var(--text-sub);
             font-size: 18px;
-            font-weight: 600;
+            transition: transform 0.3s;
         }
 
-        /* 하단 고정 네비게이션 바 */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            z-index: 100;
+        .card-box:hover .arrow-icon {
+            transform: translateX(5px);
+            color: var(--highlight-cyan);
         }
 
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
+        /* ==========================================================================
+           07. PASSPHRASE 24-WORD GRID INTERFACE
+           ========================================================================== */
+        .passphrase-container {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .passphrase-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .word-pill {
+            background: rgba(8, 16, 28, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 8px 4px;
+            font-size: 11.5px;
             color: var(--text-sub);
-            font-size: 11px;
-            cursor: pointer;
-            transition: color 0.2s;
-            background: none;
+            text-align: center;
+            border-radius: 6px;
+            font-family: monospace;
+            transition: var(--transition-smooth);
+        }
+
+        .word-pill:hover {
+            border-color: var(--highlight-blue);
+            color: var(--text-main);
+            background: rgba(0, 180, 216, 0.12);
+        }
+
+        .verify-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            color: white;
             border: none;
-        }
-
-        .nav-item.active, .nav-item:hover {
-            color: var(--accent-yellow);
-        }
-
-        .nav-icon {
-            font-size: 18px;
-        }
-
-        /* 모달 팝업 창 스타일 */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(6px);
-            z-index: 1000;
-            justify-content: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
             align-items: center;
-            padding: 20px;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 5px 18px rgba(0, 180, 216, 0.35);
         }
 
-        .modal-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
+        .verify-btn:hover {
+            filter: brightness(1.15);
+            transform: translateY(-1px);
+        }
+
+        /* ==========================================================================
+           08. FOOTER INFO & MOBILE DOCK BAR
+           ========================================================================== */
+        .footer-info {
             width: 100%;
-            max-width: 680px;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 30px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
-            animation: modalUp 0.3s ease;
-        }
-
-        @keyframes modalUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-
-        .modal-header h2 {
-            font-size: 19px;
-            font-weight: 700;
-            color: var(--accent-yellow);
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
+            font-size: 12px;
             color: var(--text-sub);
-            font-size: 22px;
+            margin-top: 18px;
+            padding: 0 6px;
+        }
+
+        .dock-bar {
+            width: 100%;
+            background: rgba(10, 20, 35, 0.96);
+            border: 1px solid var(--panel-border);
+            border-radius: 35px;
+            padding: 14px 28px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 28px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(14px);
+        }
+
+        .dock-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
             cursor: pointer;
+            opacity: 0.65;
+            transition: var(--transition-smooth);
         }
 
-        .modal-body {
-            font-size: 14px;
-            color: var(--text-sub);
-            line-height: 1.7;
+        .dock-item:hover, .dock-item.active {
+            opacity: 1;
+            transform: translateY(-3px);
         }
 
-        .sub-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .sub-item {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-color);
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 13px;
-        }
-
-        .sub-item b {
-            color: var(--text-main);
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .footer-info {
-            text-align: center;
+        .dock-item span {
             font-size: 11px;
             color: var(--text-sub);
-            margin-top: 30px;
-            padding-bottom: 20px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
+            font-weight: 600;
         }
 
-        @media (max-width: 480px) {
-            .sub-grid { grid-template-columns: 1fr; }
+        .dock-item.active span {
+            color: var(--highlight-cyan);
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 11.5px;
+            color: var(--text-sub);
+            margin-top: 22px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+            width: 100%;
+            letter-spacing: 0.6px;
+        }
+
+        /* ==========================================================================
+           09. SYSTEM LOG / CONSOLE MODAL
+           ========================================================================== */
+        .console-modal {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 400px;
+            background: rgba(8, 15, 26, 0.96);
+            border: 1px solid var(--highlight-blue);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            z-index: 9999;
+            font-family: monospace;
+            font-size: 11.5px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--highlight-cyan);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .console-body {
+            max-height: 130px;
+            overflow-y: auto;
+            color: #a5d6a7;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            .passphrase-grid { grid-template-columns: repeat(4, 1fr); }
+            .console-modal { width: calc(100% - 30px); left: 15px; right: 15px; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- 상단 프로필 및 언어 선택 -->
-    <div class="top-bar">
-        <div class="profile-area">
-            <div class="profile-avatar">HK</div>
-            <div class="profile-info">
-                <h2><span>✨</span> 회장 이재완 (혜공) | 개인사업자</h2>
-                <p>최고경영 (Chairman & CEO) | Enterprise Master</p>
+    <div class="container">
+        <!-- 상단 브랜드 및 화면 전환 컨트롤 바 -->
+        <div class="top-control-bar">
+            <div class="brand-indicator">⚡ HK ENTERPRISE SECURE CLUSTER ARCHITECTURE</div>
+            <div class="view-switcher">
+                <button class="switcher-btn active" onclick="switchScreen('gateway')">1. 보안 게이트웨이</button>
+                <button class="switcher-btn" onclick="switchScreen('hub')">2. 통합 메인 허브</button>
             </div>
         </div>
-        <div class="lang-select-box" onclick="openModal('langModal')">
-            🇰🇷 한국어 (60개국어) ▾
-        </div>
-    </div>
 
-    <!-- 5대 메인 허브 카드 리스트 -->
-    <div class="hub-list">
-        <!-- 1. 개인 자산 대시보드 -->
-        <div class="hub-card" onclick="openModal('assetModal')">
-            <div class="hub-card-left">
-                <div class="hub-icon icon-red">📌</div>
-                <div class="hub-text">
-                    <h3>개인 자산 대시보드</h3>
-                    <p>실시간 잔액 및 PI코인·누적 이자 관리</p>
+        <!-- ==========================================================================
+           화면 1: HK WORLDBANK 보안 게이트웨이 (Enterprise Edition v10.4)
+           ========================================================================== -->
+        <div id="screen-gateway" class="screen-view active">
+            <div class="gateway-badge">
+                🔒 SECURE GATEWAY v10.4 - ENTERPRISE EDITION
+            </div>
+            <h1>HK WORLDBANK 보안 게이트웨이</h1>
+            <p class="subtitle">회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 관리를 위한 필수 보안 인증 단계입니다.<br>아래 인증 수단을 선택하여 접속하십시오.</p>
+
+            <!-- 인증 카드 1: 지문 우선 잠금 해제 -->
+            <div class="card-box" onclick="triggerBiometricAuth()">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <div class="icon-circle icon-blue">👆</div>
+                        <div class="card-text">
+                            <h3>지문 우선 잠금 해제 (Biometric Auth)</h3>
+                            <p>모바일 기기 연동 실시간 생체 지문 인식 및 원터치 인증 시스템</p>
+                        </div>
+                    </div>
+                    <div class="arrow-icon">→</div>
                 </div>
             </div>
-            <div class="arrow">›</div>
-        </div>
 
-        <!-- 2. 사고 팔고 예금하기 (10대 분산 연동망) -->
-        <div class="hub-card" onclick="openModal('networkModal')">
-            <div class="hub-card-left">
-                <div class="hub-icon icon-yellow">⚡</div>
-                <div class="hub-text">
-                    <h3>사고 팔고 예금하기</h3>
-                    <p>10대 분산 연동망 상세 프로세스 실행</p>
+            <!-- 인증 카드 2: 비밀번호 및 복구 구문 잠금 해제 (24개 단어) -->
+            <div class="card-box" style="border-color: rgba(247, 127, 0, 0.65);">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <div class="icon-circle icon-green">🔑</div>
+                        <div class="card-text">
+                            <h3>비밀번호 및 복구 구문 잠금 해제</h3>
+                            <p>24개 단어 복구 구문 (PASSPHRASE) 입력 기반 강력한 보안 접속</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="passphrase-container">
+                    <div class="passphrase-grid" id="passphraseGrid">
+                        <!-- Javascript를 통해 24개 워드 필드 자동 생성 및 관리 -->
+                    </div>
+                    <button class="verify-btn" onclick="verifyPassphraseAndEnter()">🔑 구문 검증 및 대시보드 진입</button>
                 </div>
             </div>
-            <div class="arrow">›</div>
-        </div>
 
-        <!-- 3. 고객센터 AGI 삐니 -->
-        <div class="hub-card" onclick="openModal('piniModal')">
-            <div class="hub-card-left">
-                <div class="hub-icon icon-purple">🤖</div>
-                <div class="hub-text">
-                    <h3>고객센터 AGI 삐니</h3>
-                    <p>60개국어 뼈속까지 변환 AI 삐니 실시간 구동</p>
+            <!-- 인증 카드 3: 둘러보기 (Guest Preview) -->
+            <div class="card-box" onclick="switchScreen('hub')">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <div class="icon-circle icon-blue">🌐</div>
+                        <div class="card-text">
+                            <h3>둘러보기 (Guest Preview Access)</h3>
+                            <p>인증 없이 플랫폼 대시보드 및 내비게이터 구조 미리보기 체험</p>
+                        </div>
+                    </div>
+                    <div class="arrow-icon">→</div>
                 </div>
             </div>
-            <div class="arrow">›</div>
+
+            <div class="footer-info">
+                <span>발신: HK 그룹 회장 이재완 (혜공)</span>
+                <span>HK WorldBank Secure Core v10.4</span>
+            </div>
         </div>
 
-        <!-- 4. 내비게이터 (메뉴 보기) -->
-        <div class="hub-card" onclick="openModal('navModal')">
-            <div class="hub-card-left">
-                <div class="hub-icon icon-gold">🧭</div>
-                <div class="hub-text">
-                    <h3>내비게이터 (메뉴 보기)</h3>
-                    <p>백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
+        <!-- ==========================================================================
+           화면 2: HK 통합 메인 허브 (5대 핵심 기능 및 에코시스템)
+           ========================================================================== -->
+        <div id="screen-hub" class="screen-view">
+            <h1>HK 통합 메인 허브</h1>
+            <p class="subtitle">5대 핵심 기능 및 에코시스템 바로가기</p>
+
+            <!-- 허브 카드 1: 개인 자산 대시보드 -->
+            <div class="card-box" onclick="openHubFeature('asset')">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <div class="icon-circle icon-pink">⭐</div>
+                        <div class="card-text">
+                            <h3>개인 자산 대시보드</h3>
+                            <p>실시간 잔액 및 Pi코인 누적 이자 관리</p>
+                        </div>
+                    </div>
+                    <div class="arrow-icon">→</div>
                 </div>
             </div>
-            <div class="arrow">›</div>
-        </div>
 
-        <!-- 5. 유튜브와 틱톡 채널 연동 -->
-        <div class="hub-card" onclick="openModal('mediaModal')">
-            <div class="hub-card-left">
-                <div class="hub-icon icon-pink">🎬</div>
-                <div class="hub-text">
-                    <h3>유튜브와 틱톡 채널 연동</h3>
-                    <p>HK 통합 메인 허브 5번째 방송 센터</p>
+            <!-- 허브 카드 2: 사고 팔고 예금하기 -->
+            <div class="card-box" onclick="openHubFeature('trade')">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <div class="icon-circle icon-green">⚡</div>
+                        <div class="card-text">
+                            <h3>사고 팔고 예금하기</h3>
+                            <p>10대 분산 연동망 상세 프로세스 실행</p>
+                        </div>
+                    </div>
+                    <div class="arrow-icon">→</div>
                 </div>
             </div>
-            <div class="arrow">›</div>
-        </div>
-    </div>
 
-    <div class="footer-info">
-        © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved. | Enterprise Master Edition
-    </div>
-</div>
-
-<!-- 하단 고정 네비게이션 탭 -->
-<nav class="bottom-nav">
-    <button class="nav-item active" onclick="openModal('assetModal')">
-        <span class="nav-icon">📌</span>
-        <span>자산</span>
-    </button>
-    <button class="nav-item" onclick="openModal('networkModal')">
-        <span class="nav-icon">⚡</span>
-        <span>연동망</span>
-    </button>
-    <button class="nav-item" onclick="openModal('piniModal')">
-        <span class="nav-icon">🤖</span>
-        <span>삐니</span>
-    </button>
-    <button class="nav-item" onclick="openModal('navModal')">
-        <span class="nav-icon">🧭</span>
-        <span>내비게이터</span>
-    </button>
-    <button class="nav-item" onclick="openModal('mediaModal')">
-        <span class="nav-icon">🎬</span>
-        <span>유튜브·틱톡</span>
-    </button>
-</nav>
-
-<!-- 모달 팝업 컴포넌트들 -->
-<div id="assetModal" class="modal-overlay" onclick="closeModal(event, 'assetModal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>📌 개인 자산 대시보드 (Enterprise Ledger)</h2>
-            <button class="close-btn" onclick="closeModalDirect('assetModal')">&times;</button>
-        </div>
-        <div class="modal-body">
-            <p>회장님(혜공) 통합 자산 총액 및 Pi Ledger 실시간 연동 현황입니다.</p>
-            <div style="background: rgba(245,158,11,0.1); border: 1px solid var(--accent-yellow); padding: 18px; border-radius: 14px; margin: 15px 0; text-align: center;">
-                <div style="font-size: 13px; color: var(--text-sub);">총 보유 자산 평가액</div>
-                <div style="font-size: 26px; font-weight: 700; color: var(--accent-yellow); margin-top: 5px;">₩ 128,450,000</div>
-            </div>
-            <div class="sub-grid">
-                <div class="sub-item"><b>Pi 코인 수량</b>12,500 PI (메인넷 싱크 완료)</div>
-                <div class="sub-item"><b>누적 이자 수익</b>₩ 4,250,000 (일일 정산)</div>
-                <div class="sub-item"><b>LP 스테이킹</b>활성 유동성 풀 연동 중</div>
-                <div class="sub-item"><b>기본소득 (UBI)</b>메가클러스터 배분 대기</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="networkModal" class="modal-overlay" onclick="closeModal(event, 'networkModal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>⚡ 10대 분산 연동망 상세 프로세스</h2>
-            <button class="close-btn" onclick="closeModalDirect('networkModal')">&times;</button>
-        </div>
-        <div class="modal-body">
-            <p>HK WorldBank 핵심 10대 분산 연동망 실시간 실행 제어 센터입니다.</p>
-            <div class="sub-grid">
-                <div class="sub-item"><b>01. 지갑연결 (Wallet)</b>Quantum Key 하드웨어 연동</div>
-                <div class="sub-item"><b>02. 송금 (Transfer)</b>초고속 글로벌 즉시 전송</div>
-                <div class="sub-item"><b>03. 결제 (Payment)</b>온·오프라인 스마트 결제</div>
-                <div class="sub-item"><b>04. 예치 (Deposit)</b>안전 자산 예치 및 이자 수취</div>
-                <div class="sub-item"><b>05. 보상 (Reward)</b>생태계 기여 리워드 분배</div>
-                <div class="sub-item"><b>06. 기본소득 (UBI)</b>메가클러스터 기본소득</div>
-                <div class="sub-item"><b>07. 스왑 (Swap)</b>멀티체인 원클릭 교환</div>
-                <div class="sub-item"><b>08. DEX 스왑</b>탈중앙화 오더북 풀 연동</div>
-                <div class="sub-item"><b>09. LP 스테이킹</b>유동성 공급 보상 프로토콜</div>
-                <div class="sub-item"><b>10. PI 수량</b>Pi 네트워크 물량 통합 관리</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="piniModal" class="modal-overlay" onclick="closeModal(event, 'piniModal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>🤖 고객센터 AGI 삐니</h2>
-            <button class="close-btn" onclick="closeModalDirect('piniModal')">&times;</button>
-        </div>
-        <div class="modal-body">
-            <div style="background: rgba(139,92,246,0.15); border: 1px solid var(--accent-purple); padding: 18px; border-radius: 14px; margin-bottom: 15px;">
-                <p style="color: var(--text-main); font-weight: 600;">"회장님(혜공 형님), 60개국어 통번역 및 10대 분산 연동망 관리가 완벽히 대기 중입니다. 무엇을 지시하시겠습니까?"</p>
-            </div>
-            <p>• 60개국 글로벌 언어 실시간 음성·텍스트 변환 엔진 가동 중<br>• 24시간 실시간 AI 자산 리스크 방어 및 보안 검증</p>
-        </div>
-    </div>
-</div>
-
-<div id="navModal" class="modal-overlay" onclick="closeModal(event, 'navModal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>🧭 내비게이터 (메뉴 보기)</h2>
-            <button class="close-btn" onclick="closeModalDirect('navModal')">&times;</button>
-        </div>
-        <div class="modal-body">
-            <p>HK 그룹 메가클러스터 핵심 아키텍처 및 규정 아카이브입니다.</p>
-            <div class="sub-grid">
-                <div class="sub-item"><b>백서 100선</b>글로벌 기술 및 경제 백서 아카이브</div>
-                <div class="sub-item"><b>FAQ 20선</b>플랫폼 이용 주요 질의응답 모음</div>
-                <div class="sub-item"><b>3대 Policies</b>보안·개인정보·운영 정책 가이드</div>
-                <div class="sub-item"><b>FATF 규정</b>자금세탁방지 국제 금융 규제 준수</div>
-                <div class="sub-item"><b>21개국법 연동</b>국가별 컴플라이언스 및 법률 뷰</div>
-                <div class="sub-item"><b>8대 산업 마스터</b>로보틱스·UAM·우주항공·양자생물 등</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="mediaModal" class="modal-overlay" onclick="closeModal(event, 'mediaModal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>🎬 유튜브와 틱톡 채널 연동</h2>
-            <button class="close-btn" onclick="closeModalDirect('mediaModal')">&times;</button>
-        </div>
-        <div class="modal-body">
-            <p>HK 통합 메인 허브 5번째 방송 센터 및 미디어 스트리밍 연동 모듈입니다.</p>
-            <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
-                <div style="background: rgba(255,255,255,0.04); padding: 14px; border-radius: 12px; border: 1px solid var(--border-color);">
-                    🔴 <b>YouTube Live</b>: HK 메가클러스터 브리핑 실시간 송출
-                </div>
-                <div style="background: rgba(255,255,255,0.04); padding: 14px; border-radius: 12px; border: 1px solid var(--border-color);">
-                    🎵 <b>TikTok Channel</b>: 해오름 특례시 및 금융 플랫폼 쇼츠 피드 연동
+            <!-- 허브 카드 3: 고객센터 AGI 삐니 -->
+            <div class="card-box" onclick="openHubFeature('pini')">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <div class="icon-circle icon-purple">🤖</div>
+                        <div class="card-text">
+                            <h3>고객센터 AGI 삐니</h3>
+                            <p>60개국어 백서까지 변환 AI 삐니 실시간 구동</p>
+                        </div>
+                    </div>
+                    <div class="arrow-icon">→</div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<div id="langModal" class="modal-overlay" onclick="closeModal(event, 'langModal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>🌐 60개국어 글로벌 로컬라이제이션</h2>
-            <button class="close-btn" onclick="closeModalDirect('langModal')">&times;</button>
-        </div>
-        <div class="modal-body">
-            <p>지원 중인 글로벌 주요 언어를 선택하여 실시간 플랫폼 렌더링을 갱신하세요.</p>
-            <div class="sub-grid" style="margin-top: 15px;">
-                <div class="sub-item" style="cursor: pointer; text-align: center;" onclick="alert('한국어로 전환되었습니다.')">🇰🇷 한국어 (Korean)</div>
-                <div class="sub-item" style="cursor: pointer; text-align: center;" onclick="alert('English selected.')">🇺🇸 English</div>
-                <div class="sub-item" style="cursor: pointer; text-align: center;" onclick="alert('已切换至中文.')">🇨🇳 中文 (Chinese)</div>
-                <div class="sub-item" style="cursor: pointer; text-align: center;" onclick="alert('日本語に切り替えました.')">🇯🇵 日本語 (Japanese)</div>
-                <div class="sub-item" style="cursor: pointer; text-align: center;" onclick="alert('Tiếng Việt đã chọn.')">🇻🇳 Tiếng Việt</div>
-                <div class="sub-item" style="cursor: pointer; text-align: center;" onclick="alert('Bahasa Indonesia.')">🇮🇩 Bahasa Indonesia</div>
+            <!-- 허브 카드 4: 내비게이터 (메뉴 보기) -->
+            <div class="card-box" onclick="openHubFeature('navigator')">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <div class="icon-circle icon-orange">🧭</div>
+                        <div class="card-text">
+                            <h3>내비게이터 (메뉴 보기)</h3>
+                            <p>백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
+                        </div>
+                    </div>
+                    <div class="arrow-icon">→</div>
+                </div>
+            </div>
+
+            <!-- 허브 카드 5: 유튜브와 틱톡 채널 연동 -->
+            <div class="card-box" onclick="openHubFeature('media')">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <div class="icon-circle icon-pink">📺</div>
+                        <div class="card-text">
+                            <h3>유튜브와 틱톡 채널 연동</h3>
+                            <p>HK 통합 메인 허브 5번째 방송 센터</p>
+                        </div>
+                    </div>
+                    <div class="arrow-icon">→</div>
+                </div>
+            </div>
+
+            <!-- 하단 독바 (Dock Bar) -->
+            <div class="dock-bar">
+                <div class="dock-item active" onclick="openHubFeature('asset')">
+                    <span style="font-size: 18px;">⭐</span>
+                    <span>자산</span>
+                </div>
+                <div class="dock-item" onclick="openHubFeature('trade')">
+                    <span style="font-size: 18px;">⚡</span>
+                    <span>연동망</span>
+                </div>
+                <div class="dock-item" onclick="openHubFeature('pini')">
+                    <span style="font-size: 18px;">🤖</span>
+                    <span>삐니</span>
+                </div>
+                <div class="dock-item" onclick="openHubFeature('navigator')">
+                    <span style="font-size: 18px;">🧭</span>
+                    <span>내비게이터</span>
+                </div>
+                <div class="dock-item" onclick="openHubFeature('media')">
+                    <span style="font-size: 18px;">📺</span>
+                    <span>유튜브·틱톡</span>
+                </div>
+            </div>
+
+            <div class="copyright">
+                © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved. | Complete Detailed Enterprise Edition
             </div>
         </div>
+
     </div>
-</div>
 
-<script>
-    function openModal(modalId) {
-        document.getElementById(modalId).style.display = 'flex';
-    }
+    <!-- 실시간 시스템 콘솔 및 시뮬레이션 로그창 -->
+    <div class="console-modal">
+        <div class="console-header">
+            <span>🛡️ HK SECURE CORE CONSOLE</span>
+            <span style="color: #a5d6a7; font-size: 10px;" id="liveClock">00:00:00</span>
+        </div>
+        <div class="console-body" id="consoleLogs">
+            <div>[SYSTEM] Initialized Secure Gateway v10.4</div>
+            <div>[AUTH] Waiting for Chairman Lee Jaewan (Hyekong) authorization...</div>
+            <div>[NETWORK] 10 Distributed Interlocking Networks fully operational.</div>
+        </div>
+    </div>
 
-    function closeModalDirect(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-    }
+    <script>
+        /* ==========================================================================
+           10. JAVASCRIPT LOGIC & ENTERPRISE INTERACTIVE CONTROLLERS
+           ========================================================================== */
 
-    function closeModal(event, modalId) {
-        if (event.target.id === modalId) {
-            document.getElementById(modalId).style.display = 'none';
+        // 24개 복구 구문 그리드 자동 렌더링 함수
+        function initPassphraseGrid() {
+            const grid = document.getElementById('passphraseGrid');
+            if (!grid) return;
+            let html = '';
+            for (let i = 1; i <= 24; i++) {
+                html += `<div class="word-pill">word${i}</div>`;
+            }
+            grid.innerHTML = html;
         }
-    }
-</script>
 
+        // 화면 전환 함수 (게이트웨이 <-> 통합 메인 허브)
+        function switchScreen(target) {
+            const gateway = document.getElementById('screen-gateway');
+            const hub = document.getElementById('screen-hub');
+            const buttons = document.querySelectorAll('.switcher-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            if (target === 'gateway') {
+                gateway.classList.add('active');
+                hub.classList.remove('active');
+                buttons[0].classList.add('active');
+                logConsole('Switched to Secure Gateway v10.4');
+            } else {
+                gateway.classList.remove('active');
+                hub.classList.add('active');
+                buttons[1].classList.add('active');
+                logConsole('Switched to HK Integrated Main Hub');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 지문 인증 트리거 함수
+        function triggerBiometricAuth() {
+            logConsole('[BIOMETRIC] Scanning biometric signature for Chairman Lee Jaewan...');
+            setTimeout(() => {
+                logConsole('[BIOMETRIC] Signature verified. Accessing Main Hub...');
+                switchScreen('hub');
+            }, 850);
+        }
+
+        // 복구 구문 검증 및 대시보드 진입 함수
+        function verifyPassphraseAndEnter() {
+            logConsole('[PASSPHRASE] Verifying 24-word secure cryptographic sequence...');
+            setTimeout(() => {
+                logConsole('[PASSPHRASE] Cryptographic verification passed. Entering Hub...');
+                switchScreen('hub');
+            }, 950);
+        }
+
+        // 메인 허브 5대 핵심 기능 호출 핸들러
+        function openHubFeature(featureKey) {
+            const features = {
+                'asset': 'Personal Asset Dashboard (Balance & Pi Interest Management)',
+                'trade': 'Trade & Deposit Execution (10 Distributed Interlocking Networks)',
+                'pini': 'AGI Pini Customer Center (60+ Languages & Whitepaper AI)',
+                'navigator': 'Navigator Menu (100 Whitepapers, 20 FAQs, FATF, 8 Industries)',
+                'media': 'YouTube & TikTok Channel Interlocking Center'
+            };
+            logConsole(`[HUB] Executing module: ${features[featureKey]}`);
+            alert(`[HK Enterprise Hub]\n${features[featureKey]}\n\n정상적으로 실행되었습니다, 형님.`);
+        }
+
+        // 콘솔 로그 출력 유틸리티
+        function logConsole(message) {
+            const container = document.getElementById('consoleLogs');
+            if (!container) return;
+            const timeStr = new Date().toTimeString().split(' ')[0];
+            const div = document.createElement('div');
+            div.textContent = `[${timeStr}] ${message}`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // 실시간 시계 업데이트
+        setInterval(() => {
+            const clock = document.getElementById('liveClock');
+            if (clock) {
+                clock.textContent = new Date().toTimeString().split(' ')[0];
+            }
+        }, 1000);
+
+        // 초기 실행
+        window.addEventListener('DOMContentLoaded', () => {
+            initPassphraseGrid();
+            logConsole('HK WorldBank Mega Cluster Environment fully loaded.');
+        });
+    </script>
 </body>
 </html>
