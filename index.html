@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLD BANK - 메인 허브 & 보안 게이트웨이</title>
+    <title>HK WORLD BANK - 보안 게이트웨이 & 메인 허브</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -146,7 +146,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 1. 보안 게이트웨이 뷰 스타일 */
+        /* 1. 보안 게이트웨이 뷰 */
         .gateway-banner {
             background: rgba(245, 158, 11, 0.08);
             border: 1px solid rgba(245, 158, 11, 0.4);
@@ -236,7 +236,7 @@
             color: #10b981;
         }
 
-        /* 2. HK 통합 메인 허브 뷰 스타일 */
+        /* 2. HK 통합 메인 허브 뷰 */
         .hub-title {
             text-align: center;
             margin: 10px 0 20px;
@@ -310,254 +310,4 @@
 
         .menu-info p {
             font-size: 11.5px;
-            color: var(--text-sub);
-            line-height: 1.35;
-        }
-
-        .arrow-icon {
-            color: var(--text-sub);
-            font-size: 13px;
-        }
-
-        /* 공통 카피라이트 */
-        .copyright-text {
-            text-align: center;
-            font-size: 10.5px;
-            color: #64748b;
-            margin-top: 24px;
-            line-height: 1.5;
-        }
-
-        /* 하단 고정 네비게이션 툴바 */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(5, 10, 20, 0.95);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0;
-            z-index: 1000;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            color: var(--text-sub);
-            font-size: 10px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: color 0.2s;
-            background: none;
-            border: none;
-            width: 20%;
-        }
-
-        .nav-item i {
-            font-size: 15px;
-        }
-
-        .nav-item.active {
-            color: var(--neon-blue);
-        }
-    </style>
-</head>
-<body>
-
-    <!-- 상단 헤더 및 탭 전환 스위치 (1. 보안게이트웨이 / 2. 통합메인허브) -->
-    <div class="app-header">
-        <div class="header-card">
-            <div class="header-left">
-                <div class="title-badge"><i class="fa-solid fa-bolt"></i> HK ENTERPRISE</div>
-                <h2>SECURE CLUSTER<br>ARCHITECTURE</h2>
-            </div>
-            <div class="header-tabs">
-                <button class="vertical-tab active" id="tab1-btn" onclick="switchTab('gateway')">
-                    <span class="tab-num">1.</span>
-                    <span class="tab-text">보안게이트웨이</span>
-                </button>
-                <button class="vertical-tab" id="tab2-btn" onclick="switchTab('hub')">
-                    <span class="tab-num">2.</span>
-                    <span class="tab-text">통합메인허브</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 1. 보안 게이트웨이 뷰 (기본 활성화) -->
-    <main id="gateway-view" class="view-content active">
-        <div class="gateway-banner">
-            <i class="fa-solid fa-lock"></i> SECURE GATEWAY v10.4 - ENTERPRISE EDITION
-        </div>
-
-        <div class="gateway-title-section">
-            <h2>HK WORLDBANK 보안 게이트웨이</h2>
-            <p>회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 시스템</p>
-        </div>
-
-        <div class="console-box">
-            <div class="console-header">
-                <div class="console-header-title">
-                    <i class="fa-solid fa-shield"></i> HK SECURE CORE CONSOLE
-                </div>
-                <div class="console-time" id="clock">20:31:25</div>
-            </div>
-            <div class="console-logs">
-                <div class="log-item">
-                    [AUTH] Waiting for Chairman Lee Jaewan (Hyekong) authorization...
-                </div>
-                <div class="log-item">
-                    [NETWORK] <span class="highlight">10 Distributed Interlocking Networks</span> fully operational.
-                </div>
-                <div class="log-item">
-                    [<span id="log-time">20:30:58</span>] HK WorldBank Mega Cluster Environment <span class="status">fully loaded.</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="copyright-text">
-            © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved.<br>
-            Complete Detailed Enterprise Edition
-        </div>
-    </main>
-
-    <!-- 2. HK 통합 메인 허브 뷰 -->
-    <main id="hub-view" class="view-content">
-        <div class="hub-title">
-            <h1>HK 통합 메인 허브</h1>
-            <p>5대 핵심 기능 및 에코시스템 바로가기</p>
-        </div>
-
-        <div class="menu-list">
-            <a href="#" class="menu-card" onclick="alert('개인 자산 대시보드로 이동합니다.'); return false;">
-                <div class="menu-left">
-                    <div class="icon-box"><i class="fa-solid fa-star"></i></div>
-                    <div class="menu-info">
-                        <h3>개인 자산 대시보드</h3>
-                        <p>실시간 잔액 및 Pi코인·누적 이자 관리</p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <a href="#" class="menu-card" onclick="alert('10대 분산 연동망 프로세스로 이동합니다.'); return false;">
-                <div class="menu-left">
-                    <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
-                    <div class="menu-info">
-                        <h3>사고 팔고 예금하기</h3>
-                        <p>10대 분산 연동망 상세 프로세스 실행</p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <a href="#" class="menu-card" onclick="alert('AGI 삐니와 연결합니다.'); return false;">
-                <div class="menu-left">
-                    <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
-                    <div class="menu-info">
-                        <h3>고객센터 AGI 삐니</h3>
-                        <p>60개국어 뼈속까지 변환 AI 삐니 실시간 구동</p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <a href="#" class="menu-card" onclick="alert('내비게이터 메뉴를 열람합니다.'); return false;">
-                <div class="menu-left">
-                    <div class="icon-box"><i class="fa-solid fa-compass"></i></div>
-                    <div class="menu-info">
-                        <h3>내비게이터 (메뉴 보기)</h3>
-                        <p>백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <a href="#" class="menu-card" onclick="alert('유튜브 및 틱톡 방송 센터로 이동합니다.'); return false;">
-                <div class="menu-left">
-                    <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
-                    <div class="menu-info">
-                        <h3>유튜브와 틱톡 채널 연동</h3>
-                        <p>HK 통합 메인 허브 5번째 방송 센터</p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
-        </div>
-
-        <div class="copyright-text">
-            © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved.<br>
-            Complete Detailed Enterprise Edition
-        </div>
-    </main>
-
-    <!-- 하단 고정 네비게이션 툴바 -->
-    <nav class="bottom-nav">
-        <button class="nav-item" onclick="switchTab('hub')">
-            <i class="fa-solid fa-star"></i>
-            <span>자산</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('hub')">
-            <i class="fa-solid fa-bolt"></i>
-            <span>명령실행</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('hub')">
-            <i class="fa-solid fa-robot"></i>
-            <span>삐니</span>
-        </button>
-        <button class="nav-item active" onclick="switchTab('hub')">
-            <i class="fa-solid fa-compass"></i>
-            <span>내비게이터</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('hub')">
-            <i class="fa-solid fa-headset"></i>
-            <span>유튜브·틱톡</span>
-        </button>
-    </nav>
-
-    <script>
-        // 상단 탭 전환 함수
-        function switchTab(tabName) {
-            const hubView = document.getElementById('hub-view');
-            const gatewayView = document.getElementById('gateway-view');
-            const tab1Btn = document.getElementById('tab1-btn');
-            const tab2Btn = document.getElementById('tab2-btn');
-
-            if (tabName === 'gateway') {
-                gatewayView.classList.add('active');
-                hubView.classList.remove('active');
-                tab1Btn.classList.add('active');
-                tab2Btn.classList.remove('active');
-            } else {
-                hubView.classList.add('active');
-                gatewayView.classList.remove('active');
-                tab2Btn.classList.add('active');
-                tab1Btn.classList.remove('active');
-            }
-        }
-
-        // 실시간 콘솔 시계 업데이트
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            
-            const clockEl = document.getElementById('clock');
-            if (clockEl) {
-                clockEl.textContent = `${hours}:${minutes}:${seconds}`;
-            }
-        }
-
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
-</body>
-</html>
+            color: var(--
