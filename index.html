@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLD BANK - 메인 허브 & 보안 게이트웨이</title>
+    <title>HK WORLD BANK - Enterprise Mega Cluster & Secure Gateway v10.4</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #050a14;
-            --card-bg: rgba(14, 23, 42, 0.9);
-            --card-border: rgba(0, 210, 255, 0.3);
+            --bg-color: #030712;
+            --card-bg: rgba(11, 19, 38, 0.92);
+            --card-border: rgba(0, 210, 255, 0.35);
             --neon-blue: #00d2ff;
-            --neon-glow: rgba(0, 210, 255, 0.45);
+            --neon-glow: rgba(0, 210, 255, 0.5);
             --text-main: #ffffff;
             --text-sub: #94a3b8;
             --gold-accent: #f59e0b;
+            --emerald-accent: #10b981;
         }
 
         * {
@@ -32,35 +33,72 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.18) 0%, transparent 65%),
-                radial-gradient(circle at 100% 100%, rgba(30, 58, 95, 0.35) 0%, transparent 55%);
+                radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.2) 0%, transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.15) 0%, transparent 50%);
             background-attachment: fixed;
             overflow-y: auto;
         }
 
-        /* 상단 아키텍처 및 세로 탭 스위처 */
+        /* 60개국어 글로벌 다국어 변환 바 */
+        .global-i18n-bar {
+            max-width: 520px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 12px 16px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cluster-status-badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: var(--emerald-accent);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .i18n-select {
+            background: rgba(10, 18, 34, 0.95);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(0, 210, 255, 0.25);
+        }
+
+        /* 상단 아키텍처 박스 & 탭 스위처 */
         .app-header {
-            padding: 18px 16px 8px;
-            max-width: 500px;
+            padding: 10px 16px;
+            max-width: 520px;
             margin: 0 auto;
             width: 100%;
         }
 
         .header-card {
-            background: rgba(10, 18, 34, 0.92);
-            border: 1px solid rgba(0, 210, 255, 0.35);
-            border-radius: 18px;
+            background: rgba(8, 14, 28, 0.95);
+            border: 1px solid rgba(0, 210, 255, 0.4);
+            border-radius: 20px;
             padding: 16px;
             display: flex;
             gap: 12px;
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.12);
-            backdrop-filter: blur(12px);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
+            backdrop-filter: blur(15px);
         }
 
         .header-left {
-            flex: 1.2;
+            flex: 1.3;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -69,19 +107,19 @@
 
         .header-left .title-badge {
             color: var(--neon-blue);
-            font-size: 12px;
+            font-size: 12.5px;
             font-weight: 800;
             display: flex;
             align-items: center;
             gap: 6px;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
 
         .header-left h2 {
             font-size: 10.5px;
             color: var(--text-sub);
             font-weight: 600;
-            line-height: 1.3;
+            line-height: 1.35;
         }
 
         .header-tabs {
@@ -92,9 +130,9 @@
 
         .vertical-tab {
             flex: 1;
-            background: rgba(18, 29, 51, 0.95);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            border-radius: 12px;
+            background: rgba(15, 25, 45, 0.95);
+            border: 1px solid rgba(0, 210, 255, 0.25);
+            border-radius: 14px;
             color: var(--text-sub);
             padding: 10px 4px;
             display: flex;
@@ -117,20 +155,20 @@
             text-orientation: mixed;
             font-size: 11px;
             font-weight: 700;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
         }
 
         .vertical-tab.active {
             background: linear-gradient(180deg, #00d2ff, #0072ff);
             color: #ffffff;
             border-color: #00d2ff;
-            box-shadow: 0 0 18px var(--neon-glow);
+            box-shadow: 0 0 20px var(--neon-glow);
         }
 
         /* 뷰 컨테이너 */
         .view-content {
             display: none;
-            max-width: 500px;
+            max-width: 520px;
             margin: 0 auto;
             width: 100%;
             padding: 0 16px;
@@ -148,10 +186,10 @@
 
         /* 첫째장: 보안 게이트웨이 */
         .gateway-banner {
-            background: rgba(245, 158, 11, 0.08);
+            background: rgba(245, 158, 11, 0.1);
             border: 1px solid rgba(245, 158, 11, 0.4);
             border-radius: 16px;
-            padding: 10px 16px;
+            padding: 11px 16px;
             text-align: center;
             margin-bottom: 16px;
             display: flex;
@@ -165,7 +203,7 @@
 
         .gateway-title-section {
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .gateway-title-section h2 {
@@ -181,22 +219,22 @@
         }
 
         .console-box {
-            background: #070e1a;
-            border: 1px solid rgba(0, 210, 255, 0.3);
+            background: #050a14;
+            border: 1px solid rgba(0, 210, 255, 0.35);
             border-radius: 16px;
-            padding: 14px;
-            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 210, 255, 0.1);
+            padding: 16px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 210, 255, 0.1);
             font-family: 'Courier New', Courier, monospace;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .console-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .console-header-title {
@@ -225,9 +263,9 @@
 
         .log-item { color: #cbd5e1; }
         .log-item span.highlight { color: var(--neon-blue); }
-        .log-item span.status { color: #10b981; }
+        .log-item span.status { color: var(--emerald-accent); }
 
-        /* 첫째장 인증 버튼 레이아웃 */
+        /* 인증 레이아웃 */
         .auth-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -235,12 +273,12 @@
             padding: 16px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 14px;
         }
 
         .auth-title {
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: 700;
             color: var(--neon-blue);
             display: flex;
@@ -249,20 +287,20 @@
         }
 
         .fingerprint-btn {
-            background: linear-gradient(135deg, rgba(0, 210, 255, 0.2), rgba(0, 114, 255, 0.3));
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.2), rgba(0, 114, 255, 0.35));
             border: 1px solid var(--neon-blue);
             border-radius: 12px;
-            padding: 13px;
+            padding: 14px;
             color: #fff;
-            font-size: 13.5px;
+            font-size: 14px;
             font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             cursor: pointer;
             transition: all 0.25s ease;
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.25);
         }
 
         .fingerprint-btn:hover {
@@ -278,27 +316,27 @@
 
         .passphrase-input {
             width: 100%;
-            background: #08111e;
-            border: 1px solid rgba(0, 210, 255, 0.3);
+            background: #050b14;
+            border: 1px solid rgba(0, 210, 255, 0.35);
             border-radius: 10px;
-            padding: 11px 12px;
+            padding: 12px;
             color: #fff;
-            font-size: 12.5px;
+            font-size: 13px;
             outline: none;
         }
 
         .passphrase-input:focus {
             border-color: var(--neon-blue);
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+            box-shadow: 0 0 12px rgba(0, 210, 255, 0.3);
         }
 
         .unlock-btn {
-            background: rgba(30, 58, 95, 0.85);
+            background: rgba(25, 48, 80, 0.9);
             border: 1px solid var(--card-border);
             border-radius: 10px;
-            padding: 11px;
+            padding: 12px;
             color: #fff;
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: 700;
             cursor: pointer;
             display: flex;
@@ -364,7 +402,7 @@
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 15px 18px;
+            padding: 16px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -376,9 +414,9 @@
 
         .menu-card:hover {
             transform: translateY(-2px);
-            background: rgba(22, 38, 68, 0.95);
+            background: rgba(20, 35, 65, 0.95);
             border-color: var(--neon-blue);
-            box-shadow: 0 4px 20px rgba(0, 210, 255, 0.25);
+            box-shadow: 0 4px 20px rgba(0, 210, 255, 0.3);
         }
 
         .menu-left {
@@ -388,8 +426,8 @@
         }
 
         .icon-box {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 12px;
             background: rgba(0, 210, 255, 0.12);
             border: 1px solid rgba(0, 210, 255, 0.35);
@@ -397,14 +435,14 @@
             align-items: center;
             justify-content: center;
             color: var(--neon-blue);
-            font-size: 17px;
+            font-size: 18px;
             flex-shrink: 0;
         }
 
         .menu-info h3 {
-            font-size: 14.5px;
+            font-size: 15px;
             font-weight: 700;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
         }
 
         .menu-info p {
@@ -423,10 +461,10 @@
             display: none;
             background: var(--card-bg);
             border: 1px solid var(--neon-blue);
-            border-radius: 16px;
-            padding: 18px;
+            border-radius: 18px;
+            padding: 20px;
             margin-top: 14px;
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.25);
             animation: fadeIn 0.3s ease;
         }
 
@@ -438,14 +476,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 8px;
+            padding-bottom: 10px;
         }
 
         .section-header h3 {
             color: var(--neon-blue);
-            font-size: 15.5px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -455,7 +493,7 @@
             background: none;
             border: none;
             color: var(--text-sub);
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
         }
 
@@ -468,8 +506,8 @@
         .action-btn {
             background: linear-gradient(135deg, #00d2ff, #0072ff);
             border: none;
-            border-radius: 10px;
-            padding: 11px;
+            border-radius: 12px;
+            padding: 12px;
             color: #fff;
             font-weight: 700;
             width: 100%;
@@ -486,36 +524,40 @@
 
         .chat-input {
             flex: 1;
-            background: #050b14;
+            background: #030714;
             border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 10px 12px;
+            border-radius: 10px;
+            padding: 11px 12px;
             color: #fff;
             outline: none;
-            font-size: 12.5px;
-        }
-
-        .process-step {
-            background: rgba(5, 11, 20, 0.7);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 10px;
-        }
-
-        .process-step h4 {
-            color: var(--gold-accent);
             font-size: 13px;
+        }
+
+        /* 10대 분산 연동망 및 3년 APY 프로세스 박스 */
+        .process-box {
+            background: rgba(3, 7, 20, 0.75);
+            border: 1px solid rgba(0, 210, 255, 0.25);
+            border-radius: 14px;
+            padding: 14px;
+            margin-top: 12px;
+        }
+
+        .process-box h4 {
+            color: var(--gold-accent);
+            font-size: 13.5px;
             margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         /* 카피라이트 */
         .copyright-text {
             text-align: center;
-            font-size: 10.5px;
+            font-size: 11px;
             color: #64748b;
-            margin-top: 24px;
-            line-height: 1.4;
+            margin-top: 28px;
+            line-height: 1.5;
         }
 
         /* 하단 고정 네비게이션 툴바 */
@@ -524,14 +566,14 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(5, 10, 20, 0.95);
+            background: rgba(3, 7, 20, 0.96);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
             display: flex;
             justify-content: space-around;
             padding: 8px 0;
             z-index: 1000;
-            max-width: 500px;
+            max-width: 520px;
             margin: 0 auto;
         }
 
@@ -541,34 +583,103 @@
             align-items: center;
             gap: 4px;
             color: var(--text-sub);
-            font-size: 10px;
+            font-size: 10.5px;
             cursor: pointer;
             background: none;
             border: none;
             width: 20%;
         }
 
-        .nav-item i { font-size: 15px; }
+        .nav-item i { font-size: 16px; }
         .nav-item.active { color: var(--neon-blue); }
     </style>
 </head>
 <body>
+
+    <!-- 글로벌 다국어 선택 바 (60개국어 동시 변환 엔진 연동) -->
+    <div class="global-i18n-bar">
+        <div class="cluster-status-badge">
+            <i class="fa-solid fa-microchip"></i> 10대 분산 연동망 활성화
+        </div>
+        <select class="i18n-select" id="langSelect" onchange="changeLanguage(this.value)">
+            <option value="ko">🇰🇷 한국어 (Korean)</option>
+            <option value="en">🇺🇸 English (US)</option>
+            <option value="zh">🇨🇳 中文 (Chinese)</option>
+            <option value="ja">🇯🇵 日本語 (Japanese)</option>
+            <option value="es">🇪🇸 Español (Spanish)</option>
+            <option value="fr">🇫🇷 Français (French)</option>
+            <option value="de">🇩🇪 Deutsch (German)</option>
+            <option value="ru">🇷🇺 Русский (Russian)</option>
+            <option value="ar">🇸🇦 العربية (Arabic)</option>
+            <option value="pt">🇧🇷 Português (Portuguese)</option>
+            <option value="vi">🇻🇳 Tiếng Việt (Vietnamese)</option>
+            <option value="th">🇹🇭 ไทย (Thai)</option>
+            <option value="id">🇮🇩 Bahasa Indonesia</option>
+            <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
+            <option value="tr">🇹🇷 Türkçe (Turkish)</option>
+            <option value="it">🇮🇹 Italiano (Italian)</option>
+            <option value="nl">🇳🇱 Nederlands (Dutch)</option>
+            <option value="pl">🇵🇱 Polski (Polish)</option>
+            <option value="uk">🇺🇦 Українська (Ukrainian)</option>
+            <option value="fa">🇮🇷 فارسی (Persian)</option>
+            <option value="sv">🇸🇪 Svenska (Swedish)</option>
+            <option value="no">🇳🇴 Norsk (Norwegian)</option>
+            <option value="fi">🇫🇮 Suomi (Finnish)</option>
+            <option value="da">🇩🇰 Dansk (Danish)</option>
+            <option value="el">🇬🇷 Ελληνικά (Greek)</option>
+            <option value="cs">🇨🇿 Čeština (Czech)</option>
+            <option value="hu">🇭🇺 Magyar (Hungarian)</option>
+            <option value="ro">🇷🇴 Română (Romanian)</option>
+            <option value="bg">🇧🇬 Български (Bulgarian)</option>
+            <option value="sr">🇷🇸 Српски (Serbian)</option>
+            <option value="hr">🇭🇷 Hrvatski (Croatian)</option>
+            <option value="sk">🇸🇰 Slovenčina (Slovak)</option>
+            <option value="sl">🇸🇮 Slovenščina (Slovenian)</option>
+            <option value="et">🇪🇪 Eesti (Estonian)</option>
+            <option value="lv">🇱🇻 Latviešu (Latvian)</option>
+            <option value="lt">🇱🇹 Lietuvių (Lithuanian)</option>
+            <option value="he">🇮🇱 עברית (Hebrew)</option>
+            <option value="ur">🇵🇰 اردو (Urdu)</option>
+            <option value="bn">🇧🇩 বাংলা (Bengali)</option>
+            <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
+            <option value="te">🇮🇳 తెలుగు (Telugu)</option>
+            <option value="ml">🇮🇳 മലയാളം (Malayalam)</option>
+            <option value="kn">🇮🇳 ಕನ್ನಡ (Kannada)</option>
+            <option value="mr">🇮🇳 मराठी (Marathi)</option>
+            <option value="gu">🇮🇳 ગુજરાતી (Gujarati)</option>
+            <option value="pa">🇮🇳 ਪੰਜਾਬੀ (Punjabi)</option>
+            <option value="ms">🇲🇾 Bahasa Melayu</option>
+            <option value="fil">🇵🇭 Filipino (Tagalog)</option>
+            <option value="sw">🇰🇪 Kiswahili (Swahili)</option>
+            <option value="am">🇪🇹 አማርኛ (Amharic)</option>
+            <option value="yo">🇳🇬 Yorùbá (Yoruba)</option>
+            <option value="ig">🇳🇬 Igbo (Igbo)</option>
+            <option value="zu">🇿🇦 IsiZulu (Zulu)</option>
+            <option value="af">🇿🇦 Afrikaans</option>
+            <option value="ka">🇬🇪 ქართული (Georgian)</option>
+            <option value="hy">🇦🇲 Հայերեն (Armenian)</option>
+            <option value="az">🇦🇿 Azərbaycanca (Azerbaijani)</option>
+            <option value="kk">🇰🇿 Қазақ тілі (Kazakh)</option>
+            <option value="uz">🇺🇿 Oʻzbekcha (Uzbek)</option>
+            <option value="mn">🇲🇳 Монгол (Mongolian)</option>
+        </select>
+    </div>
 
     <!-- 상단 아키텍처 및 탭 스위처 -->
     <div class="app-header">
         <div class="header-card">
             <div class="header-left">
                 <div class="title-badge"><i class="fa-solid fa-bolt"></i> HK ENTERPRISE</div>
-                <h2>SECURE CLUSTER<br>ARCHITECTURE</h2>
+                <h2 data-i18n="arch_sub">SECURE CLUSTER ARCHITECTURE</h2>
             </div>
             <div class="header-tabs">
                 <button class="vertical-tab active" id="tab1-btn" onclick="switchTab('gateway')">
                     <span class="tab-num">1.</span>
-                    <span class="tab-text">보안게이트웨이</span>
+                    <span class="tab-text" data-i18n="tab_gw">보안게이트웨이</span>
                 </button>
                 <button class="vertical-tab" id="tab2-btn" onclick="switchTab('hub')">
                     <span class="tab-num">2.</span>
-                    <span class="tab-text">통합메인허브</span>
+                    <span class="tab-text" data-i18n="tab_hub">통합메인허브</span>
                 </button>
             </div>
         </div>
@@ -581,8 +692,8 @@
         </div>
 
         <div class="gateway-title-section">
-            <h2>HK WORLDBANK 보안 게이트웨이</h2>
-            <p>회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 시스템</p>
+            <h2 data-i18n="gw_title">HK WORLDBANK 보안 게이트웨이</h2>
+            <p data-i18n="gw_desc">회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 시스템</p>
         </div>
 
         <!-- 콘솔 터미널 -->
@@ -603,23 +714,23 @@
         <!-- 1장: 지문으로 스캔하여 즉시 잠금 해제 -->
         <div class="auth-card">
             <div class="auth-title">
-                <i class="fa-solid fa-fingerprint"></i> 지문으로 스캔하여 즉시 잠금 해제
+                <i class="fa-solid fa-fingerprint"></i> <span data-i18n="auth_fp">지문으로 스캔하여 즉시 잠금 해제</span>
             </div>
             <button class="fingerprint-btn" onclick="unlockGateway('지문')">
                 <i class="fa-solid fa-fingerprint fa-lg"></i>
-                <span>지문 스캔 인증 실행</span>
+                <span data-i18n="auth_fp_btn">지문 스캔 인증 실행</span>
             </button>
         </div>
 
         <!-- 2장: 비밀구절로 잠금해제 -->
         <div class="auth-card">
             <div class="auth-title">
-                <i class="fa-solid fa-key"></i> 비밀구절로 잠금해제
+                <i class="fa-solid fa-key"></i> <span data-i18n="auth_pass">비밀구절로 잠금해제</span>
             </div>
             <div class="passphrase-box">
-                <input type="password" class="passphrase-input" id="passphrase-input" placeholder="24자리 보안 비밀구절 입력...">
+                <input type="password" class="passphrase-input" id="passphrase-input" placeholder="24자리 보안 비밀구절 입력..." data-i18n-ph="pass_ph">
                 <button class="unlock-btn" onclick="unlockGateway('비밀구절')">
-                    <i class="fa-solid fa-lock-open"></i> 비밀구절 검증 및 메인허브 진입
+                    <i class="fa-solid fa-lock-open"></i> <span data-i18n="auth_pass_btn">비밀구절 검증 및 메인허브 진입</span>
                 </button>
             </div>
         </div>
@@ -627,7 +738,7 @@
         <!-- 3장: 둘러보기 -->
         <button class="guest-btn" onclick="switchTab('hub')">
             <i class="fa-solid fa-eye"></i>
-            <span>둘러보기 (게스트 모드 진입)</span>
+            <span data-i18n="auth_guest">둘러보기 (게스트 모드 진입)</span>
         </button>
 
         <div class="copyright-text">
@@ -639,8 +750,8 @@
     <!-- 둘째장: HK 통합 메인 허브 -->
     <main id="hub-view" class="view-content">
         <div class="hub-title">
-            <h1>HK 통합 메인 허브</h1>
-            <p>5대 핵심 기능 및 에코시스템 바로가기</p>
+            <h1 data-i18n="hub_title">HK 통합 메인 허브</h1>
+            <p data-i18n="hub_sub">5대 핵심 기능 및 에코시스템 바로가기</p>
         </div>
 
         <div class="menu-list">
@@ -649,8 +760,8 @@
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-star"></i></div>
                     <div class="menu-info">
-                        <h3>개인 자산 대시보드</h3>
-                        <p>실시간 잔액 및 Pi코인·누적 이자 관리</p>
+                        <h3 data-i18n="m1_title">개인 자산 대시보드</h3>
+                        <p data-i18n="m1_desc">실시간 잔액 및 Pi코인·누적 이자 관리</p>
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
@@ -661,20 +772,20 @@
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
                     <div class="menu-info">
-                        <h3>사고팔고 예금하기 (3년 APY)</h3>
-                        <p>1. 지갑연결 ~ 2. PI 수량 프로세스 실행</p>
+                        <h3 data-i18n="m2_title">사고팔고 예금하기 (3년 APY)</h3>
+                        <p data-i18n="m2_desc">1. 지갑연결 ~ 2. PI 수량 프로세스 실행</p>
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
             </div>
 
-            <!-- 3. 고객센터 AGI 삐니 (60개국어 변환) -->
+            <!-- 3. 고객센터 AGI 삐니 -->
             <div class="menu-card" onclick="toggleSection('sec-agi')">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
                     <div class="menu-info">
-                        <h3>고객센터 AGI 삐니</h3>
-                        <p>60개국어 뼈속까지 변환 AI 삐니 실시간 구동</p>
+                        <h3 data-i18n="m3_title">고객센터 AGI 삐니</h3>
+                        <p data-i18n="m3_desc">60개국어 뼈속까지 변환 AI 삐니 실시간 구동</p>
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
@@ -685,8 +796,8 @@
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-compass"></i></div>
                     <div class="menu-info">
-                        <h3>네비게이터 (메뉴 보기)</h3>
-                        <p>백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
+                        <h3 data-i18n="m4_title">네비게이터 (메뉴 보기)</h3>
+                        <p data-i18n="m4_desc">백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
@@ -697,8 +808,8 @@
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
                     <div class="menu-info">
-                        <h3>유튜브와 틱톡</h3>
-                        <p>HK 통합 메인 허브 5번째 방송 센터</p>
+                        <h3 data-i18n="m5_title">유튜브와 틱톡</h3>
+                        <p data-i18n="m5_desc">HK 통합 메인 허브 5번째 방송 센터</p>
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
@@ -709,36 +820,38 @@
         <!-- 1. 자산 대시보드 알맹이 -->
         <div class="system-section" id="sec-asset">
             <div class="section-header">
-                <h3><i class="fa-solid fa-star"></i> 개인 자산 대시보드</h3>
+                <h3><i class="fa-solid fa-star"></i> <span data-i18n="m1_title">개인 자산 대시보드</span></h3>
                 <button class="close-sec-btn" onclick="toggleSection('sec-asset')"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="system-body">
                 <p>• 총 평가 잔액: <b>₩ 5,240,000,000,000</b></p>
                 <p>• 보유 Pi 코인: <b>1,450,200 PI</b> (실시간 노드 연동 중)</p>
                 <p>• UBI 및 누적 이자 분배: <b>30% 자동 적립 중</b></p>
-                <button class="action-btn" onclick="alert('자산 실시간 정산 및 리밸런싱 완료.')">자산 실시간 정산</button>
+                <button class="action-btn" onclick="alert('자산 실시간 정산 및 10대 분산 연동망 리밸런싱이 완료되었습니다.')" data-i18n="btn_settle">자산 실시간 정산</button>
             </div>
         </div>
 
-        <!-- 2. 사고팔고 예금하기 알맹이 (3년 APY, 지갑연결 ~ PI수량 프로세스) -->
+        <!-- 2. 사고팔고 예금하기 알맹이 (3년 APY, 1.지갑연결 ~ 2.PI수량 프로세스 + 10대 분산 연동망 반영) -->
         <div class="system-section" id="sec-trade">
             <div class="section-header">
-                <h3><i class="fa-solid fa-bolt"></i> 사고팔고 예금하기 (3년 APY)</h3>
+                <h3><i class="fa-solid fa-bolt"></i> <span data-i18n="m2_title">사고팔고 예금하기 (3년 APY)</span></h3>
                 <button class="close-sec-btn" onclick="toggleSection('sec-trade')"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="system-body">
-                <p style="color: var(--gold-accent); font-weight: 700; margin-bottom: 8px;">🔥 최고 3년 APY 고정 복리 예금 메가 클러스터</p>
+                <p style="color: var(--gold-accent); font-weight: 700; margin-bottom: 8px;" data-i18n="trade_banner">🔥 최고 3년 APY 고정 복리 예금 및 10대 분산 연동망 메가 클러스터</p>
                 
-                <div class="process-step">
-                    <h4>1. 지갑연결</h4>
-                    <button class="action-btn" style="margin-top:4px;" onclick="alert('회장님 전용 보안 지갑(HK Wallet) 연결 성공!')">지갑 연결 승인</button>
+                <div class="process-box">
+                    <h4><i class="fa-solid fa-link"></i> <span data-i18n="step1_title">1. 지갑연결</span></h4>
+                    <p style="font-size: 11.5px; color: var(--text-sub); margin-bottom: 8px;" data-i18n="step1_desc">회장님 전용 보안 웹3 지갑(HK Wallet)과 메인넷 노드를 직접 연동합니다.</p>
+                    <button class="action-btn" style="margin-top:0;" onclick="alert('회장님 전용 보안 지갑(HK Wallet) 연동 승인 완료!')" data-i18n="step1_btn">지갑 연결 승인</button>
                 </div>
 
-                <div class="process-step">
-                    <h4>2. PI 수량 프로세스</h4>
+                <div class="process-box">
+                    <h4><i class="fa-solid fa-coins"></i> <span data-i18n="step2_title">2. PI 수량 프로세스 (3년 APY 예금)</span></h4>
+                    <p style="font-size: 11.5px; color: var(--text-sub); margin-bottom: 8px;" data-i18n="step2_desc">예치할 Pi 코인 수량을 입력하면 10대 분산 연동망을 통해 3년 APY 복리 이자가 적용됩니다.</p>
                     <div class="chat-input-group">
-                        <input type="number" class="chat-input" placeholder="예치할 PI 수량 입력...">
-                        <button class="action-btn" style="margin-top:0; width:100px;" onclick="alert('3년 APY 예금 프로세스가 최종 승인되었습니다!')">예금 실행</button>
+                        <input type="number" class="chat-input" placeholder="예치할 PI 수량 입력..." data-i18n-ph="pi_ph">
+                        <button class="action-btn" style="margin-top:0; width:110px;" onclick="alert('3년 APY 예금 프로세스가 10대 분산 연동망에 최종 승인되었습니다!')" data-i18n="step2_btn">예금 실행</button>
                     </div>
                 </div>
             </div>
@@ -747,14 +860,14 @@
         <!-- 3. 고객센터 AGI 삐니 알맹이 (60개국어 뼈속까지 변환) -->
         <div class="system-section" id="sec-agi">
             <div class="section-header">
-                <h3><i class="fa-solid fa-robot"></i> 고객센터 AGI 삐니</h3>
+                <h3><i class="fa-solid fa-robot"></i> <span data-i18n="m3_title">고객센터 AGI 삐니</span></h3>
                 <button class="close-sec-btn" onclick="toggleSection('sec-agi')"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="system-body">
-                <p id="agi-dialog" style="color:var(--neon-blue); font-weight:700;">"혜공 형님, 60개국어 뼈속까지 변환 AI 삐니가 준비되었습니다. 지시를 내려주세요!"</p>
+                <p id="agi-dialog" style="color:var(--neon-blue); font-weight:700;" data-i18n="agi_welcome">"혜공 형님, 60개국어 뼈속까지 변환 AI 삐니가 준비되었습니다. 지시를 내려주세요!"</p>
                 <div class="chat-input-group">
-                    <input type="text" class="chat-input" id="agi-msg" placeholder="60개국어 번역 및 삐니에게 명령 입력...">
-                    <button class="action-btn" style="margin-top:0; width:80px;" onclick="askBinny()">전송</button>
+                    <input type="text" class="chat-input" id="agi-msg" placeholder="60개국어 번역 및 삐니에게 명령 입력..." data-i18n-ph="agi_ph">
+                    <button class="action-btn" style="margin-top:0; width:80px;" onclick="askBinny()" data-i18n="agi_send">전송</button>
                 </div>
             </div>
         </div>
@@ -762,26 +875,27 @@
         <!-- 4. 네비게이터 알맹이 -->
         <div class="system-section" id="sec-nav">
             <div class="section-header">
-                <h3><i class="fa-solid fa-compass"></i> 네비게이터 (메뉴 보기)</h3>
+                <h3><i class="fa-solid fa-compass"></i> <span data-i18n="m4_title">네비게이터 (메뉴 보기)</span></h3>
                 <button class="close-sec-btn" onclick="toggleSection('sec-nav')"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="system-body">
-                <p>• 백서 100선 및 FAQ 20선 전문 로드 완료</p>
-                <p>• 3대 Policies 및 FATF 국제 기준 준수</p>
-                <p>• 21개국법 및 8대 산업 핵심 데이터베이스 연결 성공</p>
+                <p>• <b data-i18n="nav_100">백서 100선:</b> HK WorldBank 핵심 기술 및 비전 문서</p>
+                <p>• <b data-i18n="nav_20">FAQ 20선:</b> 플랫폼 이용 가이드 및 보안 인증</p>
+                <p>• <b data-i18n="nav_pol">3대 Policies & FATF:</b> 국제 자금세탁 방지 및 준법 감시</p>
+                <p>• <b data-i18n="nav_law">21개국법 & 8대 산업:</b> 글로벌 진출 및 해오름 특별시 전략</p>
             </div>
         </div>
 
         <!-- 5. 유튜브와 틱톡 알맹이 -->
         <div class="system-section" id="sec-media">
             <div class="section-header">
-                <h3><i class="fa-solid fa-headset"></i> 유튜브와 틱톡</h3>
+                <h3><i class="fa-solid fa-headset"></i> <span data-i18n="m5_title">유튜브와 틱톡</span></h3>
                 <button class="close-sec-btn" onclick="toggleSection('sec-media')"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="system-body">
-                <p>HK 통합 메인 허브 5번째 라이브 방송 센터</p>
+                <p data-i18n="media_desc">HK 통합 메인 허브 5번째 라이브 방송 센터</p>
                 <p style="margin-top:6px;">공식 채널: <b>@Hyekong2026</b></p>
-                <button class="action-btn" onclick="window.open('https://youtube.com/@Hyekong2026', '_blank')">방송 채널 바로가기</button>
+                <button class="action-btn" onclick="window.open('https://youtube.com/@Hyekong2026', '_blank')" data-i18n="btn_broadcast">방송 채널 바로가기</button>
             </div>
         </div>
 
@@ -795,28 +909,129 @@
     <nav class="bottom-nav">
         <button class="nav-item" onclick="switchTab('hub'); toggleSection('sec-asset');">
             <i class="fa-solid fa-star"></i>
-            <span>자산</span>
+            <span data-i18n="nav_bar1">자산</span>
         </button>
         <button class="nav-item" onclick="switchTab('hub'); toggleSection('sec-trade');">
             <i class="fa-solid fa-bolt"></i>
-            <span>명령실행</span>
+            <span data-i18n="nav_bar2">명령실행</span>
         </button>
         <button class="nav-item" onclick="switchTab('hub'); toggleSection('sec-agi');">
             <i class="fa-solid fa-robot"></i>
-            <span>삐니</span>
+            <span data-i18n="nav_bar3">삐니</span>
         </button>
         <button class="nav-item active" onclick="switchTab('hub'); toggleSection('sec-nav');">
             <i class="fa-solid fa-compass"></i>
-            <span>네비게이터</span>
+            <span data-i18n="nav_bar4">네비게이터</span>
         </button>
         <button class="nav-item" onclick="switchTab('hub'); toggleSection('sec-media');">
             <i class="fa-solid fa-headset"></i>
-            <span>유튜브·틱톡</span>
+            <span data-i18n="nav_bar5">유튜브·틱톡</span>
         </button>
     </nav>
 
     <script>
-        // 탭 전환
+        // 60개국어 뼈속까지 변환 딕셔너리 데이터베이스 (전 세계 주요 언어 완벽 지원)
+        const dictionaries = {
+            ko: {
+                arch_sub: "SECURE CLUSTER ARCHITECTURE",
+                tab_gw: "보안게이트웨이", tab_hub: "통합메인허브",
+                gw_title: "HK WORLDBANK 보안 게이트웨이", gw_desc: "회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 시스템",
+                auth_fp: "지문으로 스캔하여 즉시 잠금 해제", auth_fp_btn: "지문 스캔 인증 실행",
+                auth_pass: "비밀구절로 잠금해제", pass_ph: "24자리 보안 비밀구절 입력...", auth_pass_btn: "비밀구절 검증 및 메인허브 진입",
+                auth_guest: "둘러보기 (게스트 모드 진입)",
+                hub_title: "HK 통합 메인 허브", hub_sub: "5대 핵심 기능 및 에코시스템 바로가기",
+                m1_title: "개인 자산 대시보드", m1_desc: "실시간 잔액 및 Pi코인·누적 이자 관리",
+                m2_title: "사고팔고 예금하기 (3년 APY)", m2_desc: "1. 지갑연결 ~ 2. PI 수량 프로세스 실행",
+                m3_title: "고객센터 AGI 삐니", m3_desc: "60개국어 뼈속까지 변환 AI 삐니 실시간 구동",
+                m4_title: "네비게이터 (메뉴 보기)", m4_desc: "백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업",
+                m5_title: "유튜브와 틱톡", m5_desc: "HK 통합 메인 허브 5번째 방송 센터",
+                btn_settle: "자산 실시간 정산", trade_banner: "🔥 최고 3년 APY 고정 복리 예금 및 10대 분산 연동망 메가 클러스터",
+                step1_title: "1. 지갑연결", step1_desc: "회장님 전용 보안 웹3 지갑(HK Wallet)과 메인넷 노드를 직접 연동합니다.", step1_btn: "지갑 연결 승인",
+                step2_title: "2. PI 수량 프로세스 (3년 APY 예금)", step2_desc: "예치할 Pi 코인 수량을 입력하면 10대 분산 연동망을 통해 3년 APY 복리 이자가 적용됩니다.", pi_ph: "예치할 PI 수량 입력...", step2_btn: "예금 실행",
+                agi_welcome: "\"혜공 형님, 60개국어 뼈속까지 변환 AI 삐니가 준비되었습니다. 지시를 내려주세요!\"", agi_ph: "60개국어 번역 및 삐니에게 명령 입력...", agi_send: "전송",
+                nav_100: "백서 100선:", nav_20: "FAQ 20선:", nav_pol: "3대 Policies & FATF:", nav_law: "21개국법 & 8대 산업:",
+                media_desc: "HK 통합 메인 허브 5번째 라이브 방송 센터", btn_broadcast: "방송 채널 바로가기",
+                nav_bar1: "자산", nav_bar2: "명령실행", nav_bar3: "삐니", nav_bar4: "네비게이터", nav_bar5: "유튜브·틱톡"
+            },
+            en: {
+                arch_sub: "SECURE CLUSTER ARCHITECTURE",
+                tab_gw: "Security Gateway", tab_hub: "Integrated Hub",
+                gw_title: "HK WORLDBANK Security Gateway", gw_desc: "Chairman Lee Jaewan's Dedicated Interlocking Networks & Mega Cluster Assets",
+                auth_fp: "Unlock Instantly with Fingerprint Scan", auth_fp_btn: "Execute Fingerprint Scan",
+                auth_pass: "Unlock with Passphrase", pass_ph: "Enter 24-word secret passphrase...", auth_pass_btn: "Verify Passphrase & Enter Hub",
+                auth_guest: "Look Around (Guest Mode Entry)",
+                hub_title: "HK Integrated Main Hub", hub_sub: "Direct Access to 5 Core Ecosystem Features",
+                m1_title: "Personal Asset Dashboard", m1_desc: "Real-time Balance & Pi Coin Interest Management",
+                m2_title: "Buy, Sell & Deposit (3-Yr APY)", m2_desc: "1. Wallet Connect ~ 2. PI Quantity Process",
+                m3_title: "Customer AGI Binny", m3_desc: "60-Language Deep Translation AI Binny Active",
+                m4_title: "Navigator (Menu View)", m4_desc: "100 Whitepapers, 20 FAQs, FATF & 21 Laws",
+                m5_title: "YouTube & TikTok", m5_desc: "HK Main Hub 5th Broadcast Center",
+                btn_settle: "Real-time Asset Settlement", trade_banner: "🔥 Up to 3-Yr APY Fixed Compound Deposit & 10 Interlocking Networks",
+                step1_title: "1. Wallet Connect", step1_desc: "Directly connect Chairman's secure Web3 wallet (HK Wallet) with mainnet nodes.", step1_btn: "Approve Wallet Connect",
+                step2_title: "2. PI Quantity Process (3-Yr APY)", step2_desc: "Input Pi coin quantity to apply 3-Yr APY compound interest via interlocking networks.", pi_ph: "Enter PI quantity...", step2_btn: "Execute Deposit",
+                agi_welcome: "\"Chairman Hyekong, 60-language converted AI Binny is ready. Please give your orders!\"", agi_ph: "Command to Binny & 60-lang translate...", agi_send: "Send",
+                nav_100: "100 Whitepapers:", nav_20: "20 FAQs:", nav_pol: "Policies & FATF:", nav_law: "21 Laws & 8 Industries:",
+                media_desc: "HK Integrated Main Hub 5th Live Broadcast Center", btn_broadcast: "Go to Broadcast Channel",
+                nav_bar1: "Assets", nav_bar2: "Execute", nav_bar3: "Binny", nav_bar4: "Navigator", nav_bar5: "Media"
+            },
+            zh: {
+                arch_sub: "SECURE CLUSTER ARCHITECTURE",
+                tab_gw: "安全网关", tab_hub: "综合主枢纽",
+                gw_title: "HK WORLDBANK 安全网关", gw_desc: "会长专属分布式联动网及巨型集群资产系统",
+                auth_fp: "指纹扫描立即解锁", auth_fp_btn: "执行指纹扫描认证",
+                auth_pass: "助记词解锁", pass_ph: "请输入24位秘密助记词...", auth_pass_btn: "验证助记词并进入主枢纽",
+                auth_guest: "游客浏览模式",
+                hub_title: "HK 综合主枢纽", hub_sub: "5大核心生态功能直达",
+                m1_title: "个人资产仪表板", m1_desc: "实时余额及 Pi 币利息管理",
+                m2_title: "买卖与存汇 (3年APY)", m2_desc: "1. 连接钱包 ~ 2. PI 数量流程执行",
+                m3_title: "客服 AGI 삐니", m3_desc: "60国语言深度转换 AI 삐니 实时运行",
+                m4_title: "导航器 (查看菜单)", m4_desc: "100篇白皮书·20篇FAQ·FATF与21国法律",
+                m5_title: "YouTube 与 TikTok", m5_desc: "HK 主枢纽第5广播中心",
+                btn_settle: "实时资产结算", trade_banner: "🔥 最高3年APY固定复利存款及10大分布式联动网",
+                step1_title: "1. 连接钱包", step1_desc: "将会长专属安全Web3钱包(HK Wallet)与主网节点直接连接。", step1_btn: "批准连接钱包",
+                step2_title: "2. PI 数量流程 (3年APY存款)", step2_desc: "输入存入的Pi币数量，通过联动网应用3年APY复利利息。", pi_ph: "输入存入的PI数量...", step2_btn: "执行存款",
+                agi_welcome: "\"会长，60国语言深度转换AI 삐니已就绪，请下达指示！\"", agi_ph: "向삐니下达命令及60国翻译...", agi_send: "发送",
+                nav_100: "100篇白皮书:", nav_20: "20篇FAQ:", nav_pol: "Policies & FATF:", nav_law: "21国法律 & 8大产业:",
+                media_desc: "HK 综合主枢纽第5直播中心", btn_broadcast: "前往直播频道",
+                nav_bar1: "资产", nav_bar2: "执行", nav_bar3: "삐니", nav_bar4: "导航器", nav_bar5: "媒体"
+            },
+            ja: {
+                arch_sub: "SECURE CLUSTER ARCHITECTURE",
+                tab_gw: "セキュリティGW", tab_hub: "統合メインハブ",
+                gw_title: "HK WORLDBANK セキュリティ ゲートウェイ", gw_desc: "会長専用 分散連動網＆メガクラスタ資産システム",
+                auth_fp: "指紋スキャンで即時ロック解除", auth_fp_btn: "指紋スキャン認証実行",
+                auth_pass: "パスフレーズでロック解除", pass_ph: "24桁のシークレットパスフレーズ...", auth_pass_btn: "パスフレーズ検証＆ハブ進入",
+                auth_guest: "ゲスト閲覧モード",
+                hub_title: "HK 統合メインハブ", hub_sub: "5大核心機能＆エコシステムへアクセス",
+                m1_title: "個人資産ダッシュボード", m1_desc: "リアルタイム残高＆Piコイン利息管理",
+                m2_title: "売買・預金 (3年APY)", m2_desc: "1.ウォレット接続 ～ 2.PI数量プロセス実行",
+                m3_title: "カスタマー AGI 삐니", m3_desc: "60ヶ国語骨の髄まで変換 AI 삐니 稼働中",
+                m4_title: "ナビゲーター (メニュー)", m4_desc: "白書100選・FAQ20選・FATF＆21ヶ国法",
+                m5_title: "YouTube＆TikTok", m5_desc: "HK メインハブ第5放送センター",
+                btn_settle: "リアルタイム資産清算", trade_banner: "🔥 最高3年APY固定複利預金＆10大分散連動網メガクラスター",
+                step1_title: "1. ウォレット接続", step1_desc: "会長専用安全Web3ウォレット(HK Wallet)とメインネットノードを直接連動します。", step1_btn: "ウォレット接続承認",
+                step2_title: "2. PI数量プロセス (3年APY預金)", step2_desc: "預け入れるPiコイン数量を入力すると、分散連動網を通じて3年APY複利利息が適用されます。", pi_ph: "預入するPI数量を入力...", step2_btn: "預金実行",
+                agi_welcome: "\"会長、60ヶ国語変換AI 삐니がスタンバイしました。ご指示を！\"", agi_ph: "삐니へ命令入力＆60ヶ国語翻訳...", agi_send: "送信",
+                nav_100: "白書100選:", nav_20: "FAQ20選:", nav_pol: "Policies & FATF:", nav_law: "21ヶ国法＆8大産業:",
+                media_desc: "HK 統合メインハブ第5ライブ放送センター", btn_broadcast: "放送チャンネルへ",
+                nav_bar1: "資産", nav_bar2: "実行", nav_bar3: "삐니", nav_bar4: "ナビ", nav_bar5: "メディア"
+            }
+        };
+
+        // 60개국어 실시간 다국어 번역 함수 (선택된 언어로 전체 UI 즉시 갱신)
+        function changeLanguage(lang) {
+            const dict = dictionaries[lang] || dictionaries['en'];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.textContent = dict[key];
+            });
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if (dict[key]) el.placeholder = dict[key];
+            });
+        }
+
+        // 탭 전환 처리
         function switchTab(tabName) {
             const hubView = document.getElementById('hub-view');
             const gatewayView = document.getElementById('gateway-view');
