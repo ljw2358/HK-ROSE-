@@ -7,14 +7,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #080d1a;
-            --card-bg: #121d33;
+            --bg-color: #060b14;
+            --card-bg: rgba(15, 25, 45, 0.75);
             --card-border: #1e3a5f;
             --neon-blue: #00d2ff;
-            --neon-glow: rgba(0, 210, 255, 0.3);
+            --neon-glow: rgba(0, 210, 255, 0.35);
             --text-main: #ffffff;
             --text-sub: #94a3b8;
-            --text-accent: #38bdf8;
             --gold-accent: #f59e0b;
         }
 
@@ -22,7 +21,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -35,54 +34,103 @@
             justify-content: space-between;
             padding-bottom: 80px;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, rgba(30, 58, 95, 0.2) 0%, transparent 40%);
+                radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(30, 58, 95, 0.25) 0%, transparent 50%);
+            background-attachment: fixed;
         }
 
-        /* App Container */
+        /* Top Header Switcher Frame (Image 2 Top) */
         .app-header {
             padding: 20px 16px 10px;
-            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
         }
 
-        /* Tab Switcher Top */
-        .tab-switcher {
+        .header-card {
+            background: rgba(11, 19, 36, 0.85);
+            border: 1px solid rgba(0, 210, 255, 0.25);
+            border-radius: 20px;
+            padding: 16px;
             display: flex;
-            background: rgba(18, 29, 51, 0.8);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 4px;
-            margin: 0 auto 20px;
-            max-width: 480px;
-            backdrop-filter: blur(10px);
+            gap: 12px;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.08);
+            backdrop-filter: blur(12px);
         }
 
-        .tab-btn {
-            flex: 1;
-            padding: 12px 8px;
-            border: none;
-            background: transparent;
-            color: var(--text-sub);
-            font-size: 14px;
-            font-weight: 700;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .header-left {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 8px;
+        }
+
+        .header-left .title-badge {
+            color: var(--neon-blue);
+            font-size: 13px;
+            font-weight: 800;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .header-left h2 {
+            font-size: 11px;
+            color: var(--text-sub);
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+        }
+
+        .header-tabs {
+            flex: 1.5;
+            display: flex;
             gap: 8px;
         }
 
-        .tab-btn.active {
-            background: linear-gradient(135deg, #00d2ff, #0072ff);
-            color: #ffffff;
-            box-shadow: 0 0 15px var(--neon-glow);
+        .vertical-tab {
+            flex: 1;
+            background: rgba(18, 29, 51, 0.9);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 12px;
+            color: var(--text-sub);
+            padding: 12px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
         }
 
+        .vertical-tab .tab-num {
+            font-size: 14px;
+            font-weight: 900;
+            margin-bottom: 6px;
+        }
+
+        .vertical-tab .tab-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .vertical-tab.active {
+            background: linear-gradient(180deg, #00d2ff, #0072ff);
+            color: #ffffff;
+            border-color: #00d2ff;
+            box-shadow: 0 0 18px var(--neon-glow);
+        }
+
+        /* Container View Switching */
         .view-content {
             display: none;
-            max-width: 520px;
+            max-width: 500px;
             margin: 0 auto;
             width: 100%;
             padding: 0 16px;
@@ -90,26 +138,25 @@
 
         .view-content.active {
             display: block;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.35s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Section 1: Main Hub Styles */
+        /* 1. Main Hub Layout (Image 1) */
         .hub-title {
             text-align: center;
-            margin-bottom: 24px;
+            margin: 10px 0 20px;
         }
 
         .hub-title h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            color: #fff;
-            margin-bottom: 6px;
+            color: #ffffff;
+            margin-bottom: 4px;
         }
 
         .hub-title p {
@@ -124,37 +171,23 @@
         }
 
         .menu-card {
-            background: rgba(18, 29, 51, 0.7);
-            border: 1px solid rgba(0, 210, 255, 0.2);
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 210, 255, 0.25);
             border-radius: 16px;
-            padding: 18px 20px;
+            padding: 16px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             text-decoration: none;
             color: var(--text-main);
             transition: all 0.25s ease;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             position: relative;
-            overflow: hidden;
-        }
-
-        .menu-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 16px;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(0, 210, 255, 0.4), transparent);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
         }
 
         .menu-card:hover, .menu-card:active {
             transform: translateY(-2px);
-            background: rgba(24, 40, 70, 0.85);
+            background: rgba(22, 38, 68, 0.9);
             border-color: var(--neon-blue);
             box-shadow: 0 4px 20px rgba(0, 210, 255, 0.25);
         }
@@ -162,15 +195,15 @@
         .menu-left {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
 
         .icon-box {
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             border-radius: 12px;
-            background: rgba(0, 210, 255, 0.1);
-            border: 1px solid rgba(0, 210, 255, 0.3);
+            background: rgba(0, 210, 255, 0.12);
+            border: 1px solid rgba(0, 210, 255, 0.35);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -180,64 +213,64 @@
         }
 
         .menu-info h3 {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
         .menu-info p {
-            font-size: 12px;
+            font-size: 11.5px;
             color: var(--text-sub);
-            line-height: 1.4;
+            line-height: 1.35;
         }
 
         .arrow-icon {
             color: var(--text-sub);
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        /* Section 2: Security Gateway Styles */
+        /* 2. Security Gateway Layout (Image 2) */
         .gateway-banner {
-            background: rgba(245, 158, 11, 0.1);
+            background: rgba(245, 158, 11, 0.08);
             border: 1px solid rgba(245, 158, 11, 0.4);
             border-radius: 20px;
-            padding: 12px 16px;
+            padding: 11px 16px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             color: var(--gold-accent);
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
 
         .gateway-title-section {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .gateway-title-section h2 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 900;
             color: #ffffff;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             letter-spacing: -0.5px;
         }
 
         .gateway-title-section p {
-            font-size: 13px;
+            font-size: 12.5px;
             color: var(--text-sub);
         }
 
-        /* Core Console Box */
+        /* Console Terminal Box */
         .console-box {
-            background: #091322;
+            background: #08111e;
             border: 1px solid rgba(0, 210, 255, 0.3);
             border-radius: 18px;
-            padding: 20px;
+            padding: 18px;
             box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 210, 255, 0.1);
             font-family: 'Courier New', Courier, monospace;
         }
@@ -246,9 +279,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 12px;
-            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 10px;
+            margin-bottom: 14px;
         }
 
         .console-header-title {
@@ -256,22 +289,22 @@
             align-items: center;
             gap: 8px;
             color: #ef4444;
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 700;
             font-family: 'Pretendard', sans-serif;
         }
 
         .console-time {
             color: var(--neon-blue);
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 600;
         }
 
         .console-logs {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            font-size: 13px;
+            gap: 10px;
+            font-size: 12px;
             line-height: 1.5;
         }
 
@@ -287,28 +320,30 @@
             color: #10b981;
         }
 
-        /* Footer Copyright */
+        /* Footer Copyright (Exact from Image 1 & 2) */
         .copyright-text {
             text-align: center;
-            font-size: 11px;
+            font-size: 10.5px;
             color: #64748b;
-            margin-top: 30px;
+            margin-top: 24px;
             line-height: 1.5;
         }
 
-        /* Bottom Fixed Navigation Bar */
+        /* Bottom Fixed Toolbar Navigation (Exact from Image 1) */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(8, 13, 26, 0.95);
+            background: rgba(6, 11, 20, 0.95);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 8px 0;
             z-index: 1000;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         .nav-item {
@@ -327,7 +362,7 @@
         }
 
         .nav-item i {
-            font-size: 16px;
+            font-size: 15px;
         }
 
         .nav-item.active {
@@ -337,95 +372,28 @@
 </head>
 <body>
 
+    <!-- Header Frame with Tabs (Exact replica of Image 2 Top Section) -->
     <div class="app-header">
-        <!-- 상단 Tab 스위처 -->
-        <div class="tab-switcher">
-            <button class="tab-btn active" id="tab1-btn" onclick="switchTab('hub')">
-                <i class="fa-solid fa-layer-group"></i> 통합 메인 허브
-            </button>
-            <button class="tab-btn" id="tab2-btn" onclick="switchTab('gateway')">
-                <i class="fa-solid fa-shield-halved"></i> 보안 게이트웨이
-            </button>
+        <div class="header-card">
+            <div class="header-left">
+                <div class="title-badge"><i class="fa-solid fa-bolt"></i> HK ENTERPRISE</div>
+                <h2>SECURE CLUSTER<br>ARCHITECTURE</h2>
+            </div>
+            <div class="header-tabs">
+                <button class="vertical-tab active" id="tab1-btn" onclick="switchTab('gateway')">
+                    <span class="tab-num">1.</span>
+                    <span class="tab-text">보안게이트웨이</span>
+                </button>
+                <button class="vertical-tab" id="tab2-btn" onclick="switchTab('hub')">
+                    <span class="tab-num">2.</span>
+                    <span class="tab-text">통합메인허브</span>
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- 1. HK 통합 메인 허브 뷰 -->
-    <main id="hub-view" class="view-content active">
-        <div class="hub-title">
-            <h1>HK 통합 메인 허브</h1>
-            <p>5대 핵심 기능 및 에코시스템 바로가기</p>
-        </div>
-
-        <div class="menu-list">
-            <!-- 메뉴 1 -->
-            <a href="#" class="menu-card" onclick="alert('개인 자산 대시보드로 이동합니다.'); return false;">
-                <div class="menu-left">
-                    <div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div>
-                    <div class="menu-info">
-                        <h3>개인 자산 대시보드</h3>
-                        <p>실시간 잔액 및 Pi코인·누적 이자 관리</p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <!-- 메뉴 2 -->
-            <a href="#" class="menu-card" onclick="alert('10대 분산 연동망 연동 프로세스로 이동합니다.'); return false;">
-                <div class="menu-left">
-                    <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
-                    <div class="menu-info">
-                        <h3>사고 팔고 예금하기</h3>
-                        <p>10대 분산 연동망 상세 프로세스 실행</p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <!-- 메뉴 3 -->
-            <a href="#" class="menu-card" onclick="alert('고객센터 AGI 삐니와 연결합니다.'); return false;">
-                <div class="menu-left">
-                    <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
-                    <div class="menu-info">
-                        <h3>고객센터 AGI 삐니</h3>
-                        <p>60개국어 뼈속까지 변환 AI 삐니 실시간 구동</p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <!-- 메뉴 4 -->
-            <a href="#" class="menu-card" onclick="alert('내비게이터 메뉴를 열람합니다.'); return false;">
-                <div class="menu-left">
-                    <div class="icon-box"><i class="fa-solid fa-compass"></i></div>
-                    <div class="menu-info">
-                        <h3>내비게이터 (메뉴 보기)</h3>
-                        <p>백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <!-- 메뉴 5 -->
-            <a href="#" class="menu-card" onclick="alert('유튜브 및 틱톡 채널로 연결됩니다.'); return false;">
-                <div class="menu-left">
-                    <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
-                    <div class="menu-info">
-                        <h3>유튜브와 틱톡 채널 연동</h3>
-                        <p>HK 통합 메인 허브 5번째 방송 센터</p>
-                    </div>
-                </div>
-                <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
-        </div>
-
-        <div class="copyright-text">
-            © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved.<br>
-            Complete Detailed Enterprise Edition
-        </div>
-    </main>
-
-    <!-- 2. HK WORLD BANK 보안 게이트웨이 뷰 -->
-    <main id="gateway-view" class="view-content">
+    <!-- 1. 보안 게이트웨이 뷰 (Image 2) -->
+    <main id="gateway-view" class="view-content active">
         <div class="gateway-banner">
             <i class="fa-solid fa-lock"></i> SECURE GATEWAY v10.4 - ENTERPRISE EDITION
         </div>
@@ -435,7 +403,6 @@
             <p>회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 시스템</p>
         </div>
 
-        <!-- 콘솔 터미널 영역 -->
         <div class="console-box">
             <div class="console-header">
                 <div class="console-header-title">
@@ -462,62 +429,129 @@
         </div>
     </main>
 
-    <!-- 하단 고정 네비게이션 툴바 -->
+    <!-- 2. 통합 메인 허브 뷰 (Image 1) -->
+    <main id="hub-view" class="view-content">
+        <div class="hub-title">
+            <h1>HK 통합 메인 허브</h1>
+            <p>5대 핵심 기능 및 에코시스템 바로가기</p>
+        </div>
+
+        <div class="menu-list">
+            <a href="#" class="menu-card" onclick="alert('개인 자산 대시보드로 이동합니다.'); return false;">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-star"></i></div>
+                    <div class="menu-info">
+                        <h3>개인 자산 대시보드</h3>
+                        <p>실시간 잔액 및 Pi코인·누적 이자 관리</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="#" class="menu-card" onclick="alert('10대 분산 연동망 프로세스로 이동합니다.'); return false;">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="menu-info">
+                        <h3>사고 팔고 예금하기</h3>
+                        <p>10대 분산 연동망 상세 프로세스 실행</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="#" class="menu-card" onclick="alert('AGI 삐니와 연결합니다.'); return false;">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
+                    <div class="menu-info">
+                        <h3>고객센터 AGI 삐니</h3>
+                        <p>60개국어 뼈속까지 변환 AI 삐니 실시간 구동</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="#" class="menu-card" onclick="alert('내비게이터 메뉴를 열람합니다.'); return false;">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-compass"></i></div>
+                    <div class="menu-info">
+                        <h3>내비게이터 (메뉴 보기)</h3>
+                        <p>백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="#" class="menu-card" onclick="alert('유튜브 및 틱톡 방송 센터로 이동합니다.'); return false;">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
+                    <div class="menu-info">
+                        <h3>유튜브와 틱톡 채널 연동</h3>
+                        <p>HK 통합 메인 허브 5번째 방송 센터</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+        </div>
+
+        <div class="copyright-text">
+            © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved.<br>
+            Complete Detailed Enterprise Edition
+        </div>
+    </main>
+
+    <!-- Bottom Fixed Toolbar Navigation (Image 1 Bottom) -->
     <nav class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('hub')">
+        <button class="nav-item" onclick="switchTab('hub')">
             <i class="fa-solid fa-star"></i>
             <span>자산</span>
         </button>
         <button class="nav-item" onclick="switchTab('hub')">
             <i class="fa-solid fa-bolt"></i>
-            <span>명령 실행</span>
+            <span>명령실행</span>
         </button>
         <button class="nav-item" onclick="switchTab('hub')">
             <i class="fa-solid fa-robot"></i>
             <span>삐니</span>
         </button>
-        <button class="nav-item" onclick="switchTab('hub')">
+        <button class="nav-item active" onclick="switchTab('hub')">
             <i class="fa-solid fa-compass"></i>
             <span>내비게이터</span>
         </button>
         <button class="nav-item" onclick="switchTab('hub')">
             <i class="fa-solid fa-headset"></i>
-            <span>유튜브/틱톡</span>
+            <span>유튜브·틱톡</span>
         </button>
     </nav>
 
     <script>
-        // 탭 전환 처리 함수
         function switchTab(tabName) {
             const hubView = document.getElementById('hub-view');
             const gatewayView = document.getElementById('gateway-view');
             const tab1Btn = document.getElementById('tab1-btn');
             const tab2Btn = document.getElementById('tab2-btn');
 
-            if (tabName === 'hub') {
-                hubView.classList.add('active');
-                gatewayView.classList.remove('active');
+            if (tabName === 'gateway') {
+                gatewayView.classList.add('active');
+                hubView.classList.remove('active');
                 tab1Btn.classList.add('active');
                 tab2Btn.classList.remove('active');
             } else {
-                gatewayView.classList.add('active');
-                hubView.classList.remove('active');
+                hubView.classList.add('active');
+                gatewayView.classList.remove('active');
                 tab2Btn.classList.add('active');
                 tab1Btn.classList.remove('active');
             }
         }
 
-        // 실시간 시계 업데이트
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
-            const timeString = `${hours}:${minutes}:${seconds}`;
             
             const clockEl = document.getElementById('clock');
             if (clockEl) {
-                clockEl.textContent = timeString;
+                clockEl.textContent = `${hours}:${minutes}:${seconds}`;
             }
         }
 
@@ -526,4 +560,3 @@
     </script>
 </body>
 </html>
-
