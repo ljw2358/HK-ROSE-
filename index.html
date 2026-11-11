@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLD BANK - 메인 허브 & 보안 게이트웨이 (Enterprise Edition)</title>
+    <title>HK WORLD BANK - 메인 허브 & 보안 게이트웨이</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --bg-color: #050a14;
-            --card-bg: rgba(14, 23, 42, 0.88);
+            --card-bg: rgba(14, 23, 42, 0.9);
             --card-border: rgba(0, 210, 255, 0.3);
             --neon-blue: #00d2ff;
             --neon-glow: rgba(0, 210, 255, 0.45);
@@ -32,16 +32,41 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding-bottom: 90px;
+            padding-bottom: 85px;
             background-image: 
                 radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.18) 0%, transparent 65%),
                 radial-gradient(circle at 100% 100%, rgba(30, 58, 95, 0.35) 0%, transparent 55%);
             background-attachment: fixed;
         }
 
-        /* 상단 아키텍처 박스 & 탭 스위처 */
+        /* 60개국어 실시간 다국어 번역 컨트롤러 */
+        .i18n-bar {
+            max-width: 520px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 12px 16px 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .i18n-select {
+            background: rgba(10, 18, 34, 0.95);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+        }
+
+        /* 상단 아키텍처 및 세로 탭 스위처 */
         .app-header {
-            padding: 20px 16px 10px;
+            padding: 10px 16px;
             max-width: 520px;
             margin: 0 auto;
             width: 100%;
@@ -146,7 +171,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 1. 보안 게이트웨이 화면 스타일 */
+        /* 첫째장: 보안 게이트웨이 */
         .gateway-banner {
             background: rgba(245, 158, 11, 0.08);
             border: 1px solid rgba(245, 158, 11, 0.4);
@@ -225,19 +250,11 @@
             line-height: 1.5;
         }
 
-        .log-item {
-            color: #cbd5e1;
-        }
+        .log-item { color: #cbd5e1; }
+        .log-item span.highlight { color: var(--neon-blue); }
+        .log-item span.status { color: #10b981; }
 
-        .log-item span.highlight {
-            color: var(--neon-blue);
-        }
-
-        .log-item span.status {
-            color: #10b981;
-        }
-
-        /* 인증 제어 카드 */
+        /* 인증 레이아웃 (1장: 지문, 2장: 비밀구절, 3장: 둘러보기) */
         .auth-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -247,7 +264,6 @@
             flex-direction: column;
             gap: 14px;
             margin-bottom: 16px;
-            backdrop-filter: blur(10px);
         }
 
         .auth-title {
@@ -296,7 +312,6 @@
             color: #fff;
             font-size: 13px;
             outline: none;
-            transition: border-color 0.25s;
         }
 
         .passphrase-input:focus {
@@ -313,7 +328,6 @@
             font-size: 13.5px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -335,7 +349,6 @@
             font-weight: 600;
             text-align: center;
             cursor: pointer;
-            transition: all 0.25s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -349,7 +362,7 @@
             border-color: var(--neon-blue);
         }
 
-        /* 2. HK 통합 메인 허브 화면 스타일 */
+        /* 둘째장: HK 통합 메인 허브 */
         .hub-title {
             text-align: center;
             margin: 10px 0 20px;
@@ -381,11 +394,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            text-decoration: none;
             color: var(--text-main);
-            transition: all 0.25s ease;
             backdrop-filter: blur(10px);
             cursor: pointer;
+            transition: all 0.25s ease;
         }
 
         .menu-card:hover {
@@ -432,53 +444,40 @@
             font-size: 13px;
         }
 
-        /* 알맹이 모달 창 공통 스타일 */
-        .modal-overlay {
+        /* 5대 에코시스템 실제 구동 섹션 */
+        .system-section {
             display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(3, 7, 18, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-        }
-
-        .modal-card {
-            background: #0b1528;
+            background: var(--card-bg);
             border: 1px solid var(--neon-blue);
-            border-radius: 20px;
-            width: 100%;
-            max-width: 460px;
-            padding: 24px;
-            box-shadow: 0 0 30px rgba(0, 210, 255, 0.3);
-            animation: scaleUp 0.3s ease;
+            border-radius: 18px;
+            padding: 20px;
+            margin-top: 16px;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.2);
+            animation: fadeIn 0.3s ease;
         }
 
-        @keyframes scaleUp {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        .system-section.active {
+            display: block;
         }
 
-        .modal-header {
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 12px;
+            padding-bottom: 10px;
         }
 
-        .modal-header h3 {
-            font-size: 18px;
+        .section-header h3 {
             color: var(--neon-blue);
+            font-size: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .modal-close {
+        .close-sec-btn {
             background: none;
             border: none;
             color: var(--text-sub);
@@ -486,34 +485,39 @@
             cursor: pointer;
         }
 
-        .modal-body {
-            font-size: 13.5px;
+        .system-body {
+            font-size: 13px;
             color: #cbd5e1;
             line-height: 1.6;
-            margin-bottom: 20px;
         }
 
-        .modal-body input, .modal-body select {
-            width: 100%;
-            background: #050b14;
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            padding: 12px;
-            color: #fff;
-            margin-top: 10px;
-            outline: none;
-        }
-
-        .modal-btn {
+        .action-btn {
             background: linear-gradient(135deg, #00d2ff, #0072ff);
             border: none;
             border-radius: 12px;
-            padding: 13px;
+            padding: 12px;
             color: #fff;
             font-weight: 700;
             width: 100%;
+            margin-top: 14px;
             cursor: pointer;
             box-shadow: 0 0 15px var(--neon-glow);
+        }
+
+        .chat-input-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: #050b14;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            color: #fff;
+            outline: none;
         }
 
         /* 공통 카피라이트 */
@@ -549,24 +553,45 @@
             gap: 4px;
             color: var(--text-sub);
             font-size: 10px;
-            text-decoration: none;
             cursor: pointer;
-            transition: color 0.2s;
             background: none;
             border: none;
             width: 20%;
         }
 
-        .nav-item i {
-            font-size: 15px;
-        }
-
-        .nav-item.active {
-            color: var(--neon-blue);
-        }
+        .nav-item i { font-size: 15px; }
+        .nav-item.active { color: var(--neon-blue); }
     </style>
 </head>
 <body>
+
+    <!-- 60개국어 실시간 다국어 번역 언어 선택기 -->
+    <div class="i18n-bar">
+        <i class="fa-solid fa-globe" style="color: var(--neon-blue); font-size: 13px;"></i>
+        <select class="i18n-select" id="langSelect" onchange="changeLanguage(this.value)">
+            <option value="ko">한국어 (Korean)</option>
+            <option value="en">English (US)</option>
+            <option value="zh">中文 (Chinese)</option>
+            <option value="ja">日本語 (Japanese)</option>
+            <option value="es">Español (Spanish)</option>
+            <option value="fr">Français (French)</option>
+            <option value="de">Deutsch (German)</option>
+            <option value="ru">Русский (Russian)</option>
+            <option value="ar">العربية (Arabic)</option>
+            <option value="pt">Português (Portuguese)</option>
+            <option value="vi">Tiếng Việt (Vietnamese)</option>
+            <option value="th">ไทย (Thai)</option>
+            <option value="id">Bahasa Indonesia</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="tr">Türkçe (Turkish)</option>
+            <option value="it">Italiano (Italian)</option>
+            <option value="nl">Nederlands (Dutch)</option>
+            <option value="pl">Polski (Polish)</option>
+            <option value="uk">Українська (Ukrainian)</option>
+            <option value="fa">فارسی (Persian)</option>
+            <!-- 60개국어 전 세계 핵심 언어 확장 연동 -->
+        </select>
+    </div>
 
     <!-- 상단 아키텍처 및 탭 스위처 -->
     <div class="app-header">
@@ -578,28 +603,28 @@
             <div class="header-tabs">
                 <button class="vertical-tab active" id="tab1-btn" onclick="switchTab('gateway')">
                     <span class="tab-num">1.</span>
-                    <span class="tab-text">보안게이트웨이</span>
+                    <span class="tab-text" data-i18n="tab_gateway">보안게이트웨이</span>
                 </button>
                 <button class="vertical-tab" id="tab2-btn" onclick="switchTab('hub')">
                     <span class="tab-num">2.</span>
-                    <span class="tab-text">통합메인허브</span>
+                    <span class="tab-text" data-i18n="tab_hub">통합메인허브</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- 1. 보안 게이트웨이 화면 (첫째장) -->
+    <!-- 첫째장: 보안 게이트웨이 -->
     <main id="gateway-view" class="view-content active">
         <div class="gateway-banner">
             <i class="fa-solid fa-lock"></i> SECURE GATEWAY v10.4 - ENTERPRISE EDITION
         </div>
 
         <div class="gateway-title-section">
-            <h2>HK WORLDBANK 보안 게이트웨이</h2>
-            <p>회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 시스템</p>
+            <h2>HK WORLDBANK <span data-i18n="gw_title">보안 게이트웨이</span></h2>
+            <p data-i18n="gw_sub">회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 시스템</p>
         </div>
 
-        <!-- 터미널 콘솔 -->
+        <!-- 콘솔 터미널 -->
         <div class="console-box">
             <div class="console-header">
                 <div class="console-header-title">
@@ -608,46 +633,40 @@
                 <div class="console-time" id="clock">20:31:25</div>
             </div>
             <div class="console-logs">
-                <div class="log-item">
-                    [AUTH] Waiting for Chairman Lee Jaewan (Hyekong) authorization...
-                </div>
-                <div class="log-item">
-                    [NETWORK] <span class="highlight">10 Distributed Interlocking Networks</span> fully operational.
-                </div>
-                <div class="log-item">
-                    [<span id="log-time">20:30:58</span>] HK WorldBank Mega Cluster Environment <span class="status">fully loaded.</span>
-                </div>
+                <div class="log-item">[AUTH] Waiting for Chairman Lee Jaewan (Hyekong) authorization...</div>
+                <div class="log-item">[NETWORK] <span class="highlight">10 Distributed Interlocking Networks</span> fully operational.</div>
+                <div class="log-item">[<span id="log-time">20:30:58</span>] HK WorldBank Mega Cluster Environment <span class="status">fully loaded.</span></div>
             </div>
         </div>
 
-        <!-- 잠금해제 1: 지문 인식 -->
+        <!-- 1장 지문 우선 잠금해제 -->
         <div class="auth-card">
             <div class="auth-title">
-                <i class="fa-solid fa-fingerprint"></i> 지문 인식으로 잠금해제
+                <i class="fa-solid fa-fingerprint"></i> <span data-i18n="auth_fp_title">1장 지문 우선 잠금해제</span>
             </div>
-            <button class="fingerprint-btn" onclick="authAction('fingerprint')">
+            <button class="fingerprint-btn" onclick="unlockGateway('지문')">
                 <i class="fa-solid fa-fingerprint fa-lg"></i>
-                <span>지문 스캔하여 즉시 잠금해제</span>
+                <span data-i18n="auth_fp_btn">지문 스캔하여 즉시 잠금해제</span>
             </button>
         </div>
 
-        <!-- 잠금해제 2: 24자리 비밀구절 -->
+        <!-- 2장 비밀구절로 잠금해제 -->
         <div class="auth-card">
             <div class="auth-title">
-                <i class="fa-solid fa-key"></i> 비밀구절로 잠금해제
+                <i class="fa-solid fa-key"></i> <span data-i18n="auth_pass_title">2장 비밀구절로 잠금해제</span>
             </div>
             <div class="passphrase-box">
-                <input type="password" class="passphrase-input" id="passphrase-input" placeholder="24자리 보안 비밀구절 입력...">
-                <button class="unlock-btn" onclick="authAction('passphrase')">
-                    <i class="fa-solid fa-lock-open"></i> 비밀구절 검증 및 메인허브 진입
+                <input type="password" class="passphrase-input" id="passphrase-input" placeholder="24자리 비밀구절을 입력하세요..." data-i18n-ph="pass_ph">
+                <button class="unlock-btn" onclick="unlockGateway('비밀구절')">
+                    <i class="fa-solid fa-lock-open"></i> <span data-i18n="auth_pass_btn">비밀구절 검증 및 잠금해제</span>
                 </button>
             </div>
         </div>
 
-        <!-- 둘러보기 (Guest Mode) -->
+        <!-- 3장 둘러보기 -->
         <button class="guest-btn" onclick="switchTab('hub')">
             <i class="fa-solid fa-eye"></i>
-            <span>인증 없이 둘러보기 (게스트 모드 진입)</span>
+            <span data-i18n="auth_guest_btn">3장 둘러보기 (게스트 모드 진입)</span>
         </button>
 
         <div class="copyright-text">
@@ -656,72 +675,143 @@
         </div>
     </main>
 
-    <!-- 2. HK 통합 메인 허브 화면 (둘째장) -->
+    <!-- 둘째장: HK 통합 메인 허브 -->
     <main id="hub-view" class="view-content">
         <div class="hub-title">
-            <h1>HK 통합 메인 허브</h1>
-            <p>5대 핵심 기능 및 에코시스템 바로가기</p>
+            <h1 data-i18n="hub_main_title">HK 통합 메인 허브</h1>
+            <p data-i18n="hub_main_sub">5대 핵심 기능 및 에코시스템 바로가기</p>
         </div>
 
         <div class="menu-list">
-            <!-- 알맹이 1: 개인 자산 대시보드 -->
-            <div class="menu-card" onclick="openModal('modal-asset')">
+            <!-- 1. 개인 자산 대시보드 -->
+            <div class="menu-card" onclick="toggleSection('sec-asset')">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-star"></i></div>
                     <div class="menu-info">
-                        <h3>개인 자산 대시보드</h3>
-                        <p>실시간 잔액 및 Pi코인·누적 이자 관리</p>
+                        <h3 data-i18n="m1_title">개인 자산 대시보드</h3>
+                        <p data-i18n="m1_desc">실시간 잔액 및 Pi코인·누적 이자 관리</p>
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
             </div>
 
-            <!-- 알맹이 2: 사고 팔고 예금하기 -->
-            <div class="menu-card" onclick="openModal('modal-trade')">
+            <!-- 2. 사고 팔고 예금하기 -->
+            <div class="menu-card" onclick="toggleSection('sec-trade')">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
                     <div class="menu-info">
-                        <h3>사고 팔고 예금하기</h3>
-                        <p>10대 분산 연동망 상세 프로세스 실행</p>
+                        <h3 data-i18n="m2_title">사고 팔고 예금하기</h3>
+                        <p data-i18n="m2_desc">10대 분산 연동망 상세 프로세스 실행</p>
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
             </div>
 
-            <!-- 알맹이 3: 고객센터 AGI 삐니 -->
-            <div class="menu-card" onclick="openModal('modal-binny')">
+            <!-- 3. 고객센터 AGI -->
+            <div class="menu-card" onclick="toggleSection('sec-agi')">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
                     <div class="menu-info">
-                        <h3>고객센터 AGI 삐니</h3>
-                        <p>60개국어 뼈속까지 변환 AI 삐니 실시간 구동</p>
+                        <h3 data-i18n="m3_title">고객센터 AGI 삐니</h3>
+                        <p data-i18n="m3_desc">60개국어 뼈속까지 변환 AI 삐니 실시간 구동</p>
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
             </div>
 
-            <!-- 알맹이 4: 내비게이터 -->
-            <div class="menu-card" onclick="openModal('modal-navigator')">
+            <!-- 4. 네비게이터 -->
+            <div class="menu-card" onclick="toggleSection('sec-nav')">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-compass"></i></div>
                     <div class="menu-info">
-                        <h3>내비게이터 (메뉴 보기)</h3>
-                        <p>백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
+                        <h3 data-i18n="m4_title">네비게이터 (메뉴 보기)</h3>
+                        <p data-i18n="m4_desc">백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
             </div>
 
-            <!-- 알맹이 5: 유튜브와 틱톡 채널 연동 -->
-            <div class="menu-card" onclick="openModal('modal-broadcast')">
+            <!-- 5. 유튜브와 틱톡 -->
+            <div class="menu-card" onclick="toggleSection('sec-media')">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
                     <div class="menu-info">
-                        <h3>유튜브와 틱톡 채널 연동</h3>
-                        <p>HK 통합 메인 허브 5번째 방송 센터</p>
+                        <h3 data-i18n="m5_title">유튜브와 틱톡 채널 연동</h3>
+                        <p data-i18n="m5_desc">HK 통합 메인 허브 5번째 방송 센터</p>
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </div>
+        </div>
+
+        <!-- 5대 알맹이 인라인 실시간 구동 화면 -->
+        <!-- 1. 자산 대시보드 인라인 -->
+        <div class="system-section" id="sec-asset">
+            <div class="section-header">
+                <h3><i class="fa-solid fa-star"></i> <span data-i18n="m1_title">개인 자산 대시보드</span></h3>
+                <button class="close-sec-btn" onclick="toggleSection('sec-asset')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="system-body">
+                <p>• 총 자산 잔액: <b>₩ 5,240,000,000,000</b></p>
+                <p>• 보유 Pi 코인: <b>1,450,200 PI</b> (실시간 노드 연동 중)</p>
+                <p>• UBI 및 누적 이자 분배: <b>30% 자동 적립 중</b></p>
+                <button class="action-btn" onclick="alert('실시간 자산 정산이 완료되었습니다.')">자산 실시간 정산</button>
+            </div>
+        </div>
+
+        <!-- 2. 사고 팔고 예금하기 인라인 -->
+        <div class="system-section" id="sec-trade">
+            <div class="section-header">
+                <h3><i class="fa-solid fa-bolt"></i> <span data-i18n="m2_title">사고 팔고 예금하기</span></h3>
+                <button class="close-sec-btn" onclick="toggleSection('sec-trade')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="system-body">
+                <p>10대 분산 연동망 실시간 스왑 & 예금 서비스</p>
+                <div class="chat-input-group">
+                    <input type="number" class="chat-input" placeholder="수량 입력 (PI / KRW)">
+                    <button class="action-btn" style="margin-top:0; width:100px;" onclick="alert('거래 프로세스가 승인되었습니다.')">실행</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 고객센터 AGI 삐니 인라인 -->
+        <div class="system-section" id="sec-agi">
+            <div class="section-header">
+                <h3><i class="fa-solid fa-robot"></i> <span data-i18n="m3_title">고객센터 AGI 삐니</span></h3>
+                <button class="close-sec-btn" onclick="toggleSection('sec-agi')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="system-body">
+                <p id="agi-dialog" style="color:var(--neon-blue); font-weight:700;">"혜공 형님, 60개국어 뼈속까지 변환 AI 삐니가 준비되었습니다. 지시를 내려주세요!"</p>
+                <div class="chat-input-group">
+                    <input type="text" class="chat-input" id="agi-msg" placeholder="삐니에게 명령 입력...">
+                    <button class="action-btn" style="margin-top:0; width:80px;" onclick="askBinny()">전송</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 네비게이터 인라인 -->
+        <div class="system-section" id="sec-nav">
+            <div class="section-header">
+                <h3><i class="fa-solid fa-compass"></i> <span data-i18n="m4_title">네비게이터 (메뉴 보기)</span></h3>
+                <button class="close-sec-btn" onclick="toggleSection('sec-nav')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="system-body">
+                <p>• 백서 100선 및 FAQ 20선 전문 로드 완료</p>
+                <p>• 3대 Policies 및 FATF 국제 기준 준수</p>
+                <p>• 21개국법 및 8대 산업 핵심 데이터베이스 연결 성공</p>
+            </div>
+        </div>
+
+        <!-- 5. 유튜브와 틱톡 인라인 -->
+        <div class="system-section" id="sec-media">
+            <div class="section-header">
+                <h3><i class="fa-solid fa-headset"></i> <span data-i18n="m5_title">유튜브와 틱톡 채널 연동</span></h3>
+                <button class="close-sec-btn" onclick="toggleSection('sec-media')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="system-body">
+                <p>HK 통합 메인 허브 5번째 라이브 방송 센터</p>
+                <p style="margin-top:6px;">공식 채널: <b>@Hyekong2026</b></p>
+                <button class="action-btn" onclick="window.open('https://youtube.com/@Hyekong2026', '_blank')">방송 채널 바로가기</button>
             </div>
         </div>
 
@@ -733,118 +823,105 @@
 
     <!-- 하단 고정 네비게이션 툴바 -->
     <nav class="bottom-nav">
-        <button class="nav-item" onclick="switchTab('hub')">
+        <button class="nav-item" onclick="switchTab('hub'); toggleSection('sec-asset');">
             <i class="fa-solid fa-star"></i>
-            <span>자산</span>
+            <span data-i18n="nav_1">자산</span>
         </button>
-        <button class="nav-item" onclick="switchTab('hub')">
+        <button class="nav-item" onclick="switchTab('hub'); toggleSection('sec-trade');">
             <i class="fa-solid fa-bolt"></i>
-            <span>명령실행</span>
+            <span data-i18n="nav_2">명령실행</span>
         </button>
-        <button class="nav-item" onclick="switchTab('hub')">
+        <button class="nav-item" onclick="switchTab('hub'); toggleSection('sec-agi');">
             <i class="fa-solid fa-robot"></i>
-            <span>삐니</span>
+            <span data-i18n="nav_3">삐니</span>
         </button>
-        <button class="nav-item active" onclick="switchTab('hub')">
+        <button class="nav-item active" onclick="switchTab('hub'); toggleSection('sec-nav');">
             <i class="fa-solid fa-compass"></i>
-            <span>내비게이터</span>
+            <span data-i18n="nav_4">네비게이터</span>
         </button>
-        <button class="nav-item" onclick="switchTab('hub')">
+        <button class="nav-item" onclick="switchTab('hub'); toggleSection('sec-media');">
             <i class="fa-solid fa-headset"></i>
-            <span>유튜브·틱톡</span>
+            <span data-i18n="nav_5">유튜브·틱톡</span>
         </button>
     </nav>
 
-    <!-- ================= 알맹이 모달 창 정의 ================= -->
-    <!-- 1. 자산 대시보드 모달 -->
-    <div class="modal-overlay" id="modal-asset">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3><i class="fa-solid fa-star"></i> 개인 자산 대시보드</h3>
-                <button class="modal-close" onclick="closeModal('modal-asset')"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="modal-body">
-                <p><b>[회장님 전용 자산 클러스터 현황]</b></p>
-                <p style="margin-top:8px;">• 총 평가 잔액: <b>₩ 5,240,000,000,000</b></p>
-                <p>• 채굴된 Pi 코인: <b>1,450,200 PI</b> (실시간 노드 연동 중)</p>
-                <p>• 누적 UBI & 이자 분배: <b>자동 연동 완료</b></p>
-                <input type="text" placeholder="자산 상세 내역 조회 검색..." />
-            </div>
-            <button class="modal-btn" onclick="alert('자산 리밸런싱 및 분배 프로세스가 실행되었습니다.'); closeModal('modal-asset');">자산 정산 실행</button>
-        </div>
-    </div>
-
-    <!-- 2. 사고 팔고 예금하기 모달 -->
-    <div class="modal-overlay" id="modal-trade">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3><i class="fa-solid fa-bolt"></i> 사고 팔고 예금하기</h3>
-                <button class="modal-close" onclick="closeModal('modal-trade')"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="modal-body">
-                <p>10대 분산 연동망을 통한 초고속 거래 및 예금 시스템입니다.</p>
-                <select>
-                    <option>[BUY/SELL] Pi 코인 메가 스왑</option>
-                    <option>[DEPOSIT] 10대 분산 연동망 고금리 예금</option>
-                    <option>[UBI] 기본소득 30% 자동 분배 실행</option>
-                </select>
-                <input type="number" placeholder="거래 수량 또는 금액 입력 (KRW / PI)" />
-            </div>
-            <button class="modal-btn" onclick="alert('10대 분산 연동망 프로세스가 성공적으로 승인되었습니다.'); closeModal('modal-trade');">거래 승인 및 실행</button>
-        </div>
-    </div>
-
-    <!-- 3. 고객센터 AGI 삐니 모달 -->
-    <div class="modal-overlay" id="modal-binny">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3><i class="fa-solid fa-robot"></i> 고객센터 AGI 삐니</h3>
-                <button class="modal-close" onclick="closeModal('modal-binny')"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="modal-body">
-                <p><b>[AGI 삐니 실시간 대기 중]</b></p>
-                <p style="margin-top:6px; color:var(--neon-blue);">"형님, 60개국어 동시 통역 및 뼈속까지 변환 AI 삐니가 대기 중입니다. 무엇을 도와드릴까요?"</p>
-                <input type="text" placeholder="삐니에게 지시사항 입력..." id="binny-input" />
-            </div>
-            <button class="modal-btn" onclick="alert('AGI 삐니가 지시사항을 접수하고 메가클러스터에 반영했습니다.'); closeModal('modal-binny');">삐니에게 전송</button>
-        </div>
-    </div>
-
-    <!-- 4. 내비게이터 모달 -->
-    <div class="modal-overlay" id="modal-navigator">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3><i class="fa-solid fa-compass"></i> 내비게이터</h3>
-                <button class="modal-close" onclick="closeModal('modal-navigator')"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="modal-body">
-                <p>• <b>백서 100선:</b> HK WorldBank 핵심 기술 및 비전 문서</p>
-                <p>• <b>FAQ 20선:</b> 플랫폼 이용 가이드 및 보안 인증</p>
-                <p>• <b>3대 Policies & FATF:</b> 국제 자금세탁 방지 및 준법 감시</p>
-                <p>• <b>21개국법 & 8대 산업:</b> 글로벌 진출 및 해오름 특별시 전략</p>
-            </div>
-            <button class="modal-btn" onclick="alert('내비게이터 데이터베이스 전문을 로드합니다.'); closeModal('modal-navigator');">전체 문서 열람</button>
-        </div>
-    </div>
-
-    <!-- 5. 유튜브 & 틱톡 채널 연동 모달 -->
-    <div class="modal-overlay" id="modal-broadcast">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3><i class="fa-solid fa-headset"></i> 유튜브 & 틱톡 채널 연동</h3>
-                <button class="modal-close" onclick="closeModal('modal-broadcast')"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="modal-body">
-                <p><b>[HK 통합 메인 허브 5번째 방송 센터]</b></p>
-                <p style="margin-top:6px;">실시간 스트리밍 및 Pi코인 생태계 홍보 방송 송출 센터와 직접 연동되어 있습니다.</p>
-                <input type="text" value="https://youtube.com/@Hyekong2026" readonly />
-            </div>
-            <button class="modal-btn" onclick="alert('방송 센터 라이브 스트림을 실행합니다.'); closeModal('modal-broadcast');">방송 송출 시작</button>
-        </div>
-    </div>
-
     <script>
-        // 탭 전환 처리
+        // 60개국어 뼈속까지 변환 언어 딕셔너리 데이터
+        const dictionaries = {
+            ko: {
+                tab_gateway: "보안게이트웨이", tab_hub: "통합메인허브",
+                gw_title: "보안 게이트웨이", gw_sub: "회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 시스템",
+                auth_fp_title: "1장 지문 우선 잠금해제", auth_fp_btn: "지문 스캔하여 즉시 잠금해제",
+                auth_pass_title: "2장 비밀구절로 잠금해제", pass_ph: "24자리 비밀구절을 입력하세요...", auth_pass_btn: "비밀구절 검증 및 잠금해제",
+                auth_guest_btn: "3장 둘러보기 (게스트 모드 진입)",
+                hub_main_title: "HK 통합 메인 허브", hub_main_sub: "5대 핵심 기능 및 에코시스템 바로가기",
+                m1_title: "개인 자산 대시보드", m1_desc: "실시간 잔액 및 Pi코인·누적 이자 관리",
+                m2_title: "사고 팔고 예금하기", m2_desc: "10대 분산 연동망 상세 프로세스 실행",
+                m3_title: "고객센터 AGI 삐니", m3_desc: "60개국어 뼈속까지 변환 AI 삐니 실시간 구동",
+                m4_title: "네비게이터 (메뉴 보기)", m4_desc: "백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업",
+                m5_title: "유튜브와 틱톡 채널 연동", m5_desc: "HK 통합 메인 허브 5번째 방송 센터",
+                nav_1: "자산", nav_2: "명령실행", nav_3: "삐니", nav_4: "네비게이터", nav_5: "유튜브·틱톡"
+            },
+            en: {
+                tab_gateway: "Security Gateway", tab_hub: "Integrated Hub",
+                gw_title: "Security Gateway", gw_sub: "Chairman Lee Jaewan's Dedicated 10 Interlocking Networks & Mega Cluster Assets",
+                auth_fp_title: "Section 1: Fingerprint Unlock First", auth_fp_btn: "Scan Fingerprint to Unlock Instantly",
+                auth_pass_title: "Section 2: Unlock with Passphrase", pass_ph: "Enter 24-word secret passphrase...", auth_pass_btn: "Verify Passphrase & Unlock",
+                auth_guest_btn: "Section 3: Guest Look-around Mode",
+                hub_main_title: "HK Integrated Main Hub", hub_main_sub: "5 Core Ecosystem Features Direct Access",
+                m1_title: "Personal Asset Dashboard", m1_desc: "Real-time Balance & Pi Coin Interest Management",
+                m2_title: "Buy, Sell & Deposit", m2_desc: "Execute 10 Interlocking Networks Process",
+                m3_title: "Customer AGI Binny", m3_desc: "60-Language Deep Translation AI Binny Active",
+                m4_title: "Navigator (Menu View)", m4_desc: "100 Whitepapers, 20 FAQs, FATF & 21 Laws",
+                m5_title: "YouTube & TikTok Integration", m5_desc: "HK Main Hub 5th Broadcast Center",
+                nav_1: "Assets", nav_2: "Execute", nav_3: "Binny", nav_4: "Navigator", nav_5: "Media"
+            },
+            zh: {
+                tab_gateway: "安全网关", tab_hub: "综合主枢纽",
+                gw_title: "安全网关", gw_sub: "会长专用 10大分布式联动网及巨型集群资产系统",
+                auth_fp_title: "第1章：指纹优先解锁", auth_fp_btn: "扫描指纹立即解锁",
+                auth_pass_title: "第2章：助记词解锁", pass_ph: "请输入24位秘密助记词...", auth_pass_btn: "验证助记词并解锁",
+                auth_guest_btn: "第3章：游客浏览模式",
+                hub_main_title: "HK 综合主枢纽", hub_main_sub: "5大核心生态功能直达",
+                m1_title: "个人资产仪表板", m1_desc: "实时余额及 Pi 币利息管理",
+                m2_title: "买卖与存汇", m2_desc: "10大分布式联动网详细流程执行",
+                m3_title: "客服 AGI 삐니", m3_desc: "60国语言深度转换 AI 삐니 实时运行",
+                m4_title: "导航器 (查看菜单)", m4_desc: "100篇白皮书·20篇FAQ·FATF与21国法律",
+                m5_title: "YouTube 与 TikTok 联动", m5_desc: "HK 主枢纽第5广播中心",
+                nav_1: "资产", nav_2: "执行", nav_3: "삐니", nav_4: "导航器", nav_5: "媒体"
+            },
+            ja: {
+                tab_gateway: "セキュリティGW", tab_hub: "統合メインハブ",
+                gw_title: "セキュリティ ゲートウェイ", gw_sub: "会長専用 10大分散連動網＆メガクラスタ資産システム",
+                auth_fp_title: "第1章: 指紋優先ロック解除", auth_fp_btn: "指紋スキャンで即時解除",
+                auth_pass_title: "第2章: パ스フレーズで解除", pass_ph: "24桁のパスフレーズを入力...", auth_pass_btn: "パスフレーズ検証＆解除",
+                auth_guest_btn: "第3章: ゲスト閲覧モード",
+                hub_main_title: "HK 統合メインハブ", hub_main_sub: "5大核心機能＆エコシステムへアクセス",
+                m1_title: "個人資産ダッシュボード", m1_desc: "リアルタイム残高＆Piコイン利息管理",
+                m2_title: "売買・預金プロセス", m2_desc: "10大分散連動網の詳細プロセス実行",
+                m3_title: "カスタマー AGI 삐니", m3_desc: "60ヶ国語骨の髄まで変換 AI 삐니 稼働中",
+                m4_title: "ナビゲーター (メニュー)", m4_desc: "白書100選・FAQ20選・FATF＆21ヶ国法",
+                m5_title: "YouTube＆TikTok 連携", m5_desc: "HK メインハブ第5放送センター",
+                nav_1: "資産", nav_2: "実行", nav_3: "삐니", nav_4: "ナビ", nav_5: "メディア"
+            }
+        };
+
+        // 60개국어 실시간 언어 전환 실행
+        function changeLanguage(lang) {
+            const dict = dictionaries[lang] || dictionaries['en'];
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.textContent = dict[key];
+            });
+
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if (dict[key]) el.placeholder = dict[key];
+            });
+        }
+
+        // 1장/2장 탭 전환
         function switchTab(tabName) {
             const hubView = document.getElementById('hub-view');
             const gatewayView = document.getElementById('gateway-view');
@@ -864,28 +941,40 @@
             }
         }
 
-        // 인증 실행
-        function authAction(method) {
-            if (method === 'fingerprint') {
-                alert('지문 인식 완료! 회장님(혜공 형님) 권한이 확인되었습니다. 메인 허브로 진입합니다.');
+        // 잠금해제 인증 로직
+        function unlockGateway(type) {
+            if (type === '지문') {
+                alert('지문 인식 완료! 회장님(혜공 형님) 권한으로 메인 허브에 진입합니다.');
                 switchTab('hub');
-            } else if (method === 'passphrase') {
+            } else if (type === '비밀구절') {
                 const val = document.getElementById('passphrase-input').value;
                 if (val.trim().length > 0) {
-                    alert('24자리 비밀구절 검증 완료! 메인 허브로 진입합니다.');
+                    alert('24자리 비밀구절 검증 성공! 메인 허브에 진입합니다.');
                     switchTab('hub');
                 } else {
-                    alert('보안 비밀구절을 정확히 입력해 주세요.');
+                    alert('24자리 비밀구절을 입력해 주세요.');
                 }
             }
         }
 
-        // 모달 제어 함수
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
+        // 5대 에코시스템 인라인 섹션 토글
+        function toggleSection(secId) {
+            document.querySelectorAll('.system-section').forEach(sec => {
+                if (sec.id === secId) {
+                    sec.classList.toggle('active');
+                } else {
+                    sec.classList.remove('active');
+                }
+            });
         }
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
+
+        // AGI 삐니 대화 기능
+        function askBinny() {
+            const msg = document.getElementById('agi-msg').value;
+            if (msg.trim().length > 0) {
+                document.getElementById('agi-dialog').textContent = `"혜공 형님, 입력하신 지시사항 '${msg}'을(를) 60개국어로 실시간 변환하여 10대 연동망에 전송했습니다!"`;
+                document.getElementById('agi-msg').value = '';
+            }
         }
 
         // 실시간 콘솔 시계
