@@ -1,397 +1,529 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLDBANK - 통합 메인 허브 (Extended Enterprise Edition)</title>
+    <title>HK WORLD BANK - 메인 허브 & 보안 게이트웨이</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #070d18;
-            --panel-bg: rgba(14, 26, 44, 0.95);
-            --panel-border: rgba(65, 90, 119, 0.55);
-            --highlight-cyan: #48cae4;
-            --highlight-blue: #00b4d8;
+            --bg-color: #080d1a;
+            --card-bg: #121d33;
+            --card-border: #1e3a5f;
+            --neon-blue: #00d2ff;
+            --neon-glow: rgba(0, 210, 255, 0.3);
             --text-main: #ffffff;
-            --text-sub: #8d99ae;
+            --text-sub: #94a3b8;
+            --text-accent: #38bdf8;
+            --gold-accent: #f59e0b;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 10% 10%, rgba(0, 180, 216, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(114, 9, 183, 0.08) 0%, transparent 40%),
-                linear-gradient(135deg, #050b14 0%, #0d1726 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 14px 12px 85px 12px;
+            justify-content: space-between;
+            padding-bottom: 80px;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(30, 58, 95, 0.2) 0%, transparent 40%);
         }
 
-        .container {
-            width: 100%;
-            max-width: 480px;
+        /* App Container */
+        .app-header {
+            padding: 20px 16px 10px;
+            text-align: center;
+        }
+
+        /* Tab Switcher Top */
+        .tab-switcher {
             display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        /* 상단 프로필 및 시스템 인포 박스 */
-        .top-header {
-            background: var(--panel-bg);
-            border: 1px solid var(--panel-border);
+            background: rgba(18, 29, 51, 0.8);
+            border: 1px solid var(--card-border);
             border-radius: 14px;
-            padding: 14px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            padding: 4px;
+            margin: 0 auto 20px;
+            max-width: 480px;
             backdrop-filter: blur(10px);
         }
 
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 11.5px;
-            font-weight: bold;
-            color: var(--highlight-cyan);
-            letter-spacing: 0.5px;
-        }
-
-        .lang-box {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--panel-border);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 10.5px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .avatar {
-            width: 38px;
-            height: 38px;
-            background: linear-gradient(135deg, #b5179e, #7209b7);
-            border-radius: 50%;
+        .tab-btn {
+            flex: 1;
+            padding: 12px 8px;
+            border: none;
+            background: transparent;
+            color: var(--text-sub);
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13.5px;
-            font-weight: bold;
-            color: white;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-            flex-shrink: 0;
+            gap: 8px;
         }
 
-        .profile-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
+        .tab-btn.active {
+            background: linear-gradient(135deg, #00d2ff, #0072ff);
+            color: #ffffff;
+            box-shadow: 0 0 15px var(--neon-glow);
         }
 
-        .profile-info div:nth-child(1) {
-            font-size: 12.5px;
-            font-weight: bold;
+        .view-content {
+            display: none;
+            max-width: 520px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 16px;
+        }
+
+        .view-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section 1: Main Hub Styles */
+        .hub-title {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .hub-title h1 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             color: #fff;
-            letter-spacing: 0.3px;
+            margin-bottom: 6px;
         }
 
-        .profile-info div:nth-child(2) {
-            font-size: 10px;
+        .hub-title p {
+            font-size: 13px;
             color: var(--text-sub);
         }
 
-        /* 메인 카드 스타일 */
-        .card-box {
-            width: 100%;
-            background: var(--panel-bg);
-            border: 1px solid var(--panel-border);
-            border-radius: 14px;
-            padding: 16px 18px;
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu-card {
+            background: rgba(18, 29, 51, 0.7);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 16px;
+            padding: 18px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-main);
             transition: all 0.25s ease;
+            backdrop-filter: blur(8px);
             position: relative;
             overflow: hidden;
         }
 
-        .card-box::before {
+        .menu-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            background: transparent;
-            transition: background 0.3s;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.4), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
-        .card-box:hover {
-            border-color: var(--highlight-blue);
+        .menu-card:hover, .menu-card:active {
             transform: translateY(-2px);
+            background: rgba(24, 40, 70, 0.85);
+            border-color: var(--neon-blue);
+            box-shadow: 0 4px 20px rgba(0, 210, 255, 0.25);
         }
 
-        .card-box:hover::before {
-            background: var(--highlight-cyan);
-        }
-
-        .card-left {
+        .menu-left {
             display: flex;
             align-items: center;
-            gap: 14px;
-            overflow: hidden;
+            gap: 16px;
         }
 
-        .icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
+        .icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 17px;
+            color: var(--neon-blue);
+            font-size: 18px;
             flex-shrink: 0;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
         }
 
-        .card-text {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            overflow: hidden;
-        }
-
-        .card-text h3 {
-            font-size: 14px;
+        .menu-info h3 {
+            font-size: 16px;
             font-weight: 700;
-            color: #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            margin-bottom: 4px;
         }
 
-        .card-text p {
-            font-size: 10.5px;
+        .menu-info p {
+            font-size: 12px;
             color: var(--text-sub);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            line-height: 1.4;
         }
 
-        .arrow {
+        .arrow-icon {
             color: var(--text-sub);
             font-size: 14px;
-            flex-shrink: 0;
-            transition: transform 0.2s;
         }
 
-        .card-box:hover .arrow {
-            transform: translateX(3px);
-            color: var(--highlight-cyan);
-        }
-
-        /* 추가 확장 정보 섹션 (풍부함을 더해주는 서브 패널) */
-        .cluster-info-box {
-            background: rgba(10, 20, 35, 0.7);
-            border: 1px dashed var(--panel-border);
-            border-radius: 12px;
+        /* Section 2: Security Gateway Styles */
+        .gateway-banner {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            border-radius: 20px;
             padding: 12px 16px;
-            font-size: 10.5px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--gold-accent);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .gateway-title-section {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .gateway-title-section h2 {
+            font-size: 26px;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .gateway-title-section p {
+            font-size: 13px;
             color: var(--text-sub);
+        }
+
+        /* Core Console Box */
+        .console-box {
+            background: #091322;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 210, 255, 0.1);
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .console-header-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ef4444;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .console-time {
+            color: var(--neon-blue);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .console-logs {
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            line-height: 1.4;
+            gap: 12px;
+            font-size: 13px;
+            line-height: 1.5;
         }
 
-        .cluster-info-box strong {
-            color: var(--highlight-cyan);
+        .log-item {
+            color: #cbd5e1;
         }
 
-        .copyright {
+        .log-item span.highlight {
+            color: var(--neon-blue);
+        }
+
+        .log-item span.status {
+            color: #10b981;
+        }
+
+        /* Footer Copyright */
+        .copyright-text {
             text-align: center;
-            font-size: 9.5px;
-            color: var(--text-sub);
-            margin-top: 8px;
-            line-height: 1.4;
-            word-break: keep-all;
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 30px;
+            line-height: 1.5;
         }
 
-        /* 하단 고정 독바 */
-        .dock-bar {
+        /* Bottom Fixed Navigation Bar */
+        .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
-            width: 100%;
-            background: rgba(7, 13, 24, 0.96);
-            border-top: 1px solid var(--panel-border);
-            padding: 9px 12px;
+            right: 0;
+            background: rgba(8, 13, 26, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
             display: flex;
             justify-content: space-around;
-            align-items: center;
+            padding: 10px 0;
             z-index: 1000;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 -5px 25px rgba(0,0,0,0.6);
         }
 
-        .dock-item {
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.2s, transform 0.2s;
-        }
-
-        .dock-item.active, .dock-item:hover {
-            opacity: 1;
-            transform: translateY(-2px);
-        }
-
-        .dock-item span {
-            font-size: 9.5px;
+            gap: 4px;
             color: var(--text-sub);
+            font-size: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            width: 20%;
         }
 
-        .dock-item.active span {
-            color: var(--highlight-cyan);
-            font-weight: bold;
+        .nav-item i {
+            font-size: 16px;
+        }
+
+        .nav-item.active {
+            color: var(--neon-blue);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 상단 프로필 및 언어 선택 헤더 -->
-        <div class="top-header">
-            <div class="header-top">
-                <span>HK WORLDBANK</span>
-                <div class="lang-box">🇰🇷 한국어 (60개국어 구동) ▾</div>
-            </div>
-            <div class="profile">
-                <div class="avatar">HK</div>
-                <div class="profile-info">
-                    <div>✨ 회장 이재완 (혜공) | 개인사업자</div>
-                    <div>최고경영 (Enterprise Executive Edition)</div>
-                </div>
-            </div>
-        </div>
 
-        <!-- 1. 개인 자산 대시보드 -->
-        <div class="card-box" onclick="alert('[개인 자산 대시보드]\n실시간 잔액 및 PI코인·누적 이자 관리 시스템에 접속합니다.')">
-            <div class="card-left">
-                <div class="icon" style="background: rgba(214,40,40,0.2); border: 1px solid #d62828;">📌</div>
-                <div class="card-text">
-                    <h3>개인 자산 대시보드</h3>
-                    <p>실시간 잔액 및 PI코인·누적 이자 관리</p>
-                </div>
-            </div>
-            <div class="arrow">&gt;</div>
-        </div>
-
-        <!-- 2. 사고 팔고 예금하기 -->
-        <div class="card-box" onclick="alert('[사고 팔고 예금하기]\n10대 분산 연동망 상세 프로세스를 실행합니다.')">
-            <div class="card-left">
-                <div class="icon" style="background: rgba(43,147,72,0.2); border: 1px solid #2b9348;">⚡</div>
-                <div class="card-text">
-                    <h3>사고 팔고 예금하기</h3>
-                    <p>10대 분산 연동망 상세 프로세스 실행</p>
-                </div>
-            </div>
-            <div class="arrow">&gt;</div>
-        </div>
-
-        <!-- 3. 고객센터 AGI 삐니 -->
-        <div class="card-box" onclick="alert('[고객센터 AGI 삐니]\n60개국어 백서 변환 AI 삐니 실시간 구동을 시작합니다.')">
-            <div class="card-left">
-                <div class="icon" style="background: rgba(114,9,183,0.2); border: 1px solid #7209b7;">🤖</div>
-                <div class="card-text">
-                    <h3>고객센터 AGI 삐니</h3>
-                    <p>60개국어 백서까지 변환 AI 삐니 실시간 구동</p>
-                </div>
-            </div>
-            <div class="arrow">&gt;</div>
-        </div>
-
-        <!-- 4. 내비게이터 (메뉴 보기) -->
-        <div class="card-box" onclick="alert('[내비게이터]\n백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업 메뉴를 엽니다.')">
-            <div class="card-left">
-                <div class="icon" style="background: rgba(247,127,0,0.2); border: 1px solid #f77f00;">🧭</div>
-                <div class="card-text">
-                    <h3>내비게이터 (메뉴 보기)</h3>
-                    <p>백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
-                </div>
-            </div>
-            <div class="arrow">&gt;</div>
-        </div>
-
-        <!-- 5. 유튜브와 틱톡 채널 연동 -->
-        <div class="card-box" onclick="alert('[유튜브와 틱톡 채널 연동]\nHK 통합 메인 허브 5번째 방송 센터를 실행합니다.')">
-            <div class="card-left">
-                <div class="icon" style="background: rgba(181,23,158,0.2); border: 1px solid #b5179e;">📺</div>
-                <div class="card-text">
-                    <h3>유튜브와 틱톡 채널 연동</h3>
-                    <p>HK 통합 메인 허브 5번째 방송 센터</p>
-                </div>
-            </div>
-            <div class="arrow">&gt;</div>
-        </div>
-
-        <!-- 하단 시스템 상태 안내 패널 -->
-        <div class="cluster-info-box">
-            <div>🛡️ <strong>Secure Core Status:</strong> v10.4 Active</div>
-            <div>⚡ <strong>10대 분산 연동망:</strong> 실시간 동기화 완료</div>
-        </div>
-
-        <div class="copyright">
-            © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved. | Complete Detailed Enterprise Edition
+    <div class="app-header">
+        <!-- 상단 Tab 스위처 -->
+        <div class="tab-switcher">
+            <button class="tab-btn active" id="tab1-btn" onclick="switchTab('hub')">
+                <i class="fa-solid fa-layer-group"></i> 통합 메인 허브
+            </button>
+            <button class="tab-btn" id="tab2-btn" onclick="switchTab('gateway')">
+                <i class="fa-solid fa-shield-halved"></i> 보안 게이트웨이
+            </button>
         </div>
     </div>
 
-    <!-- 하단 고정 독바 -->
-    <div class="dock-bar">
-        <div class="dock-item active" onclick="alert('자산 메뉴 선택')">
-            <span style="font-size: 17px;">📌</span>
+    <!-- 1. HK 통합 메인 허브 뷰 -->
+    <main id="hub-view" class="view-content active">
+        <div class="hub-title">
+            <h1>HK 통합 메인 허브</h1>
+            <p>5대 핵심 기능 및 에코시스템 바로가기</p>
+        </div>
+
+        <div class="menu-list">
+            <!-- 메뉴 1 -->
+            <a href="#" class="menu-card" onclick="alert('개인 자산 대시보드로 이동합니다.'); return false;">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div>
+                    <div class="menu-info">
+                        <h3>개인 자산 대시보드</h3>
+                        <p>실시간 잔액 및 Pi코인·누적 이자 관리</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- 메뉴 2 -->
+            <a href="#" class="menu-card" onclick="alert('10대 분산 연동망 연동 프로세스로 이동합니다.'); return false;">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="menu-info">
+                        <h3>사고 팔고 예금하기</h3>
+                        <p>10대 분산 연동망 상세 프로세스 실행</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- 메뉴 3 -->
+            <a href="#" class="menu-card" onclick="alert('고객센터 AGI 삐니와 연결합니다.'); return false;">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
+                    <div class="menu-info">
+                        <h3>고객센터 AGI 삐니</h3>
+                        <p>60개국어 뼈속까지 변환 AI 삐니 실시간 구동</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- 메뉴 4 -->
+            <a href="#" class="menu-card" onclick="alert('내비게이터 메뉴를 열람합니다.'); return false;">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-compass"></i></div>
+                    <div class="menu-info">
+                        <h3>내비게이터 (메뉴 보기)</h3>
+                        <p>백서 100선·FAQ 20선·3대 Policies·FATF·21개국법·8대 산업</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- 메뉴 5 -->
+            <a href="#" class="menu-card" onclick="alert('유튜브 및 틱톡 채널로 연결됩니다.'); return false;">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
+                    <div class="menu-info">
+                        <h3>유튜브와 틱톡 채널 연동</h3>
+                        <p>HK 통합 메인 허브 5번째 방송 센터</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+        </div>
+
+        <div class="copyright-text">
+            © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved.<br>
+            Complete Detailed Enterprise Edition
+        </div>
+    </main>
+
+    <!-- 2. HK WORLD BANK 보안 게이트웨이 뷰 -->
+    <main id="gateway-view" class="view-content">
+        <div class="gateway-banner">
+            <i class="fa-solid fa-lock"></i> SECURE GATEWAY v10.4 - ENTERPRISE EDITION
+        </div>
+
+        <div class="gateway-title-section">
+            <h2>HK WORLDBANK 보안 게이트웨이</h2>
+            <p>회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 시스템</p>
+        </div>
+
+        <!-- 콘솔 터미널 영역 -->
+        <div class="console-box">
+            <div class="console-header">
+                <div class="console-header-title">
+                    <i class="fa-solid fa-shield"></i> HK SECURE CORE CONSOLE
+                </div>
+                <div class="console-time" id="clock">20:31:25</div>
+            </div>
+            <div class="console-logs">
+                <div class="log-item">
+                    [AUTH] Waiting for Chairman Lee Jaewan (Hyekong) authorization...
+                </div>
+                <div class="log-item">
+                    [NETWORK] <span class="highlight">10 Distributed Interlocking Networks</span> fully operational.
+                </div>
+                <div class="log-item">
+                    [<span id="log-time">20:30:58</span>] HK WorldBank Mega Cluster Environment <span class="status">fully loaded.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright-text">
+            © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved.<br>
+            Complete Detailed Enterprise Edition
+        </div>
+    </main>
+
+    <!-- 하단 고정 네비게이션 툴바 -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchTab('hub')">
+            <i class="fa-solid fa-star"></i>
             <span>자산</span>
-        </div>
-        <div class="dock-item" onclick="alert('연동망 메뉴 선택')">
-            <span style="font-size: 17px;">⚡</span>
-            <span>연동망</span>
-        </div>
-        <div class="dock-item" onclick="alert('삐니 메뉴 선택')">
-            <span style="font-size: 17px;">🤖</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('hub')">
+            <i class="fa-solid fa-bolt"></i>
+            <span>명령 실행</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('hub')">
+            <i class="fa-solid fa-robot"></i>
             <span>삐니</span>
-        </div>
-        <div class="dock-item" onclick="alert('내비게이터 메뉴 선택')">
-            <span style="font-size: 17px;">🧭</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('hub')">
+            <i class="fa-solid fa-compass"></i>
             <span>내비게이터</span>
-        </div>
-        <div class="dock-item" onclick="alert('유튜브·틱톡 메뉴 선택')">
-            <span style="font-size: 17px;">📺</span>
-            <span>유튜브·틱톡</span>
-        </div>
-    </div>
+        </button>
+        <button class="nav-item" onclick="switchTab('hub')">
+            <i class="fa-solid fa-headset"></i>
+            <span>유튜브/틱톡</span>
+        </button>
+    </nav>
+
+    <script>
+        // 탭 전환 처리 함수
+        function switchTab(tabName) {
+            const hubView = document.getElementById('hub-view');
+            const gatewayView = document.getElementById('gateway-view');
+            const tab1Btn = document.getElementById('tab1-btn');
+            const tab2Btn = document.getElementById('tab2-btn');
+
+            if (tabName === 'hub') {
+                hubView.classList.add('active');
+                gatewayView.classList.remove('active');
+                tab1Btn.classList.add('active');
+                tab2Btn.classList.remove('active');
+            } else {
+                gatewayView.classList.add('active');
+                hubView.classList.remove('active');
+                tab2Btn.classList.add('active');
+                tab1Btn.classList.remove('active');
+            }
+        }
+
+        // 실시간 시계 업데이트
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            
+            const clockEl = document.getElementById('clock');
+            if (clockEl) {
+                clockEl.textContent = timeString;
+            }
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 </body>
 </html>
-
