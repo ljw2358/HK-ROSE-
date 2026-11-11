@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLD BANK - 보안 게이트웨이 & 메인 허브</title>
+    <title>HK WORLD BANK - 메인 허브 & 보안 게이트웨이 (Enterprise Edition)</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --bg-color: #050a14;
-            --card-bg: rgba(14, 23, 42, 0.85);
-            --card-border: rgba(0, 210, 255, 0.25);
+            --card-bg: rgba(14, 23, 42, 0.88);
+            --card-border: rgba(0, 210, 255, 0.3);
             --neon-blue: #00d2ff;
-            --neon-glow: rgba(0, 210, 255, 0.4);
+            --neon-glow: rgba(0, 210, 255, 0.45);
             --text-main: #ffffff;
             --text-sub: #94a3b8;
             --gold-accent: #f59e0b;
@@ -32,29 +32,29 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding-bottom: 85px;
+            padding-bottom: 90px;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.15) 0%, transparent 65%),
-                radial-gradient(circle at 100% 100%, rgba(30, 58, 95, 0.3) 0%, transparent 55%);
+                radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.18) 0%, transparent 65%),
+                radial-gradient(circle at 100% 100%, rgba(30, 58, 95, 0.35) 0%, transparent 55%);
             background-attachment: fixed;
         }
 
-        /* 상단 아키텍처 박스 & 세로 탭 스위처 */
+        /* 상단 아키텍처 박스 & 탭 스위처 */
         .app-header {
             padding: 20px 16px 10px;
-            max-width: 500px;
+            max-width: 520px;
             margin: 0 auto;
             width: 100%;
         }
 
         .header-card {
-            background: rgba(10, 18, 34, 0.9);
-            border: 1px solid rgba(0, 210, 255, 0.3);
+            background: rgba(10, 18, 34, 0.92);
+            border: 1px solid rgba(0, 210, 255, 0.35);
             border-radius: 20px;
             padding: 18px 16px;
             display: flex;
             gap: 12px;
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.1);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.12);
             backdrop-filter: blur(12px);
         }
 
@@ -130,7 +130,7 @@
         /* 뷰 컨테이너 */
         .view-content {
             display: none;
-            max-width: 500px;
+            max-width: 520px;
             margin: 0 auto;
             width: 100%;
             padding: 0 16px;
@@ -146,7 +146,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 1. 보안 게이트웨이 화면 */
+        /* 1. 보안 게이트웨이 화면 스타일 */
         .gateway-banner {
             background: rgba(245, 158, 11, 0.08);
             border: 1px solid rgba(245, 158, 11, 0.4);
@@ -182,7 +182,6 @@
             color: var(--text-sub);
         }
 
-        /* 터미널 콘솔 */
         .console-box {
             background: #070e1a;
             border: 1px solid rgba(0, 210, 255, 0.3);
@@ -238,7 +237,7 @@
             color: #10b981;
         }
 
-        /* 잠금 해제 인증 제어 섹션 */
+        /* 인증 제어 카드 */
         .auth-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -248,10 +247,11 @@
             flex-direction: column;
             gap: 14px;
             margin-bottom: 16px;
+            backdrop-filter: blur(10px);
         }
 
         .auth-title {
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: 700;
             color: var(--neon-blue);
             display: flex;
@@ -259,12 +259,11 @@
             gap: 8px;
         }
 
-        /* 지문 인식 버튼 */
         .fingerprint-btn {
             background: linear-gradient(135deg, rgba(0, 210, 255, 0.2), rgba(0, 114, 255, 0.3));
             border: 1px solid var(--neon-blue);
             border-radius: 14px;
-            padding: 14px;
+            padding: 15px;
             color: #fff;
             font-size: 14px;
             font-weight: 700;
@@ -277,16 +276,15 @@
             box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
         }
 
-        .fingerprint-btn:hover, .fingerprint-btn:active {
+        .fingerprint-btn:hover {
             background: linear-gradient(135deg, #00d2ff, #0072ff);
             box-shadow: 0 0 25px var(--neon-glow);
         }
 
-        /* 24자리 비밀구절 입력 */
         .passphrase-box {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
         .passphrase-input {
@@ -294,7 +292,7 @@
             background: #08111e;
             border: 1px solid rgba(0, 210, 255, 0.3);
             border-radius: 12px;
-            padding: 12px 14px;
+            padding: 13px 14px;
             color: #fff;
             font-size: 13px;
             outline: none;
@@ -307,12 +305,12 @@
         }
 
         .unlock-btn {
-            background: rgba(30, 58, 95, 0.8);
+            background: rgba(30, 58, 95, 0.85);
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 12px;
+            padding: 13px;
             color: #fff;
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -327,14 +325,13 @@
             color: #000;
         }
 
-        /* 둘러보기 버튼 */
         .guest-btn {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border: 1px dashed rgba(255, 255, 255, 0.25);
             border-radius: 14px;
-            padding: 12px;
+            padding: 14px;
             color: var(--text-sub);
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: 600;
             text-align: center;
             cursor: pointer;
@@ -343,6 +340,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            width: 100%;
         }
 
         .guest-btn:hover {
@@ -351,7 +349,7 @@
             border-color: var(--neon-blue);
         }
 
-        /* 2. HK 통합 메인 허브 화면 */
+        /* 2. HK 통합 메인 허브 화면 스타일 */
         .hub-title {
             text-align: center;
             margin: 10px 0 20px;
@@ -387,10 +385,10 @@
             color: var(--text-main);
             transition: all 0.25s ease;
             backdrop-filter: blur(10px);
-            position: relative;
+            cursor: pointer;
         }
 
-        .menu-card:hover, .menu-card:active {
+        .menu-card:hover {
             transform: translateY(-2px);
             background: rgba(22, 38, 68, 0.95);
             border-color: var(--neon-blue);
@@ -434,6 +432,90 @@
             font-size: 13px;
         }
 
+        /* 알맹이 모달 창 공통 스타일 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .modal-card {
+            background: #0b1528;
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 460px;
+            padding: 24px;
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.3);
+            animation: scaleUp 0.3s ease;
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+        }
+
+        .modal-header h3 {
+            font-size: 18px;
+            color: var(--neon-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-sub);
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-body input, .modal-body select {
+            width: 100%;
+            background: #050b14;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 12px;
+            color: #fff;
+            margin-top: 10px;
+            outline: none;
+        }
+
+        .modal-btn {
+            background: linear-gradient(135deg, #00d2ff, #0072ff);
+            border: none;
+            border-radius: 12px;
+            padding: 13px;
+            color: #fff;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--neon-glow);
+        }
+
         /* 공통 카피라이트 */
         .copyright-text {
             text-align: center;
@@ -456,7 +538,7 @@
             justify-content: space-around;
             padding: 8px 0;
             z-index: 1000;
-            max-width: 500px;
+            max-width: 520px;
             margin: 0 auto;
         }
 
@@ -538,26 +620,26 @@
             </div>
         </div>
 
-        <!-- 잠금해제 방법 1: 지문 인식 -->
+        <!-- 잠금해제 1: 지문 인식 -->
         <div class="auth-card">
             <div class="auth-title">
                 <i class="fa-solid fa-fingerprint"></i> 지문 인식으로 잠금해제
             </div>
-            <button class="fingerprint-btn" onclick="unlockGateway('fingerprint')">
+            <button class="fingerprint-btn" onclick="authAction('fingerprint')">
                 <i class="fa-solid fa-fingerprint fa-lg"></i>
                 <span>지문 스캔하여 즉시 잠금해제</span>
             </button>
         </div>
 
-        <!-- 잠금해제 방법 2: 24자리 비밀구절 -->
+        <!-- 잠금해제 2: 24자리 비밀구절 -->
         <div class="auth-card">
             <div class="auth-title">
                 <i class="fa-solid fa-key"></i> 비밀구절로 잠금해제
             </div>
             <div class="passphrase-box">
-                <input type="password" class="passphrase-input" id="passphrase-input" placeholder="24자리 비밀구절을 입력하세요...">
-                <button class="unlock-btn" onclick="unlockGateway('passphrase')">
-                    <i class="fa-solid fa-lock-open"></i> 비밀구절 인증 및 해제
+                <input type="password" class="passphrase-input" id="passphrase-input" placeholder="24자리 보안 비밀구절 입력...">
+                <button class="unlock-btn" onclick="authAction('passphrase')">
+                    <i class="fa-solid fa-lock-open"></i> 비밀구절 검증 및 메인허브 진입
                 </button>
             </div>
         </div>
@@ -565,7 +647,7 @@
         <!-- 둘러보기 (Guest Mode) -->
         <button class="guest-btn" onclick="switchTab('hub')">
             <i class="fa-solid fa-eye"></i>
-            <span>인증 없이 둘러보기 (게스트 모드)</span>
+            <span>인증 없이 둘러보기 (게스트 모드 진입)</span>
         </button>
 
         <div class="copyright-text">
@@ -582,7 +664,8 @@
         </div>
 
         <div class="menu-list">
-            <a href="#" class="menu-card" onclick="alert('개인 자산 대시보드로 이동합니다.'); return false;">
+            <!-- 알맹이 1: 개인 자산 대시보드 -->
+            <div class="menu-card" onclick="openModal('modal-asset')">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-star"></i></div>
                     <div class="menu-info">
@@ -591,9 +674,10 @@
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
+            </div>
 
-            <a href="#" class="menu-card" onclick="alert('10대 분산 연동망 프로세스로 이동합니다.'); return false;">
+            <!-- 알맹이 2: 사고 팔고 예금하기 -->
+            <div class="menu-card" onclick="openModal('modal-trade')">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
                     <div class="menu-info">
@@ -602,9 +686,10 @@
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
+            </div>
 
-            <a href="#" class="menu-card" onclick="alert('AGI 삐니와 연결합니다.'); return false;">
+            <!-- 알맹이 3: 고객센터 AGI 삐니 -->
+            <div class="menu-card" onclick="openModal('modal-binny')">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
                     <div class="menu-info">
@@ -613,9 +698,10 @@
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
+            </div>
 
-            <a href="#" class="menu-card" onclick="alert('내비게이터 메뉴를 열람합니다.'); return false;">
+            <!-- 알맹이 4: 내비게이터 -->
+            <div class="menu-card" onclick="openModal('modal-navigator')">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-compass"></i></div>
                     <div class="menu-info">
@@ -624,9 +710,10 @@
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
+            </div>
 
-            <a href="#" class="menu-card" onclick="alert('유튜브 및 틱톡 방송 센터로 이동합니다.'); return false;">
+            <!-- 알맹이 5: 유튜브와 틱톡 채널 연동 -->
+            <div class="menu-card" onclick="openModal('modal-broadcast')">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
                     <div class="menu-info">
@@ -635,7 +722,7 @@
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
-            </a>
+            </div>
         </div>
 
         <div class="copyright-text">
@@ -668,6 +755,94 @@
         </button>
     </nav>
 
+    <!-- ================= 알맹이 모달 창 정의 ================= -->
+    <!-- 1. 자산 대시보드 모달 -->
+    <div class="modal-overlay" id="modal-asset">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-star"></i> 개인 자산 대시보드</h3>
+                <button class="modal-close" onclick="closeModal('modal-asset')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p><b>[회장님 전용 자산 클러스터 현황]</b></p>
+                <p style="margin-top:8px;">• 총 평가 잔액: <b>₩ 5,240,000,000,000</b></p>
+                <p>• 채굴된 Pi 코인: <b>1,450,200 PI</b> (실시간 노드 연동 중)</p>
+                <p>• 누적 UBI & 이자 분배: <b>자동 연동 완료</b></p>
+                <input type="text" placeholder="자산 상세 내역 조회 검색..." />
+            </div>
+            <button class="modal-btn" onclick="alert('자산 리밸런싱 및 분배 프로세스가 실행되었습니다.'); closeModal('modal-asset');">자산 정산 실행</button>
+        </div>
+    </div>
+
+    <!-- 2. 사고 팔고 예금하기 모달 -->
+    <div class="modal-overlay" id="modal-trade">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-bolt"></i> 사고 팔고 예금하기</h3>
+                <button class="modal-close" onclick="closeModal('modal-trade')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p>10대 분산 연동망을 통한 초고속 거래 및 예금 시스템입니다.</p>
+                <select>
+                    <option>[BUY/SELL] Pi 코인 메가 스왑</option>
+                    <option>[DEPOSIT] 10대 분산 연동망 고금리 예금</option>
+                    <option>[UBI] 기본소득 30% 자동 분배 실행</option>
+                </select>
+                <input type="number" placeholder="거래 수량 또는 금액 입력 (KRW / PI)" />
+            </div>
+            <button class="modal-btn" onclick="alert('10대 분산 연동망 프로세스가 성공적으로 승인되었습니다.'); closeModal('modal-trade');">거래 승인 및 실행</button>
+        </div>
+    </div>
+
+    <!-- 3. 고객센터 AGI 삐니 모달 -->
+    <div class="modal-overlay" id="modal-binny">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-robot"></i> 고객센터 AGI 삐니</h3>
+                <button class="modal-close" onclick="closeModal('modal-binny')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p><b>[AGI 삐니 실시간 대기 중]</b></p>
+                <p style="margin-top:6px; color:var(--neon-blue);">"형님, 60개국어 동시 통역 및 뼈속까지 변환 AI 삐니가 대기 중입니다. 무엇을 도와드릴까요?"</p>
+                <input type="text" placeholder="삐니에게 지시사항 입력..." id="binny-input" />
+            </div>
+            <button class="modal-btn" onclick="alert('AGI 삐니가 지시사항을 접수하고 메가클러스터에 반영했습니다.'); closeModal('modal-binny');">삐니에게 전송</button>
+        </div>
+    </div>
+
+    <!-- 4. 내비게이터 모달 -->
+    <div class="modal-overlay" id="modal-navigator">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-compass"></i> 내비게이터</h3>
+                <button class="modal-close" onclick="closeModal('modal-navigator')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p>• <b>백서 100선:</b> HK WorldBank 핵심 기술 및 비전 문서</p>
+                <p>• <b>FAQ 20선:</b> 플랫폼 이용 가이드 및 보안 인증</p>
+                <p>• <b>3대 Policies & FATF:</b> 국제 자금세탁 방지 및 준법 감시</p>
+                <p>• <b>21개국법 & 8대 산업:</b> 글로벌 진출 및 해오름 특별시 전략</p>
+            </div>
+            <button class="modal-btn" onclick="alert('내비게이터 데이터베이스 전문을 로드합니다.'); closeModal('modal-navigator');">전체 문서 열람</button>
+        </div>
+    </div>
+
+    <!-- 5. 유튜브 & 틱톡 채널 연동 모달 -->
+    <div class="modal-overlay" id="modal-broadcast">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-headset"></i> 유튜브 & 틱톡 채널 연동</h3>
+                <button class="modal-close" onclick="closeModal('modal-broadcast')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p><b>[HK 통합 메인 허브 5번째 방송 센터]</b></p>
+                <p style="margin-top:6px;">실시간 스트리밍 및 Pi코인 생태계 홍보 방송 송출 센터와 직접 연동되어 있습니다.</p>
+                <input type="text" value="https://youtube.com/@Hyekong2026" readonly />
+            </div>
+            <button class="modal-btn" onclick="alert('방송 센터 라이브 스트림을 실행합니다.'); closeModal('modal-broadcast');">방송 송출 시작</button>
+        </div>
+    </div>
+
     <script>
         // 탭 전환 처리
         function switchTab(tabName) {
@@ -689,35 +864,39 @@
             }
         }
 
-        // 인증 실행 및 잠금 해제
-        function unlockGateway(method) {
+        // 인증 실행
+        function authAction(method) {
             if (method === 'fingerprint') {
-                alert('지문 인증 성공! HK 통합 메인 허브로 진입합니다.');
+                alert('지문 인식 완료! 회장님(혜공 형님) 권한이 확인되었습니다. 메인 허브로 진입합니다.');
                 switchTab('hub');
             } else if (method === 'passphrase') {
-                const input = document.getElementById('passphrase-input').value;
-                if (input.trim() !== '') {
-                    alert('24자리 비밀구절 검증 완료! HK 통합 메인 허브로 진입합니다.');
+                const val = document.getElementById('passphrase-input').value;
+                if (val.trim().length > 0) {
+                    alert('24자리 비밀구절 검증 완료! 메인 허브로 진입합니다.');
                     switchTab('hub');
                 } else {
-                    alert('비밀구절을 입력해 주세요.');
+                    alert('보안 비밀구절을 정확히 입력해 주세요.');
                 }
             }
+        }
+
+        // 모달 제어 함수
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
         }
 
         // 실시간 콘솔 시계
         function updateClock() {
             const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
             const clockEl = document.getElementById('clock');
-            if (clockEl) {
-                clockEl.textContent = `${hours}:${minutes}:${seconds}`;
-            }
+            if (clockEl) clockEl.textContent = `${h}:${m}:${s}`;
         }
-
         setInterval(updateClock, 1000);
         updateClock();
     </script>
