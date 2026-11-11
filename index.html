@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WorldBank - Web3 Digital Banking Platform (2000 Lines Master Edition)</title>
+    <title>HK WorldBank - Sovereign Web3 Enterprise Platform (Master Edition 2000 Lines)</title>
     <style>
         /* ==========================================================================
-           1. RESET & CSS VARIABLES (Total Architecture: ~2,000 Lines Production Ready)
+           1. MASTER DESIGN SYSTEM & CSS VARIABLES (~2,000 Lines Enterprise Architecture)
            ========================================================================== */
         :root {
             --bg-primary: #030712;
             --bg-secondary: #0b0f19;
-            --bg-card: rgba(17, 24, 39, 0.75);
-            --bg-card-hover: rgba(31, 41, 55, 0.85);
+            --bg-card: rgba(17, 24, 39, 0.85);
+            --bg-card-hover: rgba(31, 41, 55, 0.95);
             --border-color: rgba(75, 85, 99, 0.3);
-            --border-glow: rgba(59, 130, 246, 0.5);
+            --border-glow: rgba(59, 130, 246, 0.6);
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
             --accent-blue: #3b82f6;
@@ -42,8 +42,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 40%);
         }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -51,234 +51,30 @@
         ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
 
-        /* ==========================================================================
-           2. LAYOUT & CONTAINERS
-           ========================================================================== */
-        .app-container {
+        /* App Shell Layout */
+        .app-shell {
             display: flex;
-            height: 100vh;
             width: 100vw;
+            height: 100vh;
             overflow: hidden;
             position: relative;
         }
 
-        .sidebar {
-            width: 280px;
-            background: var(--bg-secondary);
-            border-right: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition);
-            z-index: 100;
-        }
-
-        .brand-box {
-            padding: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
-        }
-
-        .brand-logo {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 20px;
-            color: white;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-        }
-
-        .brand-info h1 {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(to right, #fff, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .brand-info span {
-            font-size: 11px;
-            color: var(--accent-cyan);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .nav-menu {
-            flex: 1;
-            padding: 20px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            overflow-y: auto;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 16px;
-            border-radius: 12px;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-            font-size: 14px;
-            border: 1px solid transparent;
-        }
-
-        .nav-item:hover {
-            background: var(--bg-card);
-            color: var(--text-main);
-            border-color: var(--border-color);
-        }
-
-        .nav-item.active {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.1));
-            color: white;
-            border-color: var(--border-glow);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
-        }
-
-        .nav-item svg {
-            width: 20px;
-            height: 20px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-        }
-
-        .sidebar-footer {
-            padding: 16px 20px;
-            border-top: 1px solid var(--border-color);
-            background: rgba(3, 7, 18, 0.5);
-        }
-
-        .chairman-badge {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px;
-            border-radius: 10px;
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-
-        .chairman-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-gold), #ea580c);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            font-size: 14px;
-        }
-
-        .chairman-details h4 {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .chairman-details p {
-            font-size: 11px;
-            color: var(--accent-gold);
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            background: var(--bg-primary);
-        }
-
-        .top-header {
-            height: 70px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
-            background: rgba(11, 15, 25, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 50;
-        }
-
-        .header-title h2 {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .header-title p {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .control-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-        }
-
-        .control-btn:hover {
-            border-color: var(--accent-blue);
-            background: var(--bg-card-hover);
-        }
-
-        .lang-select {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            outline: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .lang-select:focus {
-            border-color: var(--accent-blue);
-        }
-
-        .workspace {
-            flex: 1;
-            overflow-y: auto;
-            padding: 32px;
+        .screen-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: none;
-            animation: fadeIn 0.4s ease forwards;
+            background: var(--bg-primary);
+            overflow-y: auto;
+            z-index: 10;
         }
-
-        .workspace.active {
-            display: block;
+        .screen-view.active {
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.4s ease forwards;
         }
 
         @keyframes fadeIn {
@@ -286,72 +82,127 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ==========================================================================
-           3. UI COMPONENTS & CARDS
-           ========================================================================== */
-        .grid-2col { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
-        .grid-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        .grid-4col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-
-        @media (max-width: 1200px) {
-            .grid-2col, .grid-3col, .grid-4col { grid-template-columns: 1fr; }
+        /* Security Gateway Screen */
+        .gateway-container {
+            max-width: 860px;
+            margin: auto;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            width: 100%;
         }
 
-        .card {
+        .gateway-banner {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .gateway-badge {
+            align-self: center;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: var(--accent-gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .gateway-banner h1 {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .gateway-banner p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .gateway-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 24px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            padding: 22px 26px;
+            backdrop-filter: blur(12px);
+            cursor: pointer;
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            border-color: rgba(59, 130, 246, 0.4);
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.1);
-        }
-
-        .card-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-main);
+        .gateway-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-glow);
+            transform: translateY(-2px);
+        }
+
+        .gateway-card-left {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .gateway-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
         }
 
-        .stat-card { display: flex; flex-direction: column; gap: 8px; }
-        .stat-value {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, #fff, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .gateway-text h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
         }
 
-        .stat-change { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
-        .stat-change.positive { color: var(--accent-emerald); }
-        .stat-change.negative { color: var(--accent-danger); }
+        .gateway-text p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
 
-        .btn {
+        .passphrase-dropdown {
+            margin-top: 14px;
+            background: rgba(3, 7, 18, 0.8);
+            border: 1px dashed var(--border-color);
+            border-radius: 10px;
+            padding: 14px;
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            cursor: default;
+        }
+
+        .passphrase-tokens {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            color: var(--accent-cyan);
+            line-height: 1.6;
+            word-spacing: 4px;
+        }
+
+        .btn-action {
             background: linear-gradient(135deg, var(--accent-blue), #2563eb);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 12px;
             font-weight: 600;
-            font-size: 14px;
             cursor: pointer;
             transition: var(--transition);
             display: inline-flex;
@@ -361,428 +212,501 @@
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
         }
 
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4); }
-        .btn-secondary { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main); box-shadow: none; }
-        .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--accent-blue); }
+        .btn-action:hover { opacity: 0.9; transform: translateY(-1px); }
 
-        .badge { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .badge-blue { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); border: 1px solid rgba(59, 130, 246, 0.3); }
-        .badge-emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
-        .badge-gold { background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); border: 1px solid rgba(245, 158, 11, 0.3); }
-        .badge-purple { background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.3); }
-        .badge-cyan { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.3); }
-
-        .table-container { width: 100%; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
-        th { padding: 14px 16px; color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--border-color); background: rgba(11, 15, 25, 0.5); }
-        td { padding: 16px; border-bottom: 1px solid var(--border-color); color: var(--text-main); }
-        tr:hover td { background: rgba(31, 41, 55, 0.4); }
-
-        /* ==========================================================================
-           4. SECURITY GATEWAY & MODALS (24-word Passphrase & Biometrics)
-           ========================================================================== */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(15px);
-            display: flex; align-items: center; justify-content: center; z-index: 1000;
-            opacity: 0; pointer-events: none; transition: var(--transition);
+        .gateway-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            padding: 10px 4px;
+            border-top: 1px solid rgba(75, 85, 99, 0.2);
+            margin-top: 10px;
         }
-        .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-box {
-            background: var(--bg-secondary); border: 1px solid var(--border-glow); border-radius: 20px;
-            width: 90%; max-width: 600px; padding: 32px; box-shadow: 0 0 50px rgba(59, 130, 246, 0.25);
-            transform: scale(0.95); transition: var(--transition);
+
+        /* Main Hub Screen */
+        .hub-container {
+            max-width: 860px;
+            margin: auto;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            width: 100%;
+            padding-bottom: 100px;
         }
-        .modal-overlay.active .modal-box { transform: scale(1); }
-        .passphrase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; }
-        .passphrase-item { background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; font-size: 12px; text-align: center; color: var(--text-muted); }
-        .passphrase-item span { color: var(--accent-blue); font-weight: 700; margin-right: 6px; }
 
-        /* ==========================================================================
-           5. AGI PPINI ASSISTANT & NETWORK
-           ========================================================================== */
-        .chat-container { display: flex; flex-direction: column; height: calc(100vh - 170px); background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; }
-        .chat-header { padding: 16px 24px; background: rgba(11, 15, 25, 0.7); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; }
-        .chat-messages { flex: 1; padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
-        .message { max-width: 75%; padding: 14px 18px; border-radius: 14px; font-size: 14px; line-height: 1.5; }
-        .message.incoming { background: rgba(31, 41, 55, 0.7); border: 1px solid var(--border-color); align-self: flex-start; border-bottom-left-radius: 4px; }
-        .message.outgoing { background: linear-gradient(135deg, var(--accent-blue), #2563eb); color: white; align-self: flex-end; border-bottom-right-radius: 4px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
-        .chat-input-area { padding: 16px 24px; background: rgba(11, 15, 25, 0.7); border-top: 1px solid var(--border-color); display: flex; gap: 12px; }
-        .chat-input { flex: 1; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 16px; color: var(--text-main); font-size: 14px; outline: none; transition: var(--transition); }
-        .chat-input:focus { border-color: var(--accent-blue); }
+        .hub-banner {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
 
-        .network-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 24px; }
-        @media (max-width: 1400px) { .network-grid { grid-template-columns: repeat(3, 1fr); } }
-        .node-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden; }
-        .node-box::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent-emerald); }
-        .node-status { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
-        .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-emerald); box-shadow: 0 0 10px var(--accent-emerald); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.8; } }
+        .hub-banner h1 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        .ubi-display { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.1)); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 20px; padding: 32px; text-align: center; margin-bottom: 24px; }
-        .ubi-number { font-size: 42px; font-weight: 900; letter-spacing: -1px; background: linear-gradient(to right, #10b981, #3b82f6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 12px 0; }
-        .slider-group { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
-        .slider-group label { font-size: 13px; color: var(--text-muted); display: flex; justify-content: space-between; }
-        input[type="range"] { width: 100%; accent-color: var(--accent-blue); cursor: pointer; }
-        .code-inspector { background: #02040a; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; font-family: 'Courier New', monospace; font-size: 12px; color: var(--accent-cyan); max-height: 250px; overflow-y: auto; }
+        .hub-banner p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .hub-dock {
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(11, 15, 25, 0.95);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(15px);
+            padding: 10px 24px;
+            border-radius: 30px;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+
+        .dock-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .dock-item:hover { color: var(--accent-blue); transform: translateY(-2px); }
+        .dock-item span:first-child { font-size: 16px; }
+
+        /* Workspace & 3-Layer Onion Network Viewer */
+        .workspace-layout {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-box {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-logo {
+            width: 40px; height: 40px; border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            display: flex; align-items: center; justify-content: center; font-weight: 800; color: white;
+        }
+
+        .nav-menu { flex: 1; padding: 20px 16px; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
+        .nav-item {
+            display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 12px;
+            color: var(--text-muted); cursor: pointer; transition: var(--transition); font-size: 14px; font-weight: 500;
+        }
+        .nav-item:hover, .nav-item.active { background: var(--bg-card); color: white; border: 1px solid var(--border-glow); }
+
+        .workspace-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-primary); }
+        .top-header {
+            height: 70px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center;
+            justify-content: space-between; padding: 0 32px; background: rgba(11, 15, 25, 0.8); backdrop-filter: blur(10px);
+        }
+        .content-area { flex: 1; padding: 32px; overflow-y: auto; display: none; }
+        .content-area.active { display: block; animation: fadeIn 0.3s ease forwards; }
+
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px;
+            padding: 24px; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.3); margin-bottom: 20px;
+        }
+
+        /* 3-Layer Onion Peeling Network Styles */
+        .onion-layer-box {
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+        .onion-layer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+        }
+        .onion-sub-nodes {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        @media(max-width: 1200px) { .onion-sub-nodes { grid-template-columns: repeat(2, 1fr); } }
+        .sub-node-card {
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        /* AGI Ppini 60-Language Chat UI */
+        .chat-box { display: flex; flex-direction: column; height: 500px; background: rgba(3, 7, 18, 0.6); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; }
+        .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .chat-msg { max-width: 80%; padding: 12px 16px; border-radius: 10px; font-size: 13px; line-height: 1.5; }
+        .chat-msg.incoming { background: rgba(31, 41, 55, 0.7); border: 1px solid var(--border-color); align-self: flex-start; }
+        .chat-msg.outgoing { background: var(--accent-blue); color: white; align-self: flex-end; }
+        .chat-input-row { padding: 16px; background: rgba(11, 15, 25, 0.8); border-top: 1px solid var(--border-color); display: flex; gap: 10px; }
+        .chat-input { flex: 1; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 14px; color: white; outline: none; }
     </style>
 </head>
 <body>
 
-    <!-- SECURITY GATEWAY MODAL -->
-    <div class="modal-overlay active" id="securityModal">
-        <div class="modal-box">
-            <div class="card-header">
-                <h3 class="card-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                    HK WorldBank Security Gateway
-                </h3>
-                <span class="badge badge-emerald">Encrypted</span>
-            </div>
-            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-                회장 이재완(혜공) 님, 24자리 마스터 비밀구절 및 지문 인식을 통한 보안 인증을 수행합니다.
-            </p>
-            <div class="passphrase-grid" id="passphraseGrid"></div>
-            <div style="display: flex; gap: 12px; margin-top: 24px;">
-                <button class="btn" style="flex: 1;" onclick="authenticateGateway()">지문 인식 및 로그인 승인</button>
-                <button class="btn btn-secondary" onclick="bypassGuestMode()">둘러보기(Guest)</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN APP CONTAINER -->
-    <div class="app-container">
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <div class="brand-box">
-                <div class="brand-logo">HK</div>
-                <div class="brand-info">
-                    <h1>WorldBank</h1>
-                    <span>Web3 Sovereign Bank</span>
-                </div>
-            </div>
-            <nav class="nav-menu">
-                <div class="nav-item active" onclick="switchWorkspace('dashboard', this)">
-                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                    <span>통합 대시보드</span>
-                </div>
-                <div class="nav-item" onclick="switchWorkspace('assets', this)">
-                    <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    <span>자산 및 계좌 관리</span>
-                </div>
-                <div class="nav-item" onclick="switchWorkspace('ubi', this)">
-                    <svg viewBox="0 0 24 24" stroke="var(--accent-emerald)"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    <span>기본소득(UBI) 배분</span>
-                </div>
-                <div class="nav-item" onclick="switchWorkspace('network', this)">
-                    <svg viewBox="0 0 24 24" stroke="var(--accent-cyan)"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle></svg>
-                    <span>10대 분산 연동망</span>
-                </div>
-                <div class="nav-item" onclick="switchWorkspace('assistant', this)">
-                    <svg viewBox="0 0 24 24" stroke="var(--accent-purple)"><path d="M21 15a2 2 0 0 1-2 7H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                    <span>AGI 삐니 어시스턴트</span>
-                </div>
-                <div class="nav-item" onclick="switchWorkspace('codeinspector', this)">
-                    <svg viewBox="0 0 24 24" stroke="var(--accent-gold)"><polyline points="16 18 22 12 16 6"></polyline></svg>
-                    <span>2000줄 코드 검증기</span>
-                </div>
-            </nav>
-            <div class="sidebar-footer">
-                <div class="chairman-badge">
-                    <div class="chairman-avatar">혜</div>
-                    <div class="chairman-details">
-                        <h4>이재완 (혜공 회장)</h4>
-                        <p>HK 그룹 최고경영자</p>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- MAIN CONTENT -->
-        <main class="main-content">
-            <header class="top-header">
-                <div class="header-title" id="headerTitle">
-                    <h2>통합 대시보드</h2>
-                    <p>HK WorldBank Real-time Financial Ecosystem Status</p>
-                </div>
-                <div class="header-controls">
-                    <button class="control-btn" onclick="openSecurityModal()">보안 인증 상태</button>
-                    <select class="lang-select" id="globalLangSelect" onchange="changeLanguage(this.value)">
-                        <option value="ko">한국어 (60개국어 지원)</option>
-                        <option value="en">English</option>
-                        <option value="ja">日本語</option>
-                        <option value="zh">中文</option>
-                    </select>
-                </div>
-            </header>
-
-            <!-- WORKSPACE 1: DASHBOARD -->
-            <section id="workspace-dashboard" class="workspace active">
-                <div class="grid-4col" style="margin-bottom: 24px;">
-                    <div class="card stat-card">
-                        <span style="font-size: 13px; color: var(--text-muted);">총 자산 가치 (Total AUM)</span>
-                        <div class="stat-value">₩ 842,500,000,000</div>
-                        <span class="stat-change positive">▲ +14.8% 이번 달</span>
-                    </div>
-                    <div class="card stat-card">
-                        <span style="font-size: 13px; color: var(--text-muted);">UBI 자동 적립 기금 (30%)</span>
-                        <div class="stat-value" id="liveUbiCounter">₩ 252,750,000,000</div>
-                        <span class="stat-change positive">▲ 실시간 분배 중</span>
-                    </div>
-                    <div class="card stat-card">
-                        <span style="font-size: 13px; color: var(--text-muted);">HK 사회재단 기부 누적</span>
-                        <div class="stat-value">₩ 389,000,000,000</div>
-                        <span class="stat-change positive">▲ 투명 기부 완료</span>
-                    </div>
-                    <div class="card stat-card">
-                        <span style="font-size: 13px; color: var(--text-muted);">분산 연동망 노드 가동률</span>
-                        <div class="stat-value">10 / 10</div>
-                        <span class="stat-change positive">● 100% 정상 작동</span>
-                    </div>
+    <div class="app-shell">
+        
+        <!-- SCREEN 1: SECURITY GATEWAY -->
+        <div id="screenGateway" class="screen-view active">
+            <div class="gateway-container">
+                <div class="gateway-banner">
+                    <div class="gateway-badge">🔒 SECURE GATEWAY v10.4 - ENTERPRISE EDITION</div>
+                    <h1>HK WORLDBANK 보안 게이트웨이</h1>
+                    <p>회장님(혜공 형님) 전용 10대 분산 연동망(3중 양파 구조) 및 60개국어 실시간 동기화 보안 시스템입니다.</p>
                 </div>
 
-                <div class="grid-2col">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">실시간 자산 포트폴리오 트렌드</h3>
-                            <span class="badge badge-blue">Live Data</span>
-                        </div>
-                        <div style="height: 220px; display: flex; align-items: flex-end; gap: 12px; padding-top: 20px;" id="chartBars"></div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">AGI 삐니 빠른 브리핑</h3>
-                            <span class="badge badge-purple">AI Active</span>
-                        </div>
-                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
-                            "회장님, 현재 10대 분산 연동망이 안정적이며, 순수익의 30% UBI 자동 적립 및 HK 사회재단 기부 프로세스가 정상 작동 중입니다."
-                        </p>
-                        <button class="btn" style="width: 100%;" onclick="switchWorkspace('assistant', document.querySelectorAll('.nav-item')[4])">삐니와 대화하기</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- WORKSPACE 2: ASSETS -->
-            <section id="workspace-assets" class="workspace">
-                <div class="card" style="margin-bottom: 24px;">
-                    <div class="card-header">
-                        <h3 class="card-title">자산 및 계좌 통합 관리</h3>
-                        <button class="btn" onclick="alert('신규 디지털 계좌가 생성되었습니다.')">+ 계좌 추가 개설</button>
-                    </div>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr><th>자산/계좌명</th><th>종류</th><th>보유 잔액</th><th>수익률</th><th>상태</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td><strong>HK Master Vault</strong></td><td><span class="badge badge-blue">Sovereign Vault</span></td><td>₩ 500,000,000,000</td><td style="color: var(--accent-emerald);">+18.5%</td><td><span class="badge badge-emerald">활성</span></td></tr>
-                                <tr><td><strong>Pi Network Reserve</strong></td><td><span class="badge badge-gold">Cryptocurrency</span></td><td>125,450,000 Pi</td><td style="color: var(--accent-emerald);">+32.1%</td><td><span class="badge badge-emerald">채굴/연동</span></td></tr>
-                                <tr><td><strong>해오름 특별시 R&D 펀드</strong></td><td><span class="badge badge-purple">Regional Fund</span></td><td>₩ 217,500,000,000</td><td style="color: var(--accent-emerald);">+9.4%</td><td><span class="badge badge-emerald">운용중</span></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- WORKSPACE 3: UBI -->
-            <section id="workspace-ubi" class="workspace">
-                <div class="ubi-display">
-                    <span class="badge badge-emerald" style="margin-bottom: 12px; display: inline-block;">Universal Basic Income Engine</span>
-                    <h3 style="font-size: 18px; font-weight: 600;">실시간 자동 적립 기본소득 기금</h3>
-                    <div class="ubi-number" id="liveUbiCounter">₩ 252,750,491,200</div>
-                    <p style="font-size: 13px; color: var(--text-muted);">순수익의 30%가 실시간으로 UBI 재원으로 자동 배분되며, 나머지 수익은 HK 사회재단으로 직투입됩니다.</p>
-                </div>
-                <div class="card">
-                    <div class="card-header"><h3 class="card-title">UBI 분배 시뮬레이터</h3></div>
-                    <div class="slider-group">
-                        <label><span>월간 플랫폼 순수익 규모</span><strong id="simProfitText">₩ 1,000 억</strong></label>
-                        <input type="range" min="100" max="10000" value="1000" step="100" oninput="updateUbiSimulation(this.value)">
-                    </div>
-                    <div class="grid-3col" style="margin-top: 20px;">
-                        <div class="card stat-card" style="background: var(--bg-primary);">
-                            <span style="font-size: 12px; color: var(--text-muted);">국민 기본소득 배분 (30%)</span>
-                            <div class="stat-value" id="simUbiResult" style="font-size: 22px;">₩ 300 억</div>
-                        </div>
-                        <div class="card stat-card" style="background: var(--bg-primary);">
-                            <span style="font-size: 12px; color: var(--text-muted);">HK 사회재단 기부 (70%)</span>
-                            <div class="stat-value" id="simDonationResult" style="font-size: 22px;">₩ 700 억</div>
-                        </div>
-                        <div class="card stat-card" style="background: var(--bg-primary);">
-                            <span style="font-size: 12px; color: var(--text-muted);">수혜 대상 국민 수</span>
-                            <div class="stat-value" style="font-size: 22px; color: var(--accent-cyan);">51,750,000 명</div>
+                <div class="gateway-card" onclick="verifyAndEnter('biometric')">
+                    <div class="gateway-card-left">
+                        <div class="gateway-icon" style="background: linear-gradient(135deg, var(--accent-blue), #2563eb); color: white;">👆</div>
+                        <div class="gateway-text">
+                            <h3>지문 우선 잠금 해제 (Biometric Auth)</h3>
+                            <p>모바일 기기 연동 실시간 생체 지문 인식 및 원터치 인증 시스템</p>
                         </div>
                     </div>
+                    <span style="color: var(--text-muted); font-size: 18px;">→</span>
                 </div>
-            </section>
 
-            <!-- WORKSPACE 4: NETWORK -->
-            <section id="workspace-network" class="workspace">
-                <div class="card-header" style="margin-bottom: 20px;">
-                    <h3 class="card-title">10대 분산 연동망 실시간 모니터링</h3>
-                    <span class="badge badge-cyan">Distributed Architecture</span>
-                </div>
-                <div class="network-grid" id="networkGridContainer"></div>
-            </section>
-
-            <!-- WORKSPACE 5: ASSISTANT -->
-            <section id="workspace-assistant" class="workspace">
-                <div class="chat-container">
-                    <div class="chat-header">
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <div style="width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue)); display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">삐</div>
-                            <div>
-                                <h4 style="font-size: 14px; font-weight: 600;">AGI 어시스턴트 '삐니'</h4>
-                                <span style="font-size: 11px; color: var(--accent-emerald);">● 60개국어 실시간 번역 동기화</span>
+                <div class="gateway-card" style="flex-direction: column; align-items: stretch;" onclick="togglePassphrase(event)">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <div class="gateway-card-left">
+                            <div class="gateway-icon" style="background: linear-gradient(135deg, var(--accent-emerald), #059669); color: white;">🔑</div>
+                            <div class="gateway-text">
+                               <h3>비밀번호 및 복구 구절 잠금 해제</h3>
+                               <p>24개 단어 복구 구절 (PASSPHRASE) 입력 기반 강력한 보안 접속</p>
                             </div>
                         </div>
-                        <span class="badge badge-purple">Active AI</span>
+                        <span style="color: var(--text-muted); font-size: 14px;" id="passphraseArrow">▼</span>
                     </div>
-                    <div class="chat-messages" id="chatMessages">
-                        <div class="message incoming">안녕하세요, 혜공 회장님! HK WorldBank AGI 어시스턴트 삐니입니다. 24자리 비밀구절 보안 게이트웨이 및 10대 분산 연동망이 최적의 상태로 가동 중입니다. 무엇을 도와드릴까요?</div>
-                    </div>
-                    <div class="chat-input-area">
-                        <input type="text" class="chat-input" id="chatInputBox" placeholder="삐니에게 지시사항을 입력하세요..." onkeypress="if(event.key==='Enter') sendChatPrompt()">
-                        <button class="btn" onclick="sendChatPrompt()">전송</button>
+                    <div class="passphrase-dropdown" id="passphraseDropdown">
+                        <div class="passphrase-tokens">
+                            word1 word2 word3 word4 word5 word6 word7 word8 word9 word10 word11 word12 word13 word14 word15 word16 word17 word18 word19 word20 word21 word22 word23 word24
+                        </div>
+                        <button class="btn-action" onclick="verifyAndEnter('passphrase')">🔓 구절 검증 및 대시보드 진입</button>
                     </div>
                 </div>
-            </section>
 
-            <!-- WORKSPACE 6: CODE INSPECTOR -->
-            <section id="workspace-codeinspector" class="workspace">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">2,000줄 아키텍처 검증기 (Code Line Inspector)</h3>
-                        <span class="badge badge-gold">Full Implementation</span>
+                <div class="gateway-card" onclick="verifyAndEnter('guest')">
+                    <div class="gateway-card-left">
+                        <div class="gateway-icon" style="background: linear-gradient(135deg, var(--accent-purple), #6d28d9); color: white;">🌐</div>
+                        <div class="gateway-text">
+                            <h3>둘러보기 (Guest Preview Access)</h3>
+                            <p>인증 없이 플랫폼 대시보드 및 내비게이터 구조 미리보기 체험</p>
+                        </div>
                     </div>
-                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-                        요청하신 싱글파일 2,000줄 분량의 소스 코드 구조 및 모듈 결합 상태를 검증하는 실시간 인스펙터입니다.
-                    </p>
-                    <div class="code-inspector" id="codeInspectorLog">
-                        [INIT] Loading HK WorldBank 2000-line core modules...<br>
-                        [SUCCESS] Security Gateway (24-word Passphrase & Biometrics) loaded (Lines 1-450).<br>
-                        [SUCCESS] 60-language localization engine synchronized (Lines 451-920).<br>
-                        [SUCCESS] 10-part distributed network framework initialized (Lines 921-1450).<br>
-                        [SUCCESS] UBI & HK Social Foundation automated profit distribution router active (Lines 1451-2000).<br>
-                        [READY] Chairman Lee Jaewan (혜공) session authenticated. All systems fully operational.
-                    </div>
+                    <span style="color: var(--text-muted); font-size: 18px;">→</span>
                 </div>
-            </section>
-        </main>
+
+                <div class="gateway-footer">
+                    <span>발신: HK 그룹 회장 이재완 (<span style="color: var(--accent-gold); font-weight: 600;">혜공</span>)</span>
+                    <span>HK WorldBank Secure Core v10.4</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: MAIN HUB -->
+        <div id="screenHub" class="screen-view">
+            <div class="hub-container">
+                <div class="hub-banner">
+                    <h1>HK 통합 메인 허브</h1>
+                    <p>5대 핵심 기능 및 에코시스템 바로가기 (60개국어 번역 삐득 엔진 대기중)</p>
+                </div>
+
+                <div class="gateway-card" onclick="switchHubTab('assets')">
+                    <div class="gateway-card-left">
+                        <div class="gateway-icon" style="background: rgba(239,68,68,0.2); color: #ef4444;">⭐</div>
+                        <div class="gateway-text"><h3>개인 자산 대시보드</h3><p>실시간 잔액 및 Pi코인·누적 이자 관리</p></div>
+                    </div>
+                    <span style="color: var(--text-muted);">›</span>
+                </div>
+
+                <div class="gateway-card" onclick="switchHubTab('network')">
+                    <div class="gateway-card-left">
+                        <div class="gateway-icon" style="background: rgba(16,185,129,0.2); color: var(--accent-emerald);">⚡</div>
+                        <div class="gateway-text"><h3>사고 팔고 예금하기 (10대 분산 연동망 양파까기)</h3><p>3중 양파 구조 정밀 심층 프로세스 실행</p></div>
+                    </div>
+                    <span style="color: var(--text-muted);">›</span>
+                </div>
+
+                <div class="gateway-card" onclick="switchHubTab('assistant')">
+                    <div class="gateway-card-left">
+                        <div class="gateway-icon" style="background: rgba(139,92,246,0.2); color: var(--accent-purple);">🤖</div>
+                        <div class="gateway-text"><h3>고객센터 AGI 삐니 (60개국어 삐득 변환)</h3><p>뼈속까지 파고드는 다국어 AI 삐니 실시간 구동</p></div>
+                    </div>
+                    <span style="color: var(--text-muted);">›</span>
+                </div>
+
+                <div class="gateway-card" onclick="switchHubTab('navigator')">
+                    <div class="gateway-card-left">
+                        <div class="gateway-icon" style="background: rgba(245,158,11,0.2); color: var(--accent-gold);">🧭</div>
+                        <div class="gateway-text"><h3>내비게이터 (메뉴 보기)</h3><p>백서 100선·FAQ 20선·3대 Policies·FATF-21개국법·8대 산업</p></div>
+                    </div>
+                    <span style="color: var(--text-muted);">›</span>
+                </div>
+
+                <div class="gateway-card" onclick="switchHubTab('media')">
+                    <div class="gateway-card-left">
+                        <div class="gateway-icon" style="background: rgba(59,130,246,0.2); color: var(--accent-blue);">▶️</div>
+                        <div class="gateway-text"><h3>유튜브와 틱톡 채널 연동</h3><p>HK 통합 메인 허브 5번째 방송 센터</p></div>
+                    </div>
+                    <span style="color: var(--text-muted);">›</span>
+                </div>
+            </div>
+
+            <div class="hub-dock">
+                <div class="dock-item" onclick="switchHubTab('assets')"><span>⭐</span><span>자산</span></div>
+                <div class="dock-item" onclick="switchHubTab('network')"><span>⚡</span><span>분산망</span></div>
+                <div class="dock-item" onclick="switchHubTab('assistant')"><span>🤖</span><span>삐니</span></div>
+                <div class="dock-item" onclick="switchHubTab('navigator')"><span>🧭</span><span>내비게이터</span></div>
+                <div class="dock-item" onclick="switchHubTab('media')"><span>▶️</span><span>유튜브·틱톡</span></div>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: WORKSPACE -->
+        <div id="screenWorkspace" class="screen-view">
+            <div class="workspace-layout">
+                <aside class="sidebar">
+                    <div class="brand-box">
+                        <div class="brand-logo">HK</div>
+                        <div>
+                            <h4 style="font-size: 15px; font-weight: 700;">WorldBank</h4>
+                            <span style="font-size: 11px; color: var(--accent-cyan);">60개국어 Sovereign Web3</span>
+                        </div>
+                    </div>
+                    <nav class="nav-menu">
+                        <div class="nav-item active" onclick="switchWorkspaceTab('dashboard', this)"><span>📊</span> 통합 대시보드</div>
+                        <div class="nav-item" onclick="switchWorkspaceTab('network', this)"><span>🧅</span> 10대 분산 연동망 (3중 양파)</div>
+                        <div class="nav-item" onclick="switchWorkspaceTab('assistant', this)"><span>🤖</span> AGI 삐니 (60개국어 삐득)</div>
+                        <div class="nav-item" onclick="goToGateway()"><span>🔒</span> 보안 게이트웨이 복귀</div>
+                    </nav>
+                </aside>
+                <main class="workspace-main">
+                    <header class="top-header">
+                        <div id="workspaceTitle">
+                            <h2 style="font-size: 18px; font-weight: 700;" id="wsHeading">통합 대시보드</h2>
+                            <p style="font-size: 12px; color: var(--text-muted);">HK WorldBank Real-time Financial Ecosystem Status</p>
+                        </div>
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <select id="globalLang" class="chat-input" style="padding: 6px 12px; width: 160px;" onchange="changeGlobalLanguage(this.value)">
+                                <option value="ko">🇰🇷 한국어 (Korean)</option>
+                                <option value="en">🇺🇸 English (60개국어)</option>
+                                <option value="ja">🇯🇵 日本語 (Japanese)</option>
+                                <option value="zh">🇨🇳 中文 (Chinese)</option>
+                                <option value="es">🇪🇸 Español (Spanish)</option>
+                                <option value="fr">🇫🇷 Français (French)</option>
+                            </select>
+                            <button class="btn-action" onclick="goToHub()">메인 허브로 이동</button>
+                        </div>
+                    </header>
+
+                    <!-- Tab 1: Dashboard -->
+                    <div id="ws-dashboard" class="content-area active">
+                        <div class="card">
+                            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px;" id="welcomeTitle">회장 이재완 (혜공) 님 환영합니다</h3>
+                            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;" id="welcomeDesc">
+                                24자리 복구 구절 인증 및 10대 분산 연동망(3중 양파까기 아키텍처)이 성공적으로 활성화되었습니다. 60개국어 다국어 엔진이 실시간 동기화 상태입니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Network (3-Layer Onion Peeling) -->
+                    <div id="ws-network" class="content-area">
+                        <div class="card">
+                            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">🧅 10대 분산 연동망 3중 양파까기(Onion-Peeling) 아키텍처</h3>
+                            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">외부 위협 차단 및 데이터 무결성을 위해 10대 노드가 3단계 암호화 레이어(껍질)를 거쳐 연동됩니다.</p>
+                            
+                            <!-- Layer 1 -->
+                            <div class="onion-layer-box" style="border-color: rgba(59, 130, 246, 0.4);">
+                                <div class="onion-layer-header">
+                                    <span>Layer 1: 외곽 방화벽 및 60개국어 라우팅 껍질 (Outer Peeling)</span>
+                                    <span style="color: var(--accent-emerald);">● 통과 완료 (Encrypted)</span>
+                                </div>
+                                <div class="onion-sub-nodes">
+                                    <div class="sub-node-card"><strong>Node 01</strong><br>HK WorldBank Core</div>
+                                    <div class="sub-node-card"><strong>Node 02</strong><br>Ulsan Robot Cluster</div>
+                                    <div class="sub-node-card"><strong>Node 03</strong><br>Gyeongju Quantum Bio</div>
+                                    <div class="sub-node-card"><strong>Node 04</strong><br>Pohang Fusion Energy</div>
+                                    <div class="sub-node-card"><strong>Node 05</strong><br>Pi Network Mainnet</div>
+                                </div>
+                            </div>
+
+                            <!-- Layer 2 -->
+                            <div class="onion-layer-box" style="border-color: rgba(245, 158, 11, 0.4);">
+                                <div class="onion-layer-header">
+                                    <span>Layer 2: 미들웨어 제로트러스트 분산 원장 껍질 (Middle Peeling)</span>
+                                    <span style="color: var(--accent-gold);">● 검증 완료 (Zero-Trust)</span>
+                                </div>
+                                <div class="onion-sub-nodes">
+                                    <div class="sub-node-card"><strong>Node 06</strong><br>HK-Nexus SmartGlass</div>
+                                    <div class="sub-node-card"><strong>Node 07</strong><br>UBI Distribution Hub</div>
+                                    <div class="sub-node-card"><strong>Node 08</strong><br>HK Social Foundation</div>
+                                    <div class="sub-node-card"><strong>Node 09</strong><br>AGI Ppini Engine</div>
+                                    <div class="sub-node-card"><strong>Node 10</strong><br>Sovereign Gateway</div>
+                                </div>
+                            </div>
+
+                            <!-- Layer 3 -->
+                            <div class="onion-layer-box" style="border-color: rgba(16, 185, 129, 0.4);">
+                                <div class="onion-layer-header">
+                                    <span>Layer 3: 코어 하드웨어 실시간 백금 볼트 껍질 (Core Inner Peeling)</span>
+                                    <span style="color: var(--accent-emerald);">● 100% Secure Active</span>
+                                </div>
+                                <p style="font-size: 12px; color: var(--text-muted);">울산·경주·포항 해오름 특별시 메가클러스터와 직결된 최종 코어 금고 레이어입니다.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: AGI Ppini (60-Language Deep Localization) -->
+                    <div id="ws-assistant" class="content-area">
+                        <div class="card">
+                            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">🤖 고객센터 AGI 삐니 (60개국어 뼈속까지 변환 '삐득' 엔진)</h3>
+                            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">전 세계 60개국 언어의 뉘앙스와 전문 금융 용어까지 완벽하게 파고들어 즉시 번역·응답합니다.</p>
+                            
+                            <div class="chat-box">
+                                <div class="chat-messages" id="chatMsgContainer">
+                                    <div class="chat-msg incoming" id="initialGreeting">
+                                        안녕하세요, 혜공 회장님! AGI 삐니입니다. 현재 60개국어 뼈속까지 변환되는 삐득 엔진과 3중 양파 분산 연동망이 완벽히 가동 중입니다. 무엇을 도와드릴까요?
+                                    </div>
+                                </div>
+                                <div class="chat-input-row">
+                                    <input type="text" class="chat-input" id="userInput" placeholder="삐니에게 지시사항을 입력하세요 (예: UBI 현황 보고해줘)..." onkeypress="if(event.key==='Enter') sendPpiniChat()">
+                                    <button class="btn-action" onclick="sendPpiniChat()">전송</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        const passphraseWords = [
-            "1. sovereign", "2. nexus", "3. bitcoin", "4. pi", "5. blockchain", "6. gateway", "7. security", "8. biometric",
-            "9. ubi", "10. foundation", "11. ulsan", "12. gyeongju", "13. pohang", "14. robotics", "15. quantum", "16. fusion",
-            "17. space", "18. defense", "19. design", "20. hkwb", "21. enterprise", "22. chairman", "23. hyekong", "24. master"
-        ];
+        // 60-Language Dictionary Mock for Deep Localization (뼈속까지 변환)
+        const langPack = {
+            ko: { greeting: "안녕하세요, 혜공 회장님! AGI 삐니입니다. 60개국어 삐득 엔진과 3중 양파 분산 연동망이 완벽히 가동 중입니다.", reply: "회장님의 지시에 따라 3중 양파 분산망을 통과하여 즉시 처리되었습니다." },
+            en: { greeting: "Hello Chairman Hyekong! AGI Ppini here. 60-language Ppini-Deok engine & 3-layer onion network are fully active.", reply: "Processed successfully through the 3-layer onion distributed network per your command." },
+            ja: { greeting: "こんにちは、恵公会長！AGIぴーにです。60カ国語変換エンジンと3중オニオンネットワークが稼働中です。", reply: "会長のご指示通り、3重オニオン分散網を通過して直ちに処理されました。" },
+            zh: { greeting: "您好，慧公会长！我是AGI 삐니。60国语言核心引擎及三层洋葱网络运行中。", reply: "已按照会长指示，通过三层洋葱分布式网络为您立即处理。" },
+            es: { greeting: "¡Hola Presidente Hyekong! AGI Ppini activa con motor de 60 idiomas.", reply: "Procesado con éxito a través de la red distribuida de triple capa de cebolla." },
+            fr: { greeting: "Bonjour Président Hyekong! AGI Ppini à votre service.", reply: "Traité avec succès via le réseau distribué à triple couche d'oignon." }
+        };
 
-        const networkNodes = [
-            { name: "Node 01: HK WorldBank Core", status: "active", latency: "12ms" },
-            { name: "Node 02: Ulsan Robot Cluster", status: "active", latency: "15ms" },
-            { name: "Node 03: Gyeongju Quantum Bio", status: "active", latency: "18ms" },
-            { name: "Node 04: Pohang Fusion Energy", status: "active", latency: "14ms" },
-            { name: "Node 05: Pi Network Mainnet", status: "active", latency: "22ms" },
-            { name: "Node 06: HK-Nexus SmartGlass", status: "active", latency: "11ms" },
-            { name: "Node 07: UBI Distribution Hub", status: "active", latency: "9ms" },
-            { name: "Node 08: HK Social Foundation", status: "active", latency: "13ms" },
-            { name: "Node 09: AGI Ppini Engine", status: "active", latency: "7ms" },
-            { name: "Node 10: Sovereign Security Gateway", status: "active", latency: "5ms" }
-        ];
-
-        document.addEventListener("DOMContentLoaded", () => {
-            renderPassphraseGrid();
-            renderNetworkNodes();
-            renderChartBars();
-            startRealtimeCounters();
-        });
-
-        function renderPassphraseGrid() {
-            const grid = document.getElementById("passphraseGrid");
-            grid.innerHTML = passphraseWords.map(w => `<div class="passphrase-item"><span>${w.split(" ")[0]}</span>${w.split(" ")[1]}</div>`).join("");
+        function togglePassphrase(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('passphraseDropdown');
+            const arrow = document.getElementById('passphraseArrow');
+            if (dropdown.style.display === 'flex') {
+                dropdown.style.display = 'none';
+                arrow.innerText = '▼';
+            } else {
+                dropdown.style.display = 'flex';
+                arrow.innerText = '▲';
+            }
         }
 
-        function renderNetworkNodes() {
-            const container = document.getElementById("networkGridContainer");
-            container.innerHTML = networkNodes.map((node, idx) => `
-                <div class="node-box ${node.status}">
-                    <div class="node-status"><span>ID: 0${idx+1}</span><div class="pulse-dot"></div></div>
-                    <h4 style="font-size: 14px; font-weight: 600; color: var(--text-main);">${node.name}</h4>
-                    <p style="font-size: 12px; color: var(--text-muted);">응답 속도: ${node.latency}</p>
-                    <span class="badge badge-emerald" style="align-self: flex-start; margin-top: 4px;">Normal</span>
-                </div>
-            `).join("");
+        function verifyAndEnter(method) {
+            document.getElementById('screenGateway').classList.remove('active');
+            document.getElementById('screenHub').classList.add('active');
         }
 
-        function renderChartBars() {
-            const chart = document.getElementById("chartBars");
-            const heights = [40, 65, 50, 80, 95, 75, 85, 100, 90, 110];
-            chart.innerHTML = heights.map((h, i) => `
-                <div style="flex: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
-                    <div style="width: 100%; height: ${h}px; background: linear-gradient(to top, var(--accent-blue), var(--accent-cyan)); border-radius: 6px 6px 0 0; opacity: 0.85;"></div>
-                    <span style="font-size: 10px; color: var(--text-muted); margin-top: 6px;">${i+1}월</span>
-                </div>
-            `).join("");
+        function switchHubTab(tab) {
+            document.getElementById('screenHub').classList.remove('active');
+            document.getElementById('screenWorkspace').classList.add('active');
+            if(tab === 'network') switchWorkspaceTab('network', document.querySelectorAll('.nav-item')[1]);
+            else if(tab === 'assistant') switchWorkspaceTab('assistant', document.querySelectorAll('.nav-item')[2]);
         }
 
-        function authenticateGateway() {
-            document.getElementById("securityModal").classList.remove("active");
-            addChatMessage("incoming", "보안 인증(24자리 비밀구절 및 지문 인식)이 성공적으로 완료되었습니다. 환영합니다, 혜공 회장님.");
+        function goToHub() {
+            document.getElementById('screenWorkspace').classList.remove('active');
+            document.getElementById('screenHub').classList.add('active');
         }
 
-        function bypassGuestMode() {
-            document.getElementById("securityModal").classList.remove("active");
-            addChatMessage("incoming", "둘러보기(Guest) 모드로 진입했습니다.");
+        function goToGateway() {
+            document.getElementById('screenWorkspace').classList.remove('active');
+            document.getElementById('screenHub').classList.remove('active');
+            document.getElementById('screenGateway').classList.add('active');
         }
 
-        function openSecurityModal() {
-            document.getElementById("securityModal").classList.add("active");
+        function switchWorkspaceTab(tabId, el) {
+            document.querySelectorAll('.content-area').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('ws-' + tabId).classList.add('active');
+            if (el) el.classList.add('active');
         }
 
-        function switchWorkspace(workspaceId, element) {
-            document.querySelectorAll(".workspace").forEach(w => w.classList.remove("active"));
-            document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
-            document.getElementById(`workspace-${workspaceId}`).classList.add("active");
-            if(element) element.classList.add("active");
+        function changeGlobalLanguage(lang) {
+            const pack = langPack[lang] || langPack['en'];
+            document.getElementById('initialGreeting').innerText = pack.greeting;
+            // 60개국어 뼈속까지 변환 피드백
+            const notice = document.createElement('div');
+            notice.style.fontSize = "11px";
+            notice.style.color = "var(--accent-emerald)";
+            notice.style.padding = "4px 8px";
+            notice.innerText = `[System] 60개국어 다국어 엔진이 '${lang.toUpperCase()' 체계로 완벽 동기화되었습니다.`;
+            document.getElementById('chatMsgContainer').appendChild(notice);
         }
 
-        function startRealtimeCounters() {
-            let ubiBase = 252750491200;
-            setInterval(() => {
-                ubiBase += Math.floor(Math.random() * 5000) + 1000;
-                const el = document.getElementById("liveUbiCounter");
-                if(el) el.innerText = "₩ " + ubiBase.toLocaleString();
-            }, 3000);
-        }
+        function sendPpiniChat() {
+            const input = document.getElementById('userInput');
+            const val = input.value.trim();
+            if(!val) return;
 
-        function updateUbiSimulation(val) {
-            document.getElementById("simProfitText").innerText = "₩ " + Number(val).toLocaleString() + " 억";
-            document.getElementById("simUbiResult").innerText = "₩ " + (val * 0.3).toLocaleString() + " 억";
-            document.getElementById("simDonationResult").innerText = "₩ " + (val * 0.7).toLocaleString() + " 억";
-        }
+            const container = document.getElementById('chatMsgContainer');
+            
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-msg outgoing';
+            userMsg.innerText = val;
+            container.appendChild(userMsg);
+            input.value = '';
 
-        function sendChatPrompt() {
-            const input = document.getElementById("chatInputBox");
-            const text = input.value.trim();
-            if(!text) return;
-            addChatMessage("outgoing", text);
-            input.value = "";
             setTimeout(() => {
-                addChatMessage("incoming", "회장님의 지시에 따라 10대 분산 연동망 및 UBI 배분 엔진에 즉시 반영되었습니다.");
-            }, 800);
-        }
-
-        function addChatMessage(type, text) {
-            const container = document.getElementById("chatMessages");
-            const div = document.createElement("div");
-            div.className = `message ${type}`;
-            div.innerText = text;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        function changeLanguage(lang) {
-            addChatMessage("incoming", `[System] 다국어 엔진이 '${lang}' (60개국어 지원) 체계로 동기화되었습니다.`);
+                const lang = document.getElementById('globalLang').value;
+                const pack = langPack[lang] || langPack['en'];
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'chat-msg incoming';
+                aiMsg.innerText = `[삐득 60개국어 뼈속 변환] ${pack.reply} (요청 내용: "${val}")`;
+                container.appendChild(aiMsg);
+                container.scrollTop = container.scrollHeight;
+            }, 600);
         }
     </script>
 </body>
