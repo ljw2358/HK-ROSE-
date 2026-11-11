@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLD BANK - 메인 허브 & 보안 게이트웨이</title>
+    <title>HK WORLD BANK - 보안 게이트웨이 & 메인 허브</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -39,7 +39,7 @@
             background-attachment: fixed;
         }
 
-        /* 상단 아키텍처 및 탭 전환 카드 */
+        /* 상단 아키텍처 박스 & 세로 탭 스위처 */
         .app-header {
             padding: 20px 16px 10px;
             max-width: 500px;
@@ -127,7 +127,7 @@
             box-shadow: 0 0 18px var(--neon-glow);
         }
 
-        /* 뷰 전환 컨테이너 */
+        /* 뷰 컨테이너 */
         .view-content {
             display: none;
             max-width: 500px;
@@ -146,7 +146,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 1. 보안 게이트웨이 뷰 스타일 */
+        /* 1. 보안 게이트웨이 화면 */
         .gateway-banner {
             background: rgba(245, 158, 11, 0.08);
             border: 1px solid rgba(245, 158, 11, 0.4);
@@ -182,6 +182,7 @@
             color: var(--text-sub);
         }
 
+        /* 터미널 콘솔 */
         .console-box {
             background: #070e1a;
             border: 1px solid rgba(0, 210, 255, 0.3);
@@ -189,6 +190,7 @@
             padding: 18px;
             box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 210, 255, 0.1);
             font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 20px;
         }
 
         .console-header {
@@ -236,7 +238,120 @@
             color: #10b981;
         }
 
-        /* 2. HK 통합 메인 허브 뷰 스타일 */
+        /* 잠금 해제 인증 제어 섹션 */
+        .auth-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .auth-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--neon-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 지문 인식 버튼 */
+        .fingerprint-btn {
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.2), rgba(0, 114, 255, 0.3));
+            border: 1px solid var(--neon-blue);
+            border-radius: 14px;
+            padding: 14px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+        }
+
+        .fingerprint-btn:hover, .fingerprint-btn:active {
+            background: linear-gradient(135deg, #00d2ff, #0072ff);
+            box-shadow: 0 0 25px var(--neon-glow);
+        }
+
+        /* 24자리 비밀구절 입력 */
+        .passphrase-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .passphrase-input {
+            width: 100%;
+            background: #08111e;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.25s;
+        }
+
+        .passphrase-input:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .unlock-btn {
+            background: rgba(30, 58, 95, 0.8);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .unlock-btn:hover {
+            background: var(--neon-blue);
+            color: #000;
+        }
+
+        /* 둘러보기 버튼 */
+        .guest-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            padding: 12px;
+            color: var(--text-sub);
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .guest-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-color: var(--neon-blue);
+        }
+
+        /* 2. HK 통합 메인 허브 화면 */
         .hub-title {
             text-align: center;
             margin: 10px 0 20px;
@@ -371,7 +486,7 @@
 </head>
 <body>
 
-    <!-- 상단 헤더 및 탭 전환 스위치 (1. 보안게이트웨이 / 2. 통합메인허브) -->
+    <!-- 상단 아키텍처 및 탭 스위처 -->
     <div class="app-header">
         <div class="header-card">
             <div class="header-left">
@@ -391,7 +506,7 @@
         </div>
     </div>
 
-    <!-- 1. 보안 게이트웨이 뷰 (기본 활성화) -->
+    <!-- 1. 보안 게이트웨이 화면 (첫째장) -->
     <main id="gateway-view" class="view-content active">
         <div class="gateway-banner">
             <i class="fa-solid fa-lock"></i> SECURE GATEWAY v10.4 - ENTERPRISE EDITION
@@ -402,6 +517,7 @@
             <p>회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 시스템</p>
         </div>
 
+        <!-- 터미널 콘솔 -->
         <div class="console-box">
             <div class="console-header">
                 <div class="console-header-title">
@@ -422,13 +538,43 @@
             </div>
         </div>
 
+        <!-- 잠금해제 방법 1: 지문 인식 -->
+        <div class="auth-card">
+            <div class="auth-title">
+                <i class="fa-solid fa-fingerprint"></i> 지문 인식으로 잠금해제
+            </div>
+            <button class="fingerprint-btn" onclick="unlockGateway('fingerprint')">
+                <i class="fa-solid fa-fingerprint fa-lg"></i>
+                <span>지문 스캔하여 즉시 잠금해제</span>
+            </button>
+        </div>
+
+        <!-- 잠금해제 방법 2: 24자리 비밀구절 -->
+        <div class="auth-card">
+            <div class="auth-title">
+                <i class="fa-solid fa-key"></i> 비밀구절로 잠금해제
+            </div>
+            <div class="passphrase-box">
+                <input type="password" class="passphrase-input" id="passphrase-input" placeholder="24자리 비밀구절을 입력하세요...">
+                <button class="unlock-btn" onclick="unlockGateway('passphrase')">
+                    <i class="fa-solid fa-lock-open"></i> 비밀구절 인증 및 해제
+                </button>
+            </div>
+        </div>
+
+        <!-- 둘러보기 (Guest Mode) -->
+        <button class="guest-btn" onclick="switchTab('hub')">
+            <i class="fa-solid fa-eye"></i>
+            <span>인증 없이 둘러보기 (게스트 모드)</span>
+        </button>
+
         <div class="copyright-text">
             © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved.<br>
             Complete Detailed Enterprise Edition
         </div>
     </main>
 
-    <!-- 2. HK 통합 메인 허브 뷰 -->
+    <!-- 2. HK 통합 메인 허브 화면 (둘째장) -->
     <main id="hub-view" class="view-content">
         <div class="hub-title">
             <h1>HK 통합 메인 허브</h1>
@@ -523,7 +669,7 @@
     </nav>
 
     <script>
-        // 상단 탭 전환 함수
+        // 탭 전환 처리
         function switchTab(tabName) {
             const hubView = document.getElementById('hub-view');
             const gatewayView = document.getElementById('gateway-view');
@@ -543,7 +689,23 @@
             }
         }
 
-        // 실시간 콘솔 시계 업데이트
+        // 인증 실행 및 잠금 해제
+        function unlockGateway(method) {
+            if (method === 'fingerprint') {
+                alert('지문 인증 성공! HK 통합 메인 허브로 진입합니다.');
+                switchTab('hub');
+            } else if (method === 'passphrase') {
+                const input = document.getElementById('passphrase-input').value;
+                if (input.trim() !== '') {
+                    alert('24자리 비밀구절 검증 완료! HK 통합 메인 허브로 진입합니다.');
+                    switchTab('hub');
+                } else {
+                    alert('비밀구절을 입력해 주세요.');
+                }
+            }
+        }
+
+        // 실시간 콘솔 시계
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
