@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WORLD BANK - Global Web3 Financial Portal (Ultimate Edition)</title>
+    <title>HK WORLD BANK - Secure Web3 Portal</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -17,8 +17,7 @@
                         goldHover: '#B59228',
                         darkBg: '#0b0f19',
                         cardBg: '#151c2c',
-                        cardHover: '#1e293b',
-                        accent: '#38bdf8'
+                        cardHover: '#1e293b'
                     }
                 }
             }
@@ -30,371 +29,270 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #0b0f19; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
     </style>
 </head>
 <body class="bg-darkBg text-slate-100 font-sans min-h-screen flex flex-col justify-between select-none">
 
-    <!-- TOP NAVIGATION HEADER -->
-    <header class="border-b border-slate-800 bg-slate-900/95 backdrop-blur-md sticky top-0 z-50 shadow-lg">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <!-- Brand Logo -->
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
-                <div class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/40 flex items-center justify-center text-gold text-xl font-bold">
-                    <i class="fa-solid fa-building-columns"></i>
+    <!-- 1. 보안 인증 모달 (최초 진입 시 지문인식 및 24구절 승인) -->
+    <div id="authModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-cardBg border border-slate-800 rounded-3xl max-w-xl w-full p-8 shadow-2xl space-y-6">
+            <div class="text-center space-y-2">
+                <div class="w-16 h-16 rounded-2xl bg-gold/10 border border-gold/40 flex items-center justify-center text-gold text-3xl mx-auto mb-4">
+                    <i class="fa-solid fa-shield-halved"></i>
                 </div>
-                <div>
-                    <span class="text-2xl font-black tracking-widest gold-gradient block">HK WORLD BANK</span>
-                    <span class="text-[10px] text-slate-400 tracking-wider">HK GROUP CHAIRMAN 혜공</span>
-                </div>
+                <h2 class="text-2xl font-black text-white">HK WorldBank 보안 승인</h2>
+                <p class="text-xs text-slate-400">형님, 플랫폼 접속을 위해 보안 인증을 진행해 주십시오.</p>
             </div>
-            
-            <!-- Global Language Selector & Wallet Options -->
-            <div class="flex items-center space-x-4">
-                <select id="languageSelect" class="bg-slate-800 border border-slate-700 text-sm rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-gold transition">
-                    <option value="ko">🇰🇷 한국어 (Korean)</option>
-                    <option value="en">🇺🇸 English</option>
-                    <option value="zh">🇨🇳 中文 (Chinese)</option>
-                    <option value="ja">🇯🇵 日本語 (Japanese)</option>
-                </select>
-                <button onclick="connectWallet()" class="bg-gold hover:bg-goldHover text-slate-950 font-extrabold px-5 py-2.5 rounded-xl text-sm shadow-md transition-all duration-200 flex items-center space-x-2">
-                    <i class="fa-solid fa-wallet"></i>
-                    <span id="walletBtnText">지갑 연결</span>
+
+            <!-- 인증 방식 선택 탭 -->
+            <div class="grid grid-cols-2 gap-3 bg-slate-900 p-1.5 rounded-2xl border border-slate-800">
+                <button onclick="switchAuthMode('fingerprint')" id="authTabFP" class="py-3 rounded-xl font-bold text-sm bg-gold text-slate-950 transition shadow">
+                    <i class="fa-solid fa-fingerprint mr-2"></i>지문인식 승인
+                </button>
+                <button onclick="switchAuthMode('mnemonic')" id="authTabMn" class="py-3 rounded-xl font-bold text-sm text-slate-400 hover:text-white transition">
+                    <i class="fa-solid fa-key mr-2"></i>비밀구절 24 승인
+                </button>
+            </div>
+
+            <!-- 지문인식 영역 -->
+            <div id="authSectionFP" class="space-y-6 text-center py-6">
+                <div class="w-24 h-24 rounded-full bg-slate-900 border-2 border-gold/40 flex items-center justify-center text-gold text-4xl mx-auto cursor-pointer animate-pulse" onclick="verifyFingerprint()">
+                    <i class="fa-solid fa-fingerprint"></i>
+                </div>
+                <p class="text-sm text-slate-300">위의 지문 아이콘을 터치하거나 버튼을 눌러 승인하세요.</p>
+                <button onclick="verifyFingerprint()" class="w-full bg-gold hover:bg-goldHover text-slate-950 font-extrabold py-3.5 rounded-xl transition shadow-lg">
+                    지문인식 승인 완료하기
+                </button>
+            </div>
+
+            <!-- 비밀구절 24 영역 -->
+            <div id="authSectionMn" class="space-y-4 hidden">
+                <label class="block text-xs text-slate-400 font-semibold">비밀구절 24단어를 공백으로 구분하여 입력하세요:</label>
+                <textarea id="mnemonicInput" rows="4" placeholder="word1 word2 word3 ... word24" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3.5 text-xs text-white focus:outline-none focus:border-gold"></textarea>
+                <button onclick="verifyMnemonic()" class="w-full bg-gold hover:bg-goldHover text-slate-950 font-extrabold py-3.5 rounded-xl transition shadow-lg">
+                    비밀구절 24로 승인받기
+                </button>
+            </div>
+
+            <!-- 둘러보기 버튼 (노트 3번 반영) -->
+            <div class="text-center pt-2 border-t border-slate-800">
+                <button onclick="bypassAuth()" class="text-xs text-slate-400 hover:text-gold transition underline">
+                    <i class="fa-solid fa-eye mr-1"></i>인증 없이 바로 둘러보기
                 </button>
             </div>
         </div>
-    </header>
+    </div>
 
-    <!-- 4. 네비게이트 메뉴 (노트 4번 반영) -->
-    <nav class="bg-slate-900/80 border-b border-slate-800 sticky top-[73px] z-40 backdrop-blur">
-        <div class="max-w-7xl mx-auto px-6 flex space-x-1 sm:space-x-8 overflow-x-auto py-3.5 text-sm font-semibold whitespace-nowrap">
-            <button onclick="switchTab('home')" id="nav-home" class="text-gold border-b-2 border-gold pb-1.5 transition flex items-center space-x-2 px-2">
-                <i class="fa-solid fa-house"></i><span>홈 화면</span>
-            </button>
-            <button onclick="switchTab('asset')" id="nav-asset" class="text-slate-400 hover:text-white pb-1.5 transition flex items-center space-x-2 px-2">
-                <i class="fa-solid fa-chart-pie"></i><span>1. 개인 자산 대시 모드</span>
-            </button>
-            <button onclick="switchTab('trade')" id="nav-trade" class="text-slate-400 hover:text-white pb-1.5 transition flex items-center space-x-2 px-2">
-                <i class="fa-solid fa-right-left"></i><span>2. 사고 팔고 예금하기</span>
-            </button>
-            <button onclick="switchTab('support')" id="nav-support" class="text-slate-400 hover:text-white pb-1.5 transition flex items-center space-x-2 px-2">
-                <i class="fa-solid fa-headset"></i><span>3. 고객센터 AGI 삐니</span>
-            </button>
-            <button onclick="switchTab('media')" id="nav-media" class="text-slate-400 hover:text-white pb-1.5 transition flex items-center space-x-2 px-2">
-                <i class="fa-solid fa-video"></i><span>5. 유튜브와 틱톡</span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- MAIN DYNAMIC CONTENT AREA -->
-    <main class="max-w-7xl mx-auto px-6 py-10 w-full flex-1">
-
-        <!-- HOME TAB -->
-        <div id="tab-home" class="space-y-16 animate-fadeIn">
-            <section class="text-center py-16">
-                <div class="inline-flex items-center space-x-2 bg-slate-800/90 text-gold text-xs font-bold px-4 py-2 rounded-full border border-gold/30 mb-8 shadow-inner">
-                    <i class="fa-solid fa-crown"></i>
-                    <span>HK GROUP WEB3 FINANCIAL ECOSYSTEM (CHAIRMAN 이재완)</span>
+    <!-- MAIN APP CONTENT (인증 후 노출) -->
+    <div id="mainApp" class="flex flex-col min-h-screen opacity-0 transition-opacity duration-500 pointer-events-none">
+        <!-- TOP NAVIGATION HEADER -->
+        <header class="border-b border-slate-800 bg-slate-900/95 backdrop-blur-md sticky top-0 z-40 shadow-lg">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                    <div class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/40 flex items-center justify-center text-gold text-xl font-bold">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-black tracking-widest gold-gradient block">HK WORLD BANK</span>
+                        <span class="text-[10px] text-slate-400 tracking-wider">CHAIRMAN 혜공 이재완</span>
+                    </div>
                 </div>
-                <h1 class="text-4xl md:text-6xl font-black leading-tight mb-6">
-                    전 세계를 하나로 연결하는 <br/>
-                    <span class="gold-gradient">차세대 웹3 디지털 뱅크</span>
-                </h1>
-                <p class="text-slate-400 max-w-3xl mx-auto text-lg md:text-xl font-light mb-12 leading-relaxed">
-                    분산 네트워크 기반의 안정적인 디지털 자산 관리, AI 고객센터 AGI 삐니의 24시간 케어,<br class="hidden md:inline"/>
-                    그리고 UBI(기본소득) 분배 시스템을 통합 제공합니다.
-                </p>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <button onclick="switchTab('asset')" class="bg-gold hover:bg-goldHover text-slate-950 font-bold px-8 py-4 rounded-xl shadow-xl transition flex items-center space-x-3 text-base">
-                        <i class="fa-solid fa-chart-line"></i><span>개인 자산 대시보드 열기</span>
+                <div class="flex items-center space-x-4">
+                    <button onclick="location.reload()" class="bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 px-3 py-2 rounded-xl border border-slate-700 transition">
+                        <i class="fa-solid fa-lock mr-1"></i> 재시작하기
                     </button>
-                    <button onclick="switchTab('support')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-8 py-4 rounded-xl border border-slate-700 transition flex items-center space-x-3 text-base">
-                        <i class="fa-solid fa-robot text-gold"></i><span>AGI 삐니와 대화하기</span>
-                    </button>
-                </div>
-            </section>
-
-            <!-- Quick Metrics Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div onclick="switchTab('asset')" class="bg-cardBg hover:bg-cardHover border border-slate-800 rounded-2xl p-6 shadow-xl cursor-pointer transition transform hover:-translate-y-1">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-slate-400 text-sm font-semibold">자산 관리 모드</span>
-                        <div class="w-10 h-10 rounded-xl bg-gold/10 flex items-center justify-center text-gold"><i class="fa-solid fa-chart-pie"></i></div>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-1">개인 자산 대시 모드</h3>
-                    <p class="text-xs text-slate-400">보유 자산 평가액 및 UBI 분배 현황 통합 조회</p>
-                </div>
-                <div onclick="switchTab('trade')" class="bg-cardBg hover:bg-cardHover border border-slate-800 rounded-2xl p-6 shadow-xl cursor-pointer transition transform hover:-translate-y-1">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-slate-400 text-sm font-semibold">금융 거래 시스템</span>
-                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400"><i class="fa-solid fa-right-left"></i></div>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-1">사고 팔고 예금하기</h3>
-                    <p class="text-xs text-slate-400">디지털 자산 즉시 스왑 및 고금리 예금 상품 가입</p>
-                </div>
-                <div onclick="switchTab('media')" class="bg-cardBg hover:bg-cardHover border border-slate-800 rounded-2xl p-6 shadow-xl cursor-pointer transition transform hover:-translate-y-1">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-slate-400 text-sm font-semibold">미디어 방송국</span>
-                        <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500"><i class="fa-brands fa-youtube"></i></div>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-1">유튜브와 틱톡 채널</h3>
-                    <p class="text-xs text-slate-400">실시간 라이브 방송 및 숏폼 콘텐츠 연동 센터</p>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <!-- 1. PERSONAL ASSET DASHBOARD TAB -->
-        <div id="tab-asset" class="hidden space-y-8 animate-fadeIn">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <!-- NAVIGATION MENU -->
+        <nav class="bg-slate-900/80 border-b border-slate-800 sticky top-[73px] z-30 backdrop-blur">
+            <div class="max-w-7xl mx-auto px-6 flex space-x-8 overflow-x-auto py-3.5 text-sm font-semibold whitespace-nowrap">
+                <button onclick="switchTab('home')" id="nav-home" class="text-gold border-b-2 border-gold pb-1.5 transition flex items-center space-x-2 px-2">
+                    <i class="fa-solid fa-house"></i><span>홈 화면</span>
+                </button>
+                <button onclick="switchTab('asset')" id="nav-asset" class="text-slate-400 hover:text-white pb-1.5 transition flex items-center space-x-2 px-2">
+                    <i class="fa-solid fa-chart-pie"></i><span>1. 개인 자산 대시 모드</span>
+                </button>
+                <button onclick="switchTab('trade')" id="nav-trade" class="text-slate-400 hover:text-white pb-1.5 transition flex items-center space-x-2 px-2">
+                    <i class="fa-solid fa-right-left"></i><span>2. 사고 팔고 예금하기</span>
+                </button>
+                <button onclick="switchTab('support')" id="nav-support" class="text-slate-400 hover:text-white pb-1.5 transition flex items-center space-x-2 px-2">
+                    <i class="fa-solid fa-headset"></i><span>3. 고객센터 AGI 삐니</span>
+                </button>
+                <button onclick="switchTab('media')" id="nav-media" class="text-slate-400 hover:text-white pb-1.5 transition flex items-center space-x-2 px-2">
+                    <i class="fa-solid fa-video"></i><span>5. 유튜브와 틱톡</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- MAIN DYNAMIC CONTENT -->
+        <main class="max-w-7xl mx-auto px-6 py-10 w-full flex-1">
+            <!-- HOME TAB -->
+            <div id="tab-home" class="space-y-16">
+                <section class="text-center py-16">
+                    <div class="inline-flex items-center space-x-2 bg-slate-800/90 text-gold text-xs font-bold px-4 py-2 rounded-full border border-gold/30 mb-8">
+                        <i class="fa-solid fa-crown"></i>
+                        <span>보안 인증 완료 - HK GROUP WEB3 PORTAL</span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black leading-tight mb-6">
+                        전 세계를 하나로 연결하는 <br/>
+                        <span class="gold-gradient">차세대 웹3 디지털 뱅크</span>
+                    </h1>
+                    <p class="text-slate-400 max-w-3xl mx-auto text-lg font-light mb-12">
+                        지문인식 및 24구절 보안 승인이 완료되었습니다. 안전한 디지털 자산 생태계를 경험하세요.
+                    </p>
+                    <div class="flex justify-center gap-4">
+                        <button onclick="switchTab('asset')" class="bg-gold hover:bg-goldHover text-slate-950 font-bold px-8 py-4 rounded-xl shadow-xl transition">
+                            개인 자산 대시보드 열기
+                        </button>
+                        <button onclick="switchTab('support')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-8 py-4 rounded-xl border border-slate-700 transition">
+                            AGI 삐니와 대화하기
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 1. PERSONAL ASSET DASHBOARD TAB -->
+            <div id="tab-asset" class="hidden space-y-8">
                 <h2 class="text-2xl font-black text-gold flex items-center space-x-3">
                     <i class="fa-solid fa-chart-pie"></i><span>1. 개인 자산 대시 모드</span>
                 </h2>
-                <button class="bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 px-4 py-2 rounded-lg border border-slate-700 transition">
-                    <i class="fa-solid fa-rotate-right mr-1"></i> 자산 새로고침
-                </button>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl md:col-span-2 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-slate-400 text-sm">총 보유 자산 평가액</span>
-                            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-full">+12.4% 금주 상승</span>
+                <div class="bg-cardBg border border-slate-800 rounded-2xl p-8 shadow-xl">
+                    <div class="text-sm text-slate-400 mb-1">총 보유 자산 평가액</div>
+                    <div class="text-4xl font-black text-white mb-6">₩ 1,250,400,000</div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                            <div class="text-xs text-slate-400">HK 토큰 (HKT)</div>
+                            <div class="text-xl font-bold text-gold mt-1">500,000 HKT</div>
                         </div>
-                        <div class="text-4xl font-black text-white my-3">₩ 1,250,400,000</div>
-                        <p class="text-xs text-slate-500 mb-6">최종 업데이트: 실시간 메인넷 동기화 완료</p>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-800">
-                            <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                                <div class="text-xs text-slate-400 mb-1">HK 토큰 (HKT)</div>
-                                <div class="text-xl font-bold text-gold">500,000 HKT</div>
-                                <div class="text-[11px] text-slate-500 mt-1">≈ ₩ 500,000,000</div>
-                            </div>
-                            <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                                <div class="text-xs text-slate-400 mb-1">디지털 원화 (KRW-W)</div>
-                                <div class="text-xl font-bold text-white">750,400,000 KRW</div>
-                                <div class="text-[11px] text-slate-500 mt-1">출금 가능 잔액</div>
-                            </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                            <div class="text-xs text-slate-400">디지털 원화 (KRW-W)</div>
+                            <div class="text-xl font-bold text-white mt-1">750,400,000 KRW</div>
                         </div>
                     </div>
                 </div>
-
-                <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-6">
-                    <div>
-                        <div class="flex items-center space-x-2 text-gold font-bold mb-3">
-                            <i class="fa-solid fa-hand-holding-dollar"></i>
-                            <span>UBI 및 사회재단 분배</span>
-                        </div>
-                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
-                            HK WorldBank는 순이익의 30%를 기본소득(UBI)으로 형님과 참여자들에게 공정하게 분배하며, 초과 수익은 사회재단에 기부합니다.
-                        </p>
-                        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-xs space-y-2 mb-4">
-                            <div class="flex justify-between"><span class="text-slate-400">이번 달 누적 UBI</span><span class="text-emerald-400 font-bold">12,450 HKT</span></div>
-                            <div class="flex justify-between"><span class="text-slate-400">상태</span><span class="text-gold font-bold">수령 대기중</span></div>
-                        </div>
-                    </div>
-                    <button onclick="alert('UBI 배당금이 정상적으로 청구되었습니다.')" class="w-full bg-gold hover:bg-goldHover text-slate-950 font-extrabold py-3.5 rounded-xl shadow-lg transition">
-                        UBI 배당금 즉시 청구
-                    </button>
-                </div>
             </div>
-        </div>
 
-        <!-- 2. TRADE & DEPOSIT TAB -->
-        <div id="tab-trade" class="hidden space-y-8 animate-fadeIn">
-            <div class="border-b border-slate-800 pb-4">
+            <!-- 2. TRADE & DEPOSIT TAB -->
+            <div id="tab-trade" class="hidden space-y-8">
                 <h2 class="text-2xl font-black text-gold flex items-center space-x-3">
                     <i class="fa-solid fa-right-left"></i><span>2. 사고 팔고 예금하기</span>
                 </h2>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Swap Box -->
-                <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-white flex items-center space-x-2">
-                            <i class="fa-solid fa-repeat text-gold"></i><span>디지털 자산 즉시 교환 (스왑)</span>
-                        </h3>
-                        <span class="text-xs text-slate-400">수수료 0.01%</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 space-y-4">
+                        <h3 class="font-bold text-white">디지털 자산 스왑</h3>
+                        <input type="number" placeholder="수량 입력" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3.5 text-white focus:outline-none">
+                        <button onclick="alert('스왑 완료!')" class="w-full bg-gold text-slate-950 font-extrabold py-3.5 rounded-xl">즉시 교환하기</button>
                     </div>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between text-xs text-slate-400 mb-1">
-                                <span>매도할 자산</span>
-                                <span>잔액: 750,400,000 KRW-W</span>
-                            </div>
-                            <div class="flex bg-slate-900 border border-slate-700 rounded-xl p-3.5 items-center">
-                                <input type="number" placeholder="0.00" class="bg-transparent w-full focus:outline-none text-white text-lg font-bold">
-                                <span class="text-gold font-bold ml-2">KRW-W</span>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <button onclick="alert('자산 교환 방향이 전환되었습니다.')" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-gold border border-slate-700 inline-flex items-center justify-center transition">
-                                <i class="fa-solid fa-arrow-down-up"></i>
-                            </button>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs text-slate-400 mb-1">
-                                <span>매수할 자산 (예상)</span>
-                                <span>잔액: 500,000 HKT</span>
-                            </div>
-                            <div class="flex bg-slate-900 border border-slate-700 rounded-xl p-3.5 items-center">
-                                <input type="number" placeholder="0.00" class="bg-transparent w-full focus:outline-none text-white text-lg font-bold">
-                                <span class="text-gold font-bold ml-2">HKT</span>
-                            </div>
-                        </div>
+                    <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 space-y-4">
+                        <h3 class="font-bold text-white">고금리 예금 (연 7.5%)</h3>
+                        <p class="text-xs text-slate-400">안전하게 원금 보장 및 복리 이자를 지급받습니다.</p>
+                        <button onclick="alert('예금 가입 완료!')" class="w-full bg-slate-800 text-gold border border-gold/40 font-extrabold py-3.5 rounded-xl">예금 가입하기</button>
                     </div>
-                    <button onclick="alert('스왑 거래가 성공적으로 체결되었습니다.')" class="w-full bg-gold hover:bg-goldHover text-slate-950 font-extrabold py-4 rounded-xl shadow-lg transition">
-                        즉시 교환하기 (Swap Execute)
-                    </button>
-                </div>
-
-                <!-- Deposit Box -->
-                <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5 flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-lg font-bold text-white flex items-center space-x-2">
-                                <i class="fa-solid fa-vault text-emerald-400"></i><span>안전 디지털 예금 상품</span>
-                            </h3>
-                            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-full">최고 연 7.5%</span>
-                        </div>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            HK WorldBank의 스마트 계약을 통해 원금 보장 및 매일 복리 이자가 지급되는 고수익 예금 상품입니다.
-                        </p>
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 text-sm">
-                            <div class="flex justify-between"><span class="text-slate-400">적용 이율</span><span class="text-emerald-400 font-bold">연 7.5% (복리)</span></div>
-                            <div class="flex justify-between"><span class="text-slate-400">예치 기간</span><span class="text-white font-semibold">12개월 (자유 해지 가능)</span></div>
-                            <div class="flex justify-between"><span class="text-slate-400">최소 예치금</span><span class="text-white font-semibold">10,000 KRW-W</span></div>
-                        </div>
-                    </div>
-                    <button onclick="alert('예금 상품 가입 신청이 완료되었습니다.')" class="w-full bg-slate-800 hover:bg-slate-700 text-gold font-extrabold py-4 rounded-xl border border-gold/40 transition shadow-md">
-                        예금 상품 가입하기
-                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- 3. CUSTOMER SERVICE AGI BBINI TAB -->
-        <div id="tab-support" class="hidden space-y-6 animate-fadeIn">
-            <div class="border-b border-slate-800 pb-4">
+            <!-- 3. CUSTOMER SERVICE AGI BBINI TAB -->
+            <div id="tab-support" class="hidden space-y-6">
                 <h2 class="text-2xl font-black text-gold flex items-center space-x-3">
                     <i class="fa-solid fa-headset"></i><span>3. 고객센터 AGI 삐니</span>
                 </h2>
-            </div>
-            
-            <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col h-[550px]">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-11 h-11 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center text-gold font-bold text-lg">삐니</div>
-                        <div>
-                            <div class="font-bold text-white flex items-center space-x-2">
-                                <span>AGI 고객 응대 AI 삐니</span>
-                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col h-[500px]">
+                    <div id="chatMessages" class="flex-1 overflow-y-auto space-y-4 pr-3 text-sm">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs">삐니</div>
+                            <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-slate-200">
+                                어이구 형님! 지문인식 및 보안 승인 통과하셨군요. AGI 삐니가 대기 중입니다!
                             </div>
-                            <div class="text-xs text-slate-400">HK WorldBank 실시간 전용 AGI 비서</div>
                         </div>
                     </div>
-                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-full border border-slate-700">보안 등급: 최상급</span>
-                </div>
-                
-                <!-- Chat Message Box -->
-                <div id="chatMessages" class="flex-1 overflow-y-auto space-y-4 pr-3 text-sm">
-                    <div class="flex items-start space-x-3">
-                        <div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs shrink-0">삐니</div>
-                        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl max-w-lg text-slate-200 leading-relaxed shadow-sm">
-                            어이구 형님! 오셨습니까요. HK WorldBank AGI 상담원 삐니입니다. 자산 조회나 스왑, 예금 상품 관련해서 궁금하신 점이 있으시면 언제든지 편하게 말씀해 주십사!
-                        </div>
+                    <div class="flex mt-4 pt-3 border-t border-slate-800 gap-2">
+                        <input type="text" id="chatInput" onkeypress="if(event.key === 'Enter') sendChatMessage()" placeholder="삐니에게 문의하세요..." class="bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 flex-1 text-white text-sm focus:outline-none">
+                        <button onclick="sendChatMessage()" class="bg-gold text-slate-950 px-6 rounded-xl font-bold">전송</button>
                     </div>
-                </div>
-
-                <!-- Chat Input Box -->
-                <div class="flex mt-4 pt-3 border-t border-slate-800 gap-2">
-                    <input type="text" id="chatInput" onkeypress="if(event.key === 'Enter') sendChatMessage()" placeholder="삐니에게 무엇이든 물어보세요 (예: 자산 현황 알려줘)..." class="bg-slate-900 border border-slate-700 rounded-xl px-4 py-3.5 flex-1 focus:outline-none focus:border-gold text-white text-sm transition">
-                    <button onclick="sendChatMessage()" class="bg-gold hover:bg-goldHover text-slate-950 px-6 rounded-xl font-extrabold transition shadow-md flex items-center space-x-2">
-                        <span>전송</span><i class="fa-solid fa-paper-plane"></i>
-                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- 5. YOUTUBE & TIKTOK TAB -->
-        <div id="tab-media" class="hidden space-y-8 animate-fadeIn">
-            <div class="border-b border-slate-800 pb-4">
+            <!-- 5. YOUTUBE & TIKTOK TAB -->
+            <div id="tab-media" class="hidden space-y-8">
                 <h2 class="text-2xl font-black text-gold flex items-center space-x-3">
-                    <i class="fa-solid fa-video"></i><span>5. 유튜브와 틱톡 채널 연동 센터</span>
+                    <i class="fa-solid fa-video"></i><span>5. 유튜브와 틱톡 채널 연동</span>
                 </h2>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- YouTube Card -->
-                <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5 flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-500 text-2xl">
-                                <i class="fa-brands fa-youtube"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-white">YouTube 라이브 & 콘텐츠</h3>
-                                <p class="text-xs text-slate-400">@Hyekong2026 | 암호화폐·경제·테크 방송</p>
-                            </div>
-                        </div>
-                        <div class="aspect-video bg-slate-900 rounded-xl flex flex-col items-center justify-center border border-slate-800 text-slate-500 relative overflow-hidden group cursor-pointer">
-                            <i class="fa-solid fa-play text-5xl text-gold group-hover:scale-110 transition duration-300 mb-2"></i>
-                            <span class="text-xs text-slate-300 font-semibold">형님의 실시간 라이브 스트리밍 송출 중</span>
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 space-y-4">
+                        <h3 class="font-bold text-white"><i class="fa-brands fa-youtube text-red-500 mr-2"></i>유튜브 라이브 (@Hyekong2026)</h3>
+                        <a href="https://www.youtube.com/@Hyekong2026" target="_blank" class="block w-full bg-red-600 text-white font-bold py-3 text-center rounded-xl">유튜브 바로가기</a>
                     </div>
-                    <a href="https://www.youtube.com/@Hyekong2026" target="_blank" class="w-full bg-red-600 hover:bg-red-700 text-white font-extrabold py-3.5 rounded-xl transition text-center shadow-lg block">
-                        유튜브 채널 바로가기 <i class="fa-solid fa-external-link-alt ml-1 text-xs"></i>
-                    </a>
-                </div>
-
-                <!-- TikTok Card -->
-                <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5 flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center text-white text-2xl">
-                                <i class="fa-brands fa-tiktok"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-white">TikTok 숏폼 크리에이터</h3>
-                                <p class="text-xs text-slate-400">@hyekong2026 | 숏폼 하이라이트 영상</p>
-                            </div>
-                        </div>
-                        <div class="aspect-video bg-slate-900 rounded-xl flex flex-col items-center justify-center border border-slate-800 text-slate-500 relative overflow-hidden group cursor-pointer">
-                            <i class="fa-solid fa-video text-5xl text-gold group-hover:scale-110 transition duration-300 mb-2"></i>
-                            <span class="text-xs text-slate-300 font-semibold">스마트 안경 연동 숏폼 피드</span>
-                        </div>
+                    <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 space-y-4">
+                        <h3 class="font-bold text-white"><i class="fa-brands fa-tiktok mr-2"></i>틱톡 숏폼 (@hyekong2026)</h3>
+                        <a href="https://www.tiktok.com/@hyekong2026" target="_blank" class="block w-full bg-slate-800 text-white font-bold py-3 text-center rounded-xl border border-slate-700">틱톡 바로가기</a>
                     </div>
-                    <a href="https://www.tiktok.com/@hyekong2026" target="_blank" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-extrabold py-3.5 rounded-xl border border-slate-700 transition text-center shadow-lg block">
-                        틱톡 채널 바로가기 <i class="fa-solid fa-external-link-alt ml-1 text-xs"></i>
-                    </a>
                 </div>
             </div>
-        </div>
+        </main>
 
-    </main>
+        <!-- FOOTER -->
+        <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-slate-500 text-xs">
+            <p>© 2026 HK Group & WorldBank Division (Chairman 혜공 이재완)</p>
+        </footer>
+    </div>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-slate-800/80 bg-slate-950 py-8 text-center text-slate-500 text-xs">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div>
-                <p class="font-bold text-slate-400">HK GROUP & WorldBank Division (Chairman 혜공 이재완)</p>
-                <p class="mt-1">© 2026 HK Group. All rights reserved.</p>
-            </div>
-            <div class="flex space-x-6 text-sm">
-                <a href="#" class="hover:text-gold transition">이용약관</a>
-                <a href="#" class="hover:text-gold transition">개인정보처리방침</a>
-                <a href="#" class="hover:text-gold transition">고객지원 센터</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <!-- SCRIPT LOGIC -->
     <script>
+        function switchAuthMode(mode) {
+            const fpTab = document.getElementById('authTabFP');
+            const mnTab = document.getElementById('authTabMn');
+            const fpSec = document.getElementById('authSectionFP');
+            const mnSec = document.getElementById('authSectionMn');
+
+            if (mode === 'fingerprint') {
+                fpTab.className = "py-3 rounded-xl font-bold text-sm bg-gold text-slate-950 transition shadow";
+                mnTab.className = "py-3 rounded-xl font-bold text-sm text-slate-400 hover:text-white transition";
+                fpSec.classList.remove('hidden');
+                mnSec.classList.add('hidden');
+            } else {
+                mnTab.className = "py-3 rounded-xl font-bold text-sm bg-gold text-slate-950 transition shadow";
+                fpTab.className = "py-3 rounded-xl font-bold text-sm text-slate-400 hover:text-white transition";
+                mnSec.classList.remove('hidden');
+                fpSec.classList.add('hidden');
+            }
+        }
+
+        function verifyFingerprint() {
+            alert('지문인식 승인이 성공적으로 완료되었습니다, 형님!');
+            grantAccess();
+        }
+
+        function verifyMnemonic() {
+            const val = document.getElementById('mnemonicInput').value.trim();
+            const words = val.split(/\s+/);
+            if (words.length < 24) {
+                alert('비밀구절 24단어를 정확히 입력해 주십시오. (현재 입력된 단어 수: ' + words.length +개)');
+                return;
+            }
+            alert('비밀구절 24단어 검증 및 승인이 완료되었습니다!');
+            grantAccess();
+        }
+
+        function bypassAuth() {
+            alert('보안 인증을 건너뛰고 플랫폼을 둘러봅니다.');
+            grantAccess();
+        }
+
+        function grantAccess() {
+            const modal = document.getElementById('authModal');
+            const app = document.getElementById('mainApp');
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                app.classList.remove('opacity-0', 'pointer-events-none');
+            }, 300);
+        }
+
         function switchTab(tabId) {
             const tabs = ['home', 'asset', 'trade', 'support', 'media'];
             tabs.forEach(t => {
@@ -416,62 +314,27 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function connectWallet() {
-            if (typeof window.ethereum !== 'undefined') {
-                ethereum.request({ method: 'eth_requestAccounts' })
-                    .then(accounts => {
-                        const shortAddr = accounts[0].substring(0, 6) + '...' + accounts[0].substring(accounts[0].length - 4);
-                        document.getElementById('walletBtnText').innerText = shortAddr;
-                        alert('지갑이 성공적으로 연결되었습니다: ' + accounts[0]);
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert('지갑 연결에 실패했거나 사용자가 취소했습니다.');
-                    });
-            } else {
-                alert('MetaMask 등 Web3 지갑 확장 프로그램이 감지되지 않았습니다.');
-            }
-        }
-
         function sendChatMessage() {
             const input = document.getElementById('chatInput');
             const msg = input.value.trim();
             if (!msg) return;
 
             const chatContainer = document.getElementById('chatMessages');
-
-            // User Message
             const userDiv = document.createElement('div');
             userDiv.className = 'flex items-start space-x-3 justify-end';
-            userDiv.innerHTML = `
-                <div class="bg-gold text-slate-950 font-semibold p-4 rounded-2xl max-w-lg leading-relaxed shadow-sm">
-                    ${escapeHtml(msg)}
-                </div>
-                <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs shrink-0">형님</div>
-            `;
+            userDiv.innerHTML = `<div class="bg-gold text-slate-950 font-semibold p-4 rounded-2xl max-w-lg">${msg}</div><div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs shrink-0">형님</div>`;
             chatContainer.appendChild(userDiv);
             input.value = '';
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
-            // BBINI Reply simulation
             setTimeout(() => {
                 const bbiniDiv = document.createElement('div');
                 bbiniDiv.className = 'flex items-start space-x-3';
-                bbiniDiv.innerHTML = `
-                    <div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs shrink-0">삐니</div>
-                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl max-w-lg text-slate-200 leading-relaxed shadow-sm">
-                        형님께서 말씀하신 "${escapeHtml(msg)}" 내용에 대해 삐니가 즉시 메인넷 원장과 대조하여 완벽하게 처리해 올리겠습니다요! 추가로 필요한 부분이 있으신가요?
-                    </div>
-                `;
+                bbiniDiv.innerHTML = `<div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs shrink-0">삐니</div><div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-slate-200">형님, "${msg}" 요청 사항 접수 완료했습니다요! 완벽하게 처리해 올리겠습니다!</div>`;
                 chatContainer.appendChild(bbiniDiv);
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }, 700);
         }
-
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        }
     </script>
 </body>
 </html>
-
