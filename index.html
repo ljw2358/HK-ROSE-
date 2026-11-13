@@ -1,748 +1,275 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HK WORLDBANK v10.4 Enterprise Edition</title>
-  <!-- React & Tailwind CSS CDN -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
-    body { font-family: 'Noto Sans KR', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
-    .glass-card { background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
-    .glow-effect { box-shadow: 0 0 25px rgba(59, 130, 246, 0.25); }
-    .glow-gold { box-shadow: 0 0 25px rgba(245, 158, 11, 0.25); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HK WORLDBANK - 백서 100선 및 메인 허브 통합 플랫폼</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #0b0f19; color: #f8fafc; font-family: 'Inter', sans-serif; }
+        .glass-card { background: rgba(17, 24, 39, 0.75); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.5); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.3); border-radius: 4px; }
+    </style>
 </head>
-<body class="min-h-screen">
-  <div id="root"></div>
+<body class="min-h-screen p-4 md:p-8">
 
-  <script type="text/babel">
-    const { useState, useEffect, useRef } = React;
-
-    // 60개국어 다국어 사전 (i18n Dictionary)
-    const DICT = {
-      ko: {
-        title: "HK WORLDBANK 보안 게이트웨이",
-        subTitle: "회장님(혜공 형님) 전용 10대 분산 연동망 및 메가클러스터 자산 관리",
-        bioAuth: "지문 우선 잠금 해제 (Biometric Auth)",
-        bioDesc: "모바일 기기 연동 실시간 생체 지문 인식 및 원터치 인증 시스템",
-        patternAuth: "선긋기 암호 잠금 해제 (Pattern Lock)",
-        patternDesc: "3x3 드래그 제스처 노드 암호 연동 시스템",
-        passAuth: "비밀번호 및 복구 구문 잠금 해제",
-        passDesc: "24개 단어 복구 구문 (PASSPHRASE) 입력 기반 강력 보안 접속",
-        guestAuth: "둘러보기 (Guest Preview Access)",
-        guestDesc: "인증 없이 플랫폼 대시보드 및 내비게이터 구조 미리보기 체험",
-        qrNotice: "QR 모바일 전용 접속 시스템",
-        qrDesc: "지문 및 생체 인증은 보안 지침에 따라 모바일 손폰 기기 환경에서 최우선 구동됩니다.",
-        registerModalTitle: "지문 및 24개 비밀구절 등록 절차",
-        registerModalDesc: "백엔드 API 보안 노드에 회장님의 생체 정보와 24개 비밀구절을 등록합니다.",
-        hubTitle: "HK 통합 메인 허브",
-        hubSub: "5대 핵심 기능 및 에코시스템 바로가기",
-        menu1: "1. 개인 자산 대시보드",
-        menu1Desc: "총보유자산, PI코인 잔액 및 실시간 누적 이자 관리",
-        menu2: "2. 사고 팔고 예금하기",
-        menu2Desc: "10대 분산 연동망 프로세스 실행 (Test Pi API 연동)",
-        menu3: "3. 고객센터 AGI 삐니",
-        menu3Desc: "60개국어 뼈속까지 변환 AI 삐니 실시간 구동",
-        menu4: "4. 네비게이터 (메뉴보기)",
-        menu4Desc: "백서 100선·FAQ 20선·3대 Policies·FATF 트래블룰·21개국 디지탈자산법·8대 미래산업",
-        menu5: "5. 유튜브와 틱톡",
-        menu5Desc: "HK 통합 메인 허브 5번째 방송 미디어 센터",
-        piFaucet: "테스트 Pi (Test Pi) 1,000 충전하기",
-        authRequiredTitle: "24개 비밀구절 (Passphrase) 2차 보안 인증",
-        authRequiredDesc: "해당 메뉴 진입을 위하여 회장님의 24개 단어 복구 구문을 입력하십시오.",
-        verifyBtn: "구문 검증 및 진입",
-        autoFillBtn: "테스트용 구문 자동 입력",
-        closeBtn: "닫기"
-      },
-      en: {
-        title: "HK WORLDBANK Secure Gateway",
-        subTitle: "Exclusive 10 Interlocking Distributed Networks for Chairman Hyekong",
-        bioAuth: "Biometric Fingerprint Auth",
-        bioDesc: "Mobile hardware real-time biometric fingerprint authentication system",
-        patternAuth: "Pattern Lock Auth",
-        patternDesc: "3x3 drag gesture node password security system",
-        passAuth: "Passphrase Unlock (24 Words)",
-        passDesc: "High-security access based on 24-word recovery passphrase input",
-        guestAuth: "Guest Preview Access",
-        guestDesc: "Preview platform dashboard & navigator without prior auth",
-        qrNotice: "Mobile Only Access Notice",
-        qrDesc: "Biometric features operate strictly on mobile smartphone environments.",
-        registerModalTitle: "Register Fingerprint & 24 Passphrase",
-        registerModalDesc: "Register biometric data and 24 words onto backend API security nodes.",
-        hubTitle: "HK Integrated Main Hub",
-        hubSub: "5 Core Features & Ecosystem Navigation",
-        menu1: "1. Personal Asset Dashboard",
-        menu1Desc: "Total Assets, PI Coin Holdings & Real-Time Accumulated Yield",
-        menu2: "2. Buy, Sell & Deposit",
-        menu2Desc: "Execute 10 Interlocking Network Processes (Test Pi API Integrated)",
-        menu3: "3. Customer Support AGI Bini",
-        menu3Desc: "60 Languages Deep Translation AI Bini Operating Real-Time",
-        menu4: "4. Navigator (Menu)",
-        menu4Desc: "100 Whitepapers, 20 FAQs, 3 Policies, FATF Travel Rule, 21 Laws & 8 Mega Industries",
-        menu5: "5. YouTube & TikTok",
-        menu5Desc: "HK Integrated Main Hub 5th Broadcast & Media Center",
-        piFaucet: "Top-Up +1,000 Test Pi",
-        authRequiredTitle: "24-Word Passphrase Secondary Authentication",
-        authRequiredDesc: "Please enter your 24-word recovery passphrase to access this menu.",
-        verifyBtn: "Verify & Enter",
-        autoFillBtn: "Auto-fill Test Passphrase",
-        closeBtn: "Close"
-      },
-      zh: {
-        title: "HK WORLDBANK 安全网关",
-        subTitle: "会长（慧空兄）专用 10大分布式网络及巨型集群资产管理",
-        bioAuth: "指纹优先解锁 (Biometric Auth)",
-        bioDesc: "移动设备实时生物指纹识别与一键认证系统",
-        patternAuth: "图案手势解锁 (Pattern Lock)",
-        patternDesc: "3x3 拖拽手势节点密码联动系统",
-        passAuth: "密码及助记词解锁",
-        passDesc: "基于 24个单词助记词 (PASSPHRASE) 输入的高强度安全访问",
-        guestAuth: "游客预览 (Guest Preview Access)",
-        guestDesc: "无需认证即可体验平台仪表盘及导航器结构",
-        qrNotice: "QR 移动端专用访问提示",
-        qrDesc: "根据安全规范，指纹及生物识别优先在移动手机端运行。",
-        registerModalTitle: "指纹及24位助记词注册流程",
-        registerModalDesc: "向后端 API 安全节点注册您的生物特征与 24位助记词。",
-        hubTitle: "HK 综合主枢纽",
-        hubSub: "5大核心功能及生态系统直达",
-        menu1: "1. 个人资产仪表盘",
-        menu1Desc: "总资产、PI币持有量及实时累计利息管理",
-        menu2: "2. 买卖与存提 (10大流程)",
-        menu2Desc: "运行 10大分布式联动网流程 (已联动 Test Pi API)",
-        menu3: "3. 客服中心 AGI 彬彬",
-        menu3Desc: "支持 60国语言深度转换 AI 彬彬 实时运行",
-        menu4: "4. 导航器 (查看菜单)",
-        menu4Desc: "白皮书100选·FAQ20选·3大政策·FATF规则·21国数字资产法·8大未来产业",
-        menu5: "5. YouTube 与 TikTok",
-        menu5Desc: "HK 综合主枢纽 第5大广播媒体中心",
-        piFaucet: "充值 1,000 Test Pi",
-        authRequiredTitle: "24位助记词二次安全验证",
-        authRequiredDesc: "请输入您的 24个单词助记词以进入该菜单。",
-        verifyBtn: "验证并进入",
-        autoFillBtn: "自动填充测试助记词",
-        closeBtn: "关闭"
-      }
-    };
-
-    // 60개국 지원 언어 리스트
-    const LANGUAGES = [
-      { code: "ko", label: "한국어 (Korean)" },
-      { code: "en", label: "English (US)" },
-      { code: "zh", label: "中文 (Chinese)" },
-      { code: "ja", label: "日本語 (Japanese)" },
-      { code: "ru", label: "Русский (Russian)" },
-      { code: "vi", label: "Tiếng Việt (Vietnamese)" },
-      { code: "th", label: "ไทย (Thai)" },
-      { code: "id", label: "Bahasa Indonesia" },
-      { code: "pa", label: "فلسطين (Palestinian)" },
-      { code: "de", label: "Deutsch (German)" },
-      { code: "it", label: "Italiano (Italian)" },
-      { code: "fr", label: "Français (French)" },
-      { code: "ng", label: "Hausa/Igbo (Nigeria)" },
-      { code: "cm", label: "Cameroon (French/En)" },
-      { code: "za", label: "Afrikaans (South Africa)" },
-      { code: "hi", label: "हिन्दी (Hindi)" },
-      { code: "es", label: "Español (Spanish)" },
-      { code: "pt", label: "Português (Brazil)" },
-      { code: "uk", label: "Українська (Ukrainian)" },
-      { code: "pk", label: "اردو (Pakistan)" },
-      { code: "bn", label: "বাংলা (Bengali)" },
-      { code: "uz", label: "Oʻzbekcha (Uzbek)" },
-      { code: "sd", label: "Sudan (Arabic)" },
-      { code: "tz", label: "Swahili (Tanzania)" },
-      // +36 추가 확장 라인업
-      { code: "ar", label: "العربية (Arabic)" }, { code: "tr", label: "Türkçe (Turkish)" },
-      { code: "pl", label: "Polski (Polish)" }, { code: "nl", label: "Nederlands (Dutch)" },
-      { code: "sv", label: "Svenska (Swedish)" }, { code: "el", label: "Ελληνικά (Greek)" },
-      { code: "he", label: "עברית (Hebrew)" }, { code: "ro", label: "Română (Romanian)" },
-      { code: "hu", label: "Magyar (Hungarian)" }, { code: "cs", label: "Čeština (Czech)" },
-      { code: "da", label: "Dansk (Danish)" }, { code: "fi", label: "Suomi (Finnish)" },
-      { code: "no", label: "Norsk (Norwegian)" }, { code: "sk", label: "Slovenčina (Slovak)" }, { code: "bg", label: "Български (Bulgarian)" }, { code: "hr", label: "Hrvatski (Croatian)" }, { code: "sr", label: "Српски (Serbian)" }, { code: "lt", label: "Lietuvių (Lithuanian)" }, { code: "sl", label: "Slovenščina (Slovenian)" }, { code: "et", label: "Eesti (Estonian)" }, { code: "lv", label: "Latviešu (Latvian)" }, { code: "ms", label: "Bahasa Melayu" }, { code: "fil", label: "Filipino (Tagalog)" }, { code: "km", label: "ភាសាខ្មែរ (Khmer)" }, { code: "my", label: "မြန်မာစာ (Burmese)" }, { code: "am", label: "አማርኛ (Amharic)" }, { code: "sw", label: "Kiswahili" }, { code: "yo", label: "Yorùbá" }, { code: "zu", label: "isiZulu" }, { code: "ne", label: "नेपाली (Nepali)" }, { code: "si", label: "සිංහල (Sinhala)" }, { code: "hy", label: "Հայերեն (Armenian)" }, { code: "ka", label: "ქართული (Georgian)" }, { code: "kk", label: "Қазақ тілі (Kazakh)" }, { code: "az", label: "Azərbaycan (Azerbaijani)" }, { code: "mn", label: "Монгол (Mongolian)" }
-    ];
-
-    const TEST_WORDS_DEFAULT = Array.from({ length: 24 }, (_, i) => `word${i + 1}`).join(" ");
-
-    function App() {
-      const [lang, setLang] = useState("ko");
-      const [screen, setScreen] = useState(1); // 1: Gateway, 2: Hub
-      const [activeTab, setActiveTab] = useState("dashboard"); // dashboard, trade, bini, nav, media
-      const [words, setWords] = useState(Array(24).fill(""));
-      const [testPiBalance, setTestPiBalance] = useState(12540.50);
-      const [yieldAmount, setYieldAmount] = useState(482.1094);
-      const [showRegisterModal, setShowRegisterModal] = useState(false);
-      const [showQRModal, setShowQRModal] = useState(false);
-
-      // 보안 2차 비밀구절 인증 상태
-      const [isAuthUnlocked, setIsAuthUnlocked] = useState(false);
-      const [showPassModal, setShowPassModal] = useState(false);
-      const [pendingTab, setPendingTab] = useState(null);
-      const [passphraseInput, setPassphraseInput] = useState("");
-
-      // 선긋기 패턴 입력 상태
-      const [patternMode, setPatternMode] = useState(false);
-      const [patternPath, setPatternPath] = useState([]);
-      const [isDrawing, setIsDrawing] = useState(false);
-
-      const t = DICT[lang] || DICT.ko;
-
-      // 실시간 이자 자동 집계 시뮬레이터
-      useEffect(() => {
-        const timer = setInterval(() => {
-          setYieldAmount(prev => prev + 0.0012);
-        }, 1500);
-        return () => clearInterval(timer);
-      }, []);
-
-      const handleTabSelect = (tabKey) => {
-        if (isAuthUnlocked) {
-          setActiveTab(tabKey);
-        } else {
-          setPendingTab(tabKey);
-          setShowPassModal(true);
-        }
-      };
-
-      const handleVerifyPassphrase = () => {
-        if (passphraseInput.trim().split(/\s+/).length === 24 || passphraseInput.includes("word1")) {
-          setIsAuthUnlocked(true);
-          setShowPassModal(false);
-          if (pendingTab) setActiveTab(pendingTab);
-          alert("✅ 24개 비밀구절 보안 검증 완료! 메뉴 진입 권한이 부여되었습니다.");
-        } else {
-          alert("❌ 올바른 24개 복구 구문을 입력하십시오.");
-        }
-      };
-
-      const handleTopUpFaucet = () => {
-        setTestPiBalance(prev => prev + 1000);
-        alert("🎁 [Testnet API] 테스트 Pi 1,000 TEST PI가 성공적으로 충전되었습니다!");
-      };
-
-      // 패턴 드래그 핸들러
-      const handleNodeClick = (idx) => {
-        if (!patternPath.includes(idx)) {
-          setPatternPath(prev => [...prev, idx]);
-        }
-      };
-
-      const handlePatternSubmit = () => {
-        if (patternPath.length >= 4) {
-          alert("✅ 선긋기 암호(Pattern Lock)가 정상 인증되었습니다!");
-          setScreen(2);
-          setPatternMode(false);
-        } else {
-          alert("⚠️ 최소 4개 이상의 노드를 연결하십시오.");
-          setPatternPath([]);
-        }
-      };
-
-      return (
-        <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-          {/* 상단 네비게이션 헤더 */}
-          <header className="border-b border-slate-800 bg-slate-900/80 sticky top-0 z-50 backdrop-blur-md px-4 py-3 flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-amber-500 flex items-center justify-center font-black text-xl shadow-lg">
-                HK
-              </div>
-              <div>
-                <h1 className="font-bold text-lg tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-amber-300">
-                  HK WORLDBANK <span className="text-xs px-2 py-0.5 rounded bg-blue-900/60 text-blue-300 border border-blue-500/30">v10.4 Enterprise</span>
+    <div class="max-w-7xl mx-auto space-y-6">
+        
+        <!-- 상단 헤더 -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900/90 p-6 rounded-2xl border border-slate-800 shadow-xl">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-extrabold tracking-wider bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                    HK WORLDBANK
                 </h1>
-                <p className="text-xs text-slate-400">회장님(혜공 형님) 전용 메가클러스터 포털</p>
-              </div>
+                <p class="text-xs md:text-sm text-slate-400 mt-1">Pi Network 통합 글로벌 디지털 뱅크 및 백서 100선 분산 생태계</p>
             </div>
-
-            {/* 60개국 다국어 셀렉터 */}
-            <div className="flex items-center space-x-3">
-              <div className="flex items-center space-x-2 bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-lg text-xs">
-                <span className="text-amber-400 font-bold">🌐 60개국어:</span>
-                <select 
-                  value={lang} 
-                  onChange={(e) => setLang(e.target.value)}
-                  className="bg-transparent text-slate-200 outline-none cursor-pointer max-w-[130px]"
-                >
-                  {LANGUAGES.map((l) => (
-                    <option key={l.code} value={l.code} className="bg-slate-900 text-slate-200">
-                      {l.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {screen === 2 && (
-                <button 
-                  onClick={handleTopUpFaucet}
-                  className="bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-300 text-xs px-3 py-1.5 rounded-lg font-semibold flex items-center space-x-1"
-                >
-                  <span>⚡ {t.piFaucet}</span>
+            <div class="flex flex-wrap items-center gap-3">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    <i class="fa-solid fa-shield-halved mr-1"></i> SECURE GATEWAY
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                    <i class="fa-solid fa-globe mr-1"></i> i18n 60개국 언어 엔진
+                </span>
+                <button class="px-4 py-2 text-xs font-bold bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-700 transition">
+                    한국어 (Korean) <i class="fa-solid fa-chevron-down ml-1"></i>
                 </button>
-              )}
             </div>
-          </header>
+        </header>
 
-          {/* 메인 컨텐츠 영역 */}
-          <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6">
-            {screen === 1 ? (
-              /* 스크린 1: 보안 게이트웨이 */
-              <div className="max-w-3xl mx-auto space-y-6 py-6">
-                <div className="text-center space-y-2">
-                  <span className="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs px-3 py-1 rounded-full font-mono">
-                    SECURE GATEWAY v10.4
-                  </span>
-                  <h2 className="text-3xl font-black text-slate-100 tracking-tight">{t.title}</h2>
-                  <p className="text-slate-400 text-sm">{t.subTitle}</p>
+        <!-- 둘러보기 영역 (위쪽 배치) -->
+        <section class="glass-card p-6 rounded-2xl flex items-center justify-between cursor-pointer transition shadow-lg" onclick="alert('둘러보기(Guest Preview) 모드로 진입합니다. 전체 대시보드와 백서 100선을 미리 체험하세요.')">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl">
+                    <i class="fa-solid fa-compass"></i>
                 </div>
-
-                <div className="space-y-4">
-                  {/* 지문 잠금 해제 */}
-                  <div 
-                    onClick={() => setShowQRModal(true)}
-                    className="glass-card hover:border-blue-500/50 transition cursor-pointer p-5 rounded-2xl flex items-center space-x-4 group glow-effect"
-                  >
-                    <div className="w-14 h-14 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-110 transition">
-                      🧬
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-bold text-lg text-slate-100">{t.bioAuth}</h3>
-                      <p className="text-xs text-slate-400">{t.bioDesc}</p>
-                    </div>
-                    <span className="text-slate-500">➔</span>
-                  </div>
-
-                  {/* 선긋기 암호 (Pattern Lock) */}
-                  <div 
-                    onClick={() => setPatternMode(!patternMode)}
-                    className="glass-card hover:border-indigo-500/50 transition cursor-pointer p-5 rounded-2xl flex flex-col space-y-3 group"
-                  >
-                    <div className="flex items-center space-x-4">
-                      <div className="w-14 h-14 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition">
-                        🔮
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-lg text-slate-100">{t.patternAuth}</h3>
-                        <p className="text-xs text-slate-400">{t.patternDesc}</p>
-                      </div>
-                      <span className="text-slate-500">➔</span>
-                    </div>
-
-                    {/* 패턴 캔버스 UI */}
-                    {patternMode && (
-                      <div className="mt-4 p-4 bg-slate-900/90 rounded-xl border border-indigo-500/30 text-center space-y-3">
-                        <p className="text-xs text-indigo-300">노드를 순서대로 클릭하여 암호를 그리십시오:</p>
-                        <div className="grid grid-cols-3 gap-4 w-48 mx-auto py-2">
-                          {[0,1,2,3,4,5,6,7,8].map((idx) => (
-                            <button
-                              key={idx}
-                              onClick={() => handleNodeClick(idx)}
-                              className={`w-12 h-12 rounded-full border flex items-center justify-center font-bold text-sm transition ${
-                                patternPath.includes(idx)
-                                  ? "bg-indigo-500 border-indigo-300 text-white shadow-lg shadow-indigo-500/50"
-                                  : "bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500"
-                              }`}
-                            >
-                              {idx + 1}
-                            </button>
-                          ))}
-                        </div>
-                        <div className="flex justify-center space-x-2 text-xs">
-                          <button 
-                            onClick={() => setPatternPath([])} 
-                            className="px-3 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700"
-                          >
-                            초기화
-                          </button>
-                          <button 
-                            onClick={handlePatternSubmit} 
-                            className="px-4 py-1 rounded bg-indigo-600 text-white font-bold shadow"
-                          >
-                            패턴 승인 및 대시보드 진입
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* 24개 비밀구절 잠금 해제 */}
-                  <div className="glass-card p-5 rounded-2xl space-y-4 border-amber-500/30 glow-gold">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-14 h-14 rounded-xl bg-amber-600/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
-                        🔑
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-lg text-slate-100">{t.passAuth}</h3>
-                        <p className="text-xs text-slate-400">{t.passDesc}</p>
-                      </div>
-                    </div>
-
-                    {/* 24개 그리드 입력 필드 */}
-                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 pt-2">
-                      {words.map((w, idx) => (
-                        <input
-                          key={idx}
-                          type="password"
-                          placeholder={`word${idx + 1}`}
-                          value={w}
-                          onChange={(e) => {
-                            const newW = [...words];
-                            newW[idx] = e.target.value;
-                            setWords(newW);
-                          }}
-                          className="bg-slate-900/90 border border-slate-700/80 rounded px-2 py-1 text-xs text-center focus:border-amber-400 outline-none font-mono"
-                        />
-                      ))}
-                    </div>
-
-                    <div className="flex flex-wrap items-center justify-between gap-2 pt-2">
-                      <button
-                        onClick={() => setWords(TEST_WORDS_DEFAULT.split(" "))}
-                        className="text-xs text-amber-400/80 hover:text-amber-300 underline"
-                      >
-                        ⚡ 테스트용 구문 자동 채우기
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          setScreen(2);
-                          setIsAuthUnlocked(true);
-                        }}
-                        className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-6 py-2.5 rounded-xl text-sm shadow-lg shadow-amber-500/20"
-                      >
-                        구문 검증 및 메인 허브 진입 ➔
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* 둘러보기 (Guest Preview) */}
-                  <div 
-                    onClick={() => setScreen(2)}
-                    className="glass-card hover:border-slate-600 transition cursor-pointer p-4 rounded-2xl flex items-center space-x-4 opacity-80 hover:opacity-100"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400">
-                      👁️
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-bold text-sm text-slate-200">{t.guestAuth}</h3>
-                      <p className="text-xs text-slate-400">{t.guestDesc}</p>
-                    </div>
-                    <span className="text-slate-500">➔</span>
-                  </div>
+                <div>
+                    <h2 class="text-lg font-bold">둘러보기 (Guest Preview Access)</h2>
+                    <p class="text-xs text-slate-400">로그인 없이 플랫폼 대시보드, 백서 100선 및 네비게이터 무료 미리보기 체험</p>
                 </div>
-
-                <div className="flex justify-between items-center text-xs text-slate-500 pt-4 border-t border-slate-800">
-                  <span>발신: HK 그룹 회장 이재완 (혜공)</span>
-                  <button 
-                    onClick={() => setShowRegisterModal(true)}
-                    className="text-blue-400 hover:underline"
-                  >
-                    ⚙️ 지문 및 비밀구절 등록 절차
-                  </button>
-                </div>
-              </div>
-            ) : (
-              /* 스크린 2: HK 통합 메인 허브 */
-              <div className="space-y-6">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
-                  <div>
-                    <h2 className="text-2xl font-black text-slate-100 tracking-tight">{t.hubTitle}</h2>
-                    <p className="text-xs text-slate-400">{t.hubSub}</p>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center space-x-1">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                      <span>10대 분산 연동망 정상 구동 중</span>
-                    </span>
-                    <button
-                      onClick={() => setScreen(1)}
-                      className="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg text-slate-300"
-                    >
-                      🚪 게이트웨이로
-                    </button>
-                  </div>
-                </div>
-
-                {/* 5대 핵심 메뉴 탭 버튼 */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-                  {[
-                    { id: "dashboard", name: t.menu1, icon: "📊" },
-                    { id: "trade", name: t.menu2, icon: "💳" },
-                    { id: "bini", name: t.menu3, icon: "🤖" },
-                    { id: "nav", name: t.menu4, icon: "🧭" },
-                    { id: "media", name: t.menu5, icon: "📺" }
-                  ].map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => handleTabSelect(tab.id)}
-                      className={`p-4 rounded-xl text-left border transition flex flex-col justify-between space-y-2 ${
-                        activeTab === tab.id
-                          ? "bg-blue-600/20 border-blue-500 text-slate-100 shadow-lg shadow-blue-500/10"
-                          : "bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700 hover:bg-slate-800/50"
-                      }`}
-                    >
-                      <span className="text-2xl">{tab.icon}</span>
-                      <span className="font-bold text-xs leading-tight">{tab.name}</span>
-                    </button>
-                  ))}
-                </div>
-
-                {/* 선택된 메뉴 뷰 */}
-                <div className="glass-card p-6 rounded-2xl min-h-[450px]">
-                  {activeTab === "dashboard" && (
-                    <div className="space-y-6">
-                      <h3 className="text-xl font-bold border-b border-slate-800 pb-3 flex items-center justify-between">
-                        <span>1. 개인 자산 대시보드</span>
-                        <span className="text-xs text-amber-400 font-mono">4중 레이아웃 보안 적용</span>
-                      </h3>
-
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="p-4 bg-slate-900/80 rounded-xl border border-slate-800">
-                          <p className="text-xs text-slate-400">총 보유 자산 (Total Assets)</p>
-                          <p className="text-2xl font-black text-amber-400 mt-1">$128,450,000,000</p>
-                          <p className="text-xs text-slate-500 mt-1">₩ 172조 8,500억 원 상당</p>
-                        </div>
-                        <div className="p-4 bg-slate-900/80 rounded-xl border border-slate-800">
-                          <p className="text-xs text-slate-400">PI 코인 보유량 (PI Balance)</p>
-                          <p className="text-2xl font-black text-purple-400 mt-1">
-                            {testPiBalance.toLocaleString()} <span className="text-xs text-purple-300">TEST PI</span>
-                          </p>
-                          <p className="text-xs text-emerald-400 mt-1">▲ 메가클러스터 노드 검증 완료</p>
-                        </div>
-                        <div className="p-4 bg-slate-900/80 rounded-xl border border-slate-800">
-                          <p className="text-xs text-slate-400">실시간 누적 이자 (Accrued Yield)</p>
-                          <p className="text-2xl font-black text-emerald-400 mt-1 font-mono">
-                            +{yieldAmount.toFixed(4)} <span className="text-xs text-emerald-300">PI</span>
-                          </p>
-                          <p className="text-xs text-slate-500 mt-1">초단위 복리 이자 집계 중...</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === "trade" && (
-                    <div className="space-y-6">
-                      <h3 className="text-xl font-bold border-b border-slate-800 pb-3 flex items-center justify-between">
-                        <span>2. 사고 팔고 예금하기 (10대 핵심 프로세스)</span>
-                        <span className="text-xs text-blue-400">Test Pi API 시뮬레이터 연동</span>
-                      </h3>
-
-                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-                        {[
-                          "지갑연결", "송금", "결제", "예치", "보상",
-                          "기본소득", "토큰스왑", "DEX 스왑", "LP 스테이킹", "PI 수량관리"
-                        ].map((proc, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => alert(`🚀 [${proc}] 프로세스가 Test Pi 백엔드 노드에서 시범 연동 실행되었습니다.`)}
-                            className="p-4 rounded-xl bg-slate-900 hover:bg-blue-600/20 border border-slate-800 hover:border-blue-500/50 transition text-center space-y-2 group"
-                          >
-                            <div className="text-lg font-mono font-bold text-blue-400 group-hover:scale-110 transition">
-                              0{idx + 1}
-                            </div>
-                            <div className="text-xs font-bold text-slate-200">{proc}</div>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === "bini" && (
-                    <div className="space-y-4">
-                      <h3 className="text-xl font-bold border-b border-slate-800 pb-3 flex items-center justify-between">
-                        <span>3. 고객센터 AGI 삐니 (60개국어 지원)</span>
-                        <span className="text-xs text-indigo-400">AGI 삐니 실시간 연동 중</span>
-                      </h3>
-
-                      <div className="bg-slate-900/90 rounded-xl p-4 h-64 overflow-y-auto space-y-3 border border-slate-800">
-                        <div className="flex space-x-3">
-                          <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-xs font-bold">삐니</div>
-                          <div className="bg-slate-800 p-3 rounded-2xl max-w-lg text-xs space-y-1">
-                            <p className="font-bold text-indigo-300">AGI 삐니:</p>
-                            <p>안녕하십니까, 혜공 회장님! 60개국어로 뼈속까지 다국어 변환 서비스를 제공하는 AGI 삐니입니다. 구체적인 지시사항을 말씀해 주십시오.</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex space-x-2">
-                        <input
-                          type="text"
-                          placeholder="삐니에게 질문 또는 명령을 입력하세요..."
-                          className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs focus:border-indigo-500 outline-none"
-                        />
-                        <button className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-xl text-xs font-bold">
-                          전송
-                        </button>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === "nav" && (
-                    <div className="space-y-6">
-                      <h3 className="text-xl font-bold border-b border-slate-800 pb-3">
-                        4. 네비게이터 (메뉴보기 & 8대 미래 전략산업)
-                      </h3>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2 p-4 bg-slate-900/80 rounded-xl border border-slate-800">
-                          <h4 className="font-bold text-xs text-amber-400">📜 규제 및 정책 가이드</h4>
-                          <ul className="text-xs text-slate-300 space-y-1 list-disc list-inside">
-                            <li>백서 100선 및 FAQ 20선</li>
-                            <li>3대 핵심 POLICIES</li>
-                            <li>FATF 트래블룰 & 실시간 제재 리스트 검증규칙</li>
-                            <li>21개국 디지털 자산법 매칭 라이선스</li>
-                          </ul>
-                        </div>
-
-                        <div className="space-y-2 p-4 bg-slate-900/80 rounded-xl border border-slate-800">
-                          <h4 className="font-bold text-xs text-blue-400">🚀 8대 미래 메가클러스터 전략산업</h4>
-                          <div className="grid grid-cols-2 gap-2 text-xs text-slate-300">
-                            <span>• 로봇 (HK-ROBOT)</span>
-                            <span>• 스마트 글래스 (HK-NEXUS)</span>
-                            <span>• 도심항공교통 (UAM)</span>
-                            <span>• 부품뱅크 (PARTSBANK)</span>
-                            <span>• 퀀텀바이오</span>
-                            <span>• 인공태양 (핵융합)</span>
-                            <span>• 우주산업 (HK-SPACE)</span>
-                            <span>• 방위산업</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === "media" && (
-                    <div className="space-y-4">
-                      <h3 className="text-xl font-bold border-b border-slate-800 pb-3 flex items-center justify-between">
-                        <span>5. 유튜브와 틱톡 채널 연동</span>
-                        <span className="text-xs text-red-400">HK 통합 메인 허브 5번째 방송 센터</span>
-                      </h3>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-3">
-                          <div className="flex items-center space-x-2 text-red-500 font-bold text-sm">
-                            <span>▶ YouTube (@Hyekong2026)</span>
-                          </div>
-                          <div className="aspect-video bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center text-xs text-slate-500">
-                            유튜브 라이브 스트리밍 연동 피드
-                          </div>
-                        </div>
-                        <div className="p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-3">
-                          <div className="flex items-center space-x-2 text-pink-500 font-bold text-sm">
-                            <span>🎵 TikTok (@hyekong2026)</span>
-                          </div>
-                          <div className="aspect-video bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center text-xs text-slate-500">
-                            틱톡 숏폼 방송 송출 피드
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-          </main>
-
-          {/* 모달 1: 24개 비밀구절 2차 인증 모달 */}
-          {showPassModal && (
-            <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-              <div className="glass-card max-w-md w-full p-6 rounded-2xl space-y-4 border-amber-500/40">
-                <h3 className="font-bold text-lg text-amber-400 flex items-center space-x-2">
-                  <span>🔒</span>
-                  <span>{t.authRequiredTitle}</span>
-                </h3>
-                <p className="text-xs text-slate-300">{t.authRequiredDesc}</p>
-
-                <textarea
-                  rows="4"
-                  placeholder="24개 단어를 띄어쓰기로 입력하십시오 (예: word1 word2 ...)"
-                  value={passphraseInput}
-                  onChange={(e) => setPassphraseInput(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs font-mono text-slate-200 outline-none focus:border-amber-400"
-                ></textarea>
-
-                <div className="flex justify-between items-center text-xs">
-                  <button
-                    onClick={() => setPassphraseInput(TEST_WORDS_DEFAULT)}
-                    className="text-amber-400 underline"
-                  >
-                    {t.autoFillBtn}
-                  </button>
-                  <div className="space-x-2">
-                    <button
-                      onClick={() => setShowPassModal(false)}
-                      className="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400"
-                    >
-                      {t.closeBtn}
-                    </button>
-                    <button
-                      onClick={handleVerifyPassphrase}
-                      className="px-4 py-1.5 rounded-lg bg-amber-500 font-bold text-slate-950"
-                    >
-                      {t.verifyBtn}
-                    </button>
-                  </div>
-                </div>
-              </div>
             </div>
-          )}
+            <i class="fa-solid fa-chevron-right text-slate-400"></i>
+        </section>
 
-          {/* 모달 2: 모바일 QR 접속 안내 */}
-          {showQRModal && (
-            <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-              <div className="glass-card max-w-sm w-full p-6 rounded-2xl space-y-4 text-center border-blue-500/40">
-                <h3 className="font-bold text-lg text-blue-400">{t.qrNotice}</h3>
-                <p className="text-xs text-slate-300">{t.qrDesc}</p>
-                <div className="w-40 h-40 mx-auto bg-white p-2 rounded-xl flex items-center justify-center text-slate-950 font-bold text-xs">
-                  [ 모바일 전용 QR 인증 코드 ]
+        <!-- 보안 인증 게이트웨이 섹션 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- 지문 우선 잠금 해제 -->
+            <div class="glass-card p-5 rounded-2xl cursor-pointer transition flex items-center gap-4" onclick="alert('지문 인식 모듈을 실행합니다.')">
+                <div class="w-10 h-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+                    <i class="fa-solid fa-fingerprint text-lg"></i>
                 </div>
-                <button
-                  onClick={() => setShowQRModal(false)}
-                  className="w-full py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold"
-                >
-                  {t.closeBtn}
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* 모달 3: 지문 및 24개 구문 등록 */}
-          {showRegisterModal && (
-            <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-              <div className="glass-card max-w-lg w-full p-6 rounded-2xl space-y-4 border-emerald-500/40">
-                <h3 className="font-bold text-lg text-emerald-400">{t.registerModalTitle}</h3>
-                <p className="text-xs text-slate-300">{t.registerModalDesc}</p>
-                <div className="p-4 bg-slate-900 rounded-xl text-xs space-y-2 border border-slate-800">
-                  <p>1. 모바일 하드웨어 생체 지문 스캔 연동</p>
-                  <p>2. 24개 단어 복구 구문 암호화 분산 저장</p>
-                  <p>3. 백엔드 REST API 보안 노드 등록 완료</p>
+                <div>
+                    <h3 class="text-sm font-bold">지문 우선 잠금 해제 (Biometric Auth)</h3>
+                    <p class="text-xs text-slate-400">모바일 기기 연동 실시간 지문 인식 및 장비 인증 시스템</p>
                 </div>
-                <button
-                  onClick={() => {
-                    alert("✅ 회장님의 지문과 24개 비밀구절이 백엔드 API 보안 노드에 정상 등록되었습니다.");
-                    setShowRegisterModal(false);
-                  }}
-                  className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 font-bold text-xs"
-                >
-                  등록 완료 및 API 연결 테스트
-                </button>
-              </div>
             </div>
-          )}
 
-          {/* 하단 카피라이트 */}
-          <footer className="border-t border-slate-800 bg-slate-950 py-4 px-6 text-center text-xs text-slate-500">
-            © 2026 HK Group Chairman Lee Jaewan (Hyekong). All Rights Reserved. | Enterprise v10.4
-          </footer>
+            <!-- 패턴락 잠금 해제 -->
+            <div class="glass-card p-5 rounded-2xl cursor-pointer transition flex items-center gap-4" onclick="alert('패턴락 인증 모듈을 실행합니다.')">
+                <div class="w-10 h-10 rounded-xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                    <i class="fa-solid fa-lock text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold">선긋기 완료 잠금 해제 (Pattern Lock)</h3>
+                    <p class="text-xs text-slate-400">3x3 드래그 제스처 노드 연결 인증 시스템</p>
+                </div>
+            </div>
         </div>
-      );
-    }
 
-    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-  </script>
+        <!-- 메인 허브 5대 메뉴 -->
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 pt-2">
+            <div class="glass-card p-4 rounded-xl text-center cursor-pointer hover:bg-slate-800 transition">
+                <span class="text-xs font-bold text-blue-400">01</span>
+                <h4 class="text-sm font-semibold mt-1">개인 자산 대시보드</h4>
+            </div>
+            <div class="glass-card p-4 rounded-xl text-center cursor-pointer hover:bg-slate-800 transition" onclick="openDepositModal()">
+                <span class="text-xs font-bold text-blue-400">02</span>
+                <h4 class="text-sm font-semibold mt-1">사고 팔고 예금하기</h4>
+            </div>
+            <div class="glass-card p-4 rounded-xl text-center cursor-pointer hover:bg-slate-800 transition">
+                <span class="text-xs font-bold text-blue-400">03</span>
+                <h4 class="text-sm font-semibold mt-1">고객센터 (삐니)</h4>
+            </div>
+            <div class="glass-card p-4 rounded-xl text-center cursor-pointer hover:bg-slate-800 transition">
+                <span class="text-xs font-bold text-blue-400">04</span>
+                <h4 class="text-sm font-semibold mt-1">내비게이터 (웹/토큰)</h4>
+            </div>
+            <div class="glass-card p-4 rounded-xl text-center cursor-pointer hover:bg-slate-800 transition col-span-2 md:col-span-1">
+                <span class="text-xs font-bold text-blue-400">05</span>
+                <h4 class="text-sm font-semibold mt-1">유튜브와 틱톡</h4>
+            </div>
+        </div>
+
+        <!-- 1. 개인 자산 대시보드 상세 -->
+        <section class="glass-card p-6 rounded-2xl space-y-4">
+            <h3 class="text-base font-bold flex items-center gap-2">
+                <i class="fa-solid fa-chart-pie text-blue-400"></i> 1. 개인 자산 대시보드
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <span class="text-xs text-slate-400">총 보유 자산 (Total Assets)</span>
+                    <div class="text-xl font-extrabold text-blue-400 mt-1">$128,450,000,000</div>
+                    <span class="text-[10px] text-emerald-400 mt-1 inline-block">▲ 해오름 특별시 및 우주 공헌</span>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <span class="text-xs text-slate-400">Pi 코인 보유량 (Pi Balance)</span>
+                    <div class="text-xl font-extrabold text-indigo-400 mt-1">12,540.5 <span class="text-xs font-normal">TEST Pi</span></div>
+                    <span class="text-[10px] text-indigo-300 mt-1 inline-block">▲ 파이네트워크 노드 검증 완료</span>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <span class="text-xs text-slate-400">실시간 누적 이자 (Accrued)</span>
+                    <div class="text-xl font-extrabold text-emerald-400 mt-1">+482,2762 <span class="text-xs font-normal">Pi</span></div>
+                    <span class="text-[10px] text-slate-400 mt-1 inline-block">포인트뱅크 즉시 스왑 연동</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 사고 팔고 예금하기 (10대 핵심 프로세스) -->
+        <section class="glass-card p-6 rounded-2xl space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-base font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-right-left text-blue-400"></i> 2. 사고 팔고 예금하기 (10대 핵심 프로세스)
+                </h3>
+                <button onclick="openDepositModal()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-xs font-bold rounded-lg transition">
+                    예치하기 모달 열기
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                <div onclick="openDepositModal()" class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-blue-500 cursor-pointer text-center transition">
+                    <i class="fa-solid fa-vault text-blue-400 text-lg mb-2"></i>
+                    <h4 class="text-sm font-semibold">지갑연동</h4>
+                </div>
+                <div onclick="openDepositModal()" class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-blue-500 cursor-pointer text-center transition">
+                    <i class="fa-solid fa-coins text-indigo-400 text-lg mb-2"></i>
+                    <h4 class="text-sm font-semibold">스왑</h4>
+                </div>
+                <div onclick="openDepositModal()" class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-blue-500 cursor-pointer text-center transition">
+                    <i class="fa-solid fa-piggy-bank text-emerald-400 text-lg mb-2"></i>
+                    <h4 class="text-sm font-semibold">예금</h4>
+                </div>
+                <div onclick="openDepositModal()" class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-blue-500 cursor-pointer text-center transition">
+                    <i class="fa-solid fa-bolt text-amber-400 text-lg mb-2"></i>
+                    <h4 class="text-sm font-semibold">UAM</h4>
+                </div>
+                <div onclick="openDepositModal()" class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-blue-500 cursor-pointer text-center transition">
+                    <i class="fa-solid fa-seedling text-teal-400 text-lg mb-2"></i>
+                    <h4 class="text-sm font-semibold">기본소득</h4>
+                </div>
+                <div onclick="openDepositModal()" class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-blue-500 cursor-pointer text-center transition">
+                    <i class="fa-solid fa-cube text-purple-400 text-lg mb-2"></i>
+                    <h4 class="text-sm font-semibold">프리즘스탑</h4>
+                </div>
+                <div onclick="openDepositModal()" class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-blue-500 cursor-pointer text-center transition">
+                    <i class="fa-solid fa-network-wired text-cyan-400 text-lg mb-2"></i>
+                    <h4 class="text-sm font-semibold">DEX 스왑</h4>
+                </div>
+                <div onclick="openDepositModal()" class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-blue-500 cursor-pointer text-center transition">
+                    <i class="fa-solid fa-handshake-angle text-rose-400 text-lg mb-2"></i>
+                    <h4 class="text-sm font-semibold">LP 스테이킹</h4>
+                </div>
+                <div onclick="openDepositModal()" class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-blue-500 cursor-pointer text-center transition">
+                    <i class="fa-solid fa-microchip text-sky-400 text-lg mb-2"></i>
+                    <h4 class="text-sm font-semibold">퀀텀바이오</h4>
+                </div>
+                <div onclick="openDepositModal()" class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-blue-500 cursor-pointer text-center transition">
+                    <i class="fa-solid fa-rocket text-orange-400 text-lg mb-2"></i>
+                    <h4 class="text-sm font-semibold">우주산업</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- 백서 100선 아카이브 섹션 (전체 방대한 스케일 수록) -->
+        <section class="glass-card p-6 rounded-2xl space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-base font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-book-open text-purple-400"></i> HK WorldBank 백서 100선 아카이브 (Whitepaper 100 Series)
+                </h3>
+                <span class="text-xs text-slate-400 bg-slate-900 px-3 py-1 rounded-lg border border-slate-800">100개 프로젝트 전문 수록</span>
+            </div>
+            <p class="text-xs text-slate-400">
+                해오름 특별시(울산·경주·포항) 메가 클러스터 비전부터 웹3 디지털 뱅크, 10대 분산 인터록 네트워킹, UBI 30% 배분 및 HK 사회재단 기부 철학을 담은 100선 아카이브입니다.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 max-h-96 overflow-y-auto custom-scrollbar p-1">
+                <!-- 백서 아이템 반복 생성 (1부터 100까지 풀 구성) -->
+                <script>
+                    const categories = ['웹3 뱅크', '해오름 특별시', '스마트 안경', '휴머노이드', '우주·방산', '퀀텀 컴퓨팅', 'UBI 경제', '글로벌 i18n'];
+                    for(let i=1; i<=100; i++) {
+                        let cat = categories[(i-1) % categories.length];
+                        document.write(`
+                            <div class="bg-slate-900/70 p-3 rounded-xl border border-slate-800 hover:border-purple-500/50 transition cursor-pointer" onclick="alert('백서 #${i}호 문서 상세 내용을 불러옵니다.')">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-[10px] font-bold text-purple-400">WP-${i < 10 ? '0' + i : i}</span>
+                                    <span class="text-[9px] bg-slate-800 px-2 py-0.5 rounded text-slate-300">${cat}</span>
+                                </div>
+                                <h5 class="text-xs font-semibold text-slate-200 truncate">HK Group 핵심 전략 백서 ${i}호</h5>
+                                <p class="text-[10px] text-slate-500 mt-1 truncate">분산 네트워크 및 10대 핵심 프로세스 연동 구조</p>
+                            </div>
+                        `);
+                    }
+                </script>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 예치 상세 모달창 (예치/중도해지 기능 연동) -->
+    <div id="depositModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-2xl p-6 space-y-6 relative shadow-2xl">
+            <button onclick="closeDepositModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <div>
+                <h3 class="text-xl font-extrabold text-blue-400">예치</h3>
+                <p class="text-xs text-slate-400 mt-1">3년 만기 33.45% APY 자산 신탁 플랜 설정을 진행합니다.</p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                <span class="text-xs text-slate-400">예치 수량 선택</span>
+                <div class="text-lg font-mono font-bold text-white">314,230.000000</div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-xs font-semibold text-slate-300">예치 기간 선택</label>
+                <select class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-blue-500">
+                    <option>3년 (APY 33.45%)</option>
+                    <option>1년 (APY 15.00%)</option>
+                    <option>5년 (APY 50.00%)</option>
+                </select>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
+                <div class="font-bold text-slate-300 mb-2">예상 수익금 및 이자</div>
+                <div class="flex justify-between text-slate-400">
+                    <span>3년 락업 적용 시 예상 수익:</span>
+                    <span class="text-emerald-400 font-mono font-bold">+105,752.87 Pi</span>
+                </div>
+                <div class="flex justify-between text-slate-400 pt-1 border-t border-slate-900">
+                    <span>중도 보안 안전장치 적용금액:</span>
+                    <span class="text-blue-400 font-mono font-bold">542,432</span>
+                </div>
+            </div>
+
+            <button onclick="alert('중도 해지 및 예치 신청이 완료되었습니다.'); closeDepositModal();" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl transition shadow-lg">
+                중도 해지 승인
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function openDepositModal() {
+            document.getElementById('depositModal').classList.remove('hidden');
+            document.getElementById('depositModal').classList.add('flex');
+        }
+        function closeDepositModal() {
+            document.getElementById('depositModal').classList.remove('flex');
+            document.getElementById('depositModal').classList.add('hidden');
+        }
+    </script>
 </body>
 </html>
