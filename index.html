@@ -3,433 +3,604 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK WorldBank - 통합 모바일 플랫폼</title>
+    <title>HK WORLD BANK - Web3 Digital Banking Platform</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #8b5cf6;
-            --secondary: #ec4899;
-            --accent: #06b6d4;
-            --bg-body: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
-            --success: #10b981;
+            --bg-dark: #070913;
+            --card-bg: rgba(18, 22, 41, 0.92);
+            --card-border: rgba(139, 92, 246, 0.3);
+            --primary-neon: #8b5cf6;
+            --cyan-neon: #06b6d4;
+            --pink-neon: #ec4899;
+            --text-bright: #ffffff;
+            --text-dim: #94a3b8;
+            --text-subdued: #64748b;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #1e1b4b, #0f172a, #312e81);
-            color: var(--text-main);
+            background-color: var(--bg-dark);
+            color: var(--text-bright);
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(139, 92, 246, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(6, 182, 212, 0.2) 0%, transparent 40%);
             min-height: 100vh;
-            padding: 16px;
-            display: flex;
-            justify-content: center;
+            padding: 20px;
         }
 
-        .mobile-frame {
-            width: 100%;
-            max-width: 480px;
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* Header & Vibrant Neon Logo Zone */
+        header {
+            text-align: center;
+            padding: 25px 0 15px;
+        }
+
+        .logo-container {
+            display: inline-block;
+            position: relative;
+        }
+
+        .main-logo {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #c084fc, #ec4899, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 35px rgba(192, 132, 252, 0.6);
+            margin-bottom: 5px;
+        }
+
+        .logo-sub {
+            font-size: 0.95rem;
+            color: var(--cyan-neon);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Security Gateway (24-Passphrase) Panel */
+        .security-gateway-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            backdrop-filter: blur(12px);
+        }
+
+        .gateway-header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 12px;
+        }
+
+        .gateway-title {
+            font-size: 1.15rem;
+            color: var(--cyan-neon);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+        }
+
+        .btn-safe-browse {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid var(--cyan-neon);
+            color: var(--cyan-neon);
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-safe-browse:hover {
+            background: var(--cyan-neon);
+            color: var(--bg-dark);
+        }
+
+        .passphrase-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .passphrase-input {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--cyan-neon);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-align: center;
+            outline: none;
+        }
+
+        /* Subdued Assets Balance Card */
+        .assets-card {
+            background: rgba(12, 16, 30, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 22px 28px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
             gap: 20px;
         }
 
-        header {
-            text-align: center;
-            padding: 20px 0;
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 20px;
-            border: 1px solid var(--card-border);
-            backdrop-filter: blur(10px);
+        .asset-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
         }
 
-        .logo {
-            font-size: 22px;
-            font-weight: 800;
-            background: linear-gradient(to right, #fff, var(--text-sub));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .asset-label {
+            font-size: 0.85rem;
+            color: var(--text-subdued);
         }
 
-        section {
+        .asset-value-krw {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .asset-value-pi {
+            font-size: 1.25rem;
+            color: var(--cyan-neon);
+            font-weight: 600;
+        }
+
+        /* 10 Interlocking Modules Grid */
+        .section-title {
+            font-size: 1.35rem;
+            margin: 30px 0 15px;
+            color: var(--text-bright);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .module-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 20px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-
-        h2 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Screen 1: Security */
-        .auth-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .auth-btn {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            border: 1px solid var(--card-border);
-            color: #fff;
-            padding: 16px;
-            border-radius: 16px;
-            font-size: 15px;
-            font-weight: 600;
-            text-align: left;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .auth-btn:active {
-            transform: scale(0.98);
-            background: var(--primary);
-        }
-
-        /* Screen 2-1: Buy/Sell & Asset Dashboard */
-        .asset-summary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 16px;
-        }
-
-        .asset-label { font-size: 13px; opacity: 0.9; margin-bottom: 4px; }
-        .asset-value { font-size: 26px; font-weight: 800; margin-bottom: 12px; }
-        .asset-subgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 13px; }
-        .sub-item { background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px; }
-
-        /* Screen 2-2: Modules */
-        .module-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .mod-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--card-border);
             border-radius: 14px;
-            padding: 14px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            padding: 20px;
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
         }
 
-        .mod-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .module-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--cyan-neon);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.15);
+        }
+
+        .module-code {
+            font-size: 0.75rem;
+            color: var(--pink-neon);
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .module-name {
+            font-size: 1.15rem;
+            font-weight: 700;
             margin-bottom: 8px;
+            color: var(--text-bright);
         }
 
-        .mod-id { font-size: 11px; font-weight: 700; color: var(--accent); }
-        .mod-status { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
-        .mod-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-        .mod-desc { font-size: 12px; color: var(--text-sub); line-height: 1.4; margin-bottom: 12px; }
-
-        .wallet-pin-box {
-            background: rgba(0,0,0,0.4);
-            border-radius: 8px;
-            padding: 8px;
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-sub);
+        .module-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+            line-height: 1.4;
         }
 
-        .pin-code {
-            font-family: monospace;
-            letter-spacing: 4px;
-            color: #fff;
-            font-weight: 700;
-            margin-top: 2px;
-        }
-
-        /* Screen 3: AGI, Social, Industries, Compliance */
-        .agi-box {
-            background: rgba(99, 102, 241, 0.1);
-            padding: 16px;
-            border-radius: 14px;
-            border: 1px solid rgba(99, 102, 241, 0.3);
+        .wallet-address-box {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            word-break: break-all;
             margin-bottom: 12px;
         }
 
-        .agi-text { font-size: 13px; line-height: 1.5; color: #e2e8f0; margin-bottom: 12px; }
-
-        .social-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .social-btn {
-            background: rgba(255,255,255,0.05);
-            padding: 12px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 700;
-            border: 1px solid var(--card-border);
-        }
-
-        .ind-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-
-        .ind-item {
-            background: rgba(255,255,255,0.03);
-            padding: 8px 4px;
+        .btn-action {
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary-neon), var(--cyan-neon));
+            color: white;
+            border: none;
+            padding: 10px;
             border-radius: 8px;
-            text-align: center;
-            font-size: 11px;
-            color: var(--text-sub);
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
         }
 
-        .comp-list {
+        .btn-action:hover {
+            opacity: 0.9;
+        }
+
+        .deposit-options {
             display: flex;
-            flex-direction: column;
             gap: 8px;
+            margin-bottom: 12px;
         }
 
-        .comp-item {
-            background: rgba(255,255,255,0.03);
-            padding: 12px;
+        .deposit-badge {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            padding: 6px 0;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .deposit-badge.active {
+            border-color: var(--cyan-neon);
+            color: var(--cyan-neon);
+            background: rgba(6, 182, 212, 0.12);
+            font-weight: 600;
+        }
+
+        /* Compliance Hub & Whitepaper Section */
+        .compliance-hub {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 35px;
+        }
+
+        .compliance-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .compliance-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 14px 18px;
             border-radius: 10px;
-            font-size: 13px;
+            font-size: 0.9rem;
+            color: var(--text-bright);
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        /* Navigation */
-        .nav-footer {
-            position: sticky;
-            bottom: 16px;
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn-nav {
-            flex: 1;
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            padding: 16px;
-            border-radius: 16px;
-            font-size: 15px;
-            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            transition: border-color 0.2s;
         }
 
-        .btn-nav.secondary {
-            background: rgba(255, 255, 255, 0.1);
+        .compliance-item:hover {
+            border-color: var(--primary-neon);
+        }
+
+        /* Modal with Individual Process Steps */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pin-modal {
+            background: #101426;
+            border: 1px solid var(--primary-neon);
+            border-radius: 16px;
+            padding: 30px;
+            width: 380px;
+            text-align: center;
+            box-shadow: 0 0 35px rgba(139, 92, 246, 0.5);
+        }
+
+        .process-flow-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 15px 0;
+            text-align: left;
+            font-size: 0.8rem;
+            color: var(--cyan-neon);
+            line-height: 1.5;
+        }
+
+        .pin-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .pin-field {
+            width: 38px;
+            height: 46px;
+            background: rgba(0, 0, 0, 0.6);
             border: 1px solid var(--card-border);
+            border-radius: 8px;
+            color: var(--cyan-neon);
+            font-size: 1.2rem;
+            text-align: center;
+            outline: none;
+        }
+
+        .btn-modal-close {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-dim);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
-    <div class="mobile-frame">
-        <header>
-            <h1 class="logo">HK WORLD BANK</h1>
-        </header>
+<div class="container">
+    <!-- Header Zone -->
+    <header>
+        <div class="logo-container">
+            <h1 class="main-logo">HK WORLD BANK</h1>
+            <div class="logo-sub">Web3 Global Banking Platform</div>
+        </div>
+    </header>
 
-        <!-- SCREEN 1 -->
-        <section id="screen-1">
-            <h2>보안 게이트웨이</h2>
-            <div class="auth-container">
-                <button class="auth-btn">1. 지문 우선 승인</button>
-                <button class="auth-btn">2. 보안 패턴 그리기</button>
-                <button class="auth-btn">3. 핀번호 / Passphrase 인증</button>
+    <!-- Security Gateway Card -->
+    <div class="security-gateway-card">
+        <div class="gateway-header">
+            <div class="gateway-title">
+                <i class="fa-solid fa-shield-halved"></i> 24자리 보안 패스프레이즈 인증 게이트웨이
             </div>
-        </section>
-
-        <!-- SCREEN 2 -->
-        <section id="screen-2" style="display:none;">
-            <h2>사고팔기 및 예금 확정</h2>
-            <div class="asset-summary">
-                <div class="asset-label">총 보유 자산 가치</div>
-                <div class="asset-value">₩ 1,250,500,000</div>
-                <div class="asset-subgrid">
-                    <div class="sub-item">Pi 잔액: 948,200 π</div>
-                    <div class="sub-item">일일 이자: +31.4%</div>
-                </div>
-            </div>
-
-            <h2 style="font-size: 16px; margin-top: 20px;">10대 모듈 네트워크</h2>
-            <div class="module-grid">
-                <!-- MOD 1 -->
-                <div class="mod-card">
-                    <div>
-                        <div class="mod-top"><span class="mod-id">MOD 01</span><span class="mod-status"></span></div>
-                        <div class="mod-name">지갑연결</div>
-                        <div class="mod-desc">생체 인식 글로벌 다중 지갑 연동.</div>
-                    </div>
-                    <div class="wallet-pin-box">승인 지갑<div class="pin-code">••• •••</div></div>
-                </div>
-                <!-- MOD 2 -->
-                <div class="mod-card">
-                    <div>
-                        <div class="mod-top"><span class="mod-id">MOD 02</span><span class="mod-status"></span></div>
-                        <div class="mod-name">송금</div>
-                        <div class="mod-desc">파이 노드 활용 가스비 없는 송금.</div>
-                    </div>
-                    <div class="wallet-pin-box">승인 지갑<div class="pin-code">••• •••</div></div>
-                </div>
-                <!-- MOD 3 -->
-                <div class="mod-card">
-                    <div>
-                        <div class="mod-top"><span class="mod-id">MOD 03</span><span class="mod-status"></span></div>
-                        <div class="mod-name">결제</div>
-                        <div class="mod-desc">스마트 울트라 금고 통합 결제.</div>
-                    </div>
-                    <div class="wallet-pin-box">승인 지갑<div class="pin-code">••• •••</div></div>
-                </div>
-                <!-- MOD 4 -->
-                <div class="mod-card">
-                    <div>
-                        <div class="mod-top"><span class="mod-id">MOD 04</span><span class="mod-status"></span></div>
-                        <div class="mod-name">예치</div>
-                        <div class="mod-desc">안전자산 기반 고수익 스테이킹.</div>
-                    </div>
-                    <div class="wallet-pin-box">승인 지갑<div class="pin-code">••• •••</div></div>
-                </div>
-                <!-- MOD 5 -->
-                <div class="mod-card">
-                    <div>
-                        <div class="mod-top"><span class="mod-id">MOD 05</span><span class="mod-status"></span></div>
-                        <div class="mod-name">보상</div>
-                        <div class="mod-desc">유동성 공급 실시간 배당 리워드.</div>
-                    </div>
-                    <div class="wallet-pin-box">승인 지갑<div class="pin-code">••• •••</div></div>
-                </div>
-                <!-- MOD 6 -->
-                <div class="mod-card">
-                    <div>
-                        <div class="mod-top"><span class="mod-id">MOD 06</span><span class="mod-status"></span></div>
-                        <div class="mod-name">기본소득</div>
-                        <div class="mod-desc">스마트 컨트랙트 전 국민 분배.</div>
-                    </div>
-                    <div class="wallet-pin-box">승인 지갑<div class="pin-code">••• •••</div></div>
-                </div>
-                <!-- MOD 7 -->
-                <div class="mod-card">
-                    <div>
-                        <div class="mod-top"><span class="mod-id">MOD 07</span><span class="mod-status"></span></div>
-                        <div class="mod-name">토큰스왑</div>
-                        <div class="mod-desc">브릿지 통한 암호화폐 무손실 스왑.</div>
-                    </div>
-                    <div class="wallet-pin-box">승인 지갑<div class="pin-code">••• •••</div></div>
-                </div>
-                <!-- MOD 8 -->
-                <div class="mod-card">
-                    <div>
-                        <div class="mod-top"><span class="mod-id">MOD 08</span><span class="mod-status"></span></div>
-                        <div class="mod-name">DEX스왑</div>
-                        <div class="mod-desc">탈중앙화 거래소 예치 수익 정산.</div>
-                    </div>
-                    <div class="wallet-pin-box">승인 지갑<div class="pin-code">••• •••</div></div>
-                </div>
-                <!-- MOD 9 -->
-                <div class="mod-card">
-                    <div>
-                        <div class="mod-top"><span class="mod-id">MOD 09</span><span class="mod-status"></span></div>
-                        <div class="mod-name">LP스테이킹</div>
-                        <div class="mod-desc">DID 연동 안전한 유동성 예치.</div>
-                    </div>
-                    <div class="wallet-pin-box">승인 지갑<div class="pin-code">••• •••</div></div>
-                </div>
-                <!-- MOD 10 -->
-                <div class="mod-card">
-                    <div>
-                        <div class="mod-top"><span class="mod-id">MOD 10</span><span class="mod-status"></span></div>
-                        <div class="mod-name">파이수량</div>
-                        <div class="mod-desc">메인넷 원장 실시간 동기화 검증.</div>
-                    </div>
-                    <div class="wallet-pin-box">승인 지갑<div class="pin-code">••• •••</div></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SCREEN 3 -->
-        <section id="screen-3" style="display:none;">
-            <div class="agi-box">
-                <h2>고객센터 AGI 삐니</h2>
-                <p class="agi-text">형님, 무엇을 도와드릴까요? 60개국어 동시 통역으로 완벽하게 지원합니다.</p>
-            </div>
-
-            <h2>공식 채널 라이브</h2>
-            <div class="social-row">
-                <div class="social-btn" style="color: #ef4444;">🔴 YouTube LIVE</div>
-                <div class="social-btn" style="color: #00f2fe;">✨ TikTok LIVE</div>
-            </div>
-
-            <h2>8대 전략 미래 산업</h2>
-            <div class="ind-grid">
-                <div class="ind-item">01. 로봇</div>
-                <div class="ind-item">02. 스마트</div>
-                <div class="ind-item">03. UAM</div>
-                <div class="ind-item">04. 부품</div>
-                <div class="ind-item">05. 퀀텀</div>
-                <div class="ind-item">06. 태양</div>
-                <div class="ind-item">07. 우주</div>
-                <div class="ind-item">08. 방위</div>
-            </div>
-
-            <h2 style="margin-top: 16px;">컴플라이언스 허브</h2>
-            <div class="comp-list">
-                <div class="comp-item"><span>1. V10.4 백서</span> ➔</div>
-                <div class="comp-item"><span>2. FAQ 20선</span> ➔</div>
-                <div class="comp-item"><span>3. 경제 정책</span> ➔</div>
-                <div class="comp-item"><span>4. 트래블 룰</span> ➔</div>
-            </div>
-        </section>
-
-        <div class="nav-footer">
-            <button class="btn-nav secondary" onclick="moveScreen(-1)" id="prevBtn" style="display:none;">이전</button>
-            <button class="btn-nav" onclick="moveScreen(1)" id="nextBtn">다음</button>
+            <button class="btn-safe-browse" onclick="alert('안전 둘러보기 모드가 활성화되었습니다. 조회 기능만 제공됩니다.')">안전 둘러보기</button>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 12px;">전체 금융 기능 및 자산 정보 상세 조회를 위해 24자리 비밀번호를 입력하십시오.</p>
+        <div class="passphrase-box">
+            <input type="password" class="passphrase-input" placeholder="Word 1" value="••••••">
+            <input type="password" class="passphrase-input" placeholder="Word 2" value="••••••">
+            <input type="password" class="passphrase-input" placeholder="Word 3" value="••••••">
+            <input type="password" class="passphrase-input" placeholder="Word 4" value="••••••">
+            <input type="password" class="passphrase-input" placeholder="Word 5" value="••••••">
+            <input type="password" class="passphrase-input" placeholder="Word 6" value="••••••">
         </div>
     </div>
 
-    <script>
-        let currentScreen = 1;
-        const totalScreens = 3;
+    <!-- Assets Overview Card -->
+    <div class="assets-card">
+        <div class="asset-group">
+            <span class="asset-label">총 보유 자산 (KRW 평가금)</span>
+            <span class="asset-value-krw">₩ 1,250,000,000</span>
+        </div>
+        <div class="asset-group">
+            <span class="asset-label">파이코인 잔액 (Pi Network)</span>
+            <span class="asset-value-pi">938,200.00 π</span>
+        </div>
+    </div>
 
-        function moveScreen(step) {
-            document.getElementById(`screen-${currentScreen}`).style.display = 'none';
-            currentScreen += step;
-            if(currentScreen > totalScreens) currentScreen = 1;
-            if(currentScreen < 1) currentScreen = totalScreens;
-            
-            const targetScreen = document.getElementById(`screen-${currentScreen}`);
-            targetScreen.style.display = 'block';
+    <!-- 10 Interlocking Modules Section -->
+    <div class="section-title">
+        <i class="fa-solid fa-cubes-stacked" style="color: var(--cyan-neon);"></i> 10대 연동 모듈 프로세스 네트워크
+    </div>
 
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
+    <div class="modules-grid">
+        <!-- MOD 01 -->
+        <div class="module-card">
+            <div class="module-code">MOD 01</div>
+            <div class="module-name"><i class="fa-solid fa-wallet"></i> 지갑연결</div>
+            <div class="module-desc">생체 인식 및 글로벌 승인 지갑 주소 통합 인증 연동 모듈</div>
+            <div class="wallet-address-box">승인 지갑: GDKX...9382HKWB</div>
+            <button class="btn-action" onclick="openModuleProcess('MOD 01 지갑연결', ['[단계 1] 생체 인증 신호 수신', '[단계 2] 글로벌 지갑 주소 대조', '[단계 3] 보안 채널 세션 확립'])">프로세스 실행</button>
+        </div>
 
-            prevBtn.style.display = currentScreen === 1 ? 'none' : 'block';
-            nextBtn.innerText = currentScreen === totalScreens ? '처음으로' : '다음';
+        <!-- MOD 02 -->
+        <div class="module-card">
+            <div class="module-code">MOD 02</div>
+            <div class="module-name"><i class="fa-solid fa-paper-plane"></i> 송금</div>
+            <div class="module-desc">파이 네트워크 기반 실시간 국경 없는 암호화 송금 시스템</div>
+            <div class="wallet-address-box">승인 지갑: GCPA...7721HKWB</div>
+            <button class="btn-action" onclick="openModuleProcess('MOD 02 송금', ['[단계 1] 수신 측 주소 유효성 검증', '[단계 2] 가스피(Gas Fee) 최적화 계산', '[단계 3] 암호화 트랜잭션 브로드캐스트'])">프로세스 실행</button>
+        </div>
+
+        <!-- MOD 03 -->
+        <div class="module-card">
+            <div class="module-code">MOD 03</div>
+            <div class="module-name"><i class="fa-solid fa-credit-card"></i> 결제</div>
+            <div class="module-desc">스마트 홀더 결제 및 글로벌 온/오프라인 통합 스마트 결제</div>
+            <div class="wallet-address-box">승인 지갑: HK-PAY-ONLINE</div>
+            <button class="btn-action" onclick="openModuleProcess('MOD 03 결제', ['[단계 1] 스마트 홀더 단말기 핸드셰이크', '[단계 2] 실시간 환율 및 잔액 즉시 차감', '[단계 3] 영수증 스마트 컨트랙트 발행'])">프로세스 실행</button>
+        </div>
+
+        <!-- MOD 04 -->
+        <div class="module-card">
+            <div class="module-code">MOD 04</div>
+            <div class="module-name"><i class="fa-solid fa-vault"></i> 예치 (Staking)</div>
+            <div class="module-desc">안정성 기반 고수익 금융 자산 고정 예치 프로그램</div>
+            <div class="deposit-options">
+                <div class="deposit-badge">6개월 (5%)</div>
+                <div class="deposit-badge active">1년 (12%)</div>
+                <div class="deposit-badge">3년 (30%)</div>
+            </div>
+            <button class="btn-action" onclick="openModuleProcess('MOD 04 예치', ['[단계 1] 예치 기간(1년/12%) 선택 검증', '[단계 2] 자산 락업(Lock-up) 컨트랙트 생성', '[단계 3] 이자 자동 적립 스케줄러 등록'])">프로세스 실행</button>
+        </div>
+
+        <!-- MOD 05 -->
+        <div class="module-card">
+            <div class="module-code">MOD 05</div>
+            <div class="module-name"><i class="fa-solid fa-gift"></i> 보상</div>
+            <div class="module-desc">유동성 공급 및 플랫폼 활동 실시간 리워드 지급</div>
+            <div class="wallet-address-box">승인 지갑: HK-REWARD-POOL</div>
+            <button class="btn-action" onclick="openModuleProcess('MOD 05 보상', ['[단계 1] 활동 기여도 및 유동성 지표 산정', '[단계 2] 보상 풀(Pool) 스마트 배정', '[단계 3] 리워드 토큰 실시간 클레임'])">프로세스 실행</button>
+        </div>
+
+        <!-- MOD 06 -->
+        <div class="module-card">
+            <div class="module-code">MOD 06</div>
+            <div class="module-name"><i class="fa-solid fa-hand-holding-heart"></i> 기본소득 (UBI)</div>
+            <div class="module-desc">플랫폼 순이익 30% 기반 전 세계 기본소득 에어드랍 분배</div>
+            <div class="wallet-address-box">승인 지갑: 0xHK...UBI30</div>
+            <button class="btn-action" onclick="openModuleProcess('MOD 06 기본소득 (UBI)', ['[단계 1] 플랫폼 월간 순이익 30% 정산', '[단계 2] 글로벌 수혜자 자격 실시간 필터링', '[단계 3] 에어드랍 스마트 계약 실행'])">프로세스 실행</button>
+        </div>
+
+        <!-- MOD 07 -->
+        <div class="module-card">
+            <div class="module-code">MOD 07</div>
+            <div class="module-name"><i class="fa-solid fa-arrow-rotate-left"></i> 토큰스왑</div>
+            <div class="module-desc">보유 토큰 간 최적 환율 실시간 즉시 교환 파이프라인</div>
+            <div class="wallet-address-box">승인 지갑: 0xSWAP...HKWB</div>
+            <button class="btn-action" onclick="openModuleProcess('MOD 07 토큰스왑', ['[단계 1] 최적 유동성 풀 가격 비교', '[단계 2] 슬리피지(Slippage) 허용 범위 설정', '[단계 3] 원자적(Atomic) 교환 스왑 실행'])">프로세스 실행</button>
+        </div>
+
+        <!-- MOD 08 -->
+        <div class="module-card">
+            <div class="module-code">MOD 08</div>
+            <div class="module-name"><i class="fa-solid fa-chart-line"></i> DEX스왑</div>
+            <div class="module-desc">탈중앙화 거래소 연동 가상자산 시세 이익 창출</div>
+            <div class="wallet-address-box">승인 지갑: 0xDEX...ROUTER</div>
+            <button class="btn-action" onclick="openModuleProcess('MOD 08 DEX스왑', ['[단계 1] DEX 오더북 및 오라클 가격 동기화', '[단계 2] 차익 거래 알고리즘 경로 탐색', '[단계 3] 탈중앙 오더 체결 완료'])">프로세스 실행</button>
+        </div>
+
+        <!-- MOD 09 -->
+        <div class="module-card">
+            <div class="module-code">MOD 09</div>
+            <div class="module-name"><i class="fa-solid fa-layer-group"></i> LP스테이킹</div>
+            <div class="module-desc">유동성 공급 증표(LP) 스테이킹을 통한 이중 수익 모델</div>
+            <div class="wallet-address-box">승인 지갑: 0xLP...STAKE</div>
+            <button class="btn-action" onclick="openModuleProcess('MOD 09 LP스테이킹', ['[단계 1] LP 토큰 보유량 및 풀 지분 확인', '[단계 2] 이중 보상 수수료 적립 설정', '[단계 3] LP 스테이킹 볼트 예치'])">프로세스 실행</button>
+        </div>
+
+        <!-- MOD 10 -->
+        <div class="module-card">
+            <div class="module-code">MOD 10</div>
+            <div class="module-name"><i class="fa-solid fa-coins"></i> 파이수량 관리</div>
+            <div class="module-desc">파이 네트워크 노드 연동 메인넷 자산 정밀 추적</div>
+            <div class="wallet-address-box">승인 지갑: NODE-882-HK</div>
+            <button class="btn-action" onclick="openModuleProcess('MOD 10 파이수량', ['[단계 1] 메인넷 노드 핑(Ping) 테스트', '[단계 2] 미체결 파이 잔액 실시간 동기화', '[단계 3] 자산 무결성 검증 완료'])">프로세스 실행</button>
+        </div>
+    </div>
+
+    <!-- Compliance Hub & Whitepaper Section -->
+    <div class="compliance-hub">
+        <div class="gateway-title" style="margin-bottom: 15px;">
+            <i class="fa-solid fa-file-contract"></i> 컴플라이언스 허브 & AGI 삐니 센터
+        </div>
+        <div class="compliance-list">
+            <div class="compliance-item" onclick="alert('V10.4 백서를 다운로드합니다.')">
+                <span>1. V10.4 백서</span>
+                <i class="fa-solid fa-download" style="color: var(--cyan-neon);"></i>
+            </div>
+            <div class="compliance-item" onclick="alert('FAQ 20선을 불러옵니다.')">
+                <span>2. FAQ 20선</span>
+                <i class="fa-solid fa-chevron-right" style="color: var(--text-dim);"></i>
+            </div>
+            <div class="compliance-item" onclick="alert('규제 및 프리세일 정책을 확인합니다.')">
+                <span>3. 규제 및 프리세일 정책</span>
+                <i class="fa-solid fa-chevron-right" style="color: var(--text-dim);"></i>
+            </div>
+            <div class="compliance-item" onclick="alert('AGI 삐니 고객센터와 연결됩니다.')" style="border-color: var(--cyan-neon);">
+                <span>4. AGI 삐니 고객센터</span>
+                <i class="fa-solid fa-headset" style="color: var(--cyan-neon);"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Process & PIN Verification Modal -->
+<div class="modal-overlay" id="pinModal">
+    <div class="pin-modal">
+        <h3 style="color: var(--text-bright); margin-bottom: 6px;" id="modalTaskTitle">모듈 프로세스 실행</h3>
+        <p style="font-size: 0.8rem; color: var(--text-dim);">선택하신 모듈의 자동 실행 프로세스 단계입니다.</p>
+        
+        <div class="process-flow-box" id="processFlowContent">
+            <!-- Dynamic Process Steps injected here -->
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-bright); font-weight: 600; margin-top: 10px;">최종 승인을 위해 6자리 PIN 번호를 입력하세요.</p>
+        <div class="pin-inputs">
+            <input type="password" maxlength="1" class="pin-field" onkeyup="movePin(this, 1)">
+            <input type="password" maxlength="1" class="pin-field" onkeyup="movePin(this, 2)">
+            <input type="password" maxlength="1" class="pin-field" onkeyup="movePin(this, 3)">
+            <input type="password" maxlength="1" class="pin-field" onkeyup="movePin(this, 4)">
+            <input type="password" maxlength="1" class="pin-field" onkeyup="movePin(this, 5)">
+            <input type="password" maxlength="1" class="pin-field" onkeyup="movePin(this, 6)">
+        </div>
+        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
+            <button class="btn-action" onclick="submitPin()" style="flex: 1;">최종 승인</button>
+            <button class="btn-modal-close" onclick="closePinModal()">취소</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModuleProcess(moduleName, steps) {
+        document.getElementById('modalTaskTitle').innerText = moduleName + ' 프로세스';
+        
+        let flowHtml = '';
+        steps.forEach((step, idx) => {
+            flowHtml += `<div>${step}</div>`;
+        });
+        document.getElementById('processFlowContent').innerHTML = flowHtml;
+        
+        // Reset PIN fields
+        document.querySelectorAll('.pin-field').forEach(input => input.value = '');
+        document.getElementById('pinModal').style.display = 'flex';
+        document.querySelectorAll('.pin-field')[0].focus();
+    }
+
+    function closePinModal() {
+        document.getElementById('pinModal').style.display = 'none';
+    }
+
+    function movePin(field, index) {
+        if (field.value.length >= 1 && index < 6) {
+            document.querySelectorAll('.pin-field')[index].focus();
         }
-    </script>
+    }
+
+    function submitPin() {
+        alert('6자리 PIN 인증이 완료되었습니다. 프로세스가 안전하게 승인 및 실행되었습니다.');
+        closePinModal();
+    }
+</script>
+
 </body>
 </html>
